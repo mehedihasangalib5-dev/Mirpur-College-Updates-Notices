@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{db}/documents {
+    function admins() { return get(/databases/$(db)/documents/config/admins).data.ids; }
+    function isAdmin() {
+      return request.auth != null
+        && exists(/databases/$(db)/documents/config/admins)
+        && request.auth.uid in admins();
+    }
+    match /posts/{id} {
+      allow read: if true;              // public site
+      allow write: if isAdmin();        // only UIDs in config/admins
+    }
+    match /messages/{id} {
+      allow create: if request.resource.data.keys().hasOnly(['name','email','phone','subject','message','ts'])
+        && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 80
+        && request.resource.data.email is string && request.resource.data.email.size() <= 120
+        && request.resource.data.phone is string && request.resource.data.phone.size() <= 30
+        && request.resource.data.subject is string && request.resource.data.subject.size() <= 150
+        && request.resource.data.message is string && request.resource.data.message.size() >= 5 && request.resource.data.message.size() <= 2000;
+      allow read, delete: if isAdmin();   // only admins read contact messages
+    }
+    match /config/admins {
+      allow read: if request.auth != null;
+      // only the FIRST uid in the list (owner) can change the admin list
+      allow write: if request.auth != null && request.auth.uid == resource.data.ids[0];
+    }
+  }
+}
