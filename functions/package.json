@@ -1,0 +1,7 @@
+{
+  "name": "mcn-functions",
+  "private": true,
+  "main": "index.js",
+  "engines": { "node": "20" },
+  "dependencies": { "firebase-functions": "^6.0.0", "firebase-admin": "^12.0.0" }
+}
