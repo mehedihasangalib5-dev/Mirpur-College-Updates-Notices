@@ -1,45 +1,33 @@
-Mirpur College Updates & Notices (Firebase) - Setup
-==============================
-Project: muc-network-50a06
+Mirpur College Updates & Notices - Vercel + Firebase version (Contact -> Telegram)
+=======================================================================
+Files: index.html (site) | api/contact.js (Telegram, server-side) | firestore.rules | logo.png
+BLAZE PLAN LAGBE NA: Auth + Firestore + Vercel - sob free. Firebase Storage/Cloud Functions ba Blaze kono kichu use hoy na.
 
-1) Firebase Console > Build > Authentication > Sign-in method > Email/Password = ENABLE.
-   Settings > Authorized domains: tomar site-er domain add koro (localhost default ache).
-2) Build > Firestore Database > Create database.  Rules tab-e firestore.rules paste kore Publish.
-3) Build > Storage > Get started.  Rules tab-e storage.rules paste kore Publish.
-   (Note: notun project-e Storage-er jonno Blaze plan lagte pare.)
-4) Site chalao (file:// e Auth kaj kore na). Options:
-   - Firebase Hosting:  npm i -g firebase-tools; firebase login; firebase init hosting; firebase deploy
-   - ba Netlify/Vercel/GitHub Pages-e index.html upload koro (domain Authorized domains-e dao).
-   - local test: folder-e  python3 -m http.server 8000  -> http://localhost:8000
-5) FIRST ADMIN (owner) set kora - ekbar-er kaj:
-   a) Site-e "Login" > Sign up diye nijer account banao. Footer-e "Your UID" dekhabe (copy koro).
-   b) Firestore Console > Start collection: ID = config, Document ID = admins,
-      Field: ids  (type: array)  -> prothom item = tomar UID (string).
-   c) Reload dao -> "Admin" button dekha jabe.
-6) Aro admin: Admin Panel > Admin Management-e onno-r UID paste kore Add.
-   (Sudhu array-r prothom UID = Owner admin list change korte pare.)
+A) TELEGRAM BOT
+ 1. Telegram: @BotFather -> /newbot -> BOT TOKEN.
+ 2. Bot-ke ekta "Hi" pathan (group hole bot-ke group-e add korun).
+ 3. CHAT ID: @userinfobot-ke message korun. Ba
+    https://api.telegram.org/bot<TOKEN>/getUpdates -> "chat":{"id": ...}
 
-Pages: #/ (Home, category card click korle same page-e filter hoy)  #/contact  #/login  #/admin
-Contact form-er message Firestore "messages" collection-e jay, shudhu admin dekhte pare (Admin Panel-er niche).
-firestore.rules ABAR publish koro (contact rules add hoyeche).
-Security ashole rules file-e - client button hide kora shudhu UI. Rules deploy na korle site open thakbe!
+B) VERCEL DEPLOY (free)
+ 1. Ei folder GitHub repo-te push korun (ba `npm i -g vercel` then `vercel` folder-er bhitor theke).
+ 2. vercel.com > Add New Project > repo select > Framework: Other > Deploy.
+ 3. Project > Settings > Environment Variables:
+       TELEGRAM_BOT_TOKEN = <token>
+       TELEGRAM_CHAT_ID   = <chat id>
+    save kore Deployments > Redeploy (env variable redeploy chhara kaj kore na).
+ 4. Firebase Console > Authentication > Settings > Authorized domains:
+    tomar Vercel domain (xxx.vercel.app ba custom domain) add korun.
 
+C) FIREBASE (age-r moto)
+ Email/Password enable, Firestore create, firestore.rules Publish. (Storage LAGBE NA)
+ Prothom admin: sign up -> UID copy -> Firestore config/admins-e ids array-te UID.
 
-TELEGRAM NOTIFICATION (Contact form -> Telegram)
-================================================
-Contact form message Firestore-e save hoy, tarpor Cloud Function (functions/index.js) automatic Telegram-e pathay.
-Bot token website-er code-e dewa hoyni (dile keu churi korte parto) - eta server-side secret.
+D) TEST
+ Contact form fill korun -> Telegram-e message ashbe (ar Admin Panel-eo save thakbe).
 
-1) Telegram-e @BotFather -> /newbot -> BOT TOKEN paben.
-2) Notun bot-e ekta "Hi" pathan (group hole bot-ke group-e add korun).
-3) CHAT ID: personal hole @userinfobot-ke message korun. Ba browser-e
-   https://api.telegram.org/bot<TOKEN>/getUpdates  -> "chat":{"id": ...}
-4) Terminal (Node 20+):
-     npm i -g firebase-tools
-     firebase login
-     cd functions && npm install && cd ..
-     firebase functions:secrets:set TELEGRAM_BOT_TOKEN
-     firebase functions:secrets:set TELEGRAM_CHAT_ID
-     firebase deploy --only functions
-5) Blaze (pay-as-you-go) plan lagbe; chhoto site-e usually free tier-er moddhe.
-6) Test: Contact form-e message pathan. Na ashle Firebase Console > Functions > Logs.
+Note: Token kokhono index.html-e boshaben na - shudhu Vercel Environment Variables-e.
+Site Vercel-e na thakle (file:// ba onno host) Telegram jabe na; Firestore-e save-i hobe.
+
+FILE/IMAGE: Chobi admin panel theke upload korle auto compress hoye post-er sathe Firestore-e save hoy (post-e max ~800KB chobi).
+PDF/Doc: Google Drive-e upload kore 'Anyone with the link' share kore link Admin Panel-er 'Attachment links'-e din (Nam | Link).

@@ -109,9 +109,15 @@ async function savePost(id,data){
  else{let a=ls("ch_posts",[]);id?a=a.map(x=>x.id==id?{...data,id}:x):a.push({...data,id:"l"+Date.now()});lset("ch_posts",a);S.posts=a;route()}}
 async function delPost(id){if(FB)await FB.deleteDoc(FB.doc(FB.db,"posts",id));else{S.posts=ls("ch_posts",[]).filter(x=>x.id!=id);lset("ch_posts",S.posts);route()}}
 async function saveAdmins(ids){if(FB)await FB.setDoc(FB.doc(FB.db,"config","admins"),{ids});else{S.admins=ids;lset("ch_admins",ids);route()}}
+function shrink(file,max,q){return new Promise((res,rej)=>{const im=new Image(),u=URL.createObjectURL(file);
+ im.onload=()=>{const k=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);
+  const x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL("image/jpeg",q))};
+ im.onerror=()=>rej(new Error("Image porte parini"));im.src=u})}
 async function upload(file){
- if(FB){const r=FB.ref(FB.storage,"uploads/"+Date.now()+"_"+file.name.replace(/[^\w.\-]/g,"_"));await FB.uploadBytes(r,file);return{id:"",name:file.name,type:file.type,url:await FB.getDownloadURL(r)}}
- return new Promise((res,rej)=>{if(file.size>600000)return rej(new Error("Demo mode: max 600KB"));const f=new FileReader();f.onload=()=>res({id:"",url:f.result,name:file.name,type:file.type});f.readAsDataURL(file)})}
+ if(!/^image\//.test(file.type))throw new Error("PDF/Doc upload hoy na - Google Drive link niche 'Attachment links'-e din");
+ let url=await shrink(file,1000,.72);if(url.length>260000)url=await shrink(file,800,.55);
+ if(url.length>300000)throw new Error("Chobi ta onek boro, chhoto kore din");
+ return{id:"",name:file.name,type:"image/jpeg",url}}
 const furl=f=>f.id?blob(f.id):f.url;
 
 /* ---- views ---- */
@@ -140,8 +146,8 @@ function pLogin(){
  <div class="row"><a class="btn" href="#/admin">Admin Panel</a><button class="btn ghost" onclick="copy('${esc(S.uid)}')">Copy UID</button><button class="btn ghost" onclick="openLogin()">Logout</button></div></div></section>`;
  const up=S.mode=="up";
  return `<section class="auth"><div class="auth-side"><div class="blob b1"></div><div class="blob b2"></div><div class="auth-brand"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</div>
- <h2>${up?"নতুন account খুলুন":"Welcome back 👋"}</h2><p>Mirpur College Updates & Notices -এ login করে science এর সকল notice, syllabus ও update manage করুন।</p>
- <ul><li>📢 Notice ও Syllabus and others information post করা হবে</li><li>📎 সকল তথ্য যথাসম্ভব নির্ভরযোগ্য উৎস থেকে সংগ্রহ করা হবে।</li><li>📑 সকল Information catagorywise সুসজ্জিত অবস্থায় থাকবে।</li></ul></div>
+ <h2>${up?"নতুন account খুলুন":"Welcome back 👋"}</h2><p>Admin panel-এ login করে notice, syllabus ও update manage করুন।</p>
+ <ul><li>📢 Notice ও Syllabus post করুন</li><li>📎 File ও image upload করুন</li><li>🕘 Edit history ও restore</li></ul></div>
  <div class="auth-card"><div class="tabs"><button class="${up?"":"on"}" onclick="setMode('in')">Login</button><button class="${up?"on":""}" onclick="setMode('up')">Sign up</button></div>
  <form onsubmit="doAuth(event)"><label>Email</label><div class="fld"><span>✉</span><input id="em" type="email" required autocomplete="email" placeholder="you@example.com"></div>
  <label>Password</label><div class="fld"><span>🔒</span><input id="pw" type="password" required minlength="6" autocomplete="${up?"new-password":"current-password"}" placeholder="••••••••"><button type="button" class="eye" onclick="const i=$('#pw');i.type=i.type=='password'?'text':'password'">👁</button></div>
@@ -157,7 +163,8 @@ function pAdmin(){
  <label>Category</label><select id="f_cat">${Object.entries(CATS).map(([k,c])=>`<option value="${k}" ${e.cat==k?"selected":""}>${c.i} ${c.n}</option>`).join("")}</select>
  <label>Title</label><input id="f_title" value="${esc(e.title)}"><label>Details</label><textarea id="f_body">${esc(e.body)}</textarea>
  <label>Cover Image</label><input type="file" id="f_cover" accept="image/*" onchange="pick('cover',this.files)">${P.cover?`<small>✔ ${esc(P.cover.name)}</small>`:""}
- <label>Files (PDF, Doc, Image…)</label><input type="file" id="f_files" multiple onchange="pick('files',this.files)">${P.files.map(f=>`<small>✔ ${esc(f.name)}</small>`).join("<br>")}
+ <label>অতিরিক্ত ছবি (auto compress হবে)</label><input type="file" id="f_files" accept="image/*" multiple onchange="pick('files',this.files)">${P.files.map(f=>`<small>✔ ${esc(f.name)}</small>`).join("<br>")}
+ <label>Attachment links (PDF/Doc – Google Drive লিংক)</label><textarea id="f_links" style="min-height:80px" placeholder="Syllabus PDF | https://drive.google.com/...&#10;Routine | https://...">${esc((e.files||[]).filter(f=>f.type=="link").map(f=>f.name+" | "+f.url).join("\n"))}</textarea><small>প্রতি লাইনে একটি: নাম | লিংক</small>
  <label>Extra Link (optional)</label><input id="f_link" value="${esc(e.link)}" placeholder="https://…">
  <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="f_pin" style="width:auto" ${e.pinned?"checked":""}> 📌 Pin to top</label>
  <div class="row"><button class="btn" onclick="submitPost()">${S.edit?"Update":"Publish"}</button>${S.edit?'<button class="btn ghost" onclick="S.edit=null;S.pending={cover:null,files:[]};route()">Cancel</button>':""}</div></div>
@@ -166,7 +173,7 @@ function pAdmin(){
  ${S.owner?`<div class="row" style="margin:0 0 10px"><input id="newuid" placeholder="UID paste করুন" style="flex:1"><button class="btn sm" onclick="addAdmin()">Add</button></div>`:""}
  ${S.admins.map(u=>`<div class="li"><div><code>${esc(u)}</code></div>${S.owner?`<button class="btn danger sm" onclick="rmAdmin('${esc(u)}')">Remove</button>`:""}</div>`).join("")||"<small>এখনো কোনো extra admin নেই (Owner সবসময় admin)।</small>"}</div></div>
  <div class="panel"><h3>সব Post (${S.posts.length})</h3>${sorted(S.posts).map(p=>`<div class="li"><span>${(CATS[p.cat]||CATS.notice).i}</span><div><b>${esc(p.title)}</b><small>${fmt(p.ts)}${p.hist&&p.hist.length?" · ✎ "+p.hist.length+" edits":""}</small></div>
- <button class="btn ghost sm" onclick="S.edit='${p.id}';S.pending={cover:p.cover||null,files:p.files||[]};route();scrollTo(0,0)">Edit</button>
+ <button class="btn ghost sm" onclick="S.edit='${p.id}';S.pending={cover:p.cover||null,files:(p.files||[]).filter(f=>f.type!='link')};route();scrollTo(0,0)">Edit</button>
  ${p.hist&&p.hist.length?`<button class="btn ghost sm" onclick="showHist('${p.id}')">History</button>`:""}<button class="btn danger sm" onclick="del('${p.id}')">Delete</button></div>`).join("")||'<small>কিছু নেই</small>'}</div></div>`}
 
 /* ---- router ---- */
@@ -185,15 +192,15 @@ addEventListener("hashchange",()=>{route();scrollTo(0,0)});
 /* ---- actions ---- */
 function copy(t){navigator.clipboard&&navigator.clipboard.writeText(t);toast("Copied")}
 async function pick(kind,files){
- try{toast("Uploading…");for(const f of files){const r=await upload(f);if(kind=="cover")S.pending.cover=r;else S.pending.files.push(r)}
- const keep={t:$("#f_title").value,b:$("#f_body").value,l:$("#f_link").value,c:$("#f_cat").value,p:$("#f_pin").checked};route();
- $("#f_title").value=keep.t;$("#f_body").value=keep.b;$("#f_link").value=keep.l;$("#f_cat").value=keep.c;$("#f_pin").checked=keep.p;toast("Uploaded ✔")}
+ try{toast("Uploading…");for(const f of files){const r=await upload(f);const tot=(S.pending.cover?S.pending.cover.url.length:0)+S.pending.files.reduce((a,x)=>a+x.url.length,0)+r.url.length;if(tot>820000)throw new Error("Ek post-e onek beshi chobi (max ~800KB)");if(kind=="cover")S.pending.cover=r;else S.pending.files.push(r)}
+ const keep={t:$("#f_title").value,b:$("#f_body").value,l:$("#f_link").value,k:$("#f_links").value,c:$("#f_cat").value,p:$("#f_pin").checked};route();
+ $("#f_title").value=keep.t;$("#f_body").value=keep.b;$("#f_link").value=keep.l;$("#f_links").value=keep.k;$("#f_cat").value=keep.c;$("#f_pin").checked=keep.p;toast("Uploaded ✔")}
  catch(e){toast("Upload হয়নি: "+(e.message||e.code))}
 }
 async function submitPost(){
  const title=$("#f_title").value.trim(),body=$("#f_body").value.trim();if(!title||!body)return toast("Title আর Details দিন");
  const old=S.posts.find(p=>p.id==S.edit),now=Date.now();
- const data={title,body,cat:$("#f_cat").value,link:$("#f_link").value.trim(),pinned:$("#f_pin").checked,cover:S.pending.cover||null,files:S.pending.files,ts:old?old.ts:now,by:old?old.by:S.uid||"local",hist:old?[{ts:now,by:S.uid||"local",title:old.title,body:old.body,cat:old.cat,link:old.link},...(old.hist||[])].slice(0,20):[]};
+ const data={title,body,cat:$("#f_cat").value,link:$("#f_link").value.trim(),pinned:$("#f_pin").checked,cover:S.pending.cover||null,files:[...S.pending.files,...$('#f_links').value.split('\n').map(x=>x.split('|')).filter(a=>a.length>1&&/^https?:\/\//.test(a[1].trim())).map(a=>({id:'',name:a[0].trim()||'Attachment',type:'link',url:a[1].trim()}))],ts:old?old.ts:now,by:old?old.by:S.uid||"local",hist:old?[{ts:now,by:S.uid||"local",title:old.title,body:old.body,cat:old.cat,link:old.link},...(old.hist||[])].slice(0,20):[]};
  try{await savePost(S.edit,data);toast(S.edit?"Updated ✔":"Published ✔");S.edit=null;S.pending={cover:null,files:[]};route()}catch(e){toast("Save হয়নি: "+(e.message||e.code))}
 }
 async function del(id){if(confirm("Delete করবেন?"))try{await delPost(id);toast("Deleted")}catch(e){toast("Delete হয়নি")}}
@@ -230,8 +237,11 @@ async function forgot(){const em=$("#em").value.trim();if(!em){$("#aerr").textCo
 async function sendMsg(e){e.preventDefault();const f=e.target;if($("#c_hp").value){toast("Sent ✔");return}
  const d={name:$("#c_name").value.trim(),email:$("#c_email").value.trim(),phone:$("#c_phone").value.trim(),subject:$("#c_sub").value.trim(),message:$("#c_msg").value.trim(),ts:Date.now()};
  const b=$("#c_btn");b.disabled=true;
- try{if(FB)await FB.addDoc(FB.collection(FB.db,"messages"),d);else{const a=[{...d,id:"m"+d.ts},...ls("ch_msgs",[])];lset("ch_msgs",a);S.msgs=a}
-  toast("Message pathano hoyeche ✔");f.reset()}catch(x){toast("Send hoyni: "+(x.code||x.message))}
+ try{const tg=fetch("/api/contact",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)}).then(r=>r.ok).catch(()=>false);
+  let saved=true,err=null;
+  try{if(FB)await FB.addDoc(FB.collection(FB.db,"messages"),d);else{const a=[{...d,id:"m"+d.ts},...ls("ch_msgs",[])];lset("ch_msgs",a);S.msgs=a}}catch(x){saved=false;err=x}
+  const sent=await tg;if(!saved&&!sent)throw err;
+  toast("Message pathano hoyeche ✔");f.reset()}catch(x){toast("Send hoyni: "+((x&&(x.code||x.message))||"error"))}
  b.disabled=false}
 async function delMsg(id){if(!confirm("Message delete করবেন?"))return;try{if(FB)await FB.deleteDoc(FB.doc(FB.db,"messages",id));else{S.msgs=ls("ch_msgs",[]).filter(m=>m.id!=id);lset("ch_msgs",S.msgs);route()}}catch(x){toast("Delete hoyni")}}
 function msgPanel(){const l=[...S.msgs].sort((a,b)=>b.ts-a.ts);
@@ -255,9 +265,8 @@ route();
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,createUserWithEmailAndPassword,signOut,sendPasswordResetEmail} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 import {getFirestore,collection,doc,addDoc,setDoc,deleteDoc,onSnapshot} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
-import {getStorage,ref,uploadBytes,getDownloadURL} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-storage.js";
 const firebaseConfig={apiKey:"AIzaSyAgZV0TeVSXYYnQiKqGKq7N2hAWk4FU4fo",authDomain:"muc-network-50a06.firebaseapp.com",projectId:"muc-network-50a06",storageBucket:"muc-network-50a06.firebasestorage.app",messagingSenderId:"143299318658",appId:"1:143299318658:web:5bb77c759dbd075f51359b"};
 try{const app=initializeApp(firebaseConfig);
- window.initBackend({auth:getAuth(app),db:getFirestore(app),storage:getStorage(app),onAuthStateChanged,signInWithEmailAndPassword,createUserWithEmailAndPassword,signOut,sendPasswordResetEmail,collection,doc,addDoc,setDoc,deleteDoc,onSnapshot,ref,uploadBytes,getDownloadURL})}
+ window.initBackend({auth:getAuth(app),db:getFirestore(app),onAuthStateChanged,signInWithEmailAndPassword,createUserWithEmailAndPassword,signOut,sendPasswordResetEmail,collection,doc,addDoc,setDoc,deleteDoc,onSnapshot})}
 catch(e){console.error(e);window.backendFailed()}
 </script></body></html>
