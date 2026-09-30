@@ -140,8 +140,8 @@ function pLogin(){
  <div class="row"><a class="btn" href="#/admin">Admin Panel</a><button class="btn ghost" onclick="copy('${esc(S.uid)}')">Copy UID</button><button class="btn ghost" onclick="openLogin()">Logout</button></div></div></section>`;
  const up=S.mode=="up";
  return `<section class="auth"><div class="auth-side"><div class="blob b1"></div><div class="blob b2"></div><div class="auth-brand"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</div>
- <h2>${up?"নতুন account খুলুন":"Welcome back 👋"}</h2><p>Admin panel-এ login করে notice, syllabus ও update manage করুন।</p>
- <ul><li>📢 Notice ও Syllabus post করুন</li><li>📎 File ও image upload করুন</li><li>🕘 Edit history ও restore</li></ul></div>
+ <h2>${up?"নতুন account খুলুন":"Welcome back 👋"}</h2><p>Mirpur College Updates & Notices -এ login করে science এর সকল notice, syllabus ও update manage করুন।</p>
+ <ul><li>📢 Notice ও Syllabus and others information post করা হবে</li><li>📎 সকল তথ্য যথাসম্ভব নির্ভরযোগ্য উৎস থেকে সংগ্রহ করা হবে।</li><li>📑 সকল Information catagorywise সুসজ্জিত অবস্থায় থাকবে।</li></ul></div>
  <div class="auth-card"><div class="tabs"><button class="${up?"":"on"}" onclick="setMode('in')">Login</button><button class="${up?"on":""}" onclick="setMode('up')">Sign up</button></div>
  <form onsubmit="doAuth(event)"><label>Email</label><div class="fld"><span>✉</span><input id="em" type="email" required autocomplete="email" placeholder="you@example.com"></div>
  <label>Password</label><div class="fld"><span>🔒</span><input id="pw" type="password" required minlength="6" autocomplete="${up?"new-password":"current-password"}" placeholder="••••••••"><button type="button" class="eye" onclick="const i=$('#pw');i.type=i.type=='password'?'text':'password'">👁</button></div>
