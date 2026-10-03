@@ -5,24 +5,24 @@
 <title>Mirpur College Updates &amp; Notices</title>
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f6f5fb;--card:#fff;--ink:#17152b;--mute:#6b6885;--line:#e7e4f3;--pri:#1d3fa8;--pri2:#3f6ae0;--sh:0 8px 30px rgba(60,40,140,.09)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e0d1a;--card:#171528;--ink:#f1efff;--mute:#9a97b8;--line:#2a2745;--sh:0 8px 30px rgba(0,0,0,.4);--pri:#6b8cff;--pri2:#9db6ff}}
-:root[data-theme="dark"]{--bg:#0e0d1a;--card:#171528;--ink:#f1efff;--mute:#9a97b8;--line:#2a2745;--sh:0 8px 30px rgba(0,0,0,.4);--pri:#6b8cff;--pri2:#9db6ff}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e0d1a;--card:#171528;--ink:#f1efff;--mute:#9a97b8;--line:#2a2745;--sh:0 8px 30px rgba(0,0,0,.4);--pri:#5a7df5;--pri2:#5a7df5}}
+:root[data-theme="dark"]{--bg:#0e0d1a;--card:#171528;--ink:#f1efff;--mute:#9a97b8;--line:#2a2745;--sh:0 8px 30px rgba(0,0,0,.4);--pri:#5a7df5;--pri2:#5a7df5}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 Inter,"Segoe UI","Noto Sans Bengali",system-ui,sans-serif}
 .wrap{max-width:1100px;margin:auto;padding:0 18px}
 header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg) 85%,transparent);border-bottom:1px solid var(--line)}
 .nav{display:flex;align-items:center;gap:6px;height:62px}.sp{flex:1}
 .logo{font-weight:800;font-size:19px;display:flex;gap:9px;align-items:center;margin-right:10px;color:var(--ink);text-decoration:none}
-.logo i{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--pri),var(--pri2));display:grid;place-items:center;color:#fff;font-style:normal}
+.logo i{width:32px;height:32px;border-radius:10px;background:var(--pri);display:grid;place-items:center;color:#fff;font-style:normal}
 .links{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
 .links a{padding:7px 12px;border-radius:10px;color:var(--mute);text-decoration:none;font-weight:600;white-space:nowrap}
 .links a.on,.links a:hover{background:var(--card);color:var(--ink)}
 button,.btn{font:inherit;cursor:pointer;border:0}
-.btn{display:inline-block;padding:9px 16px;border-radius:12px;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;font-weight:600;text-decoration:none;box-shadow:0 6px 18px rgba(29,63,168,.3);transition:.2s}
+.btn{display:inline-block;padding:9px 16px;border-radius:12px;background:var(--pri);color:#fff;font-weight:600;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.15);transition:.2s}
 .btn:hover{transform:translateY(-1px)}.ghost{background:var(--card);color:var(--ink);border:1px solid var(--line);box-shadow:none}
 .danger{background:#ff4d6d;box-shadow:none}.sm{padding:6px 11px;font-size:13px;box-shadow:none}
 .hero{padding:44px 0 22px;text-align:center}.hero h1{font-size:clamp(28px,5vw,44px);line-height:1.15;margin:0 0 10px;letter-spacing:-.02em}
-.hero h1 span{background:linear-gradient(135deg,var(--pri),var(--pri2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h1 span{color:var(--pri)}
 .hero p{color:var(--mute);margin:0 auto 20px;max-width:520px}
 .search{max-width:520px;margin:auto;display:flex;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:6px 6px 6px 16px;box-shadow:var(--sh)}
 .search input{flex:1;border:0;background:none;color:var(--ink);font:inherit;outline:0}
@@ -62,8 +62,8 @@ button.cat{font:inherit;text-align:left;width:100%;cursor:pointer}.cat.on{border
 #list{scroll-margin-top:80px}h2.t small{font-weight:500}
 .auth{display:grid;grid-template-columns:1fr;max-width:920px;margin:34px auto 50px;border-radius:28px;overflow:hidden;box-shadow:0 30px 80px rgba(60,40,140,.22);border:1px solid var(--line);background:var(--card)}
 @media(min-width:800px){.auth{grid-template-columns:1.05fr 1fr}}
-.auth-side{position:relative;overflow:hidden;padding:38px 32px;color:#fff;background:linear-gradient(145deg,#0f2a7a,#1d3fa8 55%,#3f6ae0)}
-.blob{position:absolute;border-radius:50%;opacity:.25;background:#fff}.b1{width:220px;height:220px;top:-70px;right:-60px}.b2{width:160px;height:160px;bottom:-50px;left:-40px}
+.auth-side{position:relative;overflow:hidden;padding:38px 32px;color:#fff;background:#1d3fa8}
+.blob{position:absolute;border-radius:50%;opacity:.08;background:#fff}.b1{width:220px;height:220px;top:-70px;right:-60px}.b2{width:160px;height:160px;bottom:-50px;left:-40px}
 .auth-side>*{position:relative}.auth-side h2{font-size:30px;margin:26px 0 8px;line-height:1.2}.auth-side p{opacity:.85;margin:0}
 .auth-side ul{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:10px}.auth-side li{background:rgba(255,255,255,.15);padding:10px 14px;border-radius:14px}
 .auth-brand{display:flex;gap:10px;align-items:center;font-weight:800}.auth-brand i{width:34px;height:34px;border-radius:11px;background:rgba(255,255,255,.22);display:grid;place-items:center;font-style:normal}
@@ -81,11 +81,22 @@ footer a{color:var(--pri);font-weight:700;text-decoration:none}footer a:hover{te
 
 .att{margin:10px 0}.att .btn{margin-top:6px}.file .btn{margin-left:6px}.pend{display:flex;gap:8px;align-items:center}
 .hdr-r{display:flex;gap:8px;align-items:center}
-.fab{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:15;display:flex;align-items:center;gap:8px;padding:13px 18px;border-radius:99px;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;font-weight:700;text-decoration:none;box-shadow:0 10px 28px rgba(29,63,168,.45);animation:fabin .4s}
+.fab{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:15;display:flex;align-items:center;gap:8px;padding:13px 18px;border-radius:99px;background:var(--pri);color:#fff;font-weight:700;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.28);animation:fabin .4s}
 .fab span{font-size:20px;line-height:1}.fab:active{transform:scale(.95)}
 @keyframes fabin{from{transform:translateY(30px) scale(.8);opacity:0}}
 @media(min-width:601px){.fab{display:none!important}}
 .search{align-items:center}.search input{padding:8px 0}
+.chips{position:sticky;top:calc(63px + env(safe-area-inset-top,0px));z-index:4;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -18px;padding:10px 18px;background:var(--bg)}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;display:flex;align-items:center;gap:6px;padding:9px 15px;border-radius:99px;background:var(--card);border:1px solid var(--line);color:var(--ink);font-weight:600;cursor:pointer;white-space:nowrap}
+.chip b{font-size:12px;background:var(--bg);color:var(--mute);padding:1px 8px;border-radius:99px}
+.chip.on{background:var(--pri);border-color:var(--pri);color:#fff}.chip.on b{background:rgba(255,255,255,.22);color:#fff}
+#list{scroll-margin-top:130px}
+@media(max-width:600px){footer{padding-bottom:96px}}
+.filter{max-width:520px;margin:16px auto 8px}
+.filter select{appearance:none;-webkit-appearance:none;width:100%;padding:14px 46px 14px 18px;border-radius:16px;border:1px solid var(--line);background:var(--card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' fill='none' stroke='%236b6885' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 18px center;color:var(--ink);font:inherit;font-weight:600;cursor:pointer;box-shadow:var(--sh)}
+.filter select:focus{outline:0;border-color:var(--pri);box-shadow:0 0 0 4px color-mix(in srgb,var(--pri) 18%,transparent)}
+#list{scroll-margin-top:80px}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
 <nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="theme">🌓</button></div></header>
@@ -98,7 +109,7 @@ const CATS={notice:{n:"Notice",i:"📢",c:"#e5484d"},syllabus:{n:"Syllabus",i:"�
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 const fmt=t=>new Date(t).toLocaleString("en-GB",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
-const tint=c=>`background:${c}22;color:${c}`;
+const tint=()=>"background:color-mix(in srgb,var(--pri) 12%,transparent);color:var(--pri)";
 const sorted=l=>[...l].sort((a,b)=>(b.pinned?1:0)-(a.pinned?1:0)||b.ts-a.ts);
 const ok=u=>/^(https?:|data:image\/)/.test(u||"");
 function toast(m){const t=$("#toast");t.textContent=m;t.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display="none",2600)}
@@ -119,7 +130,7 @@ const match=p=>!S.q||(p.title+" "+p.body).toLowerCase().includes(S.q.toLowerCase
 function pHome(){const l=sorted(S.posts.filter(p=>match(p)&&(!S.cat||p.cat==S.cat))),c=CATS[S.cat];
  return `<section class="hero"><h1>সব <span>Notice, Syllabus</span><br>ও Suggestion এক জায়গায়</h1><p>Mirpur College Updates &amp; Notices-এর সর্বশেষ আপডেট, category অনুযায়ী সাজানো।</p>
  <div class="search"><span>🔍</span><input id="q" placeholder="Search করুন…" value="${esc(S.q)}"><button class="btn sm" onclick="S.q=$('#q').value.trim();route()">Search</button></div></section>
- <div class="cats"><button class="cat ${S.cat?"":"on"}" onclick="setCat(null)">🗂<b>${S.posts.length}</b><small>All</small></button>${Object.entries(CATS).map(([k,c])=>`<button class="cat ${S.cat==k?"on":""}" onclick="setCat('${k}')">${c.i}<b>${S.posts.filter(p=>p.cat==k).length}</b><small>${c.n}</small></button>`).join("")}</div>
+ <div class="filter"><select id="catSel" aria-label="Category" onchange="setCat(this.value||null)"><option value="" ${S.cat?"":"selected"}>🗂 সব Category (${S.posts.length})</option>${Object.entries(CATS).map(([k,c])=>`<option value="${k}" ${S.cat==k?"selected":""}>${c.i} ${c.n} (${S.posts.filter(p=>p.cat==k).length})</option>`).join("")}</select></div>
  <h2 class="t" id="list"><span>${c?c.i+" "+c.n:"🆕 সব Latest Post"}</span><small>${l.length} টি</small></h2>
  <div class="grid">${!S.loaded?'<div class="empty">লোড হচ্ছে…</div>':l.length?l.map(card).join(""):'<div class="empty">এই category-তে এখনো কোনো post নেই।</div>'}</div>`}
 function setCat(k){S.cat=(k&&S.cat==k)?null:k;route();const el=$("#list");el&&el.scrollIntoView({behavior:"smooth"})}
