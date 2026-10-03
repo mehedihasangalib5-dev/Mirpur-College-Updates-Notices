@@ -1,6 +1,6 @@
 Mirpur College Updates & Notices - Vercel + Firebase version (Contact -> Telegram)
 =======================================================================
-Files: index.html (site) | api/contact.js (Telegram, server-side) | firestore.rules | logo.png
+Files: index.html (PUBLIC site) | admin.html (ADMIN panel + login, alada page)  | api/contact.js (Telegram, server-side) | firestore.rules | logo.png
 BLAZE PLAN LAGBE NA: Auth + Firestore + Vercel - sob free. Firebase Storage/Cloud Functions ba Blaze kono kichu use hoy na.
 
 A) TELEGRAM BOT
@@ -31,3 +31,10 @@ Site Vercel-e na thakle (file:// ba onno host) Telegram jabe na; Firestore-e sav
 
 FILE/IMAGE: Chobi admin panel theke upload korle auto compress hoye post-er sathe Firestore-e save hoy (post-e max ~800KB chobi).
 PDF/Doc: Google Drive-e upload kore 'Anyone with the link' share kore link Admin Panel-er 'Attachment links'-e din (Nam | Link).
+
+PAGES
+ Public:  /            (Home + Contact: #/contact)   -- kono login/admin link nei
+ Admin:   /admin       (ba /admin.html)              -- shudhu tumi URL jano; login korte hoy
+ Admin link public site-e dewa nei. /admin bookmark kore rakho.
+ Prothom admin: /admin-e Sign up -> UID copy -> Firestore config/admins -> ids array-e UID.
+ Sign up bondho korte chao: prothom admin set korar por Firebase Console > Authentication > Settings > User actions > "Enable create (sign-up)" off koro.

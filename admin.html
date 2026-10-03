@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="bn"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/png" href="logo.png"><link rel="apple-touch-icon" href="logo.png"><meta name="theme-color" content="#1d3fa8">
+<title>Admin – Mirpur College Updates &amp; Notices</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f6f5fb;--card:#fff;--ink:#17152b;--mute:#6b6885;--line:#e7e4f3;--pri:#1d3fa8;--pri2:#3f6ae0;--sh:0 8px 30px rgba(60,40,140,.09)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e0d1a;--card:#171528;--ink:#f1efff;--mute:#9a97b8;--line:#2a2745;--sh:0 8px 30px rgba(0,0,0,.4);--pri:#6b8cff;--pri2:#9db6ff}}
+:root[data-theme="dark"]{--bg:#0e0d1a;--card:#171528;--ink:#f1efff;--mute:#9a97b8;--line:#2a2745;--sh:0 8px 30px rgba(0,0,0,.4);--pri:#6b8cff;--pri2:#9db6ff}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 Inter,"Segoe UI","Noto Sans Bengali",system-ui,sans-serif}
+.wrap{max-width:1100px;margin:auto;padding:0 18px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg) 85%,transparent);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:6px;height:62px}.sp{flex:1}
+.logo{font-weight:800;font-size:19px;display:flex;gap:9px;align-items:center;margin-right:10px;color:var(--ink);text-decoration:none}
+.logo i{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--pri),var(--pri2));display:grid;place-items:center;color:#fff;font-style:normal}
+.links{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.links a{padding:7px 12px;border-radius:10px;color:var(--mute);text-decoration:none;font-weight:600;white-space:nowrap}
+.links a.on,.links a:hover{background:var(--card);color:var(--ink)}
+button,.btn{font:inherit;cursor:pointer;border:0}
+.btn{display:inline-block;padding:9px 16px;border-radius:12px;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;font-weight:600;text-decoration:none;box-shadow:0 6px 18px rgba(29,63,168,.3);transition:.2s}
+.btn:hover{transform:translateY(-1px)}.ghost{background:var(--card);color:var(--ink);border:1px solid var(--line);box-shadow:none}
+.danger{background:#ff4d6d;box-shadow:none}.sm{padding:6px 11px;font-size:13px;box-shadow:none}
+.hero{padding:44px 0 22px;text-align:center}.hero h1{font-size:clamp(28px,5vw,44px);line-height:1.15;margin:0 0 10px;letter-spacing:-.02em}
+.hero h1 span{background:linear-gradient(135deg,var(--pri),var(--pri2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mute);margin:0 auto 20px;max-width:520px}
+.search{max-width:520px;margin:auto;display:flex;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:6px 6px 6px 16px;box-shadow:var(--sh)}
+.search input{flex:1;border:0;background:none;color:var(--ink);font:inherit;outline:0}
+h2.t{margin:26px 0 12px;font-size:20px;display:flex;justify-content:space-between;align-items:center}
+.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.cat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px;text-decoration:none;color:var(--ink);transition:.2s}
+.cat:hover{transform:translateY(-3px);box-shadow:var(--sh)}.cat b{font-size:24px;display:block}.cat small{color:var(--mute)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;padding-bottom:50px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;cursor:pointer;transition:.25s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-4px);box-shadow:var(--sh)}
+.card img{width:100%;height:150px;object-fit:cover;display:block}.cb{padding:16px;display:flex;flex-direction:column;gap:7px;flex:1}
+.tag{align-self:flex-start;font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px}
+.card h3{margin:0;font-size:17px;line-height:1.35}
+.card p{margin:0;color:var(--mute);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.meta{display:flex;justify-content:space-between;color:var(--mute);font-size:12.5px;margin-top:auto;padding-top:6px}
+.empty{grid-column:1/-1;text-align:center;color:var(--mute);padding:60px 0}
+.modal{position:fixed;inset:0;background:rgba(10,8,30,.55);display:none;align-items:center;justify-content:center;padding:16px;z-index:20;backdrop-filter:blur(4px)}
+.modal.open{display:flex}.sheet{background:var(--card);border-radius:24px;width:100%;max-width:640px;max-height:90vh;overflow:auto;padding:26px;animation:up .25s}
+@keyframes up{from{transform:translateY(20px);opacity:0}}
+.sheet img.big{width:100%;border-radius:14px;margin:8px 0}.body{white-space:pre-wrap;word-break:break-word}
+.file{display:flex;gap:8px;align-items:center;padding:9px 12px;border:1px solid var(--line);border-radius:12px;margin:6px 0;color:var(--ink);text-decoration:none}
+label{display:block;font-weight:600;font-size:13px;margin:12px 0 5px}
+input,select,textarea{width:100%;padding:11px 13px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit}
+textarea{min-height:120px;resize:vertical}.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.adm{display:grid;gap:20px;padding-bottom:50px}@media(min-width:900px){.adm{grid-template-columns:400px 1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;margin-bottom:20px}.panel h3{margin-top:0}
+.li{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}.li:last-child{border:0}
+.li div{flex:1;min-width:140px}.li b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}small{color:var(--mute)}
+.note{background:color-mix(in srgb,var(--pri) 10%,transparent);border-radius:12px;padding:10px 14px;font-size:13px;color:var(--mute);margin-bottom:14px}
+code{background:var(--bg);padding:3px 8px;border-radius:8px;border:1px solid var(--line);word-break:break-all;font-size:12.5px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:12px;z-index:50;display:none}
+footer{text-align:center;color:var(--mute);padding:26px 0;border-top:1px solid var(--line);font-size:13px}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:600px){.two{grid-template-columns:1fr}.links{display:none}.logo{font-size:15px}}
+button.cat{font:inherit;text-align:left;width:100%;cursor:pointer}.cat.on{border-color:var(--pri);box-shadow:0 0 0 2px var(--pri) inset}
+#list{scroll-margin-top:80px}h2.t small{font-weight:500}
+.auth{display:grid;grid-template-columns:1fr;max-width:920px;margin:34px auto 50px;border-radius:28px;overflow:hidden;box-shadow:0 30px 80px rgba(60,40,140,.22);border:1px solid var(--line);background:var(--card)}
+@media(min-width:800px){.auth{grid-template-columns:1.05fr 1fr}}
+.auth-side{position:relative;overflow:hidden;padding:38px 32px;color:#fff;background:linear-gradient(145deg,#0f2a7a,#1d3fa8 55%,#3f6ae0)}
+.blob{position:absolute;border-radius:50%;opacity:.25;background:#fff}.b1{width:220px;height:220px;top:-70px;right:-60px}.b2{width:160px;height:160px;bottom:-50px;left:-40px}
+.auth-side>*{position:relative}.auth-side h2{font-size:30px;margin:26px 0 8px;line-height:1.2}.auth-side p{opacity:.85;margin:0}
+.auth-side ul{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:10px}.auth-side li{background:rgba(255,255,255,.15);padding:10px 14px;border-radius:14px}
+.auth-brand{display:flex;gap:10px;align-items:center;font-weight:800}.auth-brand i{width:34px;height:34px;border-radius:11px;background:rgba(255,255,255,.22);display:grid;place-items:center;font-style:normal}
+.auth-card{padding:34px 30px}.tabs{display:flex;background:var(--bg);border-radius:14px;padding:4px;margin-bottom:20px}
+.tabs button{flex:1;padding:9px;border-radius:11px;background:none;color:var(--mute);font-weight:700}.tabs button.on{background:var(--card);color:var(--ink);box-shadow:0 2px 10px rgba(0,0,0,.1)}
+.fld{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:0 12px;transition:.2s}
+.fld:focus-within{border-color:var(--pri);box-shadow:0 0 0 4px color-mix(in srgb,var(--pri) 18%,transparent)}
+.fld input{border:0;background:none;outline:0;padding:12px 0}.eye{background:none;color:var(--mute)}
+.err{color:#e5484d;font-size:13px;min-height:20px;margin:8px 0}.wide{width:100%;padding:13px;font-size:16px}.lnk{background:none;color:var(--pri);font-weight:600;padding:0}
+footer a{color:var(--pri);font-weight:700;text-decoration:none}footer a:hover{text-decoration:underline}
+.logo img{width:38px;height:38px;border-radius:50%;object-fit:cover;background:#fff}
+.hero-logo{width:104px;height:104px;border-radius:50%;margin:0 auto 14px;display:block;box-shadow:0 12px 34px rgba(29,63,168,.35)}
+.auth-brand img{width:48px;height:48px;border-radius:50%;background:#fff}
+.auth-brand{font-size:17px;line-height:1.25}
+
+.att{margin:10px 0}.att .btn{margin-top:6px}.file .btn{margin-left:6px}.pend{display:flex;gap:8px;align-items:center}
+.hdr-r{display:flex;gap:8px;align-items:center}
+</style></head><body>
+<header><div class="wrap nav"><a class="logo" href="admin.html"><img src="logo.png" alt="Logo">Admin Panel</a><div class="sp"></div>
+<div class="hdr-r"><a class="btn ghost sm" href="index.html" target="_blank">🌐 Website</a><button class="btn ghost sm" id="theme">🌓</button><button class="btn ghost sm" id="outBtn" style="display:none" onclick="logout()">Logout</button></div></div></header>
+<main class="wrap" id="app"></main>
+<footer><div>© <span id="yr"></span> Mirpur College Updates &amp; Notices. All rights reserved.</div>
+<div>Developed by <a href="https://cortex-it-kappa.vercel.app/" target="_blank" rel="noopener">Cortex IT</a></div></footer><div class="modal" id="modal"><div class="sheet" id="sheet"></div></div><div class="toast" id="toast"></div>
+<script>
+const CATS={notice:{n:"Notice",i:"📢",c:"#e5484d"},syllabus:{n:"Syllabus",i:"📚",c:"#5b4bff"},suggestion:{n:"Suggestion",i:"💡",c:"#e08a00"},routine:{n:"Routine",i:"🗓",c:"#0d9488"},result:{n:"Result",i:"🏆",c:"#16a34a"},event:{n:"Event",i:"🎉",c:"#d6409f"}};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+const fmt=t=>new Date(t).toLocaleString("en-GB",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
+const tint=c=>`background:${c}22;color:${c}`;
+const sorted=l=>[...l].sort((a,b)=>(b.pinned?1:0)-(a.pinned?1:0)||b.ts-a.ts);
+const ok=u=>/^(https?:|data:image\/)/.test(u||"");
+function toast(m){const t=$("#toast");t.textContent=m;t.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display="none",2600)}
+function closeM(){$("#modal").classList.remove("open")}
+$("#modal").addEventListener("click",e=>{if(e.target.id=="modal")closeM()});
+$("#theme").onclick=()=>{const d=document.documentElement;d.dataset.theme=getComputedStyle(d).getPropertyValue("--bg").trim()=="#0e0d1a"?"light":"dark"};
+
+const S={posts:[],admins:[],msgs:[],uid:null,email:null,cfg:false,ready:false,edit:null,pending:{cover:null,files:[]},mode:"in"};let FB=null;
+const isAdmin=()=>!!S.uid&&S.admins.includes(S.uid),isOwner=()=>!!S.uid&&S.admins[0]===S.uid;
+const FIELDS=["f_cat","f_title","f_body","f_links","f_link","em","pw","pw2"];
+function snap(){const o={};FIELDS.forEach(i=>{const e=$("#"+i);if(e)o[i]=e.value});const p=$("#f_pin");if(p)o.pin=p.checked;return o}
+function restore(o){FIELDS.forEach(i=>{const e=$("#"+i);if(e&&o[i]!=null)e.value=o[i]});const p=$("#f_pin");if(p&&o.pin!=null)p.checked=o.pin}
+function copy(t){navigator.clipboard&&navigator.clipboard.writeText(t);toast("Copied")}
+
+/* ---- image handling (no Storage / no Blaze) ---- */
+function shrink(file,max,q){return new Promise((res,rej)=>{const im=new Image(),u=URL.createObjectURL(file);
+ im.onload=()=>{const k=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);
+  const x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL("image/jpeg",q))};
+ im.onerror=()=>rej(new Error("Image porte parini"));im.src=u})}
+async function upload(file){
+ if(!/^image\//.test(file.type))throw new Error("PDF/Doc upload hoy na – Google Drive link 'Attachment links'-e din");
+ let url=await shrink(file,1000,.72);if(url.length>260000)url=await shrink(file,800,.55);
+ if(url.length>300000)throw new Error("Chobi ta onek boro, chhoto kore din");
+ return{id:"",name:file.name.replace(/\.[^.]+$/,""),type:"image/jpeg",url}}
+async function pick(kind,files,input){
+ try{toast("Processing…");for(const f of files){const r=await upload(f);const P=S.pending;
+  const tot=(P.cover?P.cover.url.length:0)+P.files.reduce((a,x)=>a+x.url.length,0)+r.url.length;
+  if(tot>820000)throw new Error("Ek post-e onek beshi chobi (max ~800KB)");if(kind=="cover")P.cover=r;else P.files.push(r)}
+  render(true);toast("Added ✔")}catch(e){toast("Upload hoyni: "+(e.message||e.code))}
+ input.value=""}
+
+/* ---- views ---- */
+const loadingV=()=>`<div class="panel" style="margin-top:40px;text-align:center"><p>লোড হচ্ছে…</p></div>`;
+function deniedV(){return `<div class="panel" style="margin:40px auto;max-width:560px;text-align:center"><h2>🔒 Access নেই</h2><p>এই account (${esc(S.email||"")}) admin না। Access পেতে নিচের UID টি Owner-কে পাঠান:</p><code>${esc(S.uid)}</code><div class="row" style="justify-content:center"><button class="btn sm" onclick="copy('${esc(S.uid)}')">Copy UID</button><button class="btn ghost sm" onclick="logout()">Logout</button></div></div>`}
+function loginV(){const up=S.mode=="up";
+ return `<section class="auth"><div class="auth-side"><div class="blob b1"></div><div class="blob b2"></div><div class="auth-brand"><img src="logo.png" alt="Logo">Mirpur College<br>Updates &amp; Notices</div>
+ <h2>${up?"নতুন account খুলুন":"Admin Login 🔐"}</h2><p>Login করে notice, syllabus ও update manage করুন।</p>
+ <ul><li>📢 Notice ও Syllabus post করুন</li><li>🖼 ছবি ও 📎 file link যোগ করুন</li><li>🕘 Edit history ও restore</li></ul></div>
+ <div class="auth-card"><div class="tabs"><button class="${up?"":"on"}" onclick="setMode('in')">Login</button><button class="${up?"on":""}" onclick="setMode('up')">Sign up</button></div>
+ <form onsubmit="doAuth(event)"><label>Email</label><div class="fld"><span>✉</span><input id="em" type="email" required autocomplete="email" placeholder="you@example.com"></div>
+ <label>Password</label><div class="fld"><span>🔒</span><input id="pw" type="password" required minlength="6" autocomplete="${up?"new-password":"current-password"}" placeholder="••••••••"><button type="button" class="eye" onclick="const i=$('#pw');i.type=i.type=='password'?'text':'password'">👁</button></div>
+ ${up?`<label>Confirm Password</label><div class="fld"><span>🔒</span><input id="pw2" type="password" required minlength="6" placeholder="••••••••"></div>`:""}
+ <div class="err" id="aerr"></div><button class="btn wide" id="abtn">${up?"Create Account":"Login"}</button></form>
+ ${up?"":'<div class="row" style="margin-top:14px"><button class="lnk" onclick="forgot()">Password bhule gechen?</button></div>'}</div></section>`}
+function panelV(){
+ const e=S.posts.find(p=>p.id==S.edit)||{cat:"notice",title:"",body:"",link:"",pinned:false,files:[]},P=S.pending;
+ const links=(e.files||[]).filter(f=>f.type=="link").map(f=>f.name+" | "+f.url).join("\n");
+ return `<h1 style="margin:26px 0 14px">⚙ Admin Panel</h1>
+ <div class="adm"><div><div class="panel"><h3>${S.edit?"✏ Post Edit":"➕ নতুন Post"}</h3>
+ <label>Category</label><select id="f_cat">${Object.entries(CATS).map(([k,c])=>`<option value="${k}" ${e.cat==k?"selected":""}>${c.i} ${c.n}</option>`).join("")}</select>
+ <label>Title</label><input id="f_title" value="${esc(e.title)}"><label>Details</label><textarea id="f_body">${esc(e.body)}</textarea>
+ <label>Cover Image</label><input type="file" accept="image/*" onchange="pick('cover',this.files,this)">
+ ${P.cover?`<div class="pend"><small>✔ ${esc(P.cover.name)}</small><button type="button" class="lnk" onclick="S.pending.cover=null;render(true)">✕ remove</button></div>`:""}
+ <label>অতিরিক্ত ছবি (auto compress হবে)</label><input type="file" accept="image/*" multiple onchange="pick('files',this.files,this)">
+ ${P.files.map((f,i)=>`<div class="pend"><small>✔ ${esc(f.name)}</small><button type="button" class="lnk" onclick="S.pending.files.splice(${i},1);render(true)">✕ remove</button></div>`).join("")}
+ <label>Attachment links (PDF/Doc – Google Drive লিংক)</label><textarea id="f_links" style="min-height:80px" placeholder="Syllabus PDF | https://drive.google.com/file/d/...&#10;Routine | https://...">${esc(links)}</textarea><small>প্রতি লাইনে একটি: নাম | লিংক</small>
+ <label>Extra Link (optional)</label><input id="f_link" value="${esc(e.link||"")}" placeholder="https://…">
+ <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="f_pin" style="width:auto" ${e.pinned?"checked":""}> 📌 Pin to top</label>
+ <div class="row"><button class="btn" id="pubBtn" onclick="submitPost()">${S.edit?"Update":"Publish"}</button>${S.edit?'<button class="btn ghost" onclick="cancelEdit()">Cancel</button>':""}</div></div>
+ <div class="panel"><h3>👤 Admin Management (UID)</h3><div class="note">আপনার UID: <code>${esc(S.uid)}</code> <button class="lnk" onclick="copy('${esc(S.uid)}')">copy</button><br>কাউকে admin করতে তার UID দিন। ${isOwner()?"":"(শুধু Owner পরিবর্তন করতে পারে)"}</div>
+ ${isOwner()?`<div class="row" style="margin:0 0 10px"><input id="newuid" placeholder="UID paste করুন" style="flex:1"><button class="btn sm" onclick="addAdmin()">Add</button></div>`:""}
+ ${S.admins.map((u,i)=>`<div class="li"><div><code>${esc(u)}</code>${i==0?" <small>(Owner)</small>":""}</div>${isOwner()&&i>0?`<button class="btn danger sm" onclick="rmAdmin('${esc(u)}')">Remove</button>`:""}</div>`).join("")}</div></div>
+ <div class="panel"><h3>সব Post (${S.posts.length})</h3>${sorted(S.posts).map(p=>`<div class="li"><span>${(CATS[p.cat]||CATS.notice).i}</span><div><b>${esc(p.title)}</b><small>${fmt(p.ts)}${p.hist&&p.hist.length?" · ✎ "+p.hist.length+" edits":""}</small></div>
+ <button class="btn ghost sm" onclick="startEdit('${p.id}')">Edit</button>${p.hist&&p.hist.length?`<button class="btn ghost sm" onclick="showHist('${p.id}')">History</button>`:""}<button class="btn danger sm" onclick="del('${p.id}')">Delete</button></div>`).join("")||"<small>কিছু নেই</small>"}</div></div>
+ <div class="panel" style="margin-bottom:50px"><h3>📨 Contact Messages (${S.msgs.length})</h3>${[...S.msgs].sort((a,b)=>b.ts-a.ts).map(m=>`<div class="li" style="align-items:flex-start"><div style="flex:1"><b style="white-space:normal">${esc(m.subject)}</b><small>${esc(m.name)} · ${esc(m.email)}${m.phone?" · "+esc(m.phone):""} · ${fmt(m.ts)}</small><p class="body" style="margin:6px 0 0">${esc(m.message)}</p></div><a class="btn ghost sm" href="mailto:${esc(m.email)}?subject=${encodeURIComponent("Re: "+m.subject)}">Reply</a><button class="btn danger sm" onclick="delMsg('${m.id}')">Delete</button></div>`).join("")||"<small>কোনো message নেই</small>"}</div>`}
+function render(keep){const o=keep&&($("#f_title")||$("#em"))?snap():null;
+ $("#app").innerHTML=!S.ready?loadingV():!S.uid?loginV():!S.cfg?loadingV():!isAdmin()?deniedV():panelV();
+ if(o)restore(o);$("#outBtn").style.display=S.uid?"":"none";$("#yr").textContent=new Date().getFullYear()}
+
+/* ---- actions ---- */
+function startEdit(id){const p=S.posts.find(x=>x.id==id);if(!p)return;S.edit=id;S.pending={cover:p.cover||null,files:(p.files||[]).filter(f=>f.type!="link")};render(false);scrollTo(0,0)}
+function cancelEdit(){S.edit=null;S.pending={cover:null,files:[]};render(false)}
+function parseLinks(t){return t.split("\n").map(x=>x.trim()).filter(Boolean).map(x=>{const i=x.indexOf("|");return i<0?{name:"Attachment",url:x}:{name:x.slice(0,i).trim()||"Attachment",url:x.slice(i+1).trim()}}).filter(a=>/^https?:\/\//.test(a.url)).map(a=>({id:"",name:a.name,type:"link",url:a.url}))}
+async function submitPost(){
+ const title=$("#f_title").value.trim(),body=$("#f_body").value.trim();if(!title||!body)return toast("Title আর Details দিন");
+ const old=S.posts.find(p=>p.id==S.edit),now=Date.now(),P=S.pending,b=$("#pubBtn");
+ const data={title,body,cat:$("#f_cat").value,link:$("#f_link").value.trim(),pinned:$("#f_pin").checked,cover:P.cover||null,files:[...P.files,...parseLinks($("#f_links").value)],
+  ts:old?old.ts:now,by:old?(old.by||S.uid):S.uid,updated:now,
+  hist:old?[{ts:now,by:S.uid,title:old.title||"",body:old.body||"",cat:old.cat||"notice",link:old.link||""},...(old.hist||[])].slice(0,20):[]};
+ const clean=JSON.parse(JSON.stringify(data));
+ if(JSON.stringify(clean).length>950000)return toast("Post ta onek boro – chobi kombao");
+ b.disabled=true;
+ try{S.edit?await FB.setDoc(FB.doc(FB.db,"posts",S.edit),clean):await FB.addDoc(FB.collection(FB.db,"posts"),clean);
+  toast(S.edit?"Updated ✔":"Published ✔");S.edit=null;S.pending={cover:null,files:[]};render(false)}
+ catch(e){toast("Save hoyni: "+(e.code||e.message));b.disabled=false}}
+async function del(id){if(!confirm("Delete করবেন?"))return;try{await FB.deleteDoc(FB.doc(FB.db,"posts",id));if(S.edit==id)cancelEdit();toast("Deleted")}catch(e){toast("Delete hoyni: "+(e.code||e.message))}}
+async function delMsg(id){if(!confirm("Message delete করবেন?"))return;try{await FB.deleteDoc(FB.doc(FB.db,"messages",id))}catch(e){toast("Delete hoyni")}}
+async function saveAdmins(ids){try{await FB.setDoc(FB.doc(FB.db,"config","admins"),{ids})}catch(e){toast("Save hoyni: "+(e.code||e.message))}}
+const addAdmin=()=>{const v=$("#newuid").value.trim();if(v&&!S.admins.includes(v))saveAdmins([...S.admins,v])};
+const rmAdmin=u=>{if(confirm("Remove করবেন?"))saveAdmins(S.admins.filter(x=>x!=u))};
+function showHist(id){const p=S.posts.find(x=>x.id==id);
+ $("#sheet").innerHTML=`<h2 style="margin-top:0">✎ Edit History</h2>${(p.hist||[]).map((h,i)=>`<div class="li"><div><b>${esc(h.title)}</b><small>${fmt(h.ts)} · ${(CATS[h.cat]||CATS.notice).n}</small><br><small>${esc((h.body||"").slice(0,120))}…</small></div><button class="btn ghost sm" onclick="restoreV('${id}',${i})">Restore</button></div>`).join("")}<div class="row"><button class="btn ghost" onclick="closeM()">Close</button></div>`;$("#modal").classList.add("open")}
+async function restoreV(id,i){const p=S.posts.find(x=>x.id==id),h=p.hist[i],now=Date.now();
+ const d={...p};delete d.id;Object.assign(d,{title:h.title,body:h.body,cat:h.cat,link:h.link||"",updated:now,hist:[{ts:now,by:S.uid,title:p.title||"",body:p.body||"",cat:p.cat||"notice",link:p.link||""},...(p.hist||[])].slice(0,20)});
+ try{await FB.setDoc(FB.doc(FB.db,"posts",id),JSON.parse(JSON.stringify(d)));closeM();toast("Restored ✔")}catch(e){toast("Restore hoyni: "+(e.code||e.message))}}
+
+/* ---- auth ---- */
+function setMode(m){S.mode=m;render(false)}
+function authErr(c){return({"auth/invalid-credential":"Email ba password vul.","auth/invalid-email":"Email ta thik na.","auth/email-already-in-use":"Ei email diye age-i account ache.","auth/weak-password":"Password kompokkhe 6 character dite hobe.","auth/too-many-requests":"Onek beshi try hoyeche, ektu pore abar chesta korun.","auth/network-request-failed":"Internet connection check korun.","auth/operation-not-allowed":"Firebase Console-e Email/Password sign-in enable korun."})[c]||("Error: "+c)}
+async function doAuth(e){e.preventDefault();const er=$("#aerr"),b=$("#abtn");er.textContent="";
+ if(!FB){er.textContent="Firebase connect hoyni (file:// e kaj kore na, website-e deploy korun).";return}
+ const em=$("#em").value.trim(),pw=$("#pw").value,up=S.mode=="up";
+ if(up&&pw!=$("#pw2").value){er.textContent="Password duita mile ni.";return}
+ b.disabled=true;b.textContent="অপেক্ষা করুন…";
+ try{up?await FB.createUserWithEmailAndPassword(FB.auth,em,pw):await FB.signInWithEmailAndPassword(FB.auth,em,pw)}
+ catch(x){er.textContent=authErr(x.code||x.message);b.disabled=false;b.textContent=up?"Create Account":"Login"}}
+async function forgot(){const em=$("#em").value.trim(),er=$("#aerr");if(!em){er.textContent="Age email likhun.";return}
+ try{await FB.sendPasswordResetEmail(FB.auth,em);toast("Reset email pathano hoyeche")}catch(x){er.textContent=authErr(x.code)}}
+function logout(){FB&&FB.signOut(FB.auth);toast("Logged out")}
+
+window.initBackend=f=>{FB=f;let uCfg=null,uMsg=null;
+ FB.onSnapshot(FB.collection(FB.db,"posts"),sn=>{S.posts=sn.docs.map(d=>({id:d.id,...d.data()}));render(true)},e=>toast("Posts load hoyni: "+e.code));
+ FB.onAuthStateChanged(FB.auth,u=>{S.ready=true;S.uid=u?u.uid:null;S.email=u?u.email:null;
+  uCfg&&uCfg();uMsg&&uMsg();uCfg=uMsg=null;S.admins=[];S.msgs=[];S.cfg=!u;
+  if(u){uCfg=FB.onSnapshot(FB.doc(FB.db,"config","admins"),d=>{S.admins=(d.exists()&&d.data().ids)||[];S.cfg=true;render(true)},()=>{S.cfg=true;render(true)});
+   uMsg=FB.onSnapshot(FB.collection(FB.db,"messages"),sn=>{S.msgs=sn.docs.map(d=>({id:d.id,...d.data()}));render(true)},()=>{})}
+  render(false)})};
+window.backendFailed=()=>{S.ready=true;render(false);toast("Firebase connect hoyni")};
+render(false);
+</script>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,createUserWithEmailAndPassword,signOut,sendPasswordResetEmail} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+import {getFirestore,collection,doc,addDoc,setDoc,deleteDoc,onSnapshot} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+const firebaseConfig={apiKey:"AIzaSyAgZV0TeVSXYYnQiKqGKq7N2hAWk4FU4fo",authDomain:"muc-network-50a06.firebaseapp.com",projectId:"muc-network-50a06",storageBucket:"muc-network-50a06.firebasestorage.app",messagingSenderId:"143299318658",appId:"1:143299318658:web:5bb77c759dbd075f51359b"};
+try{const app=initializeApp(firebaseConfig);window.initBackend({auth:getAuth(app),db:getFirestore(app),onAuthStateChanged,signInWithEmailAndPassword,createUserWithEmailAndPassword,signOut,sendPasswordResetEmail,collection,doc,addDoc,setDoc,deleteDoc,onSnapshot})}
+catch(e){console.error(e);window.backendFailed()}
+</script></body></html>
