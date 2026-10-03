@@ -97,6 +97,11 @@ footer a{color:var(--pri);font-weight:700;text-decoration:none}footer a:hover{te
 .filter select{appearance:none;-webkit-appearance:none;width:100%;padding:14px 46px 14px 18px;border-radius:16px;border:1px solid var(--line);background:var(--card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' fill='none' stroke='%236b6885' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 18px center;color:var(--ink);font:inherit;font-weight:600;cursor:pointer;box-shadow:var(--sh)}
 .filter select:focus{outline:0;border-color:var(--pri);box-shadow:0 0 0 4px color-mix(in srgb,var(--pri) 18%,transparent)}
 #list{scroll-margin-top:80px}
+.sbar{display:flex;gap:10px;max-width:780px;margin:auto;align-items:stretch}
+.sbar .search{flex:1;min-width:0;max-width:none;margin:0;height:54px}
+.sbar .filter{width:210px;max-width:none;margin:0;flex:none}
+.sbar .filter select{height:54px;padding:0 38px 0 16px;font-size:14.5px;border-radius:16px;background-position:right 15px center}
+@media(max-width:700px){.sbar{flex-direction:column}.sbar .search{flex:none;width:100%}.sbar .filter{width:100%}.sbar .filter select{font-size:16px;height:50px}}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
 <nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="theme">🌓</button></div></header>
@@ -129,8 +134,7 @@ function card(p){const c=CATS[p.cat]||CATS.notice,n=atts(p).length;
 const match=p=>!S.q||(p.title+" "+p.body).toLowerCase().includes(S.q.toLowerCase());
 function pHome(){const l=sorted(S.posts.filter(p=>match(p)&&(!S.cat||p.cat==S.cat))),c=CATS[S.cat];
  return `<section class="hero"><h1>সব <span>Notice, Syllabus</span><br>ও Suggestion এক জায়গায়</h1><p>Mirpur College Updates &amp; Notices-এর সর্বশেষ আপডেট, category অনুযায়ী সাজানো।</p>
- <div class="search"><span>🔍</span><input id="q" placeholder="Search করুন…" value="${esc(S.q)}"><button class="btn sm" onclick="S.q=$('#q').value.trim();route()">Search</button></div></section>
- <div class="filter"><select id="catSel" aria-label="Category" onchange="setCat(this.value||null)"><option value="" ${S.cat?"":"selected"}>🗂 সব Category (${S.posts.length})</option>${Object.entries(CATS).map(([k,c])=>`<option value="${k}" ${S.cat==k?"selected":""}>${c.i} ${c.n} (${S.posts.filter(p=>p.cat==k).length})</option>`).join("")}</select></div>
+ <div class="sbar"><div class="search"><span>🔍</span><input id="q" placeholder="Search করুন…" value="${esc(S.q)}"><button class="btn sm" onclick="S.q=$('#q').value.trim();route()">Search</button></div><div class="filter"><select id="catSel" aria-label="Category" onchange="setCat(this.value||null)"><option value="" ${S.cat?"":"selected"}>🗂 সব Category (${S.posts.length})</option>${Object.entries(CATS).map(([k,c])=>`<option value="${k}" ${S.cat==k?"selected":""}>${c.i} ${c.n} (${S.posts.filter(p=>p.cat==k).length})</option>`).join("")}</select></div></div></section>
  <h2 class="t" id="list"><span>${c?c.i+" "+c.n:"🆕 সব Latest Post"}</span><small>${l.length} টি</small></h2>
  <div class="grid">${!S.loaded?'<div class="empty">লোড হচ্ছে…</div>':l.length?l.map(card).join(""):'<div class="empty">এই category-তে এখনো কোনো post নেই।</div>'}</div>`}
 function setCat(k){S.cat=(k&&S.cat==k)?null:k;route();const el=$("#list");el&&el.scrollIntoView({behavior:"smooth"})}
