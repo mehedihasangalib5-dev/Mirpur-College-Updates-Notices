@@ -81,12 +81,18 @@ footer a{color:var(--pri);font-weight:700;text-decoration:none}footer a:hover{te
 
 .att{margin:10px 0}.att .btn{margin-top:6px}.file .btn{margin-left:6px}.pend{display:flex;gap:8px;align-items:center}
 .hdr-r{display:flex;gap:8px;align-items:center}
+.fab{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:15;display:flex;align-items:center;gap:8px;padding:13px 18px;border-radius:99px;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;font-weight:700;text-decoration:none;box-shadow:0 10px 28px rgba(29,63,168,.45);animation:fabin .4s}
+.fab span{font-size:20px;line-height:1}.fab:active{transform:scale(.95)}
+@keyframes fabin{from{transform:translateY(30px) scale(.8);opacity:0}}
+@media(min-width:601px){.fab{display:none!important}}
+.search{align-items:center}.search input{padding:8px 0}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
 <nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="theme">🌓</button></div></header>
 <main class="wrap" id="app"></main>
 <footer><div>© <span id="yr"></span> Mirpur College Updates &amp; Notices. All rights reserved.</div>
-<div>Developed by <a href="https://cortex-it-kappa.vercel.app/" target="_blank" rel="noopener">Cortex IT</a></div><div style="margin-top:6px"><a href="#/">Home</a> · <a href="#/contact">Contact</a></div></footer><div class="modal" id="modal"><div class="sheet" id="sheet"></div></div><div class="toast" id="toast"></div>
+<div>Developed by <a href="https://cortex-it-kappa.vercel.app/" target="_blank" rel="noopener">Cortex IT</a></div><div style="margin-top:6px"><a href="#/">Home</a> · <a href="#/contact">Contact</a></div></footer><a class="fab" id="fab" href="#/contact" aria-label="Contact"><span>💬</span>Contact</a>
+<div class="modal" id="modal"><div class="sheet" id="sheet"></div></div><div class="toast" id="toast"></div>
 <script>
 const CATS={notice:{n:"Notice",i:"📢",c:"#e5484d"},syllabus:{n:"Syllabus",i:"📚",c:"#5b4bff"},suggestion:{n:"Suggestion",i:"💡",c:"#e08a00"},routine:{n:"Routine",i:"🗓",c:"#0d9488"},result:{n:"Result",i:"🏆",c:"#16a34a"},event:{n:"Event",i:"🎉",c:"#d6409f"}};
 const $=s=>document.querySelector(s);
@@ -138,7 +144,7 @@ function openPost(id){const p=S.posts.find(x=>x.id==id);if(!p)return;const c=CAT
  $("#modal").classList.add("open")}
 function route(){const h=location.hash.replace(/^#\/?/,"").split("/"),pg=h[0]||"home";
  $("#links").innerHTML=`<a href="#/" class="${pg=="home"?"on":""}">Home</a><a href="#/contact" class="${pg=="contact"?"on":""}">Contact</a>`;
- $("#yr").textContent=new Date().getFullYear();const k=document.activeElement&&document.activeElement.id;
+ $("#yr").textContent=new Date().getFullYear();{const f=$("#fab"),c=pg=="contact";f.href=c?"#/":"#/contact";f.innerHTML=c?"<span>🏠</span>Home":"<span>💬</span>Contact";f.setAttribute("aria-label",c?"Home":"Contact")}const k=document.activeElement&&document.activeElement.id;
  $("#app").innerHTML=pg=="contact"?pContact():pHome();
  const q=$("#q");if(q){q.addEventListener("keydown",e=>{if(e.key=="Enter"){S.q=q.value.trim();route()}});if(k=="q")q.focus()}}
 addEventListener("hashchange",()=>{route();scrollTo(0,0)});
