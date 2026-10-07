@@ -331,18 +331,19 @@ const gVals=()=>({name:gv("g_name").trim(),year:gv("g_year"),dept:gv("g_dept"),e
 function gErrShow(m){const e=$("#gErr");if(e){e.textContent=m||"";e.style.display=m?"block":"none"}}
 function renderGate(v){v=v||{};const m=U.mode,cp=m=="complete",su=m=="signup",re=m=="reset",p=U.prof||{};
  const nm=v.name??p.name??"",yr=v.year??p.year??"",dp=v.dept??p.dept??"";
- $("#gate").innerHTML=`<div class="gbox"><img class="glogo" src="logo.png" alt=""><h1>${cp?"Profile সম্পূর্ণ করুন":re?"Password Reset 🔑":"স্বাগতম 👋"}</h1><p class="gs">${cp?"আপনার Year ও Department select করুন":re?"আপনার Email, নতুন Password ও Confirm Password দিন":su?"Account খুলে আপনার Year ও Department-এর update দেখুন":"Email ও Password দিয়ে Login করুন"}</p>
+ if(re&&U.sent){$("#gate").innerHTML=`<div class="gbox"><img class="glogo" src="logo.png" alt=""><h1>Email পাঠানো হয়েছে ✅</h1><p class="gs">${esc(U.sent)} ঠিকানায় Password reset link পাঠানো হয়েছে। Inbox দেখুন, না পেলে Spam folder দেখুন। Link-এ click করে নতুন Password দিন।</p><button class="btn" type="button" onclick="gMode('login')" style="width:100%;justify-content:center;margin-top:14px;padding:12px">← Login-এ ফিরে যান</button></div>`;return}
+ $("#gate").innerHTML=`<div class="gbox"><img class="glogo" src="logo.png" alt=""><h1>${cp?"Profile সম্পূর্ণ করুন":re?"Password Reset 🔑":"স্বাগতম 👋"}</h1><p class="gs">${cp?"আপনার Year ও Department select করুন":re?"আপনার Account-এর Email দিন, Password reset করার link পাঠানো হবে":su?"Account খুলে আপনার Year ও Department-এর update দেখুন":"Email ও Password দিয়ে Login করুন"}</p>
  ${cp||re?"":`<div class="gtabs"><button type="button" class="${su?"":"on"}" onclick="gMode('login')">Login</button><button type="button" class="${su?"on":""}" onclick="gMode('signup')">Sign up</button></div>`}
  <form id="gForm" onsubmit="gSubmit(event)">
  ${su||cp?`<label>Name${su||cp?" *":""}</label><input id="g_name" maxlength="80" ${su||cp?"required":""} autocomplete="name" placeholder="আপনার নাম" value="${esc(nm)}">
  <div class="two"><div><label>Year *</label><select id="g_year" required><option value="">Select</option>${opts(YEARS,yr)}</select></div><div><label>Department *</label><select id="g_dept" required><option value="">Select</option>${opts(DEPTS,dp)}</select></div></div>`:""}
  ${cp?"":`<label>Email *</label><input id="g_email" type="email" required maxlength="120" autocomplete="email" placeholder="you@example.com" value="${esc(v.email||"")}">
- <label>${re?"New Password":"Password"} *</label><div class="pw"><input id="g_pw" type="password" required minlength="6" maxlength="64" autocomplete="${su||re?"new-password":"current-password"}"><button type="button" onclick="togglePw()" aria-label="Show password">👁</button></div>${re?`<label>Confirm Password *</label><div class="pw"><input id="g_pw2" type="password" required minlength="6" maxlength="64" autocomplete="new-password"></div>`:""}`}
+ ${re?"":`<label>Password *</label><div class="pw"><input id="g_pw" type="password" required minlength="6" maxlength="64" autocomplete="${su?"new-password":"current-password"}"><button type="button" onclick="togglePw()" aria-label="Show password">👁</button></div>`}`}
  <div class="gerr" id="gErr"></div>
- <button class="btn" id="g_btn">${cp?"Continue →":su?"Account খুলুন →":re?"Password বদলান →":"Login →"}</button></form>
+ <button class="btn" id="g_btn">${cp?"Continue →":su?"Account খুলুন →":re?"Reset link পাঠান →":"Login →"}</button></form>
  <div class="gfoot">${cp?'<button type="button" class="lnk" onclick="logout()">Log out</button>':re?'<button type="button" class="lnk" onclick="gMode(\'login\')">← Login-এ ফিরে যান</button>':su?"":'<button type="button" class="lnk" onclick="gMode(\'reset\')">Password ভুলে গেছেন?</button>'}</div></div>`}
 function showGate(mode){U.mode=mode||"login";renderGate();gated(true);paintMe();scrollTo(0,0)}
-function gMode(m){const v=gVals();U.mode=m;renderGate(v)}
+function gMode(m){const v=gVals();if(!v.email&&U.sent)v.email=U.sent;U.mode=m;U.sent=null;renderGate(v)}
 function togglePw(){const i=$("#g_pw"),t=i.type=="password"?"text":"password";i.type=t;const j=$("#g_pw2");if(j)j.type=t}
 async function fetchProfile(uid){try{const {db,f}=await getSDK();const sn=await f.getDoc(f.doc(db,"users",uid));return sn.exists()?sn.data():null}catch(e){return null}}
 async function saveProf(){if(!U.user||!U.prof)return false;
@@ -360,10 +361,7 @@ async function finishAuth(user,ch,isNew){
 async function gSubmit(e){e.preventDefault();if(U.busy)return;
  const v=gVals(),pw=gv("g_pw"),m=U.mode,b=$("#g_btn"),t=b.textContent;U.busy=true;b.disabled=true;b.textContent="অপেক্ষা করুন…";gErrShow("");
  try{const {auth,A}=await getSDK();
-  if(m=="reset"){if(pw!==gv("g_pw2")){gErrShow("দুটো Password মিলছে না");b.disabled=false;b.textContent=t;U.busy=false;return}
-   const r=await fetch("/api/reset-password",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:v.email,password:pw})}).catch(()=>null),j=r?await r.json().catch(()=>({})):{};
-   if(!r||!r.ok||!j.ok){gErrShow(!r?"Internet connection check korun":(j.error||"Reset hoyni, abar chesta korun"));b.disabled=false;b.textContent=t;U.busy=false;return}
-   U.busy=false;U.mode="login";renderGate({email:v.email});toast("Password বদলানো হয়েছে ✔ নতুন Password দিয়ে Login করুন");return}
+  if(m=="reset"){await A.sendPasswordResetEmail(auth,v.email);U.sent=v.email;U.busy=false;renderGate(v);return}
   if(m=="complete"){await finishAuth(auth.currentUser,v,true)}
   else{let cr;
    if(m=="signup"){cr=await A.createUserWithEmailAndPassword(auth,v.email,pw);try{await A.updateProfile(cr.user,{displayName:v.name})}catch(_){}}
