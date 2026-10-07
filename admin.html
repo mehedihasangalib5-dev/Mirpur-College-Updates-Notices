@@ -100,6 +100,7 @@ input[type=file]{padding:8px}input[type=file]::file-selector-button{border:0;bac
  .auth-side h2{font-size:24px;margin-top:16px}.auth-side ul{display:none}
  footer{padding:20px 14px}
 }
+.gset{display:flex;flex-wrap:wrap;gap:8px}.gchk{display:flex!important;align-items:center;gap:6px;margin:0!important;padding:7px 12px;border:1px solid var(--line);border-radius:99px;font-weight:600!important;cursor:pointer}.gchk input{width:auto}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="admin.html"><img src="logo.png" alt="Logo">Admin Panel</a><div class="sp"></div>
 <div class="hdr-r"><a class="btn ghost sm" href="index.html" target="_blank">🌐<span class="hd"> Website</span></a><button class="btn ghost sm" id="theme">🌓</button><button class="btn ghost sm" id="outBtn" style="display:none" onclick="logout()">Logout</button></div></div></header>
@@ -108,6 +109,7 @@ input[type=file]{padding:8px}input[type=file]::file-selector-button{border:0;bac
 <div>Developed by <a href="https://cortex-it-kappa.vercel.app/" target="_blank" rel="noopener">Cortex IT</a></div></footer><div class="modal" id="modal"><div class="sheet" id="sheet"></div></div><div class="toast" id="toast"></div>
 <script>
 const CATS={notice:{n:"Notice",i:"📢",c:"#e5484d"},syllabus:{n:"Syllabus",i:"📚",c:"#5b4bff"},suggestion:{n:"Suggestion",i:"💡",c:"#e08a00"},routine:{n:"Routine",i:"🗓",c:"#0d9488"},result:{n:"Result",i:"🏆",c:"#16a34a"},event:{n:"Event",i:"🎉",c:"#d6409f"}};
+const GROUPS=["HSC 1st Year","HSC 2nd Year","Science","Arts","Commerce"]; // <- ekhane nijer class/department gulo likho
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 const fmt=t=>new Date(t).toLocaleString("en-GB",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
@@ -121,9 +123,9 @@ $("#theme").onclick=()=>{const d=document.documentElement;d.dataset.theme=getCom
 
 const S={posts:[],admins:[],msgs:[],uid:null,email:null,cfg:false,ready:false,edit:null,pending:{cover:null,files:[]},mode:"in"};let FB=null;
 const isAdmin=()=>!!S.uid&&S.admins.includes(S.uid),isOwner=()=>!!S.uid&&S.admins[0]===S.uid;
-const FIELDS=["f_cat","f_title","f_body","f_links","f_link","em","pw","pw2"];
-function snap(){const o={};FIELDS.forEach(i=>{const e=$("#"+i);if(e)o[i]=e.value});const p=$("#f_pin");if(p)o.pin=p.checked;return o}
-function restore(o){FIELDS.forEach(i=>{const e=$("#"+i);if(e&&o[i]!=null)e.value=o[i]});const p=$("#f_pin");if(p&&o.pin!=null)p.checked=o.pin}
+const FIELDS=["f_cat","f_title","f_body","f_links","f_link","f_dl","em","pw","pw2"];
+function snap(){const o={};FIELDS.forEach(i=>{const e=$("#"+i);if(e)o[i]=e.value});const p=$("#f_pin");if(p)o.pin=p.checked;o.grp=[...document.querySelectorAll(".gcb:checked")].map(x=>x.value);return o}
+function restore(o){FIELDS.forEach(i=>{const e=$("#"+i);if(e&&o[i]!=null)e.value=o[i]});const p=$("#f_pin");if(p&&o.pin!=null)p.checked=o.pin;if(o.grp)document.querySelectorAll(".gcb").forEach(x=>x.checked=o.grp.includes(x.value))}
 function copy(t){navigator.clipboard&&navigator.clipboard.writeText(t);toast("Copied")}
 
 /* ---- image handling (no Storage / no Blaze) ---- */
@@ -163,6 +165,8 @@ function panelV(){
  <div class="adm"><div><div class="panel"><h3>${S.edit?"✏ Post Edit":"➕ নতুন Post"}</h3>
  <label>Category</label><select id="f_cat">${Object.entries(CATS).map(([k,c])=>`<option value="${k}" ${e.cat==k?"selected":""}>${c.i} ${c.n}</option>`).join("")}</select>
  <label>Title</label><input id="f_title" value="${esc(e.title)}"><label>Details</label><textarea id="f_body">${esc(e.body)}</textarea>
+ <label>👥 কাদের জন্য? (কিছু select না করলে সবার জন্য)</label><div class="gset">${GROUPS.map(g=>`<label class="gchk"><input type="checkbox" class="gcb" value="${esc(g)}" ${(e.grp||[]).includes(g)?"checked":""}> ${esc(g)}</label>`).join("")}</div>
+ <label>📅 Deadline / শেষ তারিখ (optional)</label><input type="date" id="f_dl" value="${e.dl?new Date(e.dl).toLocaleDateString("en-CA"):""}">
  <label>Cover Image</label><input type="file" accept="image/*" onchange="pick('cover',this.files,this)">
  ${P.cover?`<div class="pend"><small>✔ ${esc(P.cover.name)}</small><button type="button" class="lnk" onclick="S.pending.cover=null;render(true)">✕ remove</button></div>`:""}
  <label>অতিরিক্ত ছবি (auto compress হবে)</label><input type="file" accept="image/*" multiple onchange="pick('files',this.files,this)">
@@ -183,7 +187,8 @@ function render(keep){const o=keep&&($("#f_title")||$("#em"))?snap():null;
 
 /* ---- actions ---- */
 function waText(p,id){const c=CATS[p.cat]||CATS.notice,b=(p.body||"").replace(/\s+/g," ").trim();
- return `📢 *${c.n} – ${p.title}*\n\n${b.slice(0,220)}${b.length>220?"…":""}\n\n🔗 ${location.origin}/p/${id}\n\n_Mirpur College Updates & Notices_`}
+ const g=(p.grp&&p.grp.length)?`\n👥 ${p.grp.join(", ")}`:"",d=p.dl?`\n📅 শেষ তারিখ: ${new Date(p.dl).toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"})}`:"";
+ return `📢 *${c.n} – ${p.title}*${g}${d}\n\n${b.slice(0,220)}${b.length>220?"…":""}\n\n🔗 ${location.origin}/p/${id}\n\n_Mirpur College Updates & Notices_`}
 function showShare(id,p){$("#sheet").innerHTML=`<h2 style="margin-top:0">✅ Post হয়েছে!</h2><p><small>এখন WhatsApp group-এ পাঠান: নিচের button চাপলে WhatsApp খুলবে, সেখানে group select করে Send দিন। চাইলে message বদলে নিতে পারেন।</small></p><textarea id="wa_t" style="min-height:190px">${esc(waText(p,id))}</textarea><div class="row"><button class="btn" onclick="openWA()">📲 WhatsApp-এ পাঠান</button><button class="btn ghost" onclick="copy($('#wa_t').value)">📋 Copy</button><button class="btn ghost" onclick="closeM()">Close</button></div>`;$("#modal").classList.add("open")}
 const openWA=()=>window.open("https://api.whatsapp.com/send?text="+encodeURIComponent($("#wa_t").value),"_blank");
 function waShare(id){const p=S.posts.find(x=>x.id==id);if(p)showShare(id,p)}
@@ -192,9 +197,9 @@ function cancelEdit(){S.edit=null;S.pending={cover:null,files:[]};render(false)}
 function parseLinks(t){return t.split("\n").map(x=>x.trim()).filter(Boolean).map(x=>{const i=x.indexOf("|");return i<0?{name:"Attachment",url:x}:{name:x.slice(0,i).trim()||"Attachment",url:x.slice(i+1).trim()}}).filter(a=>/^https?:\/\//.test(a.url)).map(a=>({id:"",name:a.name,type:"link",url:a.url}))}
 async function submitPost(){
  const title=$("#f_title").value.trim(),body=$("#f_body").value.trim();if(!title||!body)return toast("Title আর Details দিন");
- const old=S.posts.find(p=>p.id==S.edit),now=Date.now(),P=S.pending,b=$("#pubBtn");
+ const old=S.posts.find(p=>p.id==S.edit),now=Date.now(),P=S.pending,b=$("#pubBtn"),dlv=$("#f_dl").value;
  const data={title,body,cat:$("#f_cat").value,link:$("#f_link").value.trim(),pinned:$("#f_pin").checked,cover:P.cover||null,files:[...P.files,...parseLinks($("#f_links").value)],
-  ts:old?old.ts:now,by:old?(old.by||S.uid):S.uid,updated:now,nf:P.files.length+parseLinks($("#f_links").value).length+(/^https?:\/\//.test($("#f_link").value.trim())?1:0),hc:!!P.cover,
+  ts:old?old.ts:now,by:old?(old.by||S.uid):S.uid,updated:now,nf:P.files.length+parseLinks($("#f_links").value).length+(/^https?:\/\//.test($("#f_link").value.trim())?1:0),hc:!!P.cover,grp:[...document.querySelectorAll(".gcb:checked")].map(x=>x.value),dl:dlv?new Date(dlv+"T23:59:59").getTime():null,
   hist:old?[{ts:now,by:S.uid,title:old.title||"",body:old.body||"",cat:old.cat||"notice",link:old.link||""},...(old.hist||[])].slice(0,20):[]};
  const clean=JSON.parse(JSON.stringify(data));
  if(JSON.stringify(clean).length>950000)return toast("Post ta onek boro – chobi kombao");
