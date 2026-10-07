@@ -222,7 +222,7 @@ function panelV(){
  return `<h1 class="pt">⚙ Admin Panel</h1>
  <div class="adm"><div><div class="panel"><h3>${S.edit?"✏ Post Edit":"➕ নতুন Post"}</h3>
  <label>Category</label><select id="f_cat">${Object.entries(CATS).map(([k,c])=>`<option value="${k}" ${e.cat==k?"selected":""}>${c.i} ${c.n}</option>`).join("")}</select>
- <label>Title</label><input id="f_title" value="${esc(e.title)}"><label>Details</label><textarea id="f_body">${esc(e.body)}</textarea>
+ <label>Title</label><input id="f_title" value="${esc(e.title)}"><label>Details <small>(optional)</small></label><textarea id="f_body">${esc(e.body)}</textarea>
  <label>📄 কোন Page-এ দেখাবে? (কিছু select না করলে সব Page-এ)</label>
  ${YEARS.map(y=>`<div class="pgy">${esc(y)}</div><div class="gset" style="margin-bottom:8px">${DEPTS.map(d=>{const l=y+" · "+d;return `<label class="gchk"><input type="checkbox" class="gcb" value="${esc(l)}" ${sel.includes(l)?"checked":""}> ${esc(d)}</label>`}).join("")}</div>`).join("")}
  <div class="row" style="margin:0 0 4px"><button type="button" class="btn ghost sm" onclick="pgSet(true)">✔ সব Page</button><button type="button" class="btn ghost sm" onclick="pgSet(false)">✕ Clear</button></div>
@@ -257,7 +257,7 @@ function startEdit(id){const p=S.posts.find(x=>x.id==id);if(!p)return;S.edit=id;
 function cancelEdit(){S.edit=null;S.pending={cover:null,files:[]};render(false)}
 function parseLinks(t){return t.split("\n").map(x=>x.trim()).filter(Boolean).map(x=>{const i=x.indexOf("|");return i<0?{name:"Attachment",url:x}:{name:x.slice(0,i).trim()||"Attachment",url:x.slice(i+1).trim()}}).filter(a=>/^https?:\/\//.test(a.url)).map(a=>({id:"",name:a.name,type:"link",url:a.url}))}
 async function submitPost(){
- const title=$("#f_title").value.trim(),body=$("#f_body").value.trim();if(!title||!body)return toast("Title আর Details দিন");
+ const title=$("#f_title").value.trim(),body=$("#f_body").value.trim();if(!title)return toast("Title দিন");
  const old=S.posts.find(p=>p.id==S.edit),now=Date.now(),P=S.pending,b=$("#pubBtn"),dlv=$("#f_dl").value;
  const data={title,body,cat:$("#f_cat").value,link:$("#f_link").value.trim(),pinned:$("#f_pin").checked,cover:P.cover||null,files:[...P.files,...parseLinks($("#f_links").value)],
   ts:old?old.ts:now,by:old?(old.by||S.uid):S.uid,updated:now,nf:P.files.length+parseLinks($("#f_links").value).length+(/^https?:\/\//.test($("#f_link").value.trim())?1:0),hc:!!P.cover,grp:(g=>g.length==PAGES.length?[]:g)([...document.querySelectorAll(".gcb:checked")].map(x=>x.value)),dl:dlv?new Date(dlv+"T23:59:59").getTime():null,
