@@ -1,7 +1,15 @@
 // Service worker: app-er moto install + offline shell + PUSH NOTIFICATION. Admin ar API kokhono cache hoy na.
-const V = "mcn-v1";
+const V = "mcn-v2";
+const SHELL = ["/", "/logo.png", "/icon-192.png", "/manifest.webmanifest"];
+
 self.addEventListener("install", (e) => {
-  e.waitUntil(caches.open(V).then((c) => c.addAll(["/", "/logo.png", "/icon-192.png", "/manifest.webmanifest"])).then(() => self.skipWaiting()));
+  // ekta file fail korleo install jate bondho na hoy (age addAll fail hole SW kokhono active hoto na -> notification chalu hoto na)
+  e.waitUntil(
+    caches.open(V)
+      .then((c) => Promise.all(SHELL.map((u) => c.add(u).catch(() => {}))))
+      .catch(() => {})
+      .then(() => self.skipWaiting())
+  );
 });
 self.addEventListener("activate", (e) => {
   e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== V).map((k) => caches.delete(k)))).then(() => self.clients.claim()));
@@ -10,16 +18,21 @@ self.addEventListener("activate", (e) => {
 // ---- Push notification ----
 self.addEventListener("push", (e) => {
   let p = {};
-  try { p = e.data ? e.data.json() : {}; } catch (_) {}
+  try { p = e.data ? e.data.json() : {}; }
+  catch (_) { try { p = { body: e.data.text() }; } catch (__) {} }
   const d = p.data || p, n = p.notification || {};
   const title = d.title || n.title || "Mirpur College Updates";
-  e.waitUntil(self.registration.showNotification(title, {
+  const opts = {
     body: d.body || n.body || "নতুন আপডেট এসেছে — দেখতে ট্যাপ করুন",
     icon: "/icon-192.png",
     badge: "/icon-192.png",
-    tag: d.tag || undefined,
+    lang: "bn",
+    vibrate: [120, 60, 120],
     data: { url: d.url || "/" },
-  }));
+  };
+  if (d.tag) { opts.tag = d.tag; opts.renotify = true; }
+  // push ashle notification dekhano must (na dekhale browser permission tule nite pare)
+  e.waitUntil(self.registration.showNotification(title, opts));
 });
 self.addEventListener("notificationclick", (e) => {
   e.notification.close();
@@ -53,7 +66,7 @@ self.addEventListener("fetch", (e) => {
   // static files: cache first + background update
   e.respondWith(
     caches.match(r).then((hit) => {
-      const net = fetch(r).then((res) => { if (res.ok) { const copy = res.clone(); caches.open(V).then((c) => c.put(r, copy)); } return res; }).catch(() => hit);
+      const net = fetch(r).then((res) => { if (res.ok) { const copy = res.clone(); caches.open(V).then((c) => c.put(r, copy)); } return res; }).catch(() => hit || Response.error());
       return hit || net;
     })
   );
