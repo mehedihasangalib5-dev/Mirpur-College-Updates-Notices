@@ -2,11 +2,13 @@
 <html lang="bn"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="icon" type="image/png" href="logo.png"><link rel="apple-touch-icon" href="logo.png"><meta name="theme-color" content="#1d3fa8">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap">
+<script>try{var t=localStorage.getItem("mcn_theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 <title>Admin – Mirpur College Updates &amp; Notices</title>
 <style>
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f6f5fb;--card:#fff;--ink:#17152b;--mute:#6b6885;--line:#e7e4f3;--pri:#1d3fa8;--pri2:#3f6ae0;--sh:0 8px 30px rgba(60,40,140,.09)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e0d1a;--card:#171528;--ink:#f1efff;--mute:#9a97b8;--line:#2a2745;--sh:0 8px 30px rgba(0,0,0,.4);--pri:#5a7df5;--pri2:#5a7df5}}
-:root[data-theme="dark"]{--bg:#0e0d1a;--card:#171528;--ink:#f1efff;--mute:#9a97b8;--line:#2a2745;--sh:0 8px 30px rgba(0,0,0,.4);--pri:#5a7df5;--pri2:#5a7df5}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f4f6fb;--card:#fff;--ink:#0f172a;--mute:#64748b;--line:#e4e8f1;--pri:#2850e8;--pri2:#7c5cff;--acc:#f59e0b;--sh:0 16px 36px -16px rgba(30,50,120,.28);color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#080c1a;--card:#10172b;--ink:#eef2ff;--mute:#93a0c0;--line:#1f2a47;--pri:#5576ff;--pri2:#a28bff;--acc:#fbbf24;--sh:0 16px 36px -16px rgba(0,0,0,.7);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#080c1a;--card:#10172b;--ink:#eef2ff;--mute:#93a0c0;--line:#1f2a47;--pri:#5576ff;--pri2:#a28bff;--acc:#fbbf24;--sh:0 16px 36px -16px rgba(0,0,0,.7);color-scheme:dark}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 Inter,"Segoe UI","Noto Sans Bengali",system-ui,sans-serif}
 .wrap{max-width:1100px;margin:auto;padding:0 18px}
@@ -101,6 +103,50 @@ input[type=file]{padding:8px}input[type=file]::file-selector-button{border:0;bac
  footer{padding:20px 14px}
 }
 .gset{display:flex;flex-wrap:wrap;gap:8px}.gchk{display:flex!important;align-items:center;gap:6px;margin:0!important;padding:7px 12px;border:1px solid var(--line);border-radius:99px;font-weight:600!important;cursor:pointer}.gchk input{width:auto}
+
+/* ===== modern theme overrides ===== */
+body{font-family:Inter,"Hind Siliguri","Noto Sans Bengali","Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.65}
+header{z-index:6;backdrop-filter:saturate(1.6) blur(16px);-webkit-backdrop-filter:saturate(1.6) blur(16px);background:color-mix(in srgb,var(--bg) 78%,transparent)}
+.logo{font-size:17px;letter-spacing:-.01em;gap:10px}.logo img{box-shadow:0 0 0 2px var(--card),0 0 0 3px var(--line)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 18px;border-radius:14px;background:linear-gradient(135deg,var(--pri),var(--pri2));font-weight:700;box-shadow:0 8px 20px -8px color-mix(in srgb,var(--pri) 70%,transparent)}
+.btn:hover{filter:brightness(1.06)}.btn:active{transform:scale(.97)}.btn:disabled{opacity:.6;cursor:wait;transform:none}
+.ghost{background:var(--card);color:var(--ink);border:1px solid var(--line);box-shadow:none}.ghost:hover{border-color:var(--pri);color:var(--pri);filter:none}
+.danger{background:#ef4444;box-shadow:none}
+.sm{padding:7px 13px;font-size:13px;border-radius:12px;box-shadow:none}
+.lnk{font-weight:700}
+.pt{font-size:clamp(24px,4vw,30px);letter-spacing:-.02em;font-weight:800}
+.panel{border-radius:24px;padding:22px;box-shadow:0 1px 0 rgba(255,255,255,.02)}
+.panel h3{font-size:18px;letter-spacing:-.01em;margin-bottom:6px}
+label{margin:14px 0 6px}
+input,select,textarea{padding:12px 14px;border-radius:14px;transition:.2s}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--pri);box-shadow:0 0 0 4px color-mix(in srgb,var(--pri) 16%,transparent)}
+input[type=file]::file-selector-button{background:linear-gradient(135deg,var(--pri),var(--pri2));border-radius:10px}
+.note{border-radius:14px;padding:12px 14px;border:1px solid color-mix(in srgb,var(--pri) 18%,transparent)}
+code{border-radius:9px}
+.li{padding:12px 0}
+.li.post{transition:.2s}.li.post:hover{background:color-mix(in srgb,var(--pri) 5%,transparent)}
+.li.post>span:first-child{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--pri) 10%,transparent);font-size:18px}
+.li .ttl b{font-weight:700}
+.acts .btn{padding:6px 11px}
+.gchk{transition:.2s}.gchk:hover{border-color:var(--pri)}
+.gchk:has(input:checked){background:color-mix(in srgb,var(--pri) 14%,transparent);border-color:var(--pri);color:var(--pri)}
+.pend{padding:8px 12px;border:1px dashed var(--line);border-radius:12px;margin-top:8px;justify-content:space-between}
+.auth{border-radius:32px;box-shadow:0 40px 80px -30px color-mix(in srgb,var(--pri) 55%,transparent)}
+.auth-side{background:radial-gradient(70% 60% at 0% 0%,rgba(255,255,255,.18),transparent 70%),linear-gradient(150deg,#2850e8,#6d4df0)}
+.auth-side h2{letter-spacing:-.02em}.auth-side li{backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.12)}
+.tabs{border-radius:16px;border:1px solid var(--line)}.tabs button{border-radius:12px}.tabs button.on{color:var(--pri)}
+.fld{border-radius:16px}.fld input{box-shadow:none!important}
+.wide{border-radius:16px}
+.toast{padding:11px 20px;border-radius:14px;font-weight:600;max-width:90vw;box-shadow:var(--sh)}
+.sheet{border-radius:28px}
+footer a{color:var(--pri)}
+.adm{align-items:start}
+.or{display:flex;align-items:center;gap:10px;color:var(--mute);font-size:12.5px;font-weight:600;margin:18px 0 4px}.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+.gbtn{gap:10px;padding:13px}.hint{color:var(--mute);font-size:12.5px;margin:14px 0 0;text-align:center}
+.sentbox{text-align:center;padding:10px 0}.sentbox .big-ic{font-size:54px;line-height:1}.sentbox h3{margin:10px 0 6px;font-size:22px}.sentbox p{margin:0 0 10px}
+.auth-side>.blob{position:absolute}
+input[type=checkbox]{accent-color:var(--pri);width:18px;height:18px;padding:0}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="admin.html"><img src="logo.png" alt="Logo">Admin Panel</a><div class="sp"></div>
 <div class="hdr-r"><a class="btn ghost sm" href="index.html" target="_blank">🌐<span class="hd"> Website</span></a><button class="btn ghost sm" id="theme">🌓</button><button class="btn ghost sm" id="outBtn" style="display:none" onclick="logout()">Logout</button></div></div></header>
@@ -119,11 +165,14 @@ const ok=u=>/^(https?:|data:image\/)/.test(u||"");
 function toast(m){const t=$("#toast");t.textContent=m;t.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display="none",2600)}
 function closeM(){$("#modal").classList.remove("open")}
 $("#modal").addEventListener("click",e=>{if(e.target.id=="modal")closeM()});
-$("#theme").onclick=()=>{const d=document.documentElement;d.dataset.theme=getComputedStyle(d).getPropertyValue("--bg").trim()=="#0e0d1a"?"light":"dark"};
+$("#theme").onclick=()=>{const d=document.documentElement,t=(d.dataset.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"))=="dark"?"light":"dark";d.dataset.theme=t;try{localStorage.setItem("mcn_theme",t)}catch(e){}};
 
-const S={posts:[],admins:[],msgs:[],uid:null,email:null,cfg:false,ready:false,edit:null,pending:{cover:null,files:[]},mode:"in"};let FB=null;
-const isAdmin=()=>!!S.uid&&S.admins.includes(S.uid),isOwner=()=>!!S.uid&&S.admins[0]===S.uid;
-const FIELDS=["f_cat","f_title","f_body","f_links","f_link","f_dl","em","pw","pw2"];
+const S={posts:[],emails:[],ids:[],msgs:[],uid:null,email:null,verified:false,cfg:false,ready:false,edit:null,pending:{cover:null,files:[]},sent:null};let FB=null;
+const me=()=>(S.email||"").toLowerCase();
+// Email allowlist: config/admins.emails (Owner = prothom email). Purono UID (config/admins.ids) o chole (backward compatible).
+const isAdmin=()=>!!S.uid&&(S.ids.includes(S.uid)||(S.verified&&S.emails.includes(me())));
+const isOwner=()=>!!S.uid&&(S.ids[0]===S.uid||(S.verified&&S.emails[0]===me()));
+const FIELDS=["f_cat","f_title","f_body","f_links","f_link","f_dl","em"];
 function snap(){const o={};FIELDS.forEach(i=>{const e=$("#"+i);if(e)o[i]=e.value});const p=$("#f_pin");if(p)o.pin=p.checked;o.grp=[...document.querySelectorAll(".gcb:checked")].map(x=>x.value);return o}
 function restore(o){FIELDS.forEach(i=>{const e=$("#"+i);if(e&&o[i]!=null)e.value=o[i]});const p=$("#f_pin");if(p&&o.pin!=null)p.checked=o.pin;if(o.grp)document.querySelectorAll(".gcb").forEach(x=>x.checked=o.grp.includes(x.value))}
 function copy(t){navigator.clipboard&&navigator.clipboard.writeText(t);toast("Copied")}
@@ -147,17 +196,17 @@ async function pick(kind,files,input){
 
 /* ---- views ---- */
 const loadingV=()=>`<div class="panel" style="margin-top:40px;text-align:center"><p>লোড হচ্ছে…</p></div>`;
-function deniedV(){return `<div class="panel" style="margin:40px auto;max-width:560px;text-align:center"><h2>🔒 Access নেই</h2><p>এই account (${esc(S.email||"")}) admin না। Access পেতে নিচের UID টি Owner-কে পাঠান:</p><code>${esc(S.uid)}</code><div class="row" style="justify-content:center"><button class="btn sm" onclick="copy('${esc(S.uid)}')">Copy UID</button><button class="btn ghost sm" onclick="logout()">Logout</button></div></div>`}
-function loginV(){const up=S.mode=="up";
+function deniedV(){return `<div class="panel" style="margin:40px auto;max-width:560px;text-align:center"><h2>🔒 Access নেই</h2><p>এই email (<b>${esc(S.email||"")}</b>) এর admin access নেই।<br>Access পেতে Owner-কে বলুন এই email টি Admin Access-এ add করতে।</p><div class="row" style="justify-content:center"><button class="btn sm" onclick="copy('${esc(S.email||"")}')">Copy email</button><button class="btn ghost sm" onclick="logout()">অন্য email দিয়ে Login</button></div></div>`}
+function loginV(){let saved="";try{saved=localStorage.getItem("mcn_admin_email")||""}catch(e){}
  return `<section class="auth"><div class="auth-side"><div class="blob b1"></div><div class="blob b2"></div><div class="auth-brand"><img src="logo.png" alt="Logo">Mirpur College<br>Updates &amp; Notices</div>
- <h2>${up?"নতুন account খুলুন":"Admin Login 🔐"}</h2><p>Login করে notice, syllabus ও update manage করুন।</p>
+ <h2>Admin Access 🔐</h2><p>শুধু অনুমোদিত email দিয়ে ঢোকা যাবে — কোনো password বা sign up লাগে না।</p>
  <ul><li>📢 Notice ও Syllabus post করুন</li><li>🖼 ছবি ও 📎 file link যোগ করুন</li><li>🕘 Edit history ও restore</li></ul></div>
- <div class="auth-card"><div class="tabs"><button class="${up?"":"on"}" onclick="setMode('in')">Login</button><button class="${up?"on":""}" onclick="setMode('up')">Sign up</button></div>
- <form onsubmit="doAuth(event)"><label>Email</label><div class="fld"><span>✉</span><input id="em" type="email" required autocomplete="email" placeholder="you@example.com"></div>
- <label>Password</label><div class="fld"><span>🔒</span><input id="pw" type="password" required minlength="6" autocomplete="${up?"new-password":"current-password"}" placeholder="••••••••"><button type="button" class="eye" onclick="const i=$('#pw');i.type=i.type=='password'?'text':'password'">👁</button></div>
- ${up?`<label>Confirm Password</label><div class="fld"><span>🔒</span><input id="pw2" type="password" required minlength="6" placeholder="••••••••"></div>`:""}
- <div class="err" id="aerr"></div><button class="btn wide" id="abtn">${up?"Create Account":"Login"}</button></form>
- ${up?"":'<div class="row" style="margin-top:14px"><button class="lnk" onclick="forgot()">Password bhule gechen?</button></div>'}</div></section>`}
+ <div class="auth-card">${S.sent?`<div class="sentbox"><div class="big-ic">📬</div><h3>Email check করুন</h3><p>Login link পাঠানো হয়েছে:<br><b>${esc(S.sent)}</b></p><small>Inbox না পেলে Spam/Promotions folder দেখুন। Link-এ click করলেই login হবে।</small><div class="row" style="justify-content:center"><button class="btn ghost sm" onclick="S.sent=null;render(false)">← অন্য email</button></div></div>`
+ :`<button type="button" class="btn ghost wide gbtn" onclick="googleIn()"><svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.5 28.7a14.5 14.5 0 010-9.4l-7.9-6.1a24 24 0 000 21.6l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.9 2.3-8.4 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>Google দিয়ে Continue</button>
+ <div class="or"><span>অথবা email link দিয়ে</span></div>
+ <form onsubmit="sendLink(event)"><label>আপনার Email</label><div class="fld"><span>✉</span><input id="em" type="email" required autocomplete="email" placeholder="you@example.com" value="${esc(saved)}"></div>
+ <div class="err" id="aerr"></div><button class="btn wide" id="abtn">✉ Login link পাঠান</button></form>
+ <p class="hint">Email-এ একটি link যাবে, সেখানে click করলেই login — password লাগবে না। শুধু Owner যাদের email add করেছেন তারাই ঢুকতে পারবে।</p>`}</div></section>`}
 function panelV(){
  const e=S.posts.find(p=>p.id==S.edit)||{cat:"notice",title:"",body:"",link:"",pinned:false,files:[]},P=S.pending;
  const links=(e.files||[]).filter(f=>f.type=="link").map(f=>f.name+" | "+f.url).join("\n");
@@ -174,10 +223,12 @@ function panelV(){
  <label>Attachment links (PDF/Doc – Google Drive লিংক)</label><textarea id="f_links" style="min-height:80px" placeholder="Syllabus PDF | https://drive.google.com/file/d/...&#10;Routine | https://...">${esc(links)}</textarea><small>প্রতি লাইনে একটি: নাম | লিংক</small>
  <label>Extra Link (optional)</label><input id="f_link" value="${esc(e.link||"")}" placeholder="https://…">
  <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="f_pin" style="width:auto" ${e.pinned?"checked":""}> 📌 Pin to top</label>
+ <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="f_push" style="width:auto" ${S.edit?"":"checked"}> 🔔 Push notification pathao (phone-e alert)</label>
  <div class="row"><button class="btn" id="pubBtn" onclick="submitPost()">${S.edit?"Update":"Publish"}</button>${S.edit?'<button class="btn ghost" onclick="cancelEdit()">Cancel</button>':""}</div></div>
- <div class="panel"><h3>👤 Admin Management (UID)</h3><div class="note">আপনার UID: <code>${esc(S.uid)}</code> <button class="lnk" onclick="copy('${esc(S.uid)}')">copy</button><br>কাউকে admin করতে তার UID দিন। ${isOwner()?"":"(শুধু Owner পরিবর্তন করতে পারে)"}</div>
- ${isOwner()?`<div class="row" style="margin:0 0 10px"><input id="newuid" placeholder="UID paste করুন" style="flex:1"><button class="btn sm" onclick="addAdmin()">Add</button></div>`:""}
- ${S.admins.map((u,i)=>`<div class="li"><div><code>${esc(u)}</code>${i==0?" <small>(Owner)</small>":""}</div>${isOwner()&&i>0?`<button class="btn danger sm" onclick="rmAdmin('${esc(u)}')">Remove</button>`:""}</div>`).join("")}</div></div>
+ <div class="panel"><h3>👤 Admin Access (Email)</h3><div class="note">আপনার email: <code>${esc(S.email||"")}</code><br>কাউকে access দিতে তার email নিচে add করুন — সে Google বা email link দিয়ে login করে panel ব্যবহার করতে পারবে। ${isOwner()?"":"(শুধু Owner পরিবর্তন করতে পারে)"}</div>
+ ${isOwner()?`<form class="row" style="margin:0 0 10px;flex-wrap:nowrap" onsubmit="addAdmin(event)"><input id="newem" type="email" required placeholder="name@gmail.com" style="flex:1;min-width:0"><button class="btn sm">Add</button></form>`:""}
+ ${S.emails.map((u,i)=>`<div class="li"><div><code>${esc(u)}</code>${i==0?" <small>(Owner)</small>":""}${u==me()?" <small>(আপনি)</small>":""}</div>${isOwner()&&i>0?`<button class="btn danger sm" onclick="rmAdmin('${esc(u)}')">Remove</button>`:""}</div>`).join("")||"<small>কোনো email নেই</small>"}
+ ${S.ids.map((u,i)=>`<div class="li"><div><code>${esc(u)}</code> <small>(পুরনো UID access)</small></div>${isOwner()?`<button class="btn danger sm" onclick="rmId('${esc(u)}')">Remove</button>`:""}</div>`).join("")}</div></div>
  <div class="panel"><h3>সব Post (${S.posts.length})</h3>${sorted(S.posts).map(p=>`<div class="li post"><span>${(CATS[p.cat]||CATS.notice).i}</span><div class="ttl"><b>${esc(p.title)}</b><small>${fmt(p.ts)}${p.hist&&p.hist.length?" · ✎ "+p.hist.length+" edits":""}</small></div>
  <div class="acts"><button class="btn ghost sm" onclick="waShare('${p.id}')">📲</button><button class="btn ghost sm" onclick="startEdit('${p.id}')">Edit</button>${p.hist&&p.hist.length?`<button class="btn ghost sm" onclick="showHist('${p.id}')">History</button>`:""}<button class="btn danger sm" onclick="del('${p.id}')">Delete</button></div></div>`).join("")||"<small>কিছু নেই</small>"}</div></div>
  <div class="panel" style="margin-bottom:50px"><h3>📨 Contact Messages (${S.msgs.length})</h3>${[...S.msgs].sort((a,b)=>b.ts-a.ts).map(m=>`<div class="li msg"><b>${esc(m.subject)}</b><small>${esc(m.name)} · ${esc(m.email)}${m.phone?" · "+esc(m.phone):""} · ${fmt(m.ts)}</small><p class="body">${esc(m.message)}</p><div class="acts"><a class="btn ghost sm" href="mailto:${esc(m.email)}?subject=${encodeURIComponent("Re: "+m.subject)}">Reply</a><button class="btn danger sm" onclick="delMsg('${m.id}')">Delete</button></div></div>`).join("")||"<small>কোনো message নেই</small>"}</div>`}
@@ -203,15 +254,20 @@ async function submitPost(){
   hist:old?[{ts:now,by:S.uid,title:old.title||"",body:old.body||"",cat:old.cat||"notice",link:old.link||""},...(old.hist||[])].slice(0,20):[]};
  const clean=JSON.parse(JSON.stringify(data));
  if(JSON.stringify(clean).length>950000)return toast("Post ta onek boro – chobi kombao");
+ const wantPush=!!($("#f_push")&&$("#f_push").checked),eid=S.edit;
  b.disabled=true;
  try{let nid=null;if(S.edit)await FB.setDoc(FB.doc(FB.db,"posts",S.edit),clean);else nid=(await FB.addDoc(FB.collection(FB.db,"posts"),clean)).id;
-  toast(S.edit?"Updated ✔":"Published ✔");S.edit=null;S.pending={cover:null,files:[]};render(false);if(nid)showShare(nid,clean)}
+  toast(S.edit?"Updated ✔":"Published ✔");S.edit=null;S.pending={cover:null,files:[]};render(false);if(nid)showShare(nid,clean);if(wantPush&&(nid||eid))sendPush(nid||eid)}
  catch(e){toast("Save hoyni: "+(e.code||e.message));b.disabled=false}}
+async function sendPush(id){try{const tk=await FB.auth.currentUser.getIdToken();
+ const r=await fetch("/api/notify",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+tk},body:JSON.stringify({id})});
+ const j=await r.json().catch(()=>({}));toast(r.ok?"🔔 Push pathano hoyeche ✔":"Push hoyni: "+(j.error||r.status))}catch(e){toast("Push hoyni: "+(e.message||e))}}
 async function del(id){if(!confirm("Delete করবেন?"))return;try{await FB.deleteDoc(FB.doc(FB.db,"posts",id));if(S.edit==id)cancelEdit();toast("Deleted")}catch(e){toast("Delete hoyni: "+(e.code||e.message))}}
 async function delMsg(id){if(!confirm("Message delete করবেন?"))return;try{await FB.deleteDoc(FB.doc(FB.db,"messages",id))}catch(e){toast("Delete hoyni")}}
-async function saveAdmins(ids){try{await FB.setDoc(FB.doc(FB.db,"config","admins"),{ids})}catch(e){toast("Save hoyni: "+(e.code||e.message))}}
-const addAdmin=()=>{const v=$("#newuid").value.trim();if(v&&!S.admins.includes(v))saveAdmins([...S.admins,v])};
-const rmAdmin=u=>{if(confirm("Remove করবেন?"))saveAdmins(S.admins.filter(x=>x!=u))};
+async function saveAdmins(emails,ids){try{await FB.setDoc(FB.doc(FB.db,"config","admins"),ids&&ids.length?{emails,ids}:{emails});toast("Saved ✔")}catch(e){toast("Save hoyni: "+(e.code||e.message))}}
+function addAdmin(ev){ev.preventDefault();const v=$("#newem").value.trim().toLowerCase();if(!/^\S+@\S+\.\S+$/.test(v))return toast("Email ta thik na");if(S.emails.includes(v))return toast("Ei email age-i ache");saveAdmins([...S.emails,v],S.ids)}
+const rmAdmin=u=>{if(confirm(u+" -এর access তুলে নেবেন?"))saveAdmins(S.emails.filter(x=>x!=u),S.ids)};
+const rmId=u=>{if(confirm("পুরনো UID access তুলে নেবেন?"))saveAdmins(S.emails,S.ids.filter(x=>x!=u))};
 function showHist(id){const p=S.posts.find(x=>x.id==id);
  $("#sheet").innerHTML=`<h2 style="margin-top:0">✎ Edit History</h2>${(p.hist||[]).map((h,i)=>`<div class="li"><div><b>${esc(h.title)}</b><small>${fmt(h.ts)} · ${(CATS[h.cat]||CATS.notice).n}</small><br><small>${esc((h.body||"").slice(0,120))}…</small></div><button class="btn ghost sm" onclick="restoreV('${id}',${i})">Restore</button></div>`).join("")}<div class="row"><button class="btn ghost" onclick="closeM()">Close</button></div>`;$("#modal").classList.add("open")}
 async function restoreV(id,i){const p=S.posts.find(x=>x.id==id),h=p.hist[i],now=Date.now();
@@ -219,34 +275,36 @@ async function restoreV(id,i){const p=S.posts.find(x=>x.id==id),h=p.hist[i],now=
  try{await FB.setDoc(FB.doc(FB.db,"posts",id),JSON.parse(JSON.stringify(d)));closeM();toast("Restored ✔")}catch(e){toast("Restore hoyni: "+(e.code||e.message))}}
 
 /* ---- auth ---- */
-function setMode(m){S.mode=m;render(false)}
-function authErr(c){return({"auth/invalid-credential":"Email ba password vul.","auth/invalid-email":"Email ta thik na.","auth/email-already-in-use":"Ei email diye age-i account ache.","auth/weak-password":"Password kompokkhe 6 character dite hobe.","auth/too-many-requests":"Onek beshi try hoyeche, ektu pore abar chesta korun.","auth/network-request-failed":"Internet connection check korun.","auth/operation-not-allowed":"Firebase Console-e Email/Password sign-in enable korun."})[c]||("Error: "+c)}
-async function doAuth(e){e.preventDefault();const er=$("#aerr"),b=$("#abtn");er.textContent="";
+function authErr(c){return({"auth/invalid-email":"Email ta thik na.","auth/too-many-requests":"Onek beshi try hoyeche, ektu pore abar chesta korun.","auth/network-request-failed":"Internet connection check korun.","auth/operation-not-allowed":"Firebase Console → Authentication → Sign-in method-e Google ar Email/Password (Email link) enable korun.","auth/unauthorized-continue-uri":"Firebase Console → Authentication → Settings → Authorized domains-e ei site-er domain add korun.","auth/unauthorized-domain":"Firebase Console → Authentication → Settings → Authorized domains-e ei site-er domain add korun.","auth/invalid-action-code":"Link ta purono ba age-i use hoyeche — notun link nin.","auth/expired-action-code":"Link-er somoy shesh — notun link nin.","auth/popup-blocked":"Popup block hoyeche — allow kore abar chesta korun."})[c]||("Error: "+c)}
+async function sendLink(e){e.preventDefault();const er=$("#aerr"),b=$("#abtn");er.textContent="";
  if(!FB){er.textContent="Firebase connect hoyni (file:// e kaj kore na, website-e deploy korun).";return}
- const em=$("#em").value.trim(),pw=$("#pw").value,up=S.mode=="up";
- if(up&&pw!=$("#pw2").value){er.textContent="Password duita mile ni.";return}
- b.disabled=true;b.textContent="অপেক্ষা করুন…";
- try{up?await FB.createUserWithEmailAndPassword(FB.auth,em,pw):await FB.signInWithEmailAndPassword(FB.auth,em,pw)}
- catch(x){er.textContent=authErr(x.code||x.message);b.disabled=false;b.textContent=up?"Create Account":"Login"}}
-async function forgot(){const em=$("#em").value.trim(),er=$("#aerr");if(!em){er.textContent="Age email likhun.";return}
- try{await FB.sendPasswordResetEmail(FB.auth,em);toast("Reset email pathano hoyeche")}catch(x){er.textContent=authErr(x.code)}}
+ const em=$("#em").value.trim().toLowerCase();b.disabled=true;b.textContent="অপেক্ষা করুন…";
+ try{await FB.sendSignInLinkToEmail(FB.auth,em,{url:location.origin+location.pathname,handleCodeInApp:true});try{localStorage.setItem("mcn_admin_email",em)}catch(x){}S.sent=em;render(false)}
+ catch(x){er.textContent=authErr(x.code||x.message);b.disabled=false;b.textContent="✉ Login link পাঠান"}}
+async function googleIn(){const er=$("#aerr");if(er)er.textContent="";if(!FB)return toast("Firebase connect hoyni");
+ try{await FB.signInWithPopup(FB.auth,new FB.GoogleAuthProvider())}
+ catch(x){if(x.code=="auth/popup-closed-by-user"||x.code=="auth/cancelled-popup-request")return;const m=authErr(x.code||x.message);er?er.textContent=m:toast(m)}}
 function logout(){FB&&FB.signOut(FB.auth);toast("Logged out")}
 
 window.initBackend=f=>{FB=f;let uCfg=null,uMsg=null;
  FB.onSnapshot(FB.collection(FB.db,"posts"),sn=>{S.posts=sn.docs.map(d=>({id:d.id,...d.data()}));render(true)},e=>toast("Posts load hoyni: "+e.code));
- FB.onAuthStateChanged(FB.auth,u=>{S.ready=true;S.uid=u?u.uid:null;S.email=u?u.email:null;
-  uCfg&&uCfg();uMsg&&uMsg();uCfg=uMsg=null;S.admins=[];S.msgs=[];S.cfg=!u;
-  if(u){uCfg=FB.onSnapshot(FB.doc(FB.db,"config","admins"),d=>{S.admins=(d.exists()&&d.data().ids)||[];S.cfg=true;render(true)},()=>{S.cfg=true;render(true)});
+ FB.onAuthStateChanged(FB.auth,u=>{S.ready=true;S.uid=u?u.uid:null;S.email=u?u.email:null;S.verified=!!(u&&u.emailVerified);if(u)S.sent=null;
+  uCfg&&uCfg();uMsg&&uMsg();uCfg=uMsg=null;S.emails=[];S.ids=[];S.msgs=[];S.cfg=!u;
+  if(u){uCfg=FB.onSnapshot(FB.doc(FB.db,"config","admins"),d=>{const x=d.exists()?d.data():{};S.emails=(x.emails||[]).map(v=>String(v).toLowerCase());S.ids=x.ids||[];S.cfg=true;render(true)},()=>{S.cfg=true;render(true)});
    uMsg=FB.onSnapshot(FB.collection(FB.db,"messages"),sn=>{S.msgs=sn.docs.map(d=>({id:d.id,...d.data()}));render(true)},()=>{})}
-  render(false)})};
+  render(false)});
+ // email link-e click kore ashle login complete koro
+ if(FB.isSignInWithEmailLink(FB.auth,location.href)){let em="";try{em=localStorage.getItem("mcn_admin_email")||""}catch(x){}
+  if(!em)em=(prompt("Link-e use kora email ta likhun (confirm korar jonno):")||"").trim().toLowerCase();
+  if(em)FB.signInWithEmailLink(FB.auth,em,location.href).then(()=>{try{localStorage.removeItem("mcn_admin_email")}catch(x){}history.replaceState(null,"",location.pathname)}).catch(x=>toast(authErr(x.code||x.message)))}};
 window.backendFailed=()=>{S.ready=true;render(false);toast("Firebase connect hoyni")};
 render(false);
 </script>
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,createUserWithEmailAndPassword,signOut,sendPasswordResetEmail} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+import {getAuth,onAuthStateChanged,signOut,sendSignInLinkToEmail,isSignInWithEmailLink,signInWithEmailLink,GoogleAuthProvider,signInWithPopup} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 import {getFirestore,collection,doc,addDoc,setDoc,deleteDoc,onSnapshot} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 const firebaseConfig={apiKey:"AIzaSyAgZV0TeVSXYYnQiKqGKq7N2hAWk4FU4fo",authDomain:"muc-network-50a06.firebaseapp.com",projectId:"muc-network-50a06",storageBucket:"muc-network-50a06.firebasestorage.app",messagingSenderId:"143299318658",appId:"1:143299318658:web:5bb77c759dbd075f51359b"};
-try{const app=initializeApp(firebaseConfig);window.initBackend({auth:getAuth(app),db:getFirestore(app),onAuthStateChanged,signInWithEmailAndPassword,createUserWithEmailAndPassword,signOut,sendPasswordResetEmail,collection,doc,addDoc,setDoc,deleteDoc,onSnapshot})}
+try{const app=initializeApp(firebaseConfig);window.initBackend({auth:getAuth(app),db:getFirestore(app),onAuthStateChanged,signOut,sendSignInLinkToEmail,isSignInWithEmailLink,signInWithEmailLink,GoogleAuthProvider,signInWithPopup,collection,doc,addDoc,setDoc,deleteDoc,onSnapshot})}
 catch(e){console.error(e);window.backendFailed()}
 </script></body></html>
