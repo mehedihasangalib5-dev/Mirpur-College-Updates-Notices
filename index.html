@@ -323,29 +323,36 @@ function pagesOf(p){const g=p.grp||[];if(!g.length)return PAGES;const out=new Se
  if(ly.length||ld.length)(ly.length?ly:YEARS).forEach(y=>(ld.length?ld:DEPTS).forEach(d=>out.add(y+" · "+d)));return out.size?[...out]:PAGES}
 const myPage=()=>U.prof?U.prof.year+" · "+U.prof.dept:"";
 const vis=p=>!!U.prof&&pagesOf(p).includes(myPage());
-const AUTHERR={"auth/invalid-credential":"Email ba Password thik noy","auth/wrong-password":"Email ba Password thik noy","auth/user-not-found":"Email ba Password thik noy","auth/invalid-login-credentials":"Email ba Password thik noy","auth/email-already-in-use":"Ei email-e age-i account ache — Login tab-e jan","auth/weak-password":"Password kompokkhe 6 ta character hote hobe","auth/invalid-email":"Email ta thik noy","auth/network-request-failed":"Internet connection check korun","auth/too-many-requests":"Onek bar try hoyeche, kichukkhon pore abar chesta korun","auth/operation-not-allowed":"Firebase Console → Authentication → Sign-in method → Email/Password chalu korun"};
+const AUTHERR={"auth/invalid-credential":"Email ba Password thik noy","auth/wrong-password":"Email ba Password thik noy","auth/user-not-found":"Email ba Password thik noy","auth/invalid-login-credentials":"Email ba Password thik noy","auth/email-already-in-use":"Ei email-e age-i account ache — Login tab-e jan","auth/weak-password":"Password kompokkhe 6 ta character hote hobe","auth/invalid-email":"Email ta thik noy","auth/expired-action-code":"Link-er meyad shesh hoye geche — abar Reset korun","auth/invalid-action-code":"Link ta thik noy ba age-i use hoyeche — abar Reset korun","auth/network-request-failed":"Internet connection check korun","auth/too-many-requests":"Onek bar try hoyeche, kichukkhon pore abar chesta korun","auth/operation-not-allowed":"Firebase Console → Authentication → Sign-in method → Email/Password chalu korun"};
 const authErr=e=>{const c=(e&&e.code)||"";return AUTHERR[c]||("Problem: "+(c||(e&&e.message)||e))};
 function paintMe(){const b=$("#meBtn");if(!U.prof||root.classList.contains("gated")){b.style.display="none";return}b.style.display="flex";b.innerHTML=avInner();b.title=U.prof.name+" — Profile"}
 const gv=id=>{const e=$("#"+id);return e?e.value:""};
 const gVals=()=>({name:gv("g_name").trim(),year:gv("g_year"),dept:gv("g_dept"),email:gv("g_email").trim()});
 function gErrShow(m){const e=$("#gErr");if(e){e.textContent=m||"";e.style.display=m?"block":"none"}}
-function renderGate(v){v=v||{};const m=U.mode,cp=m=="complete",su=m=="signup",p=U.prof||{};
+function renderGate(v){v=v||{};const m=U.mode,cp=m=="complete",su=m=="signup",re=m=="reset",np=m=="newpw",p=U.prof||{};
  const nm=v.name??p.name??"",yr=v.year??p.year??"",dp=v.dept??p.dept??"";
- $("#gate").innerHTML=`<div class="gbox"><img class="glogo" src="logo.png" alt=""><h1>${cp?"Profile সম্পূর্ণ করুন":"স্বাগতম 👋"}</h1><p class="gs">${cp?"আপনার Year ও Department select করুন":su?"Account খুলে আপনার Year ও Department-এর update দেখুন":"Email ও Password দিয়ে Login করুন"}</p>
- ${cp?"":`<div class="gtabs"><button type="button" class="${su?"":"on"}" onclick="gMode('login')">Login</button><button type="button" class="${su?"on":""}" onclick="gMode('signup')">Sign up</button></div>`}
+ if(np&&U.rcBad){$("#gate").innerHTML=`<div class="gbox"><img class="glogo" src="logo.png" alt=""><h1>Link কাজ করছে না ⚠️</h1><p class="gs">এই Link-এর মেয়াদ শেষ হয়ে গেছে বা আগেই ব্যবহার করা হয়েছে। নতুন করে Reset করুন।</p><button class="btn" type="button" onclick="gMode('reset')" style="width:100%;justify-content:center;margin-top:14px;padding:12px">নতুন Reset link নিন →</button></div>`;return}
+ if(np){$("#gate").innerHTML=`<div class="gbox"><img class="glogo" src="logo.png" alt=""><h1>নতুন Password দিন 🔑</h1><p class="gs">${U.rcEmail?esc(U.rcEmail)+" Account-এর জন্য নতুন Password দিন":"Link যাচাই করা হচ্ছে…"}</p>
+ <form id="gForm" onsubmit="gSubmit(event)">
+ <label>New Password *</label><div class="pw"><input id="g_pw" type="password" required minlength="6" maxlength="64" autocomplete="new-password"><button type="button" onclick="togglePw()" aria-label="Show password">👁</button></div>
+ <label>Confirm Password *</label><div class="pw"><input id="g_pw2" type="password" required minlength="6" maxlength="64" autocomplete="new-password"></div>
+ <div class="gerr" id="gErr"></div>
+ <button class="btn" id="g_btn">Password বদলান →</button></form></div>`;return}
+ if(re&&U.sent){$("#gate").innerHTML=`<div class="gbox"><img class="glogo" src="logo.png" alt=""><h1>Email পাঠানো হয়েছে ✅</h1><p class="gs">${esc(U.sent)} ঠিকানায় Password reset link পাঠানো হয়েছে। Inbox দেখুন, না পেলে Spam folder দেখুন। Email-এর link-এ click করলে এই সাইটেই নতুন Password ও Confirm Password দিতে পারবেন।</p><button class="btn" type="button" onclick="gMode('login')" style="width:100%;justify-content:center;margin-top:14px;padding:12px">← Login-এ ফিরে যান</button></div>`;return}
+ $("#gate").innerHTML=`<div class="gbox"><img class="glogo" src="logo.png" alt=""><h1>${cp?"Profile সম্পূর্ণ করুন":re?"Password Reset 🔑":"স্বাগতম 👋"}</h1><p class="gs">${cp?"আপনার Year ও Department select করুন":re?"আপনার Account-এর Email দিন, Password reset করার link পাঠানো হবে":su?"Account খুলে আপনার Year ও Department-এর update দেখুন":"Email ও Password দিয়ে Login করুন"}</p>
+ ${cp||re?"":`<div class="gtabs"><button type="button" class="${su?"":"on"}" onclick="gMode('login')">Login</button><button type="button" class="${su?"on":""}" onclick="gMode('signup')">Sign up</button></div>`}
  <form id="gForm" onsubmit="gSubmit(event)">
  ${su||cp?`<label>Name${su||cp?" *":""}</label><input id="g_name" maxlength="80" ${su||cp?"required":""} autocomplete="name" placeholder="আপনার নাম" value="${esc(nm)}">
  <div class="two"><div><label>Year *</label><select id="g_year" required><option value="">Select</option>${opts(YEARS,yr)}</select></div><div><label>Department *</label><select id="g_dept" required><option value="">Select</option>${opts(DEPTS,dp)}</select></div></div>`:""}
  ${cp?"":`<label>Email *</label><input id="g_email" type="email" required maxlength="120" autocomplete="email" placeholder="you@example.com" value="${esc(v.email||"")}">
- <label>Password *</label><div class="pw"><input id="g_pw" type="password" required minlength="6" maxlength="64" autocomplete="${su?"new-password":"current-password"}"><button type="button" onclick="togglePw()" aria-label="Show password">👁</button></div>`}
+ ${re?"":`<label>Password *</label><div class="pw"><input id="g_pw" type="password" required minlength="6" maxlength="64" autocomplete="${su?"new-password":"current-password"}"><button type="button" onclick="togglePw()" aria-label="Show password">👁</button></div>`}`}
  <div class="gerr" id="gErr"></div>
- <button class="btn" id="g_btn">${cp?"Continue →":su?"Account খুলুন →":"Login →"}</button></form>
- <div class="gfoot">${cp?'<button type="button" class="lnk" onclick="logout()">Log out</button>':su?"":'<button type="button" class="lnk" onclick="gForgot()">Password ভুলে গেছেন?</button>'}</div></div>`}
+ <button class="btn" id="g_btn">${cp?"Continue →":su?"Account খুলুন →":re?"Reset link পাঠান →":"Login →"}</button></form>
+ <div class="gfoot">${cp?'<button type="button" class="lnk" onclick="logout()">Log out</button>':re?'<button type="button" class="lnk" onclick="gMode(\'login\')">← Login-এ ফিরে যান</button>':su?"":'<button type="button" class="lnk" onclick="gMode(\'reset\')">Password ভুলে গেছেন?</button>'}</div></div>`}
 function showGate(mode){U.mode=mode||"login";renderGate();gated(true);paintMe();scrollTo(0,0)}
-function gMode(m){const v=gVals();U.mode=m;renderGate(v)}
-function togglePw(){const i=$("#g_pw");i.type=i.type=="password"?"text":"password"}
-async function gForgot(){const em=gv("g_email").trim();if(!em){gErrShow("আগে Email লিখুন, তারপর এই link-এ tap করুন");return}
- try{const {auth,A}=await getSDK();await A.sendPasswordResetEmail(auth,em);gErrShow("");toast("Password reset email pathano hoyeche ✔")}catch(x){gErrShow(authErr(x))}}
+function gMode(m){const v=gVals();if(!v.email&&U.sent)v.email=U.sent;if(U.oob){U.oob=null;U.rcBad=false;U.rcEmail=null;history.replaceState(null,"",location.pathname+location.hash)}U.mode=m;U.sent=null;renderGate(v)}
+async function verifyOob(){try{const {auth,A}=await getSDK();U.rcEmail=await A.verifyPasswordResetCode(auth,U.oob)}catch(x){U.rcBad=true}if(U.mode=="newpw")renderGate()}
+function togglePw(){const i=$("#g_pw"),t=i.type=="password"?"text":"password";i.type=t;const j=$("#g_pw2");if(j)j.type=t}
 async function fetchProfile(uid){try{const {db,f}=await getSDK();const sn=await f.getDoc(f.doc(db,"users",uid));return sn.exists()?sn.data():null}catch(e){return null}}
 async function saveProf(){if(!U.user||!U.prof)return false;
  try{const {db,f}=await getSDK(),p=U.prof;await f.setDoc(f.doc(db,"users",U.user.uid),{uid:U.user.uid,name:p.name,email:p.email||"",year:p.year,dept:p.dept,photo:p.photo||"",updated:Date.now()});return true}
@@ -362,6 +369,10 @@ async function finishAuth(user,ch,isNew){
 async function gSubmit(e){e.preventDefault();if(U.busy)return;
  const v=gVals(),pw=gv("g_pw"),m=U.mode,b=$("#g_btn"),t=b.textContent;U.busy=true;b.disabled=true;b.textContent="অপেক্ষা করুন…";gErrShow("");
  try{const {auth,A}=await getSDK();
+  if(m=="newpw"){if(pw!==gv("g_pw2")){gErrShow("দুটো Password মিলছে না");b.disabled=false;b.textContent=t;U.busy=false;return}
+   await A.confirmPasswordReset(auth,U.oob,pw);const em=U.rcEmail||"";U.oob=null;U.rcEmail=null;U.rcBad=false;history.replaceState(null,"",location.pathname+location.hash);
+   U.busy=false;U.mode="login";renderGate({email:em});toast("Password বদলানো হয়েছে ✔ নতুন Password দিয়ে Login করুন");return}
+  if(m=="reset"){await A.sendPasswordResetEmail(auth,v.email);U.sent=v.email;U.busy=false;renderGate(v);return}
   if(m=="complete"){await finishAuth(auth.currentUser,v,true)}
   else{let cr;
    if(m=="signup"){cr=await A.createUserWithEmailAndPassword(auth,v.email,pw);try{await A.updateProfile(cr.user,{displayName:v.name})}catch(_){}}
@@ -373,7 +384,7 @@ async function logout(){closeM();U.prof=null;U.user=null;writeCache();
  try{const {auth,A}=await getSDK();await A.signOut(auth)}catch(e){}
  location.hash="#/";showGate("login");toast("Log out hoyeche")}
 async function authInit(){try{const {auth,A}=await getSDK();
- A.onAuthStateChanged(auth,async u=>{if(U.busy)return;
+ A.onAuthStateChanged(auth,async u=>{if(U.busy||U.mode=="newpw")return;
   if(!u){U.user=null;if(!root.classList.contains("gated")){U.prof=null;writeCache();showGate("login")}return}
   U.user=u;const c=readCache();let pr=await fetchProfile(u.uid);if(!pr&&c&&c.uid==u.uid)pr=c;
   if(pr&&YEARS.includes(pr.year)&&DEPTS.includes(pr.dept)){U.prof={...pr,uid:u.uid,email:u.email||pr.email||""};writeCache();enter(false)}
@@ -407,7 +418,9 @@ if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWork
 (function boot(){try{const c=JSON.parse(localStorage.getItem("mcn_posts")||"null");if(c&&c.posts){S.posts=c.posts;S.t=c.t;S.loaded=true}}catch(e){}
  document.addEventListener("visibilitychange",()=>{if(U.prof&&!document.hidden&&Date.now()-(S.t||0)>300000)refresh(true)});
  const c=readCache();
- if(c&&c.uid&&YEARS.includes(c.year)&&DEPTS.includes(c.dept)){U.prof=c;enter(false)}else showGate("login");
+ const q=new URLSearchParams(location.search);
+ if(q.get("mode")=="resetPassword"&&q.get("oobCode")){U.oob=q.get("oobCode");showGate("newpw");verifyOob()}
+ else if(c&&c.uid&&YEARS.includes(c.year)&&DEPTS.includes(c.dept)){U.prof=c;enter(false)}else showGate("login");
  authInit()})();
 </script>
 </body></html>
