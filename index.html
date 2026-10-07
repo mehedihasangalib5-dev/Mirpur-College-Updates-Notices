@@ -6,7 +6,7 @@
 <script>try{var t=localStorage.getItem("mcn_theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 <title>Mirpur College Updates &amp; Notices</title>
 <style>
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f4f6fb;--card:#fff;--ink:#0f172a;--mute:#64748b;--line:#e4e8f1;--pri:#2850e8;--pri2:#7c5cff;--acc:#f59e0b;--sh:0 16px 36px -16px rgba(30,50,120,.28);color-scheme:light}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f4f6fb;--card:#fff;--ink:#0f172a;--mute:#64748b;--line:#e4e8f1;--pri:#2850e8;--pri2:#7c5cff;--acc:#f59e0b;--sh:0 16px 36px -16px rgba(30,50,120,.28);--hh:62px;color-scheme:light}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#080c1a;--card:#10172b;--ink:#eef2ff;--mute:#93a0c0;--line:#1f2a47;--pri:#5576ff;--pri2:#a28bff;--acc:#fbbf24;--sh:0 16px 36px -16px rgba(0,0,0,.7);color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#080c1a;--card:#10172b;--ink:#eef2ff;--mute:#93a0c0;--line:#1f2a47;--pri:#5576ff;--pri2:#a28bff;--acc:#fbbf24;--sh:0 16px 36px -16px rgba(0,0,0,.7);color-scheme:dark}
 html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}*{box-sizing:border-box}
@@ -14,7 +14,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 Inter,"Hind S
 .wrap{max-width:1100px;margin:auto;padding:0 18px}
 /* header */
 header{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;backdrop-filter:saturate(1.6) blur(16px);-webkit-backdrop-filter:saturate(1.6) blur(16px);background:color-mix(in srgb,var(--bg) 78%,transparent);border-bottom:1px solid var(--line)}
-.nav{display:flex;align-items:center;gap:6px;height:62px}.sp{flex:1}
+.nav{display:flex;align-items:center;gap:6px;height:var(--hh)}.sp{flex:1}
 .logo{font-weight:800;font-size:17px;line-height:1.2;display:flex;gap:10px;align-items:center;margin-right:10px;color:var(--ink);text-decoration:none;letter-spacing:-.01em}
 .logo img{width:38px;height:38px;border-radius:50%;object-fit:cover;background:#fff;box-shadow:0 0 0 2px var(--card),0 0 0 3px var(--line)}
 .links{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
@@ -40,17 +40,9 @@ button,.btn{font:inherit;cursor:pointer;border:0}
 .filter{flex:none;width:190px}
 .filter select{appearance:none;-webkit-appearance:none;width:100%;height:54px;padding:0 38px 0 16px;border-radius:18px;border:1px solid var(--line);background:var(--card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' fill='none' stroke='%2364748b' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 15px center;color:var(--ink);font:inherit;font-weight:600;cursor:pointer;box-shadow:var(--sh)}
 .filter select:focus{outline:0;border-color:var(--pri);box-shadow:0 0 0 4px color-mix(in srgb,var(--pri) 16%,transparent)}
-/* category chips */
-.chips{position:sticky;top:calc(62px + env(safe-area-inset-top,0px));z-index:4;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:8px -18px 0;padding:10px 18px;background:linear-gradient(var(--bg) 72%,transparent)}
-.chips::-webkit-scrollbar{display:none}
-.chip{flex:none;display:flex;align-items:center;gap:7px;padding:9px 15px;border-radius:99px;background:var(--card);border:1px solid var(--line);color:var(--ink);font-weight:600;white-space:nowrap;transition:.2s}
-.chip:hover{border-color:var(--pri)}
-.chip b{font-size:11.5px;background:var(--bg);color:var(--mute);padding:1px 8px;border-radius:99px}
-.chip.on{background:linear-gradient(135deg,var(--pri),var(--pri2));border-color:transparent;color:#fff;box-shadow:0 8px 18px -8px color-mix(in srgb,var(--pri) 70%,transparent)}
-.chip.on b{background:rgba(255,255,255,.24);color:#fff}
 /* section titles */
 h2.t{margin:22px 0 12px;font-size:20px;letter-spacing:-.01em;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-h2.t small{font-weight:600;font-size:13px}#list{scroll-margin-top:130px}
+h2.t small{font-weight:600;font-size:13px}#list{scroll-margin-top:calc(var(--hh) + 14px + env(safe-area-inset-top,0px))}
 /* featured strip */
 .fs{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 18px;margin:0 -18px -10px;padding:4px 18px 30px;scrollbar-width:none}.fs::-webkit-scrollbar{display:none}
 .fcard{flex:none;scroll-snap-align:start;width:min(310px,80vw);min-height:158px;border-radius:24px;padding:18px;color:#fff;cursor:pointer;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;background:linear-gradient(145deg,color-mix(in srgb,var(--c) 92%,#000),color-mix(in srgb,var(--c) 55%,#6d5cff));box-shadow:0 18px 34px -16px color-mix(in srgb,var(--c) 80%,#000);transition:.25s}
@@ -122,8 +114,34 @@ footer a{color:var(--pri);font-weight:700;text-decoration:none}footer a:hover{te
 @keyframes fabin{from{transform:translateY(30px) scale(.8);opacity:0}}
 @media(min-width:601px){.fab{display:none!important}}
 /* responsive */
-@media(max-width:700px){.hd{display:none}.sbar{flex-direction:column}.filter{width:100%}.filter select{font-size:15px;height:50px}.search{height:52px}}
-@media(max-width:600px){.two{grid-template-columns:1fr}.links{display:none}.logo{font-size:14.5px}.hero{padding:24px 14px 20px;border-radius:26px}.hero-logo{width:62px;height:62px}footer{padding-bottom:96px}}
+@media(max-width:700px){.hd{display:none}.sbar{display:grid;grid-template-columns:1fr 1fr;gap:8px}.search{grid-column:1/-1;height:46px;border-radius:14px}.filter{width:auto;min-width:0}.filter select{font-size:13.5px;height:44px;padding:0 30px 0 12px;border-radius:14px;background-position:right 11px center}}
+@media(max-width:600px){
+:root{--hh:52px}
+body{font-size:14px;line-height:1.55}
+.wrap{padding:0 12px}
+.nav{gap:4px}.links{display:none}
+.logo{font-size:13px;gap:8px;margin-right:4px;min-width:0;line-height:1.2}.logo img{width:30px;height:30px}
+.btn{padding:8px 14px;border-radius:12px}.sm{padding:6px 10px;font-size:12.5px;border-radius:10px}
+.two{grid-template-columns:1fr}
+.hero{margin:12px 0 0;padding:18px 12px 16px;border-radius:22px}.hero-logo{width:50px;height:50px;margin-bottom:8px}
+.hero h1{font-size:21px;margin-bottom:6px}.hero p{font-size:12.5px;margin-bottom:12px}
+.search{padding:4px 4px 4px 12px;gap:6px}.search input{font-size:14px;padding:6px 0}
+h2.t{margin:16px 0 10px;font-size:17px}h2.t small{font-size:12px}
+.fs{margin:0 -12px -8px;padding:2px 12px 22px;scroll-padding:0 12px;gap:10px}
+.fcard{width:min(250px,76vw);min-height:118px;padding:14px;border-radius:18px;gap:8px}.fcard h3{font-size:15px}.fcard .ft{font-size:11.5px}
+.grid{gap:10px;grid-template-columns:1fr;padding-bottom:36px}
+.card{border-radius:16px}.card img,.cvr,.cvr img{height:112px}
+.cb{padding:11px 12px 10px;gap:6px}.card h3{font-size:15px}.card p{font-size:13px;-webkit-line-clamp:2}
+.tag{font-size:11px;padding:2px 8px}.dlb{font-size:10.5px;padding:2px 8px}.meta{font-size:11.5px;padding-top:6px}
+.panel{padding:16px;border-radius:18px}
+.post-page{margin:12px auto 40px;padding:16px}.post-page h2{font-size:20px}.body{font-size:14.5px;line-height:1.7}
+.sheet{padding:18px;border-radius:20px}
+label{font-size:12.5px;margin:10px 0 4px}input,select,textarea{padding:10px 12px;border-radius:12px;font-size:14px}textarea{min-height:100px}
+footer{padding:18px 0 84px;font-size:12px}
+.fab{padding:10px 15px;font-size:13px;right:12px}.fab span{font-size:17px}
+.toast{bottom:80px;font-size:13px;padding:9px 16px}
+}
+@supports(-webkit-touch-callout:none){@media(max-width:600px){input,select,textarea,.search input,.filter select{font-size:16px}}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
@@ -196,13 +214,12 @@ function pHome(){const gok=p=>!S.grp||!p.grp||!p.grp.length||p.grp.includes(S.gr
  const fs=(!S.cat&&!S.q&&S.loaded)?sorted(base.filter(p=>!isExp(p)&&(p.pinned||(p.dl&&p.dl-Date.now()<=3*DAY)))).slice(0,6):[],fid=new Set(fs.map(p=>p.id));
  const l=sorted(base.filter(p=>(!S.cat||p.cat==S.cat)&&!fid.has(p.id))),cc=k=>base.filter(p=>p.cat==k).length;
  return `<section class="hero"><img class="hero-logo" src="logo.png" alt=""><h1>সব <span>Notice, Syllabus</span><br>ও Suggestion এক জায়গায়</h1><p>Mirpur College Updates &amp; Notices-এর সর্বশেষ আপডেট, category অনুযায়ী সাজানো।</p>
- <div class="sbar"><div class="search"><span>🔍</span><input id="q" placeholder="Notice, routine, result খুঁজুন…" value="${esc(S.q)}"><button class="btn sm" onclick="S.q=$('#q').value.trim();route()">Search</button></div><div class="filter"><select id="grpSel" aria-label="Class / Group" onchange="setGrp(this.value)"><option value="" ${S.grp?"":"selected"}>👥 সব Group</option>${GROUPS.map(g=>`<option value="${esc(g)}" ${S.grp==g?"selected":""}>${esc(g)}</option>`).join("")}</select></div></div></section>
- <nav class="chips" aria-label="Category"><button class="chip ${S.cat?"":"on"}" onclick="setCat(null)">🗂 সব <b>${base.length}</b></button>${Object.entries(CATS).map(([k,x])=>`<button class="chip ${S.cat==k?"on":""}" onclick="setCat('${k}')">${x.i} ${x.n} <b>${cc(k)}</b></button>`).join("")}</nav>
+ <div class="sbar"><div class="search"><span>🔍</span><input id="q" placeholder="Notice, routine, result খুঁজুন…" value="${esc(S.q)}"><button class="btn sm" onclick="S.q=$('#q').value.trim();route()">Search</button></div><div class="filter"><select id="catSel" aria-label="Category" onchange="setCat(this.value)"><option value="" ${S.cat?"":"selected"}>🗂 সব Category (${base.length})</option>${Object.entries(CATS).map(([k,x])=>`<option value="${k}" ${S.cat==k?"selected":""}>${x.i} ${x.n} (${cc(k)})</option>`).join("")}</select></div><div class="filter"><select id="grpSel" aria-label="Class / Group" onchange="setGrp(this.value)"><option value="" ${S.grp?"":"selected"}>👥 সব Group</option>${GROUPS.map(g=>`<option value="${esc(g)}" ${S.grp==g?"selected":""}>${esc(g)}</option>`).join("")}</select></div></div></section>
  ${fs.length?`<h2 class="t"><span>📌 গুরুত্বপূর্ণ</span><small>Pinned ও deadline কাছে</small></h2><div class="fs">${fs.map(fcard).join("")}</div>`:""}
  <h2 class="t" id="list"><span>${c?c.i+" "+c.n:"🆕 সর্বশেষ Post"}</span><small>${l.length} টি</small></h2>
  <div class="grid">${!S.loaded?SK:l.length?l.map(card).join(""):'<div class="empty"><b>🗂</b>এই category-তে এখনো কোনো post নেই।</div>'}</div>`}
 function setGrp(v){S.grp=v||null;route();const el=$("#list");el&&el.scrollIntoView({behavior:"smooth"})}
-function setCat(k){S.cat=(k&&S.cat==k)?null:k;route();const el=$("#list");el&&el.scrollIntoView({behavior:"smooth"})}
+function setCat(k){S.cat=k||null;route();const el=$("#list");el&&el.scrollIntoView({behavior:"smooth"})}
 function pContact(){return `<section class="hero" style="padding-bottom:10px"><h1>📬 <span>Contact</span> করুন</h1><p>প্রশ্ন, পরামর্শ বা অভিযোগ থাকলে নিচের form-এ জানান।</p></section>
  <div class="panel" style="max-width:660px;margin:0 auto 50px"><form onsubmit="sendMsg(event)">
  <div class="two"><div><label>Name *</label><input id="c_name" required maxlength="80"></div><div><label>Email *</label><input id="c_email" type="email" required maxlength="120"></div></div>
@@ -237,7 +254,7 @@ async function loadPost(id){const p=S.posts.find(x=>x.id==id);
 function route(){const h=location.hash.replace(/^#\/?/,"").split("/"),pg=h[0]||"home";
  $("#links").innerHTML=`<a href="#/" class="${pg=="home"?"on":""}">Home</a><a href="#/contact" class="${pg=="contact"?"on":""}">Contact</a>`;
  $("#yr").textContent=new Date().getFullYear();{const f=$("#fab"),c=pg=="contact";f.href=c?"#/":"#/contact";f.innerHTML=c?"<span>🏠</span>Home":"<span>💬</span>Contact";f.setAttribute("aria-label",c?"Home":"Contact")}const k=document.activeElement&&document.activeElement.id;
- $("#app").innerHTML=pg=="contact"?pContact():pg=="p"?pPost(h[1]):pHome();observeCovers();if(pg=="p")loadPost(h[1]);if(S.cat&&pg=="home"){const o=document.querySelector(".chip.on");o&&o.scrollIntoView({inline:"center",block:"nearest"})}
+ $("#app").innerHTML=pg=="contact"?pContact():pg=="p"?pPost(h[1]):pHome();observeCovers();if(pg=="p")loadPost(h[1]);
  const q=$("#q");if(q){q.addEventListener("keydown",e=>{if(e.key=="Enter"){S.q=q.value.trim();route()}});if(k=="q")q.focus()}}
 addEventListener("hashchange",()=>{route();scrollTo(0,0)});
 let DP=null;addEventListener("beforeinstallprompt",e=>{e.preventDefault();DP=e;$("#installBtn").style.display=""});
@@ -250,32 +267,50 @@ const FBV="https://www.gstatic.com/firebasejs/12.19.0/";
 const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent),isStandalone=navigator.standalone||matchMedia("(display-mode: standalone)").matches;
 const pushReady=VAPID_KEY&&!VAPID_KEY.startsWith("PASTE");
 const pushSupported="serviceWorker"in navigator&&"PushManager"in window&&"Notification"in window;
-const pushOnFlag=()=>localStorage.getItem("mcn_push");
+const pushOnFlag=()=>{try{return localStorage.getItem("mcn_push")}catch(e){return null}};
+const pushSet=t=>{try{t?localStorage.setItem("mcn_push",t):localStorage.removeItem("mcn_push")}catch(e){}};
+const wait=(p,ms,msg)=>Promise.race([p,new Promise((_,j)=>setTimeout(()=>j(new Error(msg)),ms))]);
+const pushIsOn=()=>!!pushOnFlag()&&pushSupported&&Notification.permission==="granted";
 function bell(){const b=$("#bellBtn");if(!b||!pushReady)return;
- if(!pushSupported&&!(isIOS&&!isStandalone)){b.style.display="none";return}
- b.style.display="";const on=!!pushOnFlag()&&Notification.permission==="granted";
+ b.style.display="";const on=pushIsOn();
  b.innerHTML=(on?"🔔":"🔕")+'<span class="hd"> '+(on?"Alert On":"Alert Off")+'</span>';b.title=on?"Notification bondho korte tap korun":"Notun notice-er alert chalu korun"}
+// service worker: register + active howa porjonto wait (age ready hang korto, tai notification chalu hoto na)
+let SWp=null;
+function swReg(){if(!("serviceWorker"in navigator))return Promise.reject(new Error("Ei browser-e notification support nei"));
+ return SWp||(SWp=(async()=>{const reg=await navigator.serviceWorker.register("/sw.js",{scope:"/",updateViaCache:"none"});
+  const w=reg.installing||reg.waiting;
+  if(!reg.active&&w)await wait(new Promise(res=>{const ck=()=>{if(w.state==="activated"||w.state==="redundant")res()};ck();w.addEventListener("statechange",ck)}),15000,"Service worker চালু হয়নি, page refresh korun");
+  const r=await wait(navigator.serviceWorker.ready,8000,"Service worker ready hoyni, page refresh korun");
+  if(!r.active)throw new Error("Service worker চালু হয়নি");return r})().catch(e=>{SWp=null;throw e}))}
 async function fcm(){const [a,m]=await Promise.all([import(FBV+"firebase-app.js"),import(FBV+"firebase-messaging.js")]);
- if(!(await m.isSupported()))throw new Error("unsupported");
- const app=a.getApps().length?a.getApp():a.initializeApp(firebaseConfig);const reg=await navigator.serviceWorker.ready;
- return{m,msg:m.getMessaging(app),reg}}
-async function api(action,token){const r=await fetch("/api/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({token,action})});if(!r.ok)throw new Error("HTTP "+r.status)}
+ if(!(await m.isSupported()))throw new Error("Ei browser-e push cholbe na");
+ const app=a.getApps().length?a.getApp():a.initializeApp(firebaseConfig);
+ return{m,msg:m.getMessaging(app)}}
+async function api(action,token){const r=await fetch("/api/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({token,action})});
+ let j={};try{j=await r.json()}catch(e){}
+ if(!r.ok||j.ok===false)throw new Error(r.status===404?"Server API pawa jayni (Vercel-e deploy hoyeche?)":r.status>=500?"Server error — Vercel-e FIREBASE_SERVICE_ACCOUNT check korun":(j.error||"HTTP "+r.status))}
 async function pushOn(){
- if(isIOS&&!isStandalone)return toast("iPhone-e: Safari → Share → Add to Home Screen kore app theke khulun, tarpor Alert on korun");
- const perm=await Notification.requestPermission();if(perm!=="granted")return toast("Notification allow kora hoyni (browser settings theke allow korun)");
- try{const {m,msg,reg}=await fcm();const t=await m.getToken(msg,{vapidKey:VAPID_KEY,serviceWorkerRegistration:reg});
-  if(!t)throw new Error("no token");await api("sub",t);localStorage.setItem("mcn_push",t);toast("🔔 Notification chalu hoyeche ✔")}
- catch(e){toast("Notification chalu hoyni: "+(e.message||e))}bell()}
-async function pushOff(){const t=pushOnFlag();localStorage.removeItem("mcn_push");
+ if(!pushSupported)return toast(isIOS&&!isStandalone?"iPhone-e: Safari → Share → Add to Home Screen kore app theke khulun, tarpor Alert on korun":"Ei browser-e notification cholbe na. Chrome/Safari-te site ta khulun (Facebook/WhatsApp-er vitorer browser-e hoy na)");
+ if(Notification.permission==="denied")return toast("Notification block kora ache — browser-er site settings theke Allow korun");
+ const b=$("#bellBtn");b.disabled=true;
+ try{const perm=await Notification.requestPermission();if(perm!=="granted")throw new Error("Notification allow kora hoyni");
+  const reg=await swReg();
+  const {m,msg}=await wait(fcm(),20000,"Firebase load hoyni (internet check korun)");
+  const t=await wait(m.getToken(msg,{vapidKey:VAPID_KEY,serviceWorkerRegistration:reg}),25000,"Token pawa jayni");
+  if(!t)throw new Error("Token pawa jayni");
+  await api("sub",t);pushSet(t);toast("🔔 Notification chalu hoyeche ✔")}
+ catch(e){toast("Notification chalu hoyni: "+(e.message||e))}
+ b.disabled=false;bell()}
+async function pushOff(){const t=pushOnFlag();pushSet(null);
  try{if(t)await api("unsub",t);const {m,msg}=await fcm();await m.deleteToken(msg)}catch(e){}
  toast("🔕 Notification bondho");bell()}
 // token badle gele (FCM rotate kore) chupchap abar subscribe
 async function pushSync(){if(!pushReady||!pushSupported||!pushOnFlag()||Notification.permission!=="granted")return;
- try{const {m,msg,reg}=await fcm();const t=await m.getToken(msg,{vapidKey:VAPID_KEY,serviceWorkerRegistration:reg});
-  if(t&&t!==pushOnFlag()){await api("sub",t);localStorage.setItem("mcn_push",t)}}catch(e){}}
-$("#bellBtn").onclick=()=>pushOnFlag()&&Notification.permission==="granted"?pushOff():pushOn();
-bell();addEventListener("load",()=>setTimeout(pushSync,2500));
-if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));
+ try{const reg=await swReg();const {m,msg}=await fcm();const t=await m.getToken(msg,{vapidKey:VAPID_KEY,serviceWorkerRegistration:reg});
+  if(t&&t!==pushOnFlag()){await api("sub",t);pushSet(t)}}catch(e){}}
+$("#bellBtn").onclick=()=>pushIsOn()?pushOff():pushOn();
+bell();addEventListener("load",()=>{swReg().catch(()=>{});setTimeout(pushSync,2500)});
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)bell()});
 (function boot(){try{const c=JSON.parse(localStorage.getItem("mcn_posts")||"null");if(c&&c.posts){S.posts=c.posts;S.t=c.t;S.loaded=true}}catch(e){}
  route();refresh();document.addEventListener("visibilitychange",()=>{if(!document.hidden&&Date.now()-(S.t||0)>300000)refresh(true)})})();
 </script>
