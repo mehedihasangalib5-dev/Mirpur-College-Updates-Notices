@@ -1,1 +1,4 @@
-{ "cleanUrls": true }
+{
+  "cleanUrls": true,
+  "headers": [{ "source": "/logo.png", "headers": [{ "key": "Cache-Control", "value": "public, max-age=2592000" }] }]
+}

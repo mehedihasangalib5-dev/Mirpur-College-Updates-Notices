@@ -133,8 +133,8 @@ function shrink(file,max,q){return new Promise((res,rej)=>{const im=new Image(),
  im.onerror=()=>rej(new Error("Image porte parini"));im.src=u})}
 async function upload(file){
  if(!/^image\//.test(file.type))throw new Error("PDF/Doc upload hoy na – Google Drive link 'Attachment links'-e din");
- let url=await shrink(file,1000,.72);if(url.length>260000)url=await shrink(file,800,.55);
- if(url.length>300000)throw new Error("Chobi ta onek boro, chhoto kore din");
+ let url=await shrink(file,900,.68);if(url.length>180000)url=await shrink(file,700,.5);
+ if(url.length>260000)throw new Error("Chobi ta onek boro, chhoto kore din");
  return{id:"",name:file.name.replace(/\.[^.]+$/,""),type:"image/jpeg",url}}
 async function pick(kind,files,input){
  try{toast("Processing…");for(const f of files){const r=await upload(f);const P=S.pending;
@@ -189,7 +189,7 @@ async function submitPost(){
  const title=$("#f_title").value.trim(),body=$("#f_body").value.trim();if(!title||!body)return toast("Title আর Details দিন");
  const old=S.posts.find(p=>p.id==S.edit),now=Date.now(),P=S.pending,b=$("#pubBtn");
  const data={title,body,cat:$("#f_cat").value,link:$("#f_link").value.trim(),pinned:$("#f_pin").checked,cover:P.cover||null,files:[...P.files,...parseLinks($("#f_links").value)],
-  ts:old?old.ts:now,by:old?(old.by||S.uid):S.uid,updated:now,
+  ts:old?old.ts:now,by:old?(old.by||S.uid):S.uid,updated:now,nf:P.files.length+parseLinks($("#f_links").value).length+(/^https?:\/\//.test($("#f_link").value.trim())?1:0),hc:!!P.cover,
   hist:old?[{ts:now,by:S.uid,title:old.title||"",body:old.body||"",cat:old.cat||"notice",link:old.link||""},...(old.hist||[])].slice(0,20):[]};
  const clean=JSON.parse(JSON.stringify(data));
  if(JSON.stringify(clean).length>950000)return toast("Post ta onek boro – chobi kombao");
