@@ -164,6 +164,32 @@ footer{padding:18px 0 84px;font-size:12px}
 .toast{bottom:80px;font-size:13px;padding:9px 16px}
 }
 @supports(-webkit-touch-callout:none){@media(max-width:600px){input,select,textarea,.search input,.filter select{font-size:16px}}}
+/* animated buttons */
+.dl,.send{position:relative;overflow:hidden;isolation:isolate}
+.dl::after,.send::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:shine 3.4s ease-in-out infinite;pointer-events:none;z-index:-1}
+.ghost.dl::after{background:linear-gradient(100deg,transparent,color-mix(in srgb,var(--pri) 22%,transparent),transparent)}
+@keyframes shine{0%,55%{left:-70%}100%{left:140%}}
+.dl .ic,.send .ic{display:inline-block}
+.dl .ic{animation:dlb 1.7s ease-in-out infinite}
+@keyframes dlb{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
+.dl:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 12px 24px -10px color-mix(in srgb,var(--pri) 65%,transparent)}
+.dl:hover .ic{animation-duration:.6s}
+.dl::before{content:"";position:absolute;left:0;bottom:0;height:3px;width:0;background:currentColor;opacity:.8;z-index:-1}
+.dl.go::before{animation:dlbar .9s ease-out forwards}
+.dl.go .ic{animation:dlgo .9s ease-in-out}
+@keyframes dlbar{to{width:100%}}
+@keyframes dlgo{0%{transform:translateY(0);opacity:1}45%{transform:translateY(14px);opacity:0}46%{transform:translateY(-14px);opacity:0}100%{transform:translateY(0);opacity:1}}
+.send .ic{animation:snf 2.2s ease-in-out infinite}
+@keyframes snf{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(3px,-3px) rotate(-8deg)}}
+.send:hover:not(:disabled){transform:translateY(-2px) scale(1.04)}
+.send:hover:not(:disabled) .ic{animation:fly .7s ease-in-out infinite}
+@keyframes fly{0%{transform:translate(0,0) rotate(0);opacity:1}60%{transform:translate(18px,-14px) rotate(-18deg);opacity:0}61%{transform:translate(-14px,10px);opacity:0}100%{transform:translate(0,0);opacity:1}}
+.send.sending{pointer-events:none;filter:saturate(.9)}
+.send.sending .ic{animation:fly .9s ease-in infinite}
+.send.sent{background:linear-gradient(135deg,#16a34a,#22c55e);animation:pop .45s cubic-bezier(.3,1.5,.5,1)}
+.send.sent .ic{animation:none}
+@keyframes pop{0%{transform:scale(.9)}100%{transform:scale(1)}}
+.lo-ic{flex:none;transition:transform .25s}.btn.danger:hover .lo-ic{transform:translateX(3px)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
@@ -223,9 +249,9 @@ async function saveMsg(d){
 const atts=p=>[...(p.files||[]),...(/^https?:\/\//.test(p.link||"")?[{name:"Link",type:"link",url:p.link}]:[])].filter(f=>ok(f.url));
 function driveDl(u){const m=u.match(/drive\.google\.com\/file\/d\/([^/?#]+)/)||(u.includes("drive.google.com")&&u.match(/[?&]id=([^&#]+)/));return m?"https://drive.google.com/uc?export=download&id="+m[1]:null}
 function attHTML(f){const u=esc(f.url);
- if(/^image\//.test(f.type))return `<div class="att"><img class="big" src="${u}" alt=""><a class="btn ghost sm" href="${u}" download="${esc(f.name||"image")}.jpg">⬇ Download</a></div>`;
+ if(/^image\//.test(f.type))return `<div class="att"><img class="big" src="${u}" alt=""><a class="btn ghost sm dl" href="${u}" download="${esc(f.name||"image")}.jpg"><span class="ic">⬇</span> Download</a></div>`;
  const d=driveDl(f.url);
- return `<div class="file"><span>📎 ${esc(f.name)}</span><span class="sp"></span><a class="btn ghost sm" href="${u}" target="_blank" rel="noopener">Open</a>${d?`<a class="btn sm" href="${esc(d)}" target="_blank" rel="noopener">⬇ Download</a>`:""}</div>`}
+ return `<div class="file"><span>📎 ${esc(f.name)}</span><span class="sp"></span><a class="btn ghost sm" href="${u}" target="_blank" rel="noopener">Open</a>${d?`<a class="btn sm dl" href="${esc(d)}" target="_blank" rel="noopener"><span class="ic">⬇</span> Download</a>`:""}</div>`}
 const cnt=p=>p.nf!=null?p.nf:atts(p).length;
 function card(p){const n=cnt(p),c=CATS[p.cat]||CATS.notice;
  const cv=p.cover&&ok(p.cover.url)?`<img src="${esc(p.cover.url)}" alt="">`:(!p.cover&&!S.sdk&&p.hc!==false?`<div class="cvr" data-cv="${p.id}"></div>`:"");
@@ -249,15 +275,15 @@ function pContact(){return `<section class="hero" style="padding-bottom:10px"><h
  <div class="two"><div><label>Phone</label><input id="c_phone" maxlength="30"></div><div><label>Subject *</label><input id="c_sub" required maxlength="150"></div></div>
  <label>Message *</label><textarea id="c_msg" required minlength="5" maxlength="2000"></textarea>
  <input id="c_hp" style="display:none" tabindex="-1" autocomplete="off">
- <div class="row"><button class="btn" id="c_btn">Send Message ✈</button></div></form></div>`}
+ <div class="row"><button class="btn send" id="c_btn"><span class="lb">Send Message</span><span class="ic">✈</span></button></div></form></div>`}
 async function sendMsg(e){e.preventDefault();const f=e.target;if($("#c_hp").value){toast("Sent ✔");return}
  const d={name:$("#c_name").value.trim(),email:$("#c_email").value.trim(),phone:$("#c_phone").value.trim(),subject:$("#c_sub").value.trim(),message:$("#c_msg").value.trim(),ts:Date.now()};
- const b=$("#c_btn");b.disabled=true;
+ const b=$("#c_btn"),lb=b.querySelector(".lb"),ic=b.querySelector(".ic"),rs=()=>{b.classList.remove("sending","sent");lb.textContent="Send Message";ic.textContent="✈"};let ok=false;b.disabled=true;b.classList.add("sending");lb.textContent="Sending…";
  try{const tg=fetch("/api/contact",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)}).then(r=>r.ok).catch(()=>false);
   let saved=true,err=null;try{await saveMsg(d)}catch(x){saved=false;err=x}
   const sent=await tg;if(!saved&&!sent)throw err||new Error("error");
-  toast("Message pathano hoyeche ✔");f.reset()}catch(x){toast("Send hoyni: "+((x&&(x.code||x.message))||"error"))}
- b.disabled=false}
+  toast("Message pathano hoyeche ✔");f.reset();ok=true}catch(x){toast("Send hoyni: "+((x&&(x.code||x.message))||"error"))}
+ b.disabled=false;if(ok){b.classList.remove("sending");b.classList.add("sent");lb.textContent="Sent!";ic.textContent="✔";setTimeout(rs,1800)}else rs()}
 const FAIL={},TRY={};
 function shareBar(f){const u=location.origin+"/p/"+f.id,e=encodeURIComponent;
  return `<div class="share"><span>📤 Share:</span><a class="btn sm" target="_blank" rel="noopener" href="https://api.whatsapp.com/send?text=${e("📢 *"+f.title+"*\n"+u)}">📲 WhatsApp</a><a class="btn ghost sm" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=${e(u)}">Facebook</a><button class="btn ghost sm" onclick="copyLink('${f.id}')">🔗 Copy link</button>${navigator.share?`<button class="btn ghost sm" onclick="nativeShare('${f.id}')">More…</button>`:""}</div>`}
@@ -305,11 +331,11 @@ const gVals=()=>({name:gv("g_name").trim(),year:gv("g_year"),dept:gv("g_dept"),e
 function gErrShow(m){const e=$("#gErr");if(e){e.textContent=m||"";e.style.display=m?"block":"none"}}
 function renderGate(v){v=v||{};const m=U.mode,cp=m=="complete",su=m=="signup",p=U.prof||{};
  const nm=v.name??p.name??"",yr=v.year??p.year??"",dp=v.dept??p.dept??"";
- $("#gate").innerHTML=`<div class="gbox"><img class="glogo" src="logo.png" alt=""><h1>${cp?"Profile সম্পূর্ণ করুন":"স্বাগতম 👋"}</h1><p class="gs">${cp?"আপনার Year ও Department select করুন":"Login করে আপনার Year ও Department-এর update দেখুন"}</p>
+ $("#gate").innerHTML=`<div class="gbox"><img class="glogo" src="logo.png" alt=""><h1>${cp?"Profile সম্পূর্ণ করুন":"স্বাগতম 👋"}</h1><p class="gs">${cp?"আপনার Year ও Department select করুন":su?"Account খুলে আপনার Year ও Department-এর update দেখুন":"Email ও Password দিয়ে Login করুন"}</p>
  ${cp?"":`<div class="gtabs"><button type="button" class="${su?"":"on"}" onclick="gMode('login')">Login</button><button type="button" class="${su?"on":""}" onclick="gMode('signup')">Sign up</button></div>`}
  <form id="gForm" onsubmit="gSubmit(event)">
- <label>Name${su||cp?" *":""}</label><input id="g_name" maxlength="80" ${su||cp?"required":""} autocomplete="name" placeholder="আপনার নাম" value="${esc(nm)}">
- <div class="two"><div><label>Year *</label><select id="g_year" required><option value="">Select</option>${opts(YEARS,yr)}</select></div><div><label>Department *</label><select id="g_dept" required><option value="">Select</option>${opts(DEPTS,dp)}</select></div></div>
+ ${su||cp?`<label>Name${su||cp?" *":""}</label><input id="g_name" maxlength="80" ${su||cp?"required":""} autocomplete="name" placeholder="আপনার নাম" value="${esc(nm)}">
+ <div class="two"><div><label>Year *</label><select id="g_year" required><option value="">Select</option>${opts(YEARS,yr)}</select></div><div><label>Department *</label><select id="g_dept" required><option value="">Select</option>${opts(DEPTS,dp)}</select></div></div>`:""}
  ${cp?"":`<label>Email *</label><input id="g_email" type="email" required maxlength="120" autocomplete="email" placeholder="you@example.com" value="${esc(v.email||"")}">
  <label>Password *</label><div class="pw"><input id="g_pw" type="password" required minlength="6" maxlength="64" autocomplete="${su?"new-password":"current-password"}"><button type="button" onclick="togglePw()" aria-label="Show password">👁</button></div>`}
  <div class="gerr" id="gErr"></div>
@@ -330,7 +356,8 @@ function enter(fresh){gated(false);paintMe();route();
 async function finishAuth(user,ch,isNew){
  const c=readCache();let base=isNew?(U.prof&&U.prof.uid==user.uid?U.prof:{}):((await fetchProfile(user.uid))||(c&&c.uid==user.uid?c:{}));
  U.user=user;
- U.prof={uid:user.uid,name:(ch.name||base.name||user.displayName||(user.email||"").split("@")[0]||"Student").slice(0,80),email:user.email||"",year:ch.year,dept:ch.dept,photo:base.photo||""};
+ U.prof={uid:user.uid,name:(ch.name||base.name||user.displayName||(user.email||"").split("@")[0]||"Student").slice(0,80),email:user.email||"",year:ch.year||base.year||"",dept:ch.dept||base.dept||"",photo:base.photo||""};
+ if(!(YEARS.includes(U.prof.year)&&DEPTS.includes(U.prof.dept))){showGate("complete");return}
  writeCache();await saveProf();enter(true)}
 async function gSubmit(e){e.preventDefault();if(U.busy)return;
  const v=gVals(),pw=gv("g_pw"),m=U.mode,b=$("#g_btn"),t=b.textContent;U.busy=true;b.disabled=true;b.textContent="অপেক্ষা করুন…";gErrShow("");
@@ -359,7 +386,7 @@ function openProfile(d){if(!U.prof)return;d=d||{};const p=U.prof,has=imgOk(p.pho
  <form onsubmit="saveProfile(event)"><label>Name *</label><input id="p_name" required maxlength="80" value="${esc(d.name??p.name)}">
  <div class="two"><div><label>Year *</label><select id="p_year" required>${opts(YEARS,d.year??p.year)}</select></div><div><label>Department *</label><select id="p_dept" required>${opts(DEPTS,d.dept??p.dept)}</select></div></div>
  <label>Email</label><input value="${esc(p.email)}" disabled>
- <div class="row"><button class="btn" id="p_btn">Save ✔</button><button type="button" class="btn ghost" onclick="closeM()">Cancel</button><button type="button" class="btn danger" onclick="logout()">🚪 Log out</button></div></form>`;
+ <div class="row"><button class="btn" id="p_btn">Save ✔</button><button type="button" class="btn ghost" onclick="closeM()">Cancel</button><button type="button" class="btn danger" onclick="logout()"><svg class="lo-ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg><span>Log out</span></button></div></form>`;
  $("#modal").classList.add("open")}
 function resizeImg(file,size){return new Promise((res,rej)=>{const url=URL.createObjectURL(file),im=new Image();
  im.onload=()=>{try{const s=Math.min(im.width,im.height),c=document.createElement("canvas");c.width=c.height=size;c.getContext("2d").drawImage(im,(im.width-s)/2,(im.height-s)/2,s,s,0,0,size,size);URL.revokeObjectURL(url);res(c.toDataURL("image/jpeg",.82))}catch(e){rej(e)}};
@@ -371,6 +398,7 @@ async function rmPhoto(){const d=pDraft();U.prof.photo="";writeCache();paintMe()
 async function saveProfile(e){e.preventDefault();const d=pDraft(),b=$("#p_btn");b.disabled=true;
  U.prof={...U.prof,name:d.name.trim().slice(0,80)||U.prof.name,year:d.year,dept:d.dept};writeCache();paintMe();
  const ok=await saveProf();closeM();route();if(ok)toast("Profile update hoyeche ✔")}
+document.addEventListener("click",e=>{const a=e.target.closest(".dl");if(!a)return;a.classList.remove("go");void a.offsetWidth;a.classList.add("go");setTimeout(()=>a.classList.remove("go"),1000)});
 $("#meBtn").onclick=()=>openProfile();
 let DP=null;addEventListener("beforeinstallprompt",e=>{e.preventDefault();DP=e;$("#installBtn").style.display=""});
 $("#installBtn").onclick=async()=>{if(!DP)return;DP.prompt();try{await DP.userChoice}catch(e){}DP=null;$("#installBtn").style.display="none"};
