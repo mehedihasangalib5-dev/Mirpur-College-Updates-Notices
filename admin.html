@@ -175,13 +175,18 @@ function panelV(){
  ${isOwner()?`<div class="row" style="margin:0 0 10px"><input id="newuid" placeholder="UID paste করুন" style="flex:1"><button class="btn sm" onclick="addAdmin()">Add</button></div>`:""}
  ${S.admins.map((u,i)=>`<div class="li"><div><code>${esc(u)}</code>${i==0?" <small>(Owner)</small>":""}</div>${isOwner()&&i>0?`<button class="btn danger sm" onclick="rmAdmin('${esc(u)}')">Remove</button>`:""}</div>`).join("")}</div></div>
  <div class="panel"><h3>সব Post (${S.posts.length})</h3>${sorted(S.posts).map(p=>`<div class="li post"><span>${(CATS[p.cat]||CATS.notice).i}</span><div class="ttl"><b>${esc(p.title)}</b><small>${fmt(p.ts)}${p.hist&&p.hist.length?" · ✎ "+p.hist.length+" edits":""}</small></div>
- <div class="acts"><button class="btn ghost sm" onclick="startEdit('${p.id}')">Edit</button>${p.hist&&p.hist.length?`<button class="btn ghost sm" onclick="showHist('${p.id}')">History</button>`:""}<button class="btn danger sm" onclick="del('${p.id}')">Delete</button></div></div>`).join("")||"<small>কিছু নেই</small>"}</div></div>
+ <div class="acts"><button class="btn ghost sm" onclick="waShare('${p.id}')">📲</button><button class="btn ghost sm" onclick="startEdit('${p.id}')">Edit</button>${p.hist&&p.hist.length?`<button class="btn ghost sm" onclick="showHist('${p.id}')">History</button>`:""}<button class="btn danger sm" onclick="del('${p.id}')">Delete</button></div></div>`).join("")||"<small>কিছু নেই</small>"}</div></div>
  <div class="panel" style="margin-bottom:50px"><h3>📨 Contact Messages (${S.msgs.length})</h3>${[...S.msgs].sort((a,b)=>b.ts-a.ts).map(m=>`<div class="li msg"><b>${esc(m.subject)}</b><small>${esc(m.name)} · ${esc(m.email)}${m.phone?" · "+esc(m.phone):""} · ${fmt(m.ts)}</small><p class="body">${esc(m.message)}</p><div class="acts"><a class="btn ghost sm" href="mailto:${esc(m.email)}?subject=${encodeURIComponent("Re: "+m.subject)}">Reply</a><button class="btn danger sm" onclick="delMsg('${m.id}')">Delete</button></div></div>`).join("")||"<small>কোনো message নেই</small>"}</div>`}
 function render(keep){const o=keep&&($("#f_title")||$("#em"))?snap():null;
  $("#app").innerHTML=!S.ready?loadingV():!S.uid?loginV():!S.cfg?loadingV():!isAdmin()?deniedV():panelV();
  if(o)restore(o);$("#outBtn").style.display=S.uid?"":"none";$("#yr").textContent=new Date().getFullYear()}
 
 /* ---- actions ---- */
+function waText(p,id){const c=CATS[p.cat]||CATS.notice,b=(p.body||"").replace(/\s+/g," ").trim();
+ return `📢 *${c.n} – ${p.title}*\n\n${b.slice(0,220)}${b.length>220?"…":""}\n\n🔗 ${location.origin}/p/${id}\n\n_Mirpur College Updates & Notices_`}
+function showShare(id,p){$("#sheet").innerHTML=`<h2 style="margin-top:0">✅ Post হয়েছে!</h2><p><small>এখন WhatsApp group-এ পাঠান: নিচের button চাপলে WhatsApp খুলবে, সেখানে group select করে Send দিন। চাইলে message বদলে নিতে পারেন।</small></p><textarea id="wa_t" style="min-height:190px">${esc(waText(p,id))}</textarea><div class="row"><button class="btn" onclick="openWA()">📲 WhatsApp-এ পাঠান</button><button class="btn ghost" onclick="copy($('#wa_t').value)">📋 Copy</button><button class="btn ghost" onclick="closeM()">Close</button></div>`;$("#modal").classList.add("open")}
+const openWA=()=>window.open("https://api.whatsapp.com/send?text="+encodeURIComponent($("#wa_t").value),"_blank");
+function waShare(id){const p=S.posts.find(x=>x.id==id);if(p)showShare(id,p)}
 function startEdit(id){const p=S.posts.find(x=>x.id==id);if(!p)return;S.edit=id;S.pending={cover:p.cover||null,files:(p.files||[]).filter(f=>f.type!="link")};render(false);scrollTo(0,0)}
 function cancelEdit(){S.edit=null;S.pending={cover:null,files:[]};render(false)}
 function parseLinks(t){return t.split("\n").map(x=>x.trim()).filter(Boolean).map(x=>{const i=x.indexOf("|");return i<0?{name:"Attachment",url:x}:{name:x.slice(0,i).trim()||"Attachment",url:x.slice(i+1).trim()}}).filter(a=>/^https?:\/\//.test(a.url)).map(a=>({id:"",name:a.name,type:"link",url:a.url}))}
@@ -194,8 +199,8 @@ async function submitPost(){
  const clean=JSON.parse(JSON.stringify(data));
  if(JSON.stringify(clean).length>950000)return toast("Post ta onek boro – chobi kombao");
  b.disabled=true;
- try{S.edit?await FB.setDoc(FB.doc(FB.db,"posts",S.edit),clean):await FB.addDoc(FB.collection(FB.db,"posts"),clean);
-  toast(S.edit?"Updated ✔":"Published ✔");S.edit=null;S.pending={cover:null,files:[]};render(false)}
+ try{let nid=null;if(S.edit)await FB.setDoc(FB.doc(FB.db,"posts",S.edit),clean);else nid=(await FB.addDoc(FB.collection(FB.db,"posts"),clean)).id;
+  toast(S.edit?"Updated ✔":"Published ✔");S.edit=null;S.pending={cover:null,files:[]};render(false);if(nid)showShare(nid,clean)}
  catch(e){toast("Save hoyni: "+(e.code||e.message));b.disabled=false}}
 async function del(id){if(!confirm("Delete করবেন?"))return;try{await FB.deleteDoc(FB.doc(FB.db,"posts",id));if(S.edit==id)cancelEdit();toast("Deleted")}catch(e){toast("Delete hoyni: "+(e.code||e.message))}}
 async function delMsg(id){if(!confirm("Message delete করবেন?"))return;try{await FB.deleteDoc(FB.doc(FB.db,"messages",id))}catch(e){toast("Delete hoyni")}}

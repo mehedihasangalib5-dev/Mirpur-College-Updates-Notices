@@ -2,7 +2,7 @@
 <html lang="bn"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://firestore.googleapis.com"><link rel="icon" type="image/png" href="logo.png"><link rel="apple-touch-icon" href="logo.png"><meta name="theme-color" content="#1d3fa8">
-<title>Mirpur College Updates &amp; Notices</title>
+<meta property="og:site_name" content="Mirpur College Updates &amp; Notices"><meta property="og:title" content="Mirpur College Updates &amp; Notices"><meta property="og:description" content="কলেজের সর্বশেষ নোটিশ, সিলেবাস, রুটিন ও আপডেট এক জায়গায়।"><meta property="og:image" content="/og.png"><title>Mirpur College Updates &amp; Notices</title>
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f6f5fb;--card:#fff;--ink:#17152b;--mute:#6b6885;--line:#e7e4f3;--pri:#1d3fa8;--pri2:#3f6ae0;--sh:0 8px 30px rgba(60,40,140,.09)}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e0d1a;--card:#171528;--ink:#f1efff;--mute:#9a97b8;--line:#2a2745;--sh:0 8px 30px rgba(0,0,0,.4);--pri:#5a7df5;--pri2:#5a7df5}}
@@ -105,6 +105,7 @@ footer a{color:var(--pri);font-weight:700;text-decoration:none}footer a:hover{te
 .cvr{height:150px;background:var(--line);animation:sh 1s infinite alternate}.cvr.done{animation:none;background:none}.cvr img{width:100%;height:150px;object-fit:cover;display:block}
 .sk .tag,.sk h3,.sk p{background:var(--line);border-radius:8px;color:transparent;animation:sh 1s infinite alternate}.sk .tag{width:80px}.sk{pointer-events:none}
 @keyframes sh{from{opacity:.45}}
+.post-page{max-width:760px;margin:24px auto 50px}.share{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}.share span{font-weight:700;margin-right:4px}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
 <nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="theme">🌓</button></div></header>
@@ -142,9 +143,9 @@ async function getFull(id){if(FULL[id])return FULL[id];const r=await fetch(rurl(
 async function getCover(id){if(id in COVER)return COVER[id];const r=await fetch(rurl("/posts/"+id,["cover"]));if(!r.ok)throw new Error(r.status);return COVER[id]=toDoc(await r.json()).cover||null}
 let SDKp=null;
 function getSDK(){return SDKp||(SDKp=(async()=>{const V="https://www.gstatic.com/firebasejs/12.19.0/";const [a,f]=await Promise.all([import(V+"firebase-app.js"),import(V+"firebase-firestore.js")]);return{db:f.getFirestore(a.initializeApp(firebaseConfig)),f}})())}
-async function sdkMode(){try{const {db,f}=await getSDK();S.sdk=true;f.onSnapshot(f.collection(db,"posts"),sn=>{S.posts=sn.docs.map(d=>({id:d.id,...d.data()}));S.loaded=true;route()},()=>{S.loaded=true;route()})}catch(e){S.loaded=true;route()}}
-async function refresh(force){if(!force&&Date.now()-(S.t||0)<30000)return;
- try{S.posts=await loadPosts();S.t=Date.now();S.sdk=false;S.loaded=true;try{localStorage.setItem("mcn_posts",JSON.stringify({t:S.t,posts:S.posts}))}catch(e){}route()}
+async function sdkMode(){try{const {db,f}=await getSDK();S.sdk=true;S.fresh=true;f.onSnapshot(f.collection(db,"posts"),sn=>{S.posts=sn.docs.map(d=>({id:d.id,...d.data()}));S.loaded=true;route()},()=>{S.loaded=true;route()})}catch(e){S.loaded=true;route()}}
+async function refresh(force){if(!force&&Date.now()-(S.t||0)<30000){S.fresh=true;route();return}
+ try{S.posts=await loadPosts();S.t=Date.now();S.sdk=false;S.loaded=true;S.fresh=true;try{localStorage.setItem("mcn_posts",JSON.stringify({t:S.t,posts:S.posts}))}catch(e){}route()}
  catch(e){if(S.posts.length){S.loaded=true;route()}else sdkMode()}}
 const io="IntersectionObserver"in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){io.unobserve(e.target);fillCover(e.target)}}),{rootMargin:"300px"}):null;
 async function fillCover(el){const id=el.dataset.cv;try{const c=await getCover(id);if(c&&ok(c.url)){el.innerHTML=`<img src="${esc(c.url)}" alt="">`;el.classList.add("done")}else el.remove()}catch(e){el.remove()}}
@@ -186,16 +187,26 @@ async function sendMsg(e){e.preventDefault();const f=e.target;if($("#c_hp").valu
   const sent=await tg;if(!saved&&!sent)throw err||new Error("error");
   toast("Message pathano hoyeche ✔");f.reset()}catch(x){toast("Send hoyni: "+((x&&(x.code||x.message))||"error"))}
  b.disabled=false}
-function drawPost(f,state){const c=CATS[f.cat]||CATS.notice,a=atts(f);
- $("#sheet").innerHTML=`<span class="tag" style="${tint(c.c)}">${c.i} ${c.n}</span><h2 style="margin:8px 0">${esc(f.title)}</h2><small>${fmt(f.ts)}</small>${f.cover&&ok(f.cover.url)?`<img class="big" src="${esc(f.cover.url)}" alt="">`:""}<p class="body">${esc(f.body)}</p>${state=="load"?'<p><small>⏳ Attachment লোড হচ্ছে…</small></p>':state=="fail"?'<p><small>⚠ Attachment load hoyni, abar chesta korun.</small></p>':""}${a.length?`<h4 style="margin:18px 0 6px">📎 Attachments</h4>`+a.map(attHTML).join(""):""}<div class="row"><button class="btn ghost" onclick="closeM()">Close</button></div>`}
-async function openPost(id){const p=S.posts.find(x=>x.id==id);if(!p)return;CUR=id;
- const pend=!S.sdk&&!FULL[id]&&(p.nf==null||p.nf>0||p.hc!==false);
- drawPost(FULL[id]||p,pend?"load":"");$("#modal").classList.add("open");
- if(pend)try{const f=await getFull(id);if(CUR==id)drawPost(f,"")}catch(e){if(CUR==id)drawPost(p,"fail")}}
+const FAIL={},TRY={};
+function shareBar(f){const u=location.origin+"/p/"+f.id,e=encodeURIComponent;
+ return `<div class="share"><span>📤 Share:</span><a class="btn sm" target="_blank" rel="noopener" href="https://api.whatsapp.com/send?text=${e("📢 *"+f.title+"*\n"+u)}">📲 WhatsApp</a><a class="btn ghost sm" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=${e(u)}">Facebook</a><button class="btn ghost sm" onclick="copyLink('${f.id}')">🔗 Copy link</button>${navigator.share?`<button class="btn ghost sm" onclick="nativeShare('${f.id}')">More…</button>`:""}</div>`}
+function copyLink(id){const u=location.origin+"/p/"+id;if(navigator.clipboard)navigator.clipboard.writeText(u).then(()=>toast("Link copied ✔"),()=>prompt("Link:",u));else prompt("Link:",u)}
+function nativeShare(id){const p=FULL[id]||S.posts.find(x=>x.id==id);navigator.share({title:p?p.title:"Notice",url:location.origin+"/p/"+id}).catch(()=>{})}
+function openPost(id){location.hash="#/p/"+id}
+function pPost(id){const p=FULL[id]||S.posts.find(x=>x.id==id);
+ const back='<a class="lnk" style="text-decoration:none;display:inline-block;margin-bottom:12px" href="#/">← সব Post</a>';
+ if(!p)return `<div class="panel post-page">${back}${S.fresh&&TRY[id]==2?"<h3>Post ta pawa jayni 😕</h3>":'<div class="card sk" style="border:0"><div class="cb"><span class="tag">&nbsp;</span><h3>&nbsp;</h3><p>&nbsp;</p><p>&nbsp;</p></div></div>'}</div>`;
+ const lite=!FULL[id]&&!S.sdk,pend=lite&&!FAIL[id]&&(p.nf==null||p.nf>0||p.hc!==false);
+ const c=CATS[p.cat]||CATS.notice,a=atts(p);
+ return `<div class="panel post-page">${back}<span class="tag" style="${tint(c.c)}">${c.i} ${c.n}</span><h2 style="margin:8px 0">${esc(p.title)}</h2><small>${fmt(p.ts)}</small>${p.cover&&ok(p.cover.url)?`<img class="big" src="${esc(p.cover.url)}" alt="">`:""}<p class="body">${esc(p.body)}</p>${pend?'<p><small>⏳ Attachment লোড হচ্ছে…</small></p>':lite&&FAIL[id]?'<p><small>⚠ Attachment load hoyni, page refresh korun.</small></p>':""}${a.length?`<h4 style="margin:18px 0 6px">📎 Attachments</h4>`+a.map(attHTML).join(""):""}${shareBar(p)}</div>`}
+async function loadPost(id){const p=S.posts.find(x=>x.id==id);
+ if(!p&&!FULL[id]&&!TRY[id]){TRY[id]=1;try{await getFull(id)}catch(e){}TRY[id]=2;if(location.hash.includes(id))route();return}
+ if(!p||S.sdk||FULL[id]||FAIL[id])return;if(!(p.nf==null||p.nf>0||p.hc!==false))return;
+ try{await getFull(id)}catch(e){FAIL[id]=1}if(location.hash.includes(id))route()}
 function route(){const h=location.hash.replace(/^#\/?/,"").split("/"),pg=h[0]||"home";
  $("#links").innerHTML=`<a href="#/" class="${pg=="home"?"on":""}">Home</a><a href="#/contact" class="${pg=="contact"?"on":""}">Contact</a>`;
  $("#yr").textContent=new Date().getFullYear();{const f=$("#fab"),c=pg=="contact";f.href=c?"#/":"#/contact";f.innerHTML=c?"<span>🏠</span>Home":"<span>💬</span>Contact";f.setAttribute("aria-label",c?"Home":"Contact")}const k=document.activeElement&&document.activeElement.id;
- $("#app").innerHTML=pg=="contact"?pContact():pHome();observeCovers();
+ $("#app").innerHTML=pg=="contact"?pContact():pg=="p"?pPost(h[1]):pHome();observeCovers();if(pg=="p")loadPost(h[1]);
  const q=$("#q");if(q){q.addEventListener("keydown",e=>{if(e.key=="Enter"){S.q=q.value.trim();route()}});if(k=="q")q.focus()}}
 addEventListener("hashchange",()=>{route();scrollTo(0,0)});
 (function boot(){try{const c=JSON.parse(localStorage.getItem("mcn_posts")||"null");if(c&&c.posts){S.posts=c.posts;S.t=c.t;S.loaded=true}}catch(e){}

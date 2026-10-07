@@ -1,4 +1,5 @@
 {
   "cleanUrls": true,
-  "headers": [{ "source": "/logo.png", "headers": [{ "key": "Cache-Control", "value": "public, max-age=2592000" }] }]
+  "rewrites": [{ "source": "/p/:id", "destination": "/api/p?id=:id" }],
+  "headers": [{ "source": "/(logo|og).png", "headers": [{ "key": "Cache-Control", "value": "public, max-age=2592000" }] }]
 }
