@@ -147,6 +147,7 @@ footer a{color:var(--pri)}
 .auth-side>.blob{position:absolute}
 input[type=checkbox]{accent-color:var(--pri);width:18px;height:18px;padding:0}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.pgy{font-size:12px;color:var(--mute);font-weight:700;margin:8px 0 4px}.pgs{display:block}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="admin.html"><img src="logo.png" alt="Logo">Admin Panel</a><div class="sp"></div>
 <div class="hdr-r"><a class="btn ghost sm" href="index.html" target="_blank">🌐<span class="hd"> Website</span></a><button class="btn ghost sm" id="theme">🌓</button><button class="btn ghost sm" id="outBtn" style="display:none" onclick="logout()">Logout</button></div></div></header>
@@ -155,7 +156,15 @@ input[type=checkbox]{accent-color:var(--pri);width:18px;height:18px;padding:0}
 <div>Developed by <a href="https://cortex-it-kappa.vercel.app/" target="_blank" rel="noopener">Cortex IT</a></div></footer><div class="modal" id="modal"><div class="sheet" id="sheet"></div></div><div class="toast" id="toast"></div>
 <script>
 const CATS={notice:{n:"Notice",i:"📢",c:"#e5484d"},syllabus:{n:"Syllabus",i:"📚",c:"#5b4bff"},suggestion:{n:"Suggestion",i:"💡",c:"#e08a00"},routine:{n:"Routine",i:"🗓",c:"#0d9488"},result:{n:"Result",i:"🏆",c:"#16a34a"},event:{n:"Event",i:"🎉",c:"#d6409f"}};
-const GROUPS=["HSC 1st Year","HSC 2nd Year","Science","Arts","Commerce"]; // <- ekhane nijer class/department gulo likho
+const YEARS=["HSC 1st Year","HSC 2nd Year"],DEPTS=["Science","Arts","Commerce"]; // index.html-er sathe mil rakhte hobe
+const PAGES=YEARS.flatMap(y=>DEPTS.map(d=>y+" · "+d)); // protita Year x Department = ekta alada page
+function pagesOf(p){const g=p.grp||[];if(!g.length)return PAGES;const out=new Set(g.filter(x=>PAGES.includes(x))),ly=g.filter(x=>YEARS.includes(x)),ld=g.filter(x=>DEPTS.includes(x));
+ if(ly.length||ld.length)(ly.length?ly:YEARS).forEach(y=>(ld.length?ld:DEPTS).forEach(d=>out.add(y+" · "+d)));return out.size?[...out]:PAGES}
+const short=l=>l.replace("HSC ","");
+const pfOk=p=>!S.pf||pagesOf(p).includes(S.pf);
+const pgText=p=>{const g=pagesOf(p);return g.length==PAGES.length?"🌐 সব Page":"📄 "+g.map(short).join(", ")};
+const pfOpts=()=>`<option value="">📄 সব Page (${S.posts.length})</option>`+PAGES.map(l=>`<option value="${esc(l)}" ${S.pf==l?"selected":""}>${esc(short(l))} (${S.posts.filter(p=>pagesOf(p).includes(l)).length})</option>`).join("");
+function pgSet(on){document.querySelectorAll(".gcb").forEach(x=>x.checked=on)}
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 const fmt=t=>new Date(t).toLocaleString("en-GB",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
@@ -209,12 +218,14 @@ function loginV(){let saved="";try{saved=localStorage.getItem("mcn_admin_email")
  <p class="hint">Email-এ একটি link যাবে, সেখানে click করলেই login — password লাগবে না। শুধু Owner যাদের email add করেছেন তারাই ঢুকতে পারবে।</p>`}</div></section>`}
 function panelV(){
  const e=S.posts.find(p=>p.id==S.edit)||{cat:"notice",title:"",body:"",link:"",pinned:false,files:[]},P=S.pending;
- const links=(e.files||[]).filter(f=>f.type=="link").map(f=>f.name+" | "+f.url).join("\n");
+ const links=(e.files||[]).filter(f=>f.type=="link").map(f=>f.name+" | "+f.url).join("\n"),sel=(e.grp&&e.grp.length)?pagesOf(e):[];
  return `<h1 class="pt">⚙ Admin Panel</h1>
  <div class="adm"><div><div class="panel"><h3>${S.edit?"✏ Post Edit":"➕ নতুন Post"}</h3>
  <label>Category</label><select id="f_cat">${Object.entries(CATS).map(([k,c])=>`<option value="${k}" ${e.cat==k?"selected":""}>${c.i} ${c.n}</option>`).join("")}</select>
  <label>Title</label><input id="f_title" value="${esc(e.title)}"><label>Details</label><textarea id="f_body">${esc(e.body)}</textarea>
- <label>👥 কাদের জন্য? (কিছু select না করলে সবার জন্য)</label><div class="gset">${GROUPS.map(g=>`<label class="gchk"><input type="checkbox" class="gcb" value="${esc(g)}" ${(e.grp||[]).includes(g)?"checked":""}> ${esc(g)}</label>`).join("")}</div>
+ <label>📄 কোন Page-এ দেখাবে? (কিছু select না করলে সব Page-এ)</label>
+ ${YEARS.map(y=>`<div class="pgy">${esc(y)}</div><div class="gset" style="margin-bottom:8px">${DEPTS.map(d=>{const l=y+" · "+d;return `<label class="gchk"><input type="checkbox" class="gcb" value="${esc(l)}" ${sel.includes(l)?"checked":""}> ${esc(d)}</label>`}).join("")}</div>`).join("")}
+ <div class="row" style="margin:0 0 4px"><button type="button" class="btn ghost sm" onclick="pgSet(true)">✔ সব Page</button><button type="button" class="btn ghost sm" onclick="pgSet(false)">✕ Clear</button></div>
  <label>📅 Deadline / শেষ তারিখ (optional)</label><input type="date" id="f_dl" value="${e.dl?new Date(e.dl).toLocaleDateString("en-CA"):""}">
  <label>Cover Image</label><input type="file" accept="image/*" onchange="pick('cover',this.files,this)">
  ${P.cover?`<div class="pend"><small>✔ ${esc(P.cover.name)}</small><button type="button" class="lnk" onclick="S.pending.cover=null;render(true)">✕ remove</button></div>`:""}
@@ -223,13 +234,12 @@ function panelV(){
  <label>Attachment links (PDF/Doc – Google Drive লিংক)</label><textarea id="f_links" style="min-height:80px" placeholder="Syllabus PDF | https://drive.google.com/file/d/...&#10;Routine | https://...">${esc(links)}</textarea><small>প্রতি লাইনে একটি: নাম | লিংক</small>
  <label>Extra Link (optional)</label><input id="f_link" value="${esc(e.link||"")}" placeholder="https://…">
  <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="f_pin" style="width:auto" ${e.pinned?"checked":""}> 📌 Pin to top</label>
- <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="f_push" style="width:auto" ${S.edit?"":"checked"}> 🔔 Push notification pathao (phone-e alert)</label>
  <div class="row"><button class="btn" id="pubBtn" onclick="submitPost()">${S.edit?"Update":"Publish"}</button>${S.edit?'<button class="btn ghost" onclick="cancelEdit()">Cancel</button>':""}</div></div>
  <div class="panel"><h3>👤 Admin Access (Email)</h3><div class="note">আপনার email: <code>${esc(S.email||"")}</code><br>কাউকে access দিতে তার email নিচে add করুন — সে Google বা email link দিয়ে login করে panel ব্যবহার করতে পারবে। ${isOwner()?"":"(শুধু Owner পরিবর্তন করতে পারে)"}</div>
  ${isOwner()?`<form class="row" style="margin:0 0 10px;flex-wrap:nowrap" onsubmit="addAdmin(event)"><input id="newem" type="email" required placeholder="name@gmail.com" style="flex:1;min-width:0"><button class="btn sm">Add</button></form>`:""}
  ${S.emails.map((u,i)=>`<div class="li"><div><code>${esc(u)}</code>${i==0?" <small>(Owner)</small>":""}${u==me()?" <small>(আপনি)</small>":""}</div>${isOwner()&&i>0?`<button class="btn danger sm" onclick="rmAdmin('${esc(u)}')">Remove</button>`:""}</div>`).join("")||"<small>কোনো email নেই</small>"}
  ${S.ids.map((u,i)=>`<div class="li"><div><code>${esc(u)}</code> <small>(পুরনো UID access)</small></div>${isOwner()?`<button class="btn danger sm" onclick="rmId('${esc(u)}')">Remove</button>`:""}</div>`).join("")}</div></div>
- <div class="panel"><h3>সব Post (${S.posts.length})</h3>${sorted(S.posts).map(p=>`<div class="li post"><span>${(CATS[p.cat]||CATS.notice).i}</span><div class="ttl"><b>${esc(p.title)}</b><small>${fmt(p.ts)}${p.hist&&p.hist.length?" · ✎ "+p.hist.length+" edits":""}</small></div>
+ <div class="panel"><h3>সব Post (${S.posts.filter(pfOk).length}${S.pf?" / "+S.posts.length:""})</h3><select id="pf_sel" onchange="S.pf=this.value;render(true)" style="margin-bottom:10px">${pfOpts()}</select>${sorted(S.posts.filter(pfOk)).map(p=>`<div class="li post"><span>${(CATS[p.cat]||CATS.notice).i}</span><div class="ttl"><b>${esc(p.title)}</b><small>${fmt(p.ts)}${p.hist&&p.hist.length?" · ✎ "+p.hist.length+" edits":""}</small><small class="pgs">${pgText(p)}</small></div>
  <div class="acts"><button class="btn ghost sm" onclick="waShare('${p.id}')">📲</button><button class="btn ghost sm" onclick="startEdit('${p.id}')">Edit</button>${p.hist&&p.hist.length?`<button class="btn ghost sm" onclick="showHist('${p.id}')">History</button>`:""}<button class="btn danger sm" onclick="del('${p.id}')">Delete</button></div></div>`).join("")||"<small>কিছু নেই</small>"}</div></div>
  <div class="panel" style="margin-bottom:50px"><h3>📨 Contact Messages (${S.msgs.length})</h3>${[...S.msgs].sort((a,b)=>b.ts-a.ts).map(m=>`<div class="li msg"><b>${esc(m.subject)}</b><small>${esc(m.name)} · ${esc(m.email)}${m.phone?" · "+esc(m.phone):""} · ${fmt(m.ts)}</small><p class="body">${esc(m.message)}</p><div class="acts"><a class="btn ghost sm" href="mailto:${esc(m.email)}?subject=${encodeURIComponent("Re: "+m.subject)}">Reply</a><button class="btn danger sm" onclick="delMsg('${m.id}')">Delete</button></div></div>`).join("")||"<small>কোনো message নেই</small>"}</div>`}
 function render(keep){const o=keep&&($("#f_title")||$("#em"))?snap():null;
@@ -238,7 +248,7 @@ function render(keep){const o=keep&&($("#f_title")||$("#em"))?snap():null;
 
 /* ---- actions ---- */
 function waText(p,id){const c=CATS[p.cat]||CATS.notice,b=(p.body||"").replace(/\s+/g," ").trim();
- const g=(p.grp&&p.grp.length)?`\n👥 ${p.grp.join(", ")}`:"",d=p.dl?`\n📅 শেষ তারিখ: ${new Date(p.dl).toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"})}`:"";
+ const pg=pagesOf(p),g=pg.length<PAGES.length?`\n👥 ${pg.map(short).join(", ")}`:"",d=p.dl?`\n📅 শেষ তারিখ: ${new Date(p.dl).toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"})}`:"";
  return `📢 *${c.n} – ${p.title}*${g}${d}\n\n${b.slice(0,220)}${b.length>220?"…":""}\n\n🔗 ${location.origin}/p/${id}\n\n_Mirpur College Updates & Notices_`}
 function showShare(id,p){$("#sheet").innerHTML=`<h2 style="margin-top:0">✅ Post হয়েছে!</h2><p><small>এখন WhatsApp group-এ পাঠান: নিচের button চাপলে WhatsApp খুলবে, সেখানে group select করে Send দিন। চাইলে message বদলে নিতে পারেন।</small></p><textarea id="wa_t" style="min-height:190px">${esc(waText(p,id))}</textarea><div class="row"><button class="btn" onclick="openWA()">📲 WhatsApp-এ পাঠান</button><button class="btn ghost" onclick="copy($('#wa_t').value)">📋 Copy</button><button class="btn ghost" onclick="closeM()">Close</button></div>`;$("#modal").classList.add("open")}
 const openWA=()=>window.open("https://api.whatsapp.com/send?text="+encodeURIComponent($("#wa_t").value),"_blank");
@@ -250,18 +260,15 @@ async function submitPost(){
  const title=$("#f_title").value.trim(),body=$("#f_body").value.trim();if(!title||!body)return toast("Title আর Details দিন");
  const old=S.posts.find(p=>p.id==S.edit),now=Date.now(),P=S.pending,b=$("#pubBtn"),dlv=$("#f_dl").value;
  const data={title,body,cat:$("#f_cat").value,link:$("#f_link").value.trim(),pinned:$("#f_pin").checked,cover:P.cover||null,files:[...P.files,...parseLinks($("#f_links").value)],
-  ts:old?old.ts:now,by:old?(old.by||S.uid):S.uid,updated:now,nf:P.files.length+parseLinks($("#f_links").value).length+(/^https?:\/\//.test($("#f_link").value.trim())?1:0),hc:!!P.cover,grp:[...document.querySelectorAll(".gcb:checked")].map(x=>x.value),dl:dlv?new Date(dlv+"T23:59:59").getTime():null,
+  ts:old?old.ts:now,by:old?(old.by||S.uid):S.uid,updated:now,nf:P.files.length+parseLinks($("#f_links").value).length+(/^https?:\/\//.test($("#f_link").value.trim())?1:0),hc:!!P.cover,grp:(g=>g.length==PAGES.length?[]:g)([...document.querySelectorAll(".gcb:checked")].map(x=>x.value)),dl:dlv?new Date(dlv+"T23:59:59").getTime():null,
   hist:old?[{ts:now,by:S.uid,title:old.title||"",body:old.body||"",cat:old.cat||"notice",link:old.link||""},...(old.hist||[])].slice(0,20):[]};
  const clean=JSON.parse(JSON.stringify(data));
  if(JSON.stringify(clean).length>950000)return toast("Post ta onek boro – chobi kombao");
- const wantPush=!!($("#f_push")&&$("#f_push").checked),eid=S.edit;
+ 
  b.disabled=true;
  try{let nid=null;if(S.edit)await FB.setDoc(FB.doc(FB.db,"posts",S.edit),clean);else nid=(await FB.addDoc(FB.collection(FB.db,"posts"),clean)).id;
-  toast(S.edit?"Updated ✔":"Published ✔");S.edit=null;S.pending={cover:null,files:[]};render(false);if(nid)showShare(nid,clean);if(wantPush&&(nid||eid))sendPush(nid||eid)}
+  toast(S.edit?"Updated ✔":"Published ✔");S.edit=null;S.pending={cover:null,files:[]};render(false);if(nid)showShare(nid,clean)}
  catch(e){toast("Save hoyni: "+(e.code||e.message));b.disabled=false}}
-async function sendPush(id){try{const tk=await FB.auth.currentUser.getIdToken();
- const r=await fetch("/api/notify",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+tk},body:JSON.stringify({id})});
- const j=await r.json().catch(()=>({}));toast(r.ok?"🔔 Push pathano hoyeche ✔":"Push hoyni: "+(j.error||r.status))}catch(e){toast("Push hoyni: "+(e.message||e))}}
 async function del(id){if(!confirm("Delete করবেন?"))return;try{await FB.deleteDoc(FB.doc(FB.db,"posts",id));if(S.edit==id)cancelEdit();toast("Deleted")}catch(e){toast("Delete hoyni: "+(e.code||e.message))}}
 async function delMsg(id){if(!confirm("Message delete করবেন?"))return;try{await FB.deleteDoc(FB.doc(FB.db,"messages",id))}catch(e){toast("Delete hoyni")}}
 async function saveAdmins(emails,ids){try{await FB.setDoc(FB.doc(FB.db,"config","admins"),ids&&ids.length?{emails,ids}:{emails});toast("Saved ✔")}catch(e){toast("Save hoyni: "+(e.code||e.message))}}

@@ -4,6 +4,7 @@
 <link rel="preconnect" href="https://firestore.googleapis.com"><link rel="icon" type="image/png" href="logo.png"><link rel="apple-touch-icon" href="/icon-192.png"><link rel="manifest" href="/manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MC Updates"><meta name="theme-color" content="#1d3fa8">
 <meta property="og:site_name" content="Mirpur College Updates &amp; Notices"><meta property="og:title" content="Mirpur College Updates &amp; Notices"><meta property="og:description" content="কলেজের সর্বশেষ নোটিশ, সিলেবাস, রুটিন ও আপডেট এক জায়গায়।"><meta property="og:image" content="/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap">
 <script>try{var t=localStorage.getItem("mcn_theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script>try{if(!localStorage.getItem("mcn_user"))throw 0}catch(e){document.documentElement.classList.add("gated")}</script>
 <title>Mirpur College Updates &amp; Notices</title>
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f4f6fb;--card:#fff;--ink:#0f172a;--mute:#64748b;--line:#e4e8f1;--pri:#2850e8;--pri2:#7c5cff;--acc:#f59e0b;--sh:0 16px 36px -16px rgba(30,50,120,.28);--hh:62px;color-scheme:light}
@@ -113,10 +114,31 @@ footer a{color:var(--pri);font-weight:700;text-decoration:none}footer a:hover{te
 .fab span{font-size:20px;line-height:1}.fab:active{transform:scale(.95)}
 @keyframes fabin{from{transform:translateY(30px) scale(.8);opacity:0}}
 @media(min-width:601px){.fab{display:none!important}}
+/* auth gate + profile */
+.me{display:none;width:38px;height:38px;border-radius:50%;padding:0;overflow:hidden;flex:none;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;font-weight:800;font-size:16px;box-shadow:0 0 0 2px var(--card),0 0 0 3px var(--line);margin-left:2px}
+.me img,.av img{width:100%;height:100%;object-fit:cover;display:block}
+.av{width:84px;height:84px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;font-weight:800;font-size:34px;flex:none;box-shadow:0 0 0 3px var(--card),0 0 0 4px var(--line)}
+.pf-top{display:flex;align-items:center;gap:14px;margin:8px 0 2px;flex-wrap:wrap}.pf-top .row{margin:0}
+.btn.danger{background:#e5484d;box-shadow:none}
+.who{display:table;margin:0 auto 10px;padding:4px 12px;border-radius:99px;background:var(--card);border:1px solid var(--line);font-size:12.5px;color:var(--mute);font-weight:600}
+#gate{display:none;min-height:100vh;align-items:center;justify-content:center;padding:20px;background:radial-gradient(60% 50% at 0% 0%,color-mix(in srgb,var(--pri) 18%,transparent),transparent 70%),radial-gradient(55% 50% at 100% 100%,color-mix(in srgb,var(--pri2) 16%,transparent),transparent 70%)}
+html.gated #gate{display:flex}
+html.gated header,html.gated main,html.gated footer,html.gated .fab{display:none!important}
+.gbox{width:100%;max-width:420px;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:24px;box-shadow:var(--sh)}
+.glogo{display:block;width:64px;height:64px;border-radius:50%;margin:0 auto 10px;object-fit:cover;background:#fff;box-shadow:0 0 0 4px var(--card),0 12px 26px -8px color-mix(in srgb,var(--pri) 60%,transparent)}
+.gbox h1{font-size:21px;margin:0 0 4px;text-align:center;letter-spacing:-.02em}.gs{color:var(--mute);text-align:center;font-size:13px;margin:0 0 14px}
+.gtabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:4px;margin-bottom:4px}
+.gtabs button{padding:9px;border-radius:10px;background:none;color:var(--mute);font-weight:700}
+.gtabs button.on{background:var(--card);color:var(--pri);box-shadow:0 2px 8px -2px rgba(0,0,0,.25)}
+.gerr{display:none;margin-top:12px;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,#e5484d 12%,transparent);color:#e5484d;font-size:13px;font-weight:600}
+.pw{position:relative}.pw input{padding-right:46px}.pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;font-size:18px;padding:6px 8px;line-height:1}
+.gbox .btn{width:100%;justify-content:center;margin-top:14px;padding:12px}
+.gfoot{text-align:center;margin-top:12px;font-size:13px}
 /* responsive */
-@media(max-width:700px){.hd{display:none}.sbar{display:grid;grid-template-columns:1fr 1fr;gap:8px}.search{grid-column:1/-1;height:46px;border-radius:14px}.filter{width:auto;min-width:0}.filter select{font-size:13.5px;height:44px;padding:0 30px 0 12px;border-radius:14px;background-position:right 11px center}}
+@media(max-width:700px){.hd{display:none}.sbar{display:grid;grid-template-columns:1fr 1fr;gap:8px}.search{grid-column:1/-1;height:46px;border-radius:14px}.filter{width:auto;min-width:0;grid-column:1/-1}.filter select{font-size:13.5px;height:44px;padding:0 30px 0 12px;border-radius:14px;background-position:right 11px center}}
 @media(max-width:600px){
 :root{--hh:52px}
+.me{width:32px;height:32px;font-size:14px}.gbox{padding:18px;border-radius:20px}.av{width:72px;height:72px;font-size:28px}
 body{font-size:14px;line-height:1.55}
 .wrap{padding:0 12px}
 .nav{gap:4px}.links{display:none}
@@ -145,14 +167,16 @@ footer{padding:18px 0 84px;font-size:12px}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
-<nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="bellBtn" style="display:none" aria-label="Notification">🔔<span class="hd"> Alert</span></button><button class="btn ghost sm" id="installBtn" style="display:none">⬇<span class="hd"> Install</span></button><button class="btn ghost sm" id="theme">🌓</button></div></header>
+<nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="installBtn" style="display:none">⬇<span class="hd"> Install</span></button><button class="btn ghost sm" id="theme">🌓</button><button class="me" id="meBtn" aria-label="Profile" type="button"></button></div></header>
+<div id="gate"></div>
 <main class="wrap" id="app"></main>
 <footer><div>© <span id="yr"></span> Mirpur College Updates &amp; Notices. All rights reserved.</div>
 <div>Developed by <a href="https://cortex-it-kappa.vercel.app/" target="_blank" rel="noopener">Cortex IT</a></div><div style="margin-top:6px"><a href="#/">Home</a> · <a href="#/contact">Contact</a></div><div style="margin-top:8px;font-size:12px">📱 iPhone: Safari → Share → "Add to Home Screen"</div></footer><a class="fab" id="fab" href="#/contact" aria-label="Contact"><span>💬</span>Contact</a>
 <div class="modal" id="modal"><div class="sheet" id="sheet"></div></div><div class="toast" id="toast"></div>
 <script>
 const CATS={notice:{n:"Notice",i:"📢",c:"#e5484d"},syllabus:{n:"Syllabus",i:"📚",c:"#5b4bff"},suggestion:{n:"Suggestion",i:"💡",c:"#e08a00"},routine:{n:"Routine",i:"🗓",c:"#0d9488"},result:{n:"Result",i:"🏆",c:"#16a34a"},event:{n:"Event",i:"🎉",c:"#d6409f"}};
-const GROUPS=["HSC 1st Year","HSC 2nd Year","Science","Arts","Commerce"]; // <- ekhane nijer class/department gulo likho
+const YEARS=["HSC 1st Year","HSC 2nd Year"],DEPTS=["Science","Arts","Commerce"]; // admin.html-er sathe mil rakhte hobe
+const PAGES=YEARS.flatMap(y=>DEPTS.map(d=>y+" · "+d)); // protita Year x Department = ekta alada page
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 const fmt=t=>new Date(t).toLocaleString("en-GB",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
@@ -161,7 +185,7 @@ const sorted=l=>[...l].sort((a,b)=>(isExp(a)?1:0)-(isExp(b)?1:0)||(b.pinned?1:0)
 const dDate=t=>new Date(t).toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"});
 const dlBadge=p=>{if(!p.dl)return"";if(isExp(p))return'<span class="dlb exp">⏰ শেষ হয়ে গেছে</span>';const n=Math.ceil((p.dl-Date.now())/DAY);return n<=1?'<span class="dlb hot">🔥 আজই শেষ!</span>':n<=3?`<span class="dlb warn">⏳ ${n} দিন বাকি</span>`:`<span class="dlb ok">📅 ${n} দিন বাকি</span>`};
 const dlLine=p=>p.dl?`<p class="dl">${dlBadge(p)}<span>শেষ তারিখ: ${dDate(p.dl)}</span></p>`:"";
-const tagsHTML=p=>{const c=CATS[p.cat]||CATS.notice,e=isExp(p);return `<div class="tags"><span class="tag cat" style="--c:${c.c}">${c.i} ${c.n}${p.pinned?" · 📌":""}</span>${isNew(p)&&!e?'<span class="tag new">🆕 New</span>':""}${p.grp&&p.grp.length?`<span class="tag alt">👥 ${esc(p.grp.join(", "))}</span>`:""}</div>`};
+const tagsHTML=p=>{const c=CATS[p.cat]||CATS.notice,e=isExp(p);return `<div class="tags"><span class="tag cat" style="--c:${c.c}">${c.i} ${c.n}${p.pinned?" · 📌":""}</span>${isNew(p)&&!e?'<span class="tag new">🆕 New</span>':""}</div>`};
 const ok=u=>/^(https?:|data:image\/)/.test(u||"");
 function toast(m){const t=$("#toast");t.textContent=m;t.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display="none",2600)}
 function closeM(){$("#modal").classList.remove("open")}
@@ -184,7 +208,7 @@ async function loadPosts(){const out=[];let tok="";
 async function getFull(id){if(FULL[id])return FULL[id];const r=await fetch(rurl("/posts/"+id));if(!r.ok)throw new Error(r.status);return FULL[id]=toDoc(await r.json())}
 async function getCover(id){if(id in COVER)return COVER[id];const r=await fetch(rurl("/posts/"+id,["cover"]));if(!r.ok)throw new Error(r.status);return COVER[id]=toDoc(await r.json()).cover||null}
 let SDKp=null;
-function getSDK(){return SDKp||(SDKp=(async()=>{const V="https://www.gstatic.com/firebasejs/12.19.0/";const [a,f]=await Promise.all([import(V+"firebase-app.js"),import(V+"firebase-firestore.js")]);return{db:f.getFirestore(a.initializeApp(firebaseConfig)),f}})())}
+function getSDK(){return SDKp||(SDKp=(async()=>{const V="https://www.gstatic.com/firebasejs/12.19.0/";const [a,f,A]=await Promise.all([import(V+"firebase-app.js"),import(V+"firebase-firestore.js"),import(V+"firebase-auth.js")]);const app=a.getApps().length?a.getApp():a.initializeApp(firebaseConfig);return{app,db:f.getFirestore(app),f,A,auth:A.getAuth(app)}})().catch(e=>{SDKp=null;throw e}))}
 async function sdkMode(){try{const {db,f}=await getSDK();S.sdk=true;S.fresh=true;f.onSnapshot(f.collection(db,"posts"),sn=>{S.posts=sn.docs.map(d=>({id:d.id,...d.data()}));S.loaded=true;route()},()=>{S.loaded=true;route()})}catch(e){S.loaded=true;route()}}
 async function refresh(force){if(!force&&Date.now()-(S.t||0)<30000){S.fresh=true;route();return}
  try{S.posts=await loadPosts();S.t=Date.now();S.sdk=false;S.loaded=true;S.fresh=true;try{localStorage.setItem("mcn_posts",JSON.stringify({t:S.t,posts:S.posts}))}catch(e){}route()}
@@ -210,15 +234,14 @@ function fcard(p){const c=CATS[p.cat]||CATS.notice;
  return `<article class="fcard" style="--c:${c.c}" onclick="openPost('${p.id}')"><div class="ft"><span>${c.i} ${c.n}${p.pinned?" · 📌 Pinned":""}</span>${dlBadge(p)}</div><h3>${esc(p.title)}</h3><div class="fgo">পড়ুন →</div></article>`}
 const match=p=>!S.q||(p.title+" "+p.body).toLowerCase().includes(S.q.toLowerCase());
 const SK=Array(6).fill('<div class="card sk"><div class="cb"><span class="tag">&nbsp;</span><h3>&nbsp;</h3><p>&nbsp;</p></div></div>').join("");
-function pHome(){const gok=p=>!S.grp||!p.grp||!p.grp.length||p.grp.includes(S.grp),base=S.posts.filter(p=>match(p)&&gok(p)),c=CATS[S.cat];
+function pHome(){const base=S.posts.filter(p=>match(p)&&vis(p)),c=CATS[S.cat];
  const fs=(!S.cat&&!S.q&&S.loaded)?sorted(base.filter(p=>!isExp(p)&&(p.pinned||(p.dl&&p.dl-Date.now()<=3*DAY)))).slice(0,6):[],fid=new Set(fs.map(p=>p.id));
  const l=sorted(base.filter(p=>(!S.cat||p.cat==S.cat)&&!fid.has(p.id))),cc=k=>base.filter(p=>p.cat==k).length;
- return `<section class="hero"><img class="hero-logo" src="logo.png" alt=""><h1>সব <span>Notice, Syllabus</span><br>ও Suggestion এক জায়গায়</h1><p>Mirpur College Updates &amp; Notices-এর সর্বশেষ আপডেট, category অনুযায়ী সাজানো।</p>
- <div class="sbar"><div class="search"><span>🔍</span><input id="q" placeholder="Notice, routine, result খুঁজুন…" value="${esc(S.q)}"><button class="btn sm" onclick="S.q=$('#q').value.trim();route()">Search</button></div><div class="filter"><select id="catSel" aria-label="Category" onchange="setCat(this.value)"><option value="" ${S.cat?"":"selected"}>🗂 সব Category (${base.length})</option>${Object.entries(CATS).map(([k,x])=>`<option value="${k}" ${S.cat==k?"selected":""}>${x.i} ${x.n} (${cc(k)})</option>`).join("")}</select></div><div class="filter"><select id="grpSel" aria-label="Class / Group" onchange="setGrp(this.value)"><option value="" ${S.grp?"":"selected"}>👥 সব Group</option>${GROUPS.map(g=>`<option value="${esc(g)}" ${S.grp==g?"selected":""}>${esc(g)}</option>`).join("")}</select></div></div></section>
+ return `<section class="hero"><img class="hero-logo" src="logo.png" alt=""><h1>সব <span>Notice, Syllabus</span><br>ও Suggestion এক জায়গায়</h1>${whoHTML()}<p>Mirpur College Updates &amp; Notices-এর সর্বশেষ আপডেট, category অনুযায়ী সাজানো।</p>
+ <div class="sbar"><div class="search"><span>🔍</span><input id="q" placeholder="Notice, routine, result খুঁজুন…" value="${esc(S.q)}"><button class="btn sm" onclick="S.q=$('#q').value.trim();route()">Search</button></div><div class="filter"><select id="catSel" aria-label="Category" onchange="setCat(this.value)"><option value="" ${S.cat?"":"selected"}>🗂 সব Category (${base.length})</option>${Object.entries(CATS).map(([k,x])=>`<option value="${k}" ${S.cat==k?"selected":""}>${x.i} ${x.n} (${cc(k)})</option>`).join("")}</select></div></div></section>
  ${fs.length?`<h2 class="t"><span>📌 গুরুত্বপূর্ণ</span><small>Pinned ও deadline কাছে</small></h2><div class="fs">${fs.map(fcard).join("")}</div>`:""}
  <h2 class="t" id="list"><span>${c?c.i+" "+c.n:"🆕 সর্বশেষ Post"}</span><small>${l.length} টি</small></h2>
  <div class="grid">${!S.loaded?SK:l.length?l.map(card).join(""):'<div class="empty"><b>🗂</b>এই category-তে এখনো কোনো post নেই।</div>'}</div>`}
-function setGrp(v){S.grp=v||null;route();const el=$("#list");el&&el.scrollIntoView({behavior:"smooth"})}
 function setCat(k){S.cat=k||null;route();const el=$("#list");el&&el.scrollIntoView({behavior:"smooth"})}
 function pContact(){return `<section class="hero" style="padding-bottom:10px"><h1>📬 <span>Contact</span> করুন</h1><p>প্রশ্ন, পরামর্শ বা অভিযোগ থাকলে নিচের form-এ জানান।</p></section>
  <div class="panel" style="max-width:660px;margin:0 auto 50px"><form onsubmit="sendMsg(event)">
@@ -243,7 +266,8 @@ function nativeShare(id){const p=FULL[id]||S.posts.find(x=>x.id==id);navigator.s
 function openPost(id){location.hash="#/p/"+id}
 function pPost(id){const p=FULL[id]||S.posts.find(x=>x.id==id);
  const back='<a class="lnk" style="text-decoration:none;display:inline-block;margin-bottom:12px" href="#/">← সব Post</a>';
- if(!p)return `<div class="panel post-page">${back}${S.fresh&&TRY[id]==2?"<h3>Post ta pawa jayni 😕</h3>":'<div class="card sk" style="border:0"><div class="cb"><span class="tag">&nbsp;</span><h3>&nbsp;</h3><p>&nbsp;</p><p>&nbsp;</p></div></div>'}</div>`;
+ if(p&&!vis(p))return `<div class="panel post-page">${back}<h3>🔒 এই post টি আপনার Year / Department-এর জন্য নয়</h3></div>`;
+  if(!p)return `<div class="panel post-page">${back}${S.fresh&&TRY[id]==2?"<h3>Post ta pawa jayni 😕</h3>":'<div class="card sk" style="border:0"><div class="cb"><span class="tag">&nbsp;</span><h3>&nbsp;</h3><p>&nbsp;</p><p>&nbsp;</p></div></div>'}</div>`;
  const lite=!FULL[id]&&!S.sdk,pend=lite&&!FAIL[id]&&(p.nf==null||p.nf>0||p.hc!==false);
  const c=CATS[p.cat]||CATS.notice,a=atts(p);
  return `<div class="panel post-page">${back}${tagsHTML(p)}<h2 style="margin:8px 0">${esc(p.title)}</h2><small>${fmt(p.ts)}</small>${dlLine(p)}${p.cover&&ok(p.cover.url)?`<img class="big" src="${esc(p.cover.url)}" alt="">`:""}<p class="body">${esc(p.body)}</p>${pend?'<p><small>⏳ Attachment লোড হচ্ছে…</small></p>':lite&&FAIL[id]?'<p><small>⚠ Attachment load hoyni, page refresh korun.</small></p>':""}${a.length?`<h4 style="margin:18px 0 6px">📎 Attachments</h4>`+a.map(attHTML).join(""):""}${shareBar(p)}</div>`}
@@ -257,61 +281,105 @@ function route(){const h=location.hash.replace(/^#\/?/,"").split("/"),pg=h[0]||"
  $("#app").innerHTML=pg=="contact"?pContact():pg=="p"?pPost(h[1]):pHome();observeCovers();if(pg=="p")loadPost(h[1]);
  const q=$("#q");if(q){q.addEventListener("keydown",e=>{if(e.key=="Enter"){S.q=q.value.trim();route()}});if(k=="q")q.focus()}}
 addEventListener("hashchange",()=>{route();scrollTo(0,0)});
+/* ---------- LOGIN / PROFILE ---------- */
+const U={user:null,prof:null,busy:false,mode:"login",started:false};
+const PK="mcn_user",root=document.documentElement;
+const readCache=()=>{try{return JSON.parse(localStorage.getItem(PK)||"null")}catch(e){return null}};
+const writeCache=()=>{try{U.prof?localStorage.setItem(PK,JSON.stringify(U.prof)):localStorage.removeItem(PK)}catch(e){}};
+const gated=on=>root.classList.toggle("gated",on);
+const initial=n=>(String(n||"?").trim()[0]||"?").toUpperCase();
+const imgOk=u=>/^data:image\//.test(u||"");
+const avInner=()=>{const p=U.prof||{};return imgOk(p.photo)?`<img src="${esc(p.photo)}" alt="">`:esc(initial(p.name))};
+const whoHTML=()=>U.prof?`<span class="who"><b>📘 ${esc(U.prof.year)} · ${esc(U.prof.dept)}</b> &nbsp;·&nbsp; 👋 ${esc(U.prof.name)}</span>`:"";
+const opts=(a,v)=>a.map(x=>`<option value="${esc(x)}" ${x==v?"selected":""}>${esc(x)}</option>`).join("");
+// Protita post ek ba ekadhik "page"-e thake (grp). grp faka = shob page. Purono year/dept tag-o bujhe.
+function pagesOf(p){const g=p.grp||[];if(!g.length)return PAGES;const out=new Set(g.filter(x=>PAGES.includes(x))),ly=g.filter(x=>YEARS.includes(x)),ld=g.filter(x=>DEPTS.includes(x));
+ if(ly.length||ld.length)(ly.length?ly:YEARS).forEach(y=>(ld.length?ld:DEPTS).forEach(d=>out.add(y+" · "+d)));return out.size?[...out]:PAGES}
+const myPage=()=>U.prof?U.prof.year+" · "+U.prof.dept:"";
+const vis=p=>!!U.prof&&pagesOf(p).includes(myPage());
+const AUTHERR={"auth/invalid-credential":"Email ba Password thik noy","auth/wrong-password":"Email ba Password thik noy","auth/user-not-found":"Email ba Password thik noy","auth/invalid-login-credentials":"Email ba Password thik noy","auth/email-already-in-use":"Ei email-e age-i account ache — Login tab-e jan","auth/weak-password":"Password kompokkhe 6 ta character hote hobe","auth/invalid-email":"Email ta thik noy","auth/network-request-failed":"Internet connection check korun","auth/too-many-requests":"Onek bar try hoyeche, kichukkhon pore abar chesta korun","auth/operation-not-allowed":"Firebase Console → Authentication → Sign-in method → Email/Password chalu korun"};
+const authErr=e=>{const c=(e&&e.code)||"";return AUTHERR[c]||("Problem: "+(c||(e&&e.message)||e))};
+function paintMe(){const b=$("#meBtn");if(!U.prof||root.classList.contains("gated")){b.style.display="none";return}b.style.display="flex";b.innerHTML=avInner();b.title=U.prof.name+" — Profile"}
+const gv=id=>{const e=$("#"+id);return e?e.value:""};
+const gVals=()=>({name:gv("g_name").trim(),year:gv("g_year"),dept:gv("g_dept"),email:gv("g_email").trim()});
+function gErrShow(m){const e=$("#gErr");if(e){e.textContent=m||"";e.style.display=m?"block":"none"}}
+function renderGate(v){v=v||{};const m=U.mode,cp=m=="complete",su=m=="signup",p=U.prof||{};
+ const nm=v.name??p.name??"",yr=v.year??p.year??"",dp=v.dept??p.dept??"";
+ $("#gate").innerHTML=`<div class="gbox"><img class="glogo" src="logo.png" alt=""><h1>${cp?"Profile সম্পূর্ণ করুন":"স্বাগতম 👋"}</h1><p class="gs">${cp?"আপনার Year ও Department select করুন":"Login করে আপনার Year ও Department-এর update দেখুন"}</p>
+ ${cp?"":`<div class="gtabs"><button type="button" class="${su?"":"on"}" onclick="gMode('login')">Login</button><button type="button" class="${su?"on":""}" onclick="gMode('signup')">Sign up</button></div>`}
+ <form id="gForm" onsubmit="gSubmit(event)">
+ <label>Name${su||cp?" *":""}</label><input id="g_name" maxlength="80" ${su||cp?"required":""} autocomplete="name" placeholder="আপনার নাম" value="${esc(nm)}">
+ <div class="two"><div><label>Year *</label><select id="g_year" required><option value="">Select</option>${opts(YEARS,yr)}</select></div><div><label>Department *</label><select id="g_dept" required><option value="">Select</option>${opts(DEPTS,dp)}</select></div></div>
+ ${cp?"":`<label>Email *</label><input id="g_email" type="email" required maxlength="120" autocomplete="email" placeholder="you@example.com" value="${esc(v.email||"")}">
+ <label>Password *</label><div class="pw"><input id="g_pw" type="password" required minlength="6" maxlength="64" autocomplete="${su?"new-password":"current-password"}"><button type="button" onclick="togglePw()" aria-label="Show password">👁</button></div>`}
+ <div class="gerr" id="gErr"></div>
+ <button class="btn" id="g_btn">${cp?"Continue →":su?"Account খুলুন →":"Login →"}</button></form>
+ <div class="gfoot">${cp?'<button type="button" class="lnk" onclick="logout()">Log out</button>':su?"":'<button type="button" class="lnk" onclick="gForgot()">Password ভুলে গেছেন?</button>'}</div></div>`}
+function showGate(mode){U.mode=mode||"login";renderGate();gated(true);paintMe();scrollTo(0,0)}
+function gMode(m){const v=gVals();U.mode=m;renderGate(v)}
+function togglePw(){const i=$("#g_pw");i.type=i.type=="password"?"text":"password"}
+async function gForgot(){const em=gv("g_email").trim();if(!em){gErrShow("আগে Email লিখুন, তারপর এই link-এ tap করুন");return}
+ try{const {auth,A}=await getSDK();await A.sendPasswordResetEmail(auth,em);gErrShow("");toast("Password reset email pathano hoyeche ✔")}catch(x){gErrShow(authErr(x))}}
+async function fetchProfile(uid){try{const {db,f}=await getSDK();const sn=await f.getDoc(f.doc(db,"users",uid));return sn.exists()?sn.data():null}catch(e){return null}}
+async function saveProf(){if(!U.user||!U.prof)return false;
+ try{const {db,f}=await getSDK(),p=U.prof;await f.setDoc(f.doc(db,"users",U.user.uid),{uid:U.user.uid,name:p.name,email:p.email||"",year:p.year,dept:p.dept,photo:p.photo||"",updated:Date.now()});return true}
+ catch(e){toast("Server-e save hoyni — Firestore rules update korun (ei device-e save ache)");return false}}
+function enter(fresh){gated(false);paintMe();route();
+ if(fresh){S.t=0;toast("স্বাগতম, "+U.prof.name+" ✔")}
+ if(!S.started){S.started=true;refresh()}}
+async function finishAuth(user,ch,isNew){
+ const c=readCache();let base=isNew?(U.prof&&U.prof.uid==user.uid?U.prof:{}):((await fetchProfile(user.uid))||(c&&c.uid==user.uid?c:{}));
+ U.user=user;
+ U.prof={uid:user.uid,name:(ch.name||base.name||user.displayName||(user.email||"").split("@")[0]||"Student").slice(0,80),email:user.email||"",year:ch.year,dept:ch.dept,photo:base.photo||""};
+ writeCache();await saveProf();enter(true)}
+async function gSubmit(e){e.preventDefault();if(U.busy)return;
+ const v=gVals(),pw=gv("g_pw"),m=U.mode,b=$("#g_btn"),t=b.textContent;U.busy=true;b.disabled=true;b.textContent="অপেক্ষা করুন…";gErrShow("");
+ try{const {auth,A}=await getSDK();
+  if(m=="complete"){await finishAuth(auth.currentUser,v,true)}
+  else{let cr;
+   if(m=="signup"){cr=await A.createUserWithEmailAndPassword(auth,v.email,pw);try{await A.updateProfile(cr.user,{displayName:v.name})}catch(_){}}
+   else cr=await A.signInWithEmailAndPassword(auth,v.email,pw);
+   await finishAuth(cr.user,v,m=="signup")}}
+ catch(x){gErrShow(authErr(x));b.disabled=false;b.textContent=t}
+ U.busy=false}
+async function logout(){closeM();U.prof=null;U.user=null;writeCache();
+ try{const {auth,A}=await getSDK();await A.signOut(auth)}catch(e){}
+ location.hash="#/";showGate("login");toast("Log out hoyeche")}
+async function authInit(){try{const {auth,A}=await getSDK();
+ A.onAuthStateChanged(auth,async u=>{if(U.busy)return;
+  if(!u){U.user=null;if(!root.classList.contains("gated")){U.prof=null;writeCache();showGate("login")}return}
+  U.user=u;const c=readCache();let pr=await fetchProfile(u.uid);if(!pr&&c&&c.uid==u.uid)pr=c;
+  if(pr&&YEARS.includes(pr.year)&&DEPTS.includes(pr.dept)){U.prof={...pr,uid:u.uid,email:u.email||pr.email||""};writeCache();enter(false)}
+  else{U.prof={uid:u.uid,name:u.displayName||(u.email||"").split("@")[0]||"",email:u.email||"",year:"",dept:"",photo:(pr&&pr.photo)||""};showGate("complete")}})}catch(e){}}
+// ---- profile modal ----
+const pDraft=()=>$("#p_name")?{name:$("#p_name").value,year:$("#p_year").value,dept:$("#p_dept").value}:{};
+function openProfile(d){if(!U.prof)return;d=d||{};const p=U.prof,has=imgOk(p.photo);
+ $("#sheet").innerHTML=`<h3 style="margin:0 0 6px">👤 আমার Profile</h3>
+ <div class="pf-top"><div class="av">${avInner()}</div><div class="row"><button class="btn sm" type="button" onclick="$('#pfFile').click()">📷 ${has?"Photo বদলান":"Photo add করুন"}</button>${has?'<button class="btn ghost sm" type="button" onclick="rmPhoto()">🗑 Remove</button>':""}<input type="file" id="pfFile" accept="image/*" hidden onchange="pickPhoto(this)"></div></div>
+ <form onsubmit="saveProfile(event)"><label>Name *</label><input id="p_name" required maxlength="80" value="${esc(d.name??p.name)}">
+ <div class="two"><div><label>Year *</label><select id="p_year" required>${opts(YEARS,d.year??p.year)}</select></div><div><label>Department *</label><select id="p_dept" required>${opts(DEPTS,d.dept??p.dept)}</select></div></div>
+ <label>Email</label><input value="${esc(p.email)}" disabled>
+ <div class="row"><button class="btn" id="p_btn">Save ✔</button><button type="button" class="btn ghost" onclick="closeM()">Cancel</button><button type="button" class="btn danger" onclick="logout()">🚪 Log out</button></div></form>`;
+ $("#modal").classList.add("open")}
+function resizeImg(file,size){return new Promise((res,rej)=>{const url=URL.createObjectURL(file),im=new Image();
+ im.onload=()=>{try{const s=Math.min(im.width,im.height),c=document.createElement("canvas");c.width=c.height=size;c.getContext("2d").drawImage(im,(im.width-s)/2,(im.height-s)/2,s,s,0,0,size,size);URL.revokeObjectURL(url);res(c.toDataURL("image/jpeg",.82))}catch(e){rej(e)}};
+ im.onerror=()=>{URL.revokeObjectURL(url);rej(new Error("img"))};im.src=url})}
+async function pickPhoto(inp){const file=inp.files&&inp.files[0];if(!file)return;if(!/^image\//.test(file.type)){toast("Shudhu image file den");return}
+ const d=pDraft();try{U.prof.photo=await resizeImg(file,256)}catch(e){toast("Photo load hoyni, onno ekta den");return}
+ writeCache();paintMe();openProfile(d);if(await saveProf())toast("Photo save hoyeche ✔")}
+async function rmPhoto(){const d=pDraft();U.prof.photo="";writeCache();paintMe();openProfile(d);if(await saveProf())toast("Photo remove hoyeche")}
+async function saveProfile(e){e.preventDefault();const d=pDraft(),b=$("#p_btn");b.disabled=true;
+ U.prof={...U.prof,name:d.name.trim().slice(0,80)||U.prof.name,year:d.year,dept:d.dept};writeCache();paintMe();
+ const ok=await saveProf();closeM();route();if(ok)toast("Profile update hoyeche ✔")}
+$("#meBtn").onclick=()=>openProfile();
 let DP=null;addEventListener("beforeinstallprompt",e=>{e.preventDefault();DP=e;$("#installBtn").style.display=""});
 $("#installBtn").onclick=async()=>{if(!DP)return;DP.prompt();try{await DP.userChoice}catch(e){}DP=null;$("#installBtn").style.display="none"};
 addEventListener("appinstalled",()=>{$("#installBtn").style.display="none"});
-/* ---------- PUSH NOTIFICATION (FCM) ---------- */
-// Firebase Console > Project settings > Cloud Messaging > Web Push certificates > Generate key pair -> "Key pair" ekhane paste koro
-const VAPID_KEY="BGXBkjBfA28b0rNwe6MeXBUhezfASK5-fiWQKrfIhAYvtx-3gn11ts5qAn51E0mqB0VbC4JmCNm69ZLU0zK0MxI";
-const FBV="https://www.gstatic.com/firebasejs/12.19.0/";
-const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent),isStandalone=navigator.standalone||matchMedia("(display-mode: standalone)").matches;
-const pushReady=VAPID_KEY&&!VAPID_KEY.startsWith("PASTE");
-const pushSupported="serviceWorker"in navigator&&"PushManager"in window&&"Notification"in window;
-const pushOnFlag=()=>{try{return localStorage.getItem("mcn_push")}catch(e){return null}};
-const pushSet=t=>{try{t?localStorage.setItem("mcn_push",t):localStorage.removeItem("mcn_push")}catch(e){}};
-const wait=(p,ms,msg)=>Promise.race([p,new Promise((_,j)=>setTimeout(()=>j(new Error(msg)),ms))]);
-const pushIsOn=()=>!!pushOnFlag()&&pushSupported&&Notification.permission==="granted";
-function bell(){const b=$("#bellBtn");if(!b||!pushReady)return;
- b.style.display="";const on=pushIsOn();
- b.innerHTML=(on?"🔔":"🔕")+'<span class="hd"> '+(on?"Alert On":"Alert Off")+'</span>';b.title=on?"Notification bondho korte tap korun":"Notun notice-er alert chalu korun"}
-// service worker: register + active howa porjonto wait (age ready hang korto, tai notification chalu hoto na)
-let SWp=null;
-function swReg(){if(!("serviceWorker"in navigator))return Promise.reject(new Error("Ei browser-e notification support nei"));
- return SWp||(SWp=(async()=>{const reg=await navigator.serviceWorker.register("/sw.js",{scope:"/",updateViaCache:"none"});
-  const w=reg.installing||reg.waiting;
-  if(!reg.active&&w)await wait(new Promise(res=>{const ck=()=>{if(w.state==="activated"||w.state==="redundant")res()};ck();w.addEventListener("statechange",ck)}),15000,"Service worker চালু হয়নি, page refresh korun");
-  const r=await wait(navigator.serviceWorker.ready,8000,"Service worker ready hoyni, page refresh korun");
-  if(!r.active)throw new Error("Service worker চালু হয়নি");return r})().catch(e=>{SWp=null;throw e}))}
-async function fcm(){const [a,m]=await Promise.all([import(FBV+"firebase-app.js"),import(FBV+"firebase-messaging.js")]);
- if(!(await m.isSupported()))throw new Error("Ei browser-e push cholbe na");
- const app=a.getApps().length?a.getApp():a.initializeApp(firebaseConfig);
- return{m,msg:m.getMessaging(app)}}
-async function api(action,token){const r=await fetch("/api/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({token,action})});
- let j={};try{j=await r.json()}catch(e){}
- if(!r.ok||j.ok===false)throw new Error(r.status===404?"Server API pawa jayni (Vercel-e deploy hoyeche?)":r.status>=500?"Server error — Vercel-e FIREBASE_SERVICE_ACCOUNT check korun":(j.error||"HTTP "+r.status))}
-async function pushOn(){
- if(!pushSupported)return toast(isIOS&&!isStandalone?"iPhone-e: Safari → Share → Add to Home Screen kore app theke khulun, tarpor Alert on korun":"Ei browser-e notification cholbe na. Chrome/Safari-te site ta khulun (Facebook/WhatsApp-er vitorer browser-e hoy na)");
- if(Notification.permission==="denied")return toast("Notification block kora ache — browser-er site settings theke Allow korun");
- const b=$("#bellBtn");b.disabled=true;
- try{const perm=await Notification.requestPermission();if(perm!=="granted")throw new Error("Notification allow kora hoyni");
-  const reg=await swReg();
-  const {m,msg}=await wait(fcm(),20000,"Firebase load hoyni (internet check korun)");
-  const t=await wait(m.getToken(msg,{vapidKey:VAPID_KEY,serviceWorkerRegistration:reg}),25000,"Token pawa jayni");
-  if(!t)throw new Error("Token pawa jayni");
-  await api("sub",t);pushSet(t);toast("🔔 Notification chalu hoyeche ✔")}
- catch(e){toast("Notification chalu hoyni: "+(e.message||e))}
- b.disabled=false;bell()}
-async function pushOff(){const t=pushOnFlag();pushSet(null);
- try{if(t)await api("unsub",t);const {m,msg}=await fcm();await m.deleteToken(msg)}catch(e){}
- toast("🔕 Notification bondho");bell()}
-// token badle gele (FCM rotate kore) chupchap abar subscribe
-async function pushSync(){if(!pushReady||!pushSupported||!pushOnFlag()||Notification.permission!=="granted")return;
- try{const reg=await swReg();const {m,msg}=await fcm();const t=await m.getToken(msg,{vapidKey:VAPID_KEY,serviceWorkerRegistration:reg});
-  if(t&&t!==pushOnFlag()){await api("sub",t);pushSet(t)}}catch(e){}}
-$("#bellBtn").onclick=()=>pushIsOn()?pushOff():pushOn();
-bell();addEventListener("load",()=>{swReg().catch(()=>{});setTimeout(pushSync,2500)});
-document.addEventListener("visibilitychange",()=>{if(!document.hidden)bell()});
+if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));
 (function boot(){try{const c=JSON.parse(localStorage.getItem("mcn_posts")||"null");if(c&&c.posts){S.posts=c.posts;S.t=c.t;S.loaded=true}}catch(e){}
- route();refresh();document.addEventListener("visibilitychange",()=>{if(!document.hidden&&Date.now()-(S.t||0)>300000)refresh(true)})})();
+ document.addEventListener("visibilitychange",()=>{if(U.prof&&!document.hidden&&Date.now()-(S.t||0)>300000)refresh(true)});
+ const c=readCache();
+ if(c&&c.uid&&YEARS.includes(c.year)&&DEPTS.includes(c.dept)){U.prof=c;enter(false)}else showGate("login");
+ authInit()})();
 </script>
 </body></html>
