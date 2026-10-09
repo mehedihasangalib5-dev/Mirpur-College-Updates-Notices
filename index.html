@@ -191,16 +191,49 @@ footer{padding:18px 0 84px;font-size:12px}
 @keyframes pop{0%{transform:scale(.9)}100%{transform:scale(1)}}
 .lo-ic{flex:none;transition:transform .25s}.btn.danger:hover .lo-ic{transform:translateX(3px)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.sv{position:absolute;top:12px;right:12px;z-index:3;width:34px;height:34px;padding:0;border-radius:50%;background:color-mix(in srgb,var(--card) 88%,transparent);backdrop-filter:blur(6px);border:1px solid var(--line);font-size:17px;line-height:1;display:flex;align-items:center;justify-content:center;color:var(--mute);transition:.2s}.sv:hover{color:var(--acc);transform:scale(1.08)}.sv.on{color:var(--acc);border-color:var(--acc)}
+.card.rd h3{color:var(--mute);font-weight:600}.card.rd .tag.new{display:none}
+mark{background:color-mix(in srgb,var(--acc) 40%,transparent);color:inherit;border-radius:4px;padding:0 2px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 0}.stat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 8px;text-align:center}.stat b{display:block;font-size:24px;line-height:1.2;color:var(--pri)}.stat small{font-size:12px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 0}.btn.ghost.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+.ico{width:1.1em;height:1.1em;vertical-align:-.18em;flex:none}
+.cvr.ph{animation:none;height:96px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,color-mix(in srgb,var(--c) 88%,#000),color-mix(in srgb,var(--c) 45%,#7c5cff))}.cvr.ph .ico{width:42px;height:42px;color:#fff;opacity:.92}
+.cats{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:14px -18px 0;padding:2px 18px}.cats::-webkit-scrollbar{display:none}
+.chip{flex:none;display:inline-flex;gap:6px;align-items:center;padding:8px 14px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-weight:600;font-size:13.5px;transition:.2s}.chip:hover{border-color:var(--c,var(--pri))}.chip.on{background:var(--c,var(--pri));border-color:var(--c,var(--pri));color:#fff}
+.bnav{display:none}.gated .bnav{display:none!important}.fab{display:none!important}
+@media(max-width:600px){.bnav{display:flex;position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:15;background:color-mix(in srgb,var(--card) 90%,transparent);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:22px;box-shadow:var(--sh);padding:6px}.bnav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;border-radius:16px;color:var(--mute);text-decoration:none;font-size:11.5px;font-weight:700}.bnav a.on{color:var(--pri);background:color-mix(in srgb,var(--pri) 12%,transparent)}.bnav .ico{width:22px;height:22px}body{padding-bottom:84px}.toast{bottom:96px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* icons + hero strip + urgent ticker */
+.dlb,.tag,.meta span,.links a,.btn,.chip,h2.t span,.fcard .ft span,.share span,.who b{display:inline-flex;align-items:center;gap:5px}
+.dlb .ico,.tag .ico,.meta .ico{width:1em;height:1em;vertical-align:0}.btn .ico{width:1.05em;height:1.05em;vertical-align:0}.btn .ic{display:inline-flex}
+h2.t span .ico{width:1.05em;height:1.05em;vertical-align:0;color:var(--pri)}
+.search .si{display:flex;color:var(--mute)}.search .si .ico{width:19px;height:19px}
+.empty b .ico{width:46px;height:46px;stroke-width:1.5;opacity:.55}
+.sv .ico{width:18px;height:18px;vertical-align:0}
+.fab span{display:inline-flex}.fab .ico{width:1.2em;height:1.2em;vertical-align:0}
+.hstrip{display:inline-flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px 14px;margin:-4px auto 16px;padding:8px 16px;border-radius:99px;border:1px solid var(--line);background:color-mix(in srgb,var(--card) 82%,transparent);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);font-size:13.5px;font-weight:600;color:var(--mute)}
+.hstrip span{display:inline-flex;align-items:center;gap:6px}.hstrip b{color:var(--pri);font-size:15px;font-weight:800}.hstrip .ico{width:16px;height:16px;vertical-align:0;color:var(--pri)}
+.hstrip i{width:4px;height:4px;border-radius:50%;background:var(--line)}
+.tick{display:flex;align-items:stretch;margin:-8px -6px 16px;border-radius:99px;overflow:hidden;border:1px solid color-mix(in srgb,#ef4444 35%,var(--line));background:color-mix(in srgb,#ef4444 8%,var(--card));text-align:left}
+.tk-l{flex:none;display:inline-flex;align-items:center;gap:6px;padding:7px 12px 7px 14px;background:#ef4444;color:#fff;font-size:12px;letter-spacing:.02em}.tk-l .ico{width:14px;height:14px;vertical-align:0}
+.tk-m{flex:1;min-width:0;overflow:hidden;position:relative;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14px,#000 calc(100% - 14px),transparent);mask-image:linear-gradient(90deg,transparent,#000 14px,#000 calc(100% - 14px),transparent)}
+.tk-t{display:flex;width:max-content;align-items:center;height:100%}.tk-t.mv{animation:tkm var(--d,24s) linear infinite}.tk-m:hover .tk-t{animation-play-state:paused}
+.tk-i{display:inline-flex;align-items:center;gap:7px;padding:7px 22px 7px 14px;background:none;border:0;color:var(--ink);font:inherit;font-size:13px;font-weight:600;white-space:nowrap;cursor:pointer}.tk-i .ico{width:14px;height:14px;vertical-align:0;color:#ef4444}.tk-i:hover span{text-decoration:underline}
+@keyframes tkm{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.tk-m{overflow-x:auto;scrollbar-width:none}}
+@media(max-width:600px){.hstrip{font-size:12.5px;padding:7px 12px;margin-bottom:12px}.tick{margin:-4px -2px 12px}.tk-l{padding:6px 10px}.tk-i{font-size:12.5px;padding:6px 18px 6px 12px}}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
-<nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="installBtn" style="display:none">⬇<span class="hd"> Install</span></button><button class="btn ghost sm" id="theme">🌓</button><button class="me" id="meBtn" aria-label="Profile" type="button"></button></div></header>
+<nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="installBtn" style="display:none"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span class="hd"> Install</span></button><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="me" id="meBtn" aria-label="Profile" type="button"></button></div></header>
 <div id="gate"></div>
 <main class="wrap" id="app"></main>
 <footer><div>© <span id="yr"></span> Mirpur College Updates &amp; Notices. All rights reserved.</div>
-<div>Developed by <a href="https://cortex-it-kappa.vercel.app/" target="_blank" rel="noopener">Cortex IT</a></div><div style="margin-top:6px"><a href="#/">Home</a> · <a href="#/contact">Contact</a></div><div style="margin-top:8px;font-size:12px">📱 iPhone: Safari → Share → "Add to Home Screen"</div></footer><a class="fab" id="fab" href="#/contact" aria-label="Contact"><span>💬</span>Contact</a>
+<div>Developed by <a href="https://cortex-it-kappa.vercel.app/" target="_blank" rel="noopener">Cortex IT</a></div><div style="margin-top:6px"><a href="#/">Home</a> · <a href="#/contact">Contact</a></div><div style="margin-top:8px;font-size:12px">📱 iPhone: Safari → Share → "Add to Home Screen"</div></footer><nav class="bnav" id="bnav" aria-label="Main"></nav><a class="fab" id="fab" href="#/contact" aria-label="Contact"><span>💬</span>Contact</a>
 <div class="modal" id="modal"><div class="sheet" id="sheet"></div></div><div class="toast" id="toast"></div>
 <script>
 const CATS={notice:{n:"Notice",i:"📢",c:"#e5484d"},syllabus:{n:"Syllabus",i:"📚",c:"#5b4bff"},suggestion:{n:"Suggestion",i:"💡",c:"#e08a00"},routine:{n:"Routine",i:"🗓",c:"#0d9488"},result:{n:"Result",i:"🏆",c:"#16a34a"},event:{n:"Event",i:"🎉",c:"#d6409f"}};
+const IP={notice:'<path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>',syllabus:'<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',suggestion:'<path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6M10 22h4"/>',routine:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',result:'<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>',event:'<path d="m12 3 1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3z"/>',home:'<path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/>',star:'<path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.2-6.2 3.2L7 14.2 2 9.3l6.9-1z"/>',msg:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',cal:'<path d="M8 2v4M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01"/>',search:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',pin:'<path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/>',clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',flame:'<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>',hourglass:'<path d="M5 22h14M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/>',zap:'<path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>',clip:'<path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/>',dl:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/>',share:'<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98M15.41 6.51l-6.82 3.98"/>',link:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',inbox:'<path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>',lock:'<rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',mail:'<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',user:'<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',send:'<path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/>',check:'<path d="M20 6 9 17l-5-5"/>'};
+const SVG=(k,f)=>`<svg class="ico" viewBox="0 0 24 24" fill="${f?"currentColor":"none"}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IP[k]||IP.notice}</svg>`;
 const YEARS=["HSC 1st Year","HSC 2nd Year"],DEPTS=["Science","Arts","Commerce"]; // admin.html-er sathe mil rakhte hobe
 const PAGES=YEARS.flatMap(y=>DEPTS.map(d=>y+" · "+d)); // protita Year x Department = ekta alada page
 const $=s=>document.querySelector(s);
@@ -209,9 +242,9 @@ const fmt=t=>new Date(t).toLocaleString("en-GB",{day:"2-digit",month:"short",yea
 const DAY=864e5,isNew=p=>Date.now()-p.ts<3*DAY,isExp=p=>!!p.dl&&Date.now()>p.dl;
 const sorted=l=>[...l].sort((a,b)=>(isExp(a)?1:0)-(isExp(b)?1:0)||(b.pinned?1:0)-(a.pinned?1:0)||b.ts-a.ts);
 const dDate=t=>new Date(t).toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"});
-const dlBadge=p=>{if(!p.dl)return"";if(isExp(p))return'<span class="dlb exp">⏰ শেষ হয়ে গেছে</span>';const n=Math.ceil((p.dl-Date.now())/DAY);return n<=1?'<span class="dlb hot">🔥 আজই শেষ!</span>':n<=3?`<span class="dlb warn">⏳ ${n} দিন বাকি</span>`:`<span class="dlb ok">📅 ${n} দিন বাকি</span>`};
+const dlBadge=p=>{if(!p.dl)return"";if(isExp(p))return'<span class="dlb exp">'+SVG("clock")+' শেষ হয়ে গেছে</span>';const n=Math.ceil((p.dl-Date.now())/DAY);return n<=1?'<span class="dlb hot">'+SVG("flame")+' আজই শেষ!</span>':n<=3?`<span class="dlb warn">${SVG("hourglass")} ${n} দিন বাকি</span>`:`<span class="dlb ok">${SVG("cal")} ${n} দিন বাকি</span>`};
 const dlLine=p=>p.dl?`<p class="dl">${dlBadge(p)}<span>শেষ তারিখ: ${dDate(p.dl)}</span></p>`:"";
-const tagsHTML=p=>{const c=CATS[p.cat]||CATS.notice,e=isExp(p);return `<div class="tags"><span class="tag cat" style="--c:${c.c}">${c.i} ${c.n}${p.pinned?" · 📌":""}</span>${isNew(p)&&!e?'<span class="tag new">🆕 New</span>':""}</div>`};
+const tagsHTML=p=>{const c=CATS[p.cat]||CATS.notice,e=isExp(p);return `<div class="tags"><span class="tag cat" style="--c:${c.c}">${SVG(p.cat)} ${c.n}${p.pinned?" · "+SVG("pin"):""}</span>${isNew(p)&&!e?'<span class="tag new">'+SVG("zap")+' New</span>':""}</div>`};
 const ok=u=>/^(https?:|data:image\/)/.test(u||"");
 function toast(m){const t=$("#toast");t.textContent=m;t.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display="none",2600)}
 function closeM(){$("#modal").classList.remove("open")}
@@ -240,7 +273,8 @@ async function refresh(force){if(!force&&Date.now()-(S.t||0)<30000){S.fresh=true
  try{S.posts=await loadPosts();S.t=Date.now();S.sdk=false;S.loaded=true;S.fresh=true;try{localStorage.setItem("mcn_posts",JSON.stringify({t:S.t,posts:S.posts}))}catch(e){}route()}
  catch(e){if(S.posts.length){S.loaded=true;route()}else sdkMode()}}
 const io="IntersectionObserver"in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){io.unobserve(e.target);fillCover(e.target)}}),{rootMargin:"300px"}):null;
-async function fillCover(el){const id=el.dataset.cv;try{const c=await getCover(id);if(c&&ok(c.url)){el.innerHTML=`<img src="${esc(c.url)}" alt="">`;el.classList.add("done")}else el.remove()}catch(e){el.remove()}}
+async function fillCover(el){const id=el.dataset.cv;try{const c=await getCover(id);if(c&&ok(c.url)){el.innerHTML=`<img src="${esc(c.url)}" alt="">`;el.classList.add("done")}else noCover(el)}catch(e){noCover(el)}}
+function noCover(el){el.classList.add("ph");el.innerHTML=SVG(el.dataset.cat)}
 function observeCovers(){document.querySelectorAll("[data-cv]").forEach(el=>io?io.observe(el):fillCover(el))}
 async function saveMsg(d){
  const fields={name:{stringValue:d.name},email:{stringValue:d.email},phone:{stringValue:d.phone},subject:{stringValue:d.subject},message:{stringValue:d.message},ts:{integerValue:String(d.ts)}};
@@ -249,62 +283,93 @@ async function saveMsg(d){
 const atts=p=>[...(p.files||[]),...(/^https?:\/\//.test(p.link||"")?[{name:"Link",type:"link",url:p.link}]:[])].filter(f=>ok(f.url));
 function driveDl(u){const m=u.match(/drive\.google\.com\/file\/d\/([^/?#]+)/)||(u.includes("drive.google.com")&&u.match(/[?&]id=([^&#]+)/));return m?"https://drive.google.com/uc?export=download&id="+m[1]:null}
 function attHTML(f){const u=esc(f.url);
- if(/^image\//.test(f.type))return `<div class="att"><img class="big" src="${u}" alt=""><a class="btn ghost sm dl" href="${u}" download="${esc(f.name||"image")}.jpg"><span class="ic">⬇</span> Download</a></div>`;
+ if(/^image\//.test(f.type))return `<div class="att"><img class="big" src="${u}" alt=""><a class="btn ghost sm dl" href="${u}" download="${esc(f.name||"image")}.jpg"><span class="ic">${SVG("dl")}</span> Download</a></div>`;
  const d=driveDl(f.url);
- return `<div class="file"><span>📎 ${esc(f.name)}</span><span class="sp"></span><a class="btn ghost sm" href="${u}" target="_blank" rel="noopener">Open</a>${d?`<a class="btn sm dl" href="${esc(d)}" target="_blank" rel="noopener"><span class="ic">⬇</span> Download</a>`:""}</div>`}
+ return `<div class="file"><span>${SVG("clip")} ${esc(f.name)}</span><span class="sp"></span><a class="btn ghost sm" href="${u}" target="_blank" rel="noopener">Open</a>${d?`<a class="btn sm dl" href="${esc(d)}" target="_blank" rel="noopener"><span class="ic">${SVG("dl")}</span> Download</a>`:""}</div>`}
 const cnt=p=>p.nf!=null?p.nf:atts(p).length;
 function card(p){const n=cnt(p),c=CATS[p.cat]||CATS.notice;
- const cv=p.cover&&ok(p.cover.url)?`<img src="${esc(p.cover.url)}" alt="">`:(!p.cover&&!S.sdk&&p.hc!==false?`<div class="cvr" data-cv="${p.id}"></div>`:"");
- return `<article class="card ${isExp(p)?"expd":""}" style="--c:${c.c}" onclick="openPost('${p.id}')">${cv}<div class="cb"><div class="ctop">${tagsHTML(p)}${dlBadge(p)}</div><h3>${esc(p.title)}</h3><p>${esc(p.body)}</p><div class="meta"><span>🕒 ${dDate(p.ts)}</span><span>${n?"📎 "+n+" attachment":""}</span></div></div></article>`}
+ const cv=p.cover&&ok(p.cover.url)?`<img src="${esc(p.cover.url)}" alt="">`:(!p.cover&&!S.sdk&&p.hc!==false?`<div class="cvr" data-cv="${p.id}" data-cat="${p.cat}" style="--c:${c.c}"></div>`:`<div class="cvr ph" style="--c:${c.c}">${SVG(p.cat)}</div>`);
+ return `<article class="card ${isExp(p)?"expd":""} ${isRd(p.id)?"rd":""}" style="--c:${c.c}" onclick="openPost('${p.id}')">${svBtn(p.id)}${cv}<div class="cb"><div class="ctop">${tagsHTML(p)}${dlBadge(p)}</div><h3>${hl(p.title)}</h3><p>${hl(p.body)}</p><div class="meta"><span>${SVG("clock")} ${dDate(p.ts)}</span><span>${n?SVG("clip")+" "+n+" attachment":""}</span></div></div></article>`}
 function fcard(p){const c=CATS[p.cat]||CATS.notice;
- return `<article class="fcard" style="--c:${c.c}" onclick="openPost('${p.id}')"><div class="ft"><span>${c.i} ${c.n}${p.pinned?" · 📌 Pinned":""}</span>${dlBadge(p)}</div><h3>${esc(p.title)}</h3><div class="fgo">পড়ুন →</div></article>`}
-const match=p=>!S.q||(p.title+" "+p.body).toLowerCase().includes(S.q.toLowerCase());
+ return `<article class="fcard" style="--c:${c.c}" onclick="openPost('${p.id}')"><div class="ft"><span>${SVG(p.cat)} ${c.n}${p.pinned?" · "+SVG("pin")+" Pinned":""}</span>${dlBadge(p)}</div><h3>${esc(p.title)}</h3><div class="fgo">পড়ুন →</div></article>`}
+const nz=t=>String(t||"").normalize("NFC").toLowerCase().replace(/[\u200c\u200d]/g,"").replace(/\u09A1\u09BC/g,"\u09DC").replace(/\u09A2\u09BC/g,"\u09DD").replace(/\u09AF\u09BC/g,"\u09DF").replace(/[\u09E6-\u09EF]/g,d=>d.charCodeAt(0)-2406);
+const toks=()=>nz(S.q).split(/\s+/).filter(Boolean);
+const match=p=>{if(!S.q)return true;const h=nz(p.title+" "+p.body);return toks().every(t=>h.includes(t))};
+const hl=t=>{const e=esc(t);if(!S.q)return e;const r=S.q.trim().split(/\s+/).filter(Boolean).map(x=>esc(x).replace(/[.*+?^${}()|[\]\\]/g,"\\$&"));return r.length?e.replace(new RegExp("("+r.join("|")+")","gi"),"<mark>$1</mark>"):e};
 const SK=Array(6).fill('<div class="card sk"><div class="cb"><span class="tag">&nbsp;</span><h3>&nbsp;</h3><p>&nbsp;</p></div></div>').join("");
+const urgentOf=b=>sorted(b.filter(p=>!isExp(p)&&((p.dl&&p.dl-Date.now()<=2*DAY)||(p.pinned&&p.cat=="notice")))).slice(0,6);
+function tickHTML(b){if(!S.loaded)return"";const u=urgentOf(b);if(!u.length)return"";
+ const it=(p,h)=>{const n=p.dl?Math.ceil((p.dl-Date.now())/DAY):0,t=p.dl?(n<=1?" · আজই শেষ":" · "+n+" দিন বাকি"):"";return `<button type="button" class="tk-i" ${h?'tabindex="-1" aria-hidden="true" ':""}onclick="openPost('${p.id}')">${SVG(p.dl?"flame":"pin")}<span>${esc(p.title)}${t}</span></button>`};
+ const m=u.length>1;return `<div class="tick" role="region" aria-label="Urgent notice"><span class="tk-l">${SVG("bell")}<b>Urgent</b></span><div class="tk-m"><div class="tk-t ${m?"mv":""}" style="--d:${Math.max(16,u.length*9)}s">${u.map(p=>it(p)).join("")}${m?u.map(p=>it(p,1)).join(""):""}</div></div></div>`}
+function stripHTML(b){if(!S.loaded)return"";const n=b.filter(p=>Date.now()-p.ts<7*DAY).length,d=b.filter(p=>p.dl&&!isExp(p)&&p.dl-Date.now()<=7*DAY).length;if(!n&&!d)return"";
+ return `<div class="hstrip">${n?`<span>${SVG("zap")}নতুন <b>${n}</b> টি notice</span>`:""}${n&&d?'<i aria-hidden="true"></i>':""}${d?`<span>${SVG("clock")}<b>${d}</b> টি deadline এই সপ্তাহে</span>`:""}</div>`}
 function pHome(){const base=S.posts.filter(p=>match(p)&&vis(p)),c=CATS[S.cat];
  const fs=(!S.cat&&!S.q&&S.loaded)?sorted(base.filter(p=>!isExp(p)&&(p.pinned||(p.dl&&p.dl-Date.now()<=3*DAY)))).slice(0,6):[],fid=new Set(fs.map(p=>p.id));
- const l=sorted(base.filter(p=>(!S.cat||p.cat==S.cat)&&!fid.has(p.id))),cc=k=>base.filter(p=>p.cat==k).length;
- return `<section class="hero"><img class="hero-logo" src="logo.png" alt=""><h1>সব <span>Notice, Syllabus</span><br>ও Suggestion এক জায়গায়</h1>${whoHTML()}<p>Mirpur College Updates &amp; Notices-এর সর্বশেষ আপডেট, category অনুযায়ী সাজানো।</p>
- <div class="sbar"><div class="search"><span>🔍</span><input id="q" placeholder="Notice, routine, result খুঁজুন…" value="${esc(S.q)}"><button class="btn sm" onclick="S.q=$('#q').value.trim();route()">Search</button></div><div class="filter"><select id="catSel" aria-label="Category" onchange="setCat(this.value)"><option value="" ${S.cat?"":"selected"}>🗂 সব Category (${base.length})</option>${Object.entries(CATS).map(([k,x])=>`<option value="${k}" ${S.cat==k?"selected":""}>${x.i} ${x.n} (${cc(k)})</option>`).join("")}</select></div></div></section>
- ${fs.length?`<h2 class="t"><span>📌 গুরুত্বপূর্ণ</span><small>Pinned ও deadline কাছে</small></h2><div class="fs">${fs.map(fcard).join("")}</div>`:""}
- <h2 class="t" id="list"><span>${c?c.i+" "+c.n:"🆕 সর্বশেষ Post"}</span><small>${l.length} টি</small></h2>
- <div class="grid">${!S.loaded?SK:l.length?l.map(card).join(""):'<div class="empty"><b>🗂</b>এই category-তে এখনো কোনো post নেই।</div>'}</div>`}
+ const l=sorted(base.filter(p=>(!S.cat||p.cat==S.cat)&&!fid.has(p.id)&&(!S.unread||!isRd(p.id))&&(!S.dlo||(p.dl&&!isExp(p))))),cc=k=>base.filter(p=>p.cat==k).length;
+ return `<section class="hero">${tickHTML(base)}<img class="hero-logo" src="logo.png" alt=""><h1>সব <span>Notice, Syllabus</span><br>ও Suggestion এক জায়গায়</h1>${whoHTML()}<p>Mirpur College Updates &amp; Notices-এর সর্বশেষ আপডেট, category অনুযায়ী সাজানো।</p>${stripHTML(base)}
+ <div class="sbar"><div class="search"><span class="si">${SVG("search")}</span><input id="q" placeholder="Notice, routine, result খুঁজুন…" value="${esc(S.q)}"><button class="btn sm" onclick="S.q=$('#q').value.trim();route()">Search</button></div></div></section>
+ <div class="cats"><button class="chip ${S.cat?"":"on"}" onclick="setCat('')">সব (${base.length})</button>${Object.entries(CATS).map(([k,x])=>`<button class="chip ${S.cat==k?"on":""}" style="--c:${x.c}" onclick="setCat('${k}')">${SVG(k)} ${x.n} (${cc(k)})</button>`).join("")}</div>
+ <div class="stats"><div class="stat"><b>${base.length}</b><small>মোট Post</small></div><div class="stat"><b>${base.filter(p=>Date.now()-p.ts<7*DAY).length}</b><small>এই সপ্তাহে নতুন</small></div><div class="stat"><b>${base.filter(p=>p.dl&&!isExp(p)&&p.dl-Date.now()<=7*DAY).length}</b><small>Deadline ৭ দিনে</small></div></div>
+ <div class="chips"><button class="btn ghost sm ${S.unread?"on":""}" onclick="S.unread=!S.unread;route()">${SVG("zap")} শুধু Unread (${base.filter(p=>!isRd(p.id)).length})</button><button class="btn ghost sm ${S.dlo?"on":""}" onclick="S.dlo=!S.dlo;route()">${SVG("hourglass")} Deadline আছে</button></div>
+ ${fs.length?`<h2 class="t"><span>${SVG("pin")} গুরুত্বপূর্ণ</span><small>Pinned ও deadline কাছে</small></h2><div class="fs">${fs.map(fcard).join("")}</div>`:""}
+ <h2 class="t" id="list"><span>${c?SVG(S.cat)+" "+c.n:SVG("zap")+" সর্বশেষ Post"}</span><small>${l.length} টি</small></h2>
+ <div class="grid">${!S.loaded?SK:l.length?l.map(card).join(""):'<div class="empty"><b>${SVG("inbox")}</b>এই category-তে এখনো কোনো post নেই।</div>'}</div>`}
 function setCat(k){S.cat=k||null;route();const el=$("#list");el&&el.scrollIntoView({behavior:"smooth"})}
-function pContact(){return `<section class="hero" style="padding-bottom:10px"><h1>📬 <span>Contact</span> করুন</h1><p>প্রশ্ন, পরামর্শ বা অভিযোগ থাকলে নিচের form-এ জানান।</p></section>
+function pContact(){return `<section class="hero" style="padding-bottom:10px"><h1>${SVG("mail")} <span>Contact</span> করুন</h1><p>প্রশ্ন, পরামর্শ বা অভিযোগ থাকলে নিচের form-এ জানান।</p></section>
  <div class="panel" style="max-width:660px;margin:0 auto 50px"><form onsubmit="sendMsg(event)">
  <div class="two"><div><label>Name *</label><input id="c_name" required maxlength="80"></div><div><label>Email *</label><input id="c_email" type="email" required maxlength="120"></div></div>
  <div class="two"><div><label>Phone</label><input id="c_phone" maxlength="30"></div><div><label>Subject *</label><input id="c_sub" required maxlength="150"></div></div>
  <label>Message *</label><textarea id="c_msg" required minlength="5" maxlength="2000"></textarea>
  <input id="c_hp" style="display:none" tabindex="-1" autocomplete="off">
- <div class="row"><button class="btn send" id="c_btn"><span class="lb">Send Message</span><span class="ic">✈</span></button></div></form></div>`}
+ <div class="row"><button class="btn send" id="c_btn"><span class="lb">Send Message</span><span class="ic">${SVG("send")}</span></button></div></form></div>`}
 async function sendMsg(e){e.preventDefault();const f=e.target;if($("#c_hp").value){toast("Sent ✔");return}
  const d={name:$("#c_name").value.trim(),email:$("#c_email").value.trim(),phone:$("#c_phone").value.trim(),subject:$("#c_sub").value.trim(),message:$("#c_msg").value.trim(),ts:Date.now()};
- const b=$("#c_btn"),lb=b.querySelector(".lb"),ic=b.querySelector(".ic"),rs=()=>{b.classList.remove("sending","sent");lb.textContent="Send Message";ic.textContent="✈"};let ok=false;b.disabled=true;b.classList.add("sending");lb.textContent="Sending…";
+ const b=$("#c_btn"),lb=b.querySelector(".lb"),ic=b.querySelector(".ic"),rs=()=>{b.classList.remove("sending","sent");lb.textContent="Send Message";ic.innerHTML=SVG("send")};let ok=false;b.disabled=true;b.classList.add("sending");lb.textContent="Sending…";
  try{const tg=fetch("/api/contact",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)}).then(r=>r.ok).catch(()=>false);
   let saved=true,err=null;try{await saveMsg(d)}catch(x){saved=false;err=x}
   const sent=await tg;if(!saved&&!sent)throw err||new Error("error");
   toast("Message pathano hoyeche ✔");f.reset();ok=true}catch(x){toast("Send hoyni: "+((x&&(x.code||x.message))||"error"))}
- b.disabled=false;if(ok){b.classList.remove("sending");b.classList.add("sent");lb.textContent="Sent!";ic.textContent="✔";setTimeout(rs,1800)}else rs()}
+ b.disabled=false;if(ok){b.classList.remove("sending");b.classList.add("sent");lb.textContent="Sent!";ic.innerHTML=SVG("check");setTimeout(rs,1800)}else rs()}
 const FAIL={},TRY={};
 function shareBar(f){const u=location.origin+"/p/"+f.id,e=encodeURIComponent;
- return `<div class="share"><span>📤 Share:</span><a class="btn sm" target="_blank" rel="noopener" href="https://api.whatsapp.com/send?text=${e("📢 *"+f.title+"*\n"+u)}">📲 WhatsApp</a><a class="btn ghost sm" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=${e(u)}">Facebook</a><button class="btn ghost sm" onclick="copyLink('${f.id}')">🔗 Copy link</button>${navigator.share?`<button class="btn ghost sm" onclick="nativeShare('${f.id}')">More…</button>`:""}</div>`}
+ return `<div class="share"><span>${SVG("share")} Share:</span><a class="btn sm" target="_blank" rel="noopener" href="https://api.whatsapp.com/send?text=${e("📢 *"+f.title+"*\n"+u)}">${SVG("msg")} WhatsApp</a><a class="btn ghost sm" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=${e(u)}">Facebook</a><button class="btn ghost sm" onclick="copyLink('${f.id}')">${SVG("link")} Copy link</button>${navigator.share?`<button class="btn ghost sm" onclick="nativeShare('${f.id}')">More…</button>`:""}</div>`}
 function copyLink(id){const u=location.origin+"/p/"+id;if(navigator.clipboard)navigator.clipboard.writeText(u).then(()=>toast("Link copied ✔"),()=>prompt("Link:",u));else prompt("Link:",u)}
 function nativeShare(id){const p=FULL[id]||S.posts.find(x=>x.id==id);navigator.share({title:p?p.title:"Notice",url:location.origin+"/p/"+id}).catch(()=>{})}
+const lsGet=k=>{try{return JSON.parse(localStorage.getItem(k)||"[]")}catch(e){return[]}},lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const SV=()=>lsGet("mcn_saved"),isSv=id=>SV().includes(id),RD=()=>lsGet("mcn_read"),isRd=id=>RD().includes(id);
+const svBtn=id=>`<button class="sv ${isSv(id)?"on":""}" data-sv="${id}" onclick="toggleSave('${id}',event)" aria-label="Save post" title="Save">${SVG("star",isSv(id))}</button>`;
+function toggleSave(id,e){e&&e.stopPropagation();let a=SV();const on=!a.includes(id);a=on?[id,...a]:a.filter(x=>x!=id);lsSet("mcn_saved",a);
+ document.querySelectorAll(`[data-sv="${id}"]`).forEach(b=>{b.classList.toggle("on",on);b.innerHTML=SVG("star",on)});
+ document.querySelectorAll(`[data-svl="${id}"]`).forEach(b=>b.innerHTML=SVG("star",on)+(on?" Saved":" Save"));
+ const l=document.querySelector('#links a[href="#/saved"]');if(l)l.innerHTML=SVG("star")+" Saved"+(a.length?" ("+a.length+")":"");
+ toast(on?"Saved ✔":"Save সরানো হয়েছে");if(location.hash=="#/saved")route()}
+function incView(id){if(!S.posts.some(p=>p.id==id))return;fetch("https://firestore.googleapis.com/v1/projects/"+PROJ+"/databases/(default)/documents:commit?key="+KEY,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({writes:[{transform:{document:"projects/"+PROJ+"/databases/(default)/documents/posts/"+id,fieldTransforms:[{fieldPath:"views",increment:{integerValue:"1"}}]}}]})}).catch(()=>{})}
+function markRead(id){if(!id)return;const a=RD();if(a.includes(id))return;incView(id);lsSet("mcn_read",[id,...a].slice(0,300))}
+const dKey=n=>{const t=new Date(n);return t.getFullYear()+String(t.getMonth()+1).padStart(2,"0")+String(t.getDate()).padStart(2,"0")};
+function addCal(id){const p=FULL[id]||S.posts.find(x=>x.id==id);if(!p||!p.dl)return;
+ const t=x=>String(x||"").replace(/[\\;,]/g,m=>"\\"+m).replace(/\r?\n/g,"\\n");
+ const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//MCUN//BN","BEGIN:VEVENT","UID:"+id+"@mcun","DTSTAMP:"+new Date().toISOString().replace(/[-:]|\.\d+/g,""),"DTSTART;VALUE=DATE:"+dKey(p.dl),"DTEND;VALUE=DATE:"+dKey(p.dl+DAY),"SUMMARY:"+t("⏰ "+p.title),"DESCRIPTION:"+t(String(p.body||"").slice(0,300)+"\n"+location.origin+"/p/"+id),"BEGIN:VALARM","TRIGGER:-P1D","ACTION:DISPLAY","DESCRIPTION:Deadline kal","END:VALARM","END:VEVENT","END:VCALENDAR"].join("\r\n");
+ const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([ics],{type:"text/calendar"}));a.download="deadline.ics";document.body.appendChild(a);a.click();a.remove();toast("Calendar file নামছে")}
+function actBar(p){const g=p.dl&&!isExp(p)?"https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("⏰ "+p.title)+"&dates="+dKey(p.dl)+"/"+dKey(p.dl+DAY)+"&details="+encodeURIComponent(location.origin+"/p/"+p.id):"";
+ return `<div class="share" style="border:0;padding-top:0;margin-top:18px"><span>${SVG("star")}</span><button class="btn ghost sm" data-svl="${p.id}" onclick="toggleSave('${p.id}',event)">${SVG("star",isSv(p.id))} ${isSv(p.id)?"Saved":"Save"}</button>${g?`<a class="btn ghost sm" target="_blank" rel="noopener" href="${esc(g)}">${SVG("cal")} Google Calendar</a><button class="btn ghost sm" onclick="addCal('${p.id}')">${SVG("dl")} .ics</button>`:""}</div>`}
+function pSaved(){const l=sorted(SV().map(i=>S.posts.find(p=>p.id==i)).filter(p=>p&&vis(p)));
+ return `<h2 class="t" id="list"><span>${SVG("star")} Saved Posts</span><small>${l.length} টি</small></h2><div class="grid">${!S.loaded?SK:l.length?l.map(card).join(""):'<div class="empty"><b>${SVG("star")}</b>কোনো post save করা নেই। Card-এর ☆ চাপ দিন।</div>'}</div>`}
 function openPost(id){location.hash="#/p/"+id}
 function pPost(id){const p=FULL[id]||S.posts.find(x=>x.id==id);
  const back='<a class="lnk" style="text-decoration:none;display:inline-block;margin-bottom:12px" href="#/">← সব Post</a>';
- if(p&&!vis(p))return `<div class="panel post-page">${back}<h3>🔒 এই post টি আপনার Year / Department-এর জন্য নয়</h3></div>`;
-  if(!p)return `<div class="panel post-page">${back}${S.fresh&&TRY[id]==2?"<h3>Post ta pawa jayni 😕</h3>":'<div class="card sk" style="border:0"><div class="cb"><span class="tag">&nbsp;</span><h3>&nbsp;</h3><p>&nbsp;</p><p>&nbsp;</p></div></div>'}</div>`;
+ if(p&&!vis(p))return `<div class="panel post-page">${back}<h3>${SVG("lock")} এই post টি আপনার Year / Department-এর জন্য নয়</h3></div>`;
+  if(!p)return `<div class="panel post-page">${back}${S.fresh&&TRY[id]==2?"<h3>Post ta pawa jayni</h3>":'<div class="card sk" style="border:0"><div class="cb"><span class="tag">&nbsp;</span><h3>&nbsp;</h3><p>&nbsp;</p><p>&nbsp;</p></div></div>'}</div>`;
  const lite=!FULL[id]&&!S.sdk,pend=lite&&!FAIL[id]&&(p.nf==null||p.nf>0||p.hc!==false);
  const c=CATS[p.cat]||CATS.notice,a=atts(p);
- return `<div class="panel post-page">${back}${tagsHTML(p)}<h2 style="margin:8px 0">${esc(p.title)}</h2><small>${fmt(p.ts)}</small>${dlLine(p)}${p.cover&&ok(p.cover.url)?`<img class="big" src="${esc(p.cover.url)}" alt="">`:""}<p class="body">${esc(p.body)}</p>${pend?'<p><small>⏳ Attachment লোড হচ্ছে…</small></p>':lite&&FAIL[id]?'<p><small>⚠ Attachment load hoyni, page refresh korun.</small></p>':""}${a.length?`<h4 style="margin:18px 0 6px">📎 Attachments</h4>`+a.map(attHTML).join(""):""}${shareBar(p)}</div>`}
+ return `<div class="panel post-page">${back}${tagsHTML(p)}<h2 style="margin:8px 0">${esc(p.title)}</h2><small>${fmt(p.ts)}</small>${dlLine(p)}${p.cover&&ok(p.cover.url)?`<img class="big" src="${esc(p.cover.url)}" alt="">`:""}<p class="body">${esc(p.body)}</p>${pend?'<p><small>⏳ Attachment লোড হচ্ছে…</small></p>':lite&&FAIL[id]?'<p><small>⚠ Attachment load hoyni, page refresh korun.</small></p>':""}${a.length?`<h4 style="margin:18px 0 6px">📎 Attachments</h4>`+a.map(attHTML).join(""):""}${actBar(p)}${shareBar(p)}</div>`}
 async function loadPost(id){const p=S.posts.find(x=>x.id==id);
  if(!p&&!FULL[id]&&!TRY[id]){TRY[id]=1;try{await getFull(id)}catch(e){}TRY[id]=2;if(location.hash.includes(id))route();return}
  if(!p||S.sdk||FULL[id]||FAIL[id])return;if(!(p.nf==null||p.nf>0||p.hc!==false))return;
  try{await getFull(id)}catch(e){FAIL[id]=1}if(location.hash.includes(id))route()}
 function route(){const h=location.hash.replace(/^#\/?/,"").split("/"),pg=h[0]||"home";
- $("#links").innerHTML=`<a href="#/" class="${pg=="home"?"on":""}">Home</a><a href="#/contact" class="${pg=="contact"?"on":""}">Contact</a>`;
- $("#yr").textContent=new Date().getFullYear();{const f=$("#fab"),c=pg=="contact";f.href=c?"#/":"#/contact";f.innerHTML=c?"<span>🏠</span>Home":"<span>💬</span>Contact";f.setAttribute("aria-label",c?"Home":"Contact")}const k=document.activeElement&&document.activeElement.id;
- $("#app").innerHTML=pg=="contact"?pContact():pg=="p"?pPost(h[1]):pHome();observeCovers();if(pg=="p")loadPost(h[1]);
+ $("#links").innerHTML=`<a href="#/" class="${pg=="home"?"on":""}">Home</a><a href="#/saved" class="${pg=="saved"?"on":""}">${SVG("star")} Saved${SV().length?" ("+SV().length+")":""}</a><a href="#/contact" class="${pg=="contact"?"on":""}">Contact</a>`;
+ $("#yr").textContent=new Date().getFullYear();$("#bnav").innerHTML=[["","home","Home"],["saved","star","Saved"],["contact","msg","Contact"]].map(([h,i,n])=>`<a href="#/${h}" class="${(pg=="home"&&!h)||pg==h?"on":""}">${SVG(i)}${n}</a>`).join("");{const f=$("#fab"),c=pg=="contact";f.href=c?"#/":"#/contact";f.innerHTML=c?"<span>"+SVG("home")+"</span>Home":"<span>"+SVG("msg")+"</span>Contact";f.setAttribute("aria-label",c?"Home":"Contact")}const k=document.activeElement&&document.activeElement.id;
+ $("#app").innerHTML=pg=="contact"?pContact():pg=="saved"?pSaved():pg=="p"?pPost(h[1]):pHome();observeCovers();if(pg=="p"){markRead(h[1]);loadPost(h[1])}
  const q=$("#q");if(q){q.addEventListener("keydown",e=>{if(e.key=="Enter"){S.q=q.value.trim();route()}});if(k=="q")q.focus()}}
 addEventListener("hashchange",()=>{route();scrollTo(0,0)});
 /* ---------- LOGIN / PROFILE ---------- */
@@ -316,13 +381,14 @@ const gated=on=>root.classList.toggle("gated",on);
 const initial=n=>(String(n||"?").trim()[0]||"?").toUpperCase();
 const imgOk=u=>/^data:image\//.test(u||"");
 const avInner=()=>{const p=U.prof||{};return imgOk(p.photo)?`<img src="${esc(p.photo)}" alt="">`:esc(initial(p.name))};
-const whoHTML=()=>U.prof?`<span class="who"><b>📘 ${esc(U.prof.year)} · ${esc(U.prof.dept)}</b> &nbsp;·&nbsp; 👋 ${esc(U.prof.name)}</span>`:"";
+const whoHTML=()=>U.prof?`<span class="who"><b>${SVG("syllabus")} ${esc(U.prof.year)} · ${esc(U.prof.dept)}</b> &nbsp;·&nbsp; ${SVG("user")} ${esc(U.prof.name)}</span>`:"";
 const opts=(a,v)=>a.map(x=>`<option value="${esc(x)}" ${x==v?"selected":""}>${esc(x)}</option>`).join("");
 // Protita post ek ba ekadhik "page"-e thake (grp). grp faka = shob page. Purono year/dept tag-o bujhe.
 function pagesOf(p){const g=p.grp||[];if(!g.length)return PAGES;const out=new Set(g.filter(x=>PAGES.includes(x))),ly=g.filter(x=>YEARS.includes(x)),ld=g.filter(x=>DEPTS.includes(x));
  if(ly.length||ld.length)(ly.length?ly:YEARS).forEach(y=>(ld.length?ld:DEPTS).forEach(d=>out.add(y+" · "+d)));return out.size?[...out]:PAGES}
 const myPage=()=>U.prof?U.prof.year+" · "+U.prof.dept:"";
-const vis=p=>!!U.prof&&pagesOf(p).includes(myPage());
+const live=p=>!p.draft&&!(p.at&&p.at>Date.now());
+const vis=p=>!!U.prof&&live(p)&&pagesOf(p).includes(myPage());
 const AUTHERR={"auth/invalid-credential":"Email ba Password thik noy","auth/wrong-password":"Email ba Password thik noy","auth/user-not-found":"Email ba Password thik noy","auth/invalid-login-credentials":"Email ba Password thik noy","auth/email-already-in-use":"Ei email-e age-i account ache — Login tab-e jan","auth/weak-password":"Password kompokkhe 6 ta character hote hobe","auth/invalid-email":"Email ta thik noy","auth/network-request-failed":"Internet connection check korun","auth/too-many-requests":"Onek bar try hoyeche, kichukkhon pore abar chesta korun","auth/operation-not-allowed":"Firebase Console → Authentication → Sign-in method → Email/Password chalu korun"};
 const authErr=e=>{const c=(e&&e.code)||"";return AUTHERR[c]||("Problem: "+(c||(e&&e.message)||e))};
 function paintMe(){const b=$("#meBtn");if(!U.prof||root.classList.contains("gated")){b.style.display="none";return}b.style.display="flex";b.innerHTML=avInner();b.title=U.prof.name+" — Profile"}

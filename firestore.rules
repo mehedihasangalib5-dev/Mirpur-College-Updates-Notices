@@ -18,6 +18,9 @@ service cloud.firestore {
     match /posts/{id} {
       allow read: if true;              // public site
       allow write: if isAdmin();        // shudhu allowed email
+      // public view counter: shudhu "views" field, ekbare +1
+      allow update: if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['views'])
+        && request.resource.data.get('views', 0) == resource.data.get('views', 0) + 1;
     }
     match /messages/{id} {
       allow create: if request.resource.data.keys().hasOnly(['name','email','phone','subject','message','ts'])
@@ -27,6 +30,23 @@ service cloud.firestore {
         && request.resource.data.subject is string && request.resource.data.subject.size() <= 150
         && request.resource.data.message is string && request.resource.data.message.size() >= 5 && request.resource.data.message.size() <= 2000;
       allow read, delete: if isAdmin();   // only admins read contact messages
+    }
+    // users/{uid} = student profile (login-er por Year/Department ekhan theke ashe)
+    // shudhu nijer doc-ta nijei read/write korte pabe; Admin read korte pare
+    // Year/Department list index.html + admin.html-er sathe mil rakhte hobe
+    match /users/{uid} {
+      allow read: if request.auth != null && (request.auth.uid == uid || isAdmin());
+      allow create, update: if request.auth != null && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['uid','name','email','year','dept','photo','updated'])
+        && request.resource.data.keys().hasAll(['uid','name','year','dept'])
+        && request.resource.data.uid == uid
+        && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 80
+        && request.resource.data.get('email', '') is string && request.resource.data.get('email', '').size() <= 120
+        && request.resource.data.year in ['HSC 1st Year', 'HSC 2nd Year']
+        && request.resource.data.dept in ['Science', 'Arts', 'Commerce']
+        && request.resource.data.get('photo', '') is string && request.resource.data.get('photo', '').size() <= 100000
+        && request.resource.data.get('updated', 0) is number;
+      allow delete: if request.auth != null && (request.auth.uid == uid || isAdmin());
     }
     match /config/admins {
       allow read: if isAdmin();           // admin email list shudhu admin-ra dekhte pabe

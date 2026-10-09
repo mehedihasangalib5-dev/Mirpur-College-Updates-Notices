@@ -181,9 +181,9 @@ const me=()=>(S.email||"").toLowerCase();
 // Email allowlist: config/admins.emails (Owner = prothom email). Purono UID (config/admins.ids) o chole (backward compatible).
 const isAdmin=()=>!!S.uid&&(S.ids.includes(S.uid)||(S.verified&&S.emails.includes(me())));
 const isOwner=()=>!!S.uid&&(S.ids[0]===S.uid||(S.verified&&S.emails[0]===me()));
-const FIELDS=["f_cat","f_title","f_body","f_links","f_link","f_dl","em"];
-function snap(){const o={};FIELDS.forEach(i=>{const e=$("#"+i);if(e)o[i]=e.value});const p=$("#f_pin");if(p)o.pin=p.checked;o.grp=[...document.querySelectorAll(".gcb:checked")].map(x=>x.value);return o}
-function restore(o){FIELDS.forEach(i=>{const e=$("#"+i);if(e&&o[i]!=null)e.value=o[i]});const p=$("#f_pin");if(p&&o.pin!=null)p.checked=o.pin;if(o.grp)document.querySelectorAll(".gcb").forEach(x=>x.checked=o.grp.includes(x.value))}
+const FIELDS=["f_cat","f_title","f_body","f_links","f_link","f_dl","f_at","em"];
+function snap(){const o={};FIELDS.forEach(i=>{const e=$("#"+i);if(e)o[i]=e.value});const p=$("#f_pin");if(p)o.pin=p.checked;const dr=$("#f_draft");if(dr)o.draft=dr.checked;o.grp=[...document.querySelectorAll(".gcb:checked")].map(x=>x.value);return o}
+function restore(o){FIELDS.forEach(i=>{const e=$("#"+i);if(e&&o[i]!=null)e.value=o[i]});const p=$("#f_pin");if(p&&o.pin!=null)p.checked=o.pin;const dr=$("#f_draft");if(dr&&o.draft!=null)dr.checked=o.draft;if(o.grp)document.querySelectorAll(".gcb").forEach(x=>x.checked=o.grp.includes(x.value))}
 function copy(t){navigator.clipboard&&navigator.clipboard.writeText(t);toast("Copied")}
 
 /* ---- image handling (no Storage / no Blaze) ---- */
@@ -227,6 +227,8 @@ function panelV(){
  ${YEARS.map(y=>`<div class="pgy">${esc(y)}</div><div class="gset" style="margin-bottom:8px">${DEPTS.map(d=>{const l=y+" · "+d;return `<label class="gchk"><input type="checkbox" class="gcb" value="${esc(l)}" ${sel.includes(l)?"checked":""}> ${esc(d)}</label>`}).join("")}</div>`).join("")}
  <div class="row" style="margin:0 0 4px"><button type="button" class="btn ghost sm" onclick="pgSet(true)">✔ সব Page</button><button type="button" class="btn ghost sm" onclick="pgSet(false)">✕ Clear</button></div>
  <label>📅 Deadline / শেষ তারিখ (optional)</label><input type="date" id="f_dl" value="${e.dl?new Date(e.dl).toLocaleDateString("en-CA"):""}">
+ <label>⏰ Schedule (optional) <small>— ei somoy-er age public-e dekhabe na</small></label><input type="datetime-local" id="f_at" value="${e.at?toLocal(e.at):""}">
+ <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="f_draft" style="width:auto" ${e.draft?"checked":""}> 📝 Draft (public-e dekhabe na)</label>
  <label>Cover Image</label><input type="file" accept="image/*" onchange="pick('cover',this.files,this)">
  ${P.cover?`<div class="pend"><small>✔ ${esc(P.cover.name)}</small><button type="button" class="lnk" onclick="S.pending.cover=null;render(true)">✕ remove</button></div>`:""}
  <label>অতিরিক্ত ছবি (auto compress হবে)</label><input type="file" accept="image/*" multiple onchange="pick('files',this.files,this)">
@@ -234,12 +236,12 @@ function panelV(){
  <label>Attachment links (PDF/Doc – Google Drive লিংক)</label><textarea id="f_links" style="min-height:80px" placeholder="Syllabus PDF | https://drive.google.com/file/d/...&#10;Routine | https://...">${esc(links)}</textarea><small>প্রতি লাইনে একটি: নাম | লিংক</small>
  <label>Extra Link (optional)</label><input id="f_link" value="${esc(e.link||"")}" placeholder="https://…">
  <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="f_pin" style="width:auto" ${e.pinned?"checked":""}> 📌 Pin to top</label>
- <div class="row"><button class="btn" id="pubBtn" onclick="submitPost()">${S.edit?"Update":"Publish"}</button>${S.edit?'<button class="btn ghost" onclick="cancelEdit()">Cancel</button>':""}</div></div>
+ <div class="row"><button class="btn" id="pubBtn" onclick="submitPost()">${S.edit?"Update":"Publish"}</button><button class="btn ghost" onclick="previewPost()">👁 Preview</button>${S.edit?'<button class="btn ghost" onclick="cancelEdit()">Cancel</button>':""}</div></div>
  <div class="panel"><h3>👤 Admin Access (Email)</h3><div class="note">আপনার email: <code>${esc(S.email||"")}</code><br>কাউকে access দিতে তার email নিচে add করুন — সে Google বা email link দিয়ে login করে panel ব্যবহার করতে পারবে। ${isOwner()?"":"(শুধু Owner পরিবর্তন করতে পারে)"}</div>
  ${isOwner()?`<form class="row" style="margin:0 0 10px;flex-wrap:nowrap" onsubmit="addAdmin(event)"><input id="newem" type="email" required placeholder="name@gmail.com" style="flex:1;min-width:0"><button class="btn sm">Add</button></form>`:""}
  ${S.emails.map((u,i)=>`<div class="li"><div><code>${esc(u)}</code>${i==0?" <small>(Owner)</small>":""}${u==me()?" <small>(আপনি)</small>":""}</div>${isOwner()&&i>0?`<button class="btn danger sm" onclick="rmAdmin('${esc(u)}')">Remove</button>`:""}</div>`).join("")||"<small>কোনো email নেই</small>"}
  ${S.ids.map((u,i)=>`<div class="li"><div><code>${esc(u)}</code> <small>(পুরনো UID access)</small></div>${isOwner()?`<button class="btn danger sm" onclick="rmId('${esc(u)}')">Remove</button>`:""}</div>`).join("")}</div></div>
- <div class="panel"><h3>সব Post (${S.posts.filter(pfOk).length}${S.pf?" / "+S.posts.length:""})</h3><select id="pf_sel" onchange="S.pf=this.value;render(true)" style="margin-bottom:10px">${pfOpts()}</select>${sorted(S.posts.filter(pfOk)).map(p=>`<div class="li post"><span>${(CATS[p.cat]||CATS.notice).i}</span><div class="ttl"><b>${esc(p.title)}</b><small>${fmt(p.ts)}${p.hist&&p.hist.length?" · ✎ "+p.hist.length+" edits":""}</small><small class="pgs">${pgText(p)}</small></div>
+ <div class="panel"><h3>সব Post (${S.posts.filter(pfOk).length}${S.pf?" / "+S.posts.length:""})</h3><select id="pf_sel" onchange="S.pf=this.value;render(true)" style="margin-bottom:10px">${pfOpts()}</select>${sorted(S.posts.filter(pfOk)).map(p=>`<div class="li post"><span>${(CATS[p.cat]||CATS.notice).i}</span><div class="ttl"><b>${esc(p.title)}</b><small>${fmt(p.ts)}${BADGE(p)}${p.hist&&p.hist.length?" · ✎ "+p.hist.length+" edits":""}</small><small class="pgs">${pgText(p)}</small></div>
  <div class="acts"><button class="btn ghost sm" onclick="waShare('${p.id}')">📲</button><button class="btn ghost sm" onclick="startEdit('${p.id}')">Edit</button>${p.hist&&p.hist.length?`<button class="btn ghost sm" onclick="showHist('${p.id}')">History</button>`:""}<button class="btn danger sm" onclick="del('${p.id}')">Delete</button></div></div>`).join("")||"<small>কিছু নেই</small>"}</div></div>
  <div class="panel" style="margin-bottom:50px"><h3>📨 Contact Messages (${S.msgs.length})</h3>${[...S.msgs].sort((a,b)=>b.ts-a.ts).map(m=>`<div class="li msg"><b>${esc(m.subject)}</b><small>${esc(m.name)} · ${esc(m.email)}${m.phone?" · "+esc(m.phone):""} · ${fmt(m.ts)}</small><p class="body">${esc(m.message)}</p><div class="acts"><a class="btn ghost sm" href="mailto:${esc(m.email)}?subject=${encodeURIComponent("Re: "+m.subject)}">Reply</a><button class="btn danger sm" onclick="delMsg('${m.id}')">Delete</button></div></div>`).join("")||"<small>কোনো message নেই</small>"}</div>`}
 function render(keep){const o=keep&&($("#f_title")||$("#em"))?snap():null;
@@ -256,11 +258,14 @@ function waShare(id){const p=S.posts.find(x=>x.id==id);if(p)showShare(id,p)}
 function startEdit(id){const p=S.posts.find(x=>x.id==id);if(!p)return;S.edit=id;S.pending={cover:p.cover||null,files:(p.files||[]).filter(f=>f.type!="link")};render(false);scrollTo(0,0)}
 function cancelEdit(){S.edit=null;S.pending={cover:null,files:[]};render(false)}
 function parseLinks(t){return t.split("\n").map(x=>x.trim()).filter(Boolean).map(x=>{const i=x.indexOf("|");return i<0?{name:"Attachment",url:x}:{name:x.slice(0,i).trim()||"Attachment",url:x.slice(i+1).trim()}}).filter(a=>/^https?:\/\//.test(a.url)).map(a=>({id:"",name:a.name,type:"link",url:a.url}))}
+const toLocal=t=>new Date(t-new Date(t).getTimezoneOffset()*6e4).toISOString().slice(0,16);
+const BADGE=p=>p.draft?" · 📝 Draft":p.at&&p.at>Date.now()?" · ⏰ Scheduled":(p.views?" · 👁 "+p.views:"");
+function previewPost(){const c=CATS[$("#f_cat").value]||CATS.notice;$("#sheet").innerHTML=`<small>👁 Preview</small><div style="margin:8px 0"><b>${c.i} ${c.n}</b></div><h2 style="margin:6px 0">${esc($("#f_title").value)||"(Title nei)"}</h2><p class="body" style="white-space:pre-wrap">${esc($("#f_body").value)}</p><div class="row"><button class="btn ghost" onclick="closeM()">Close</button></div>`;$("#modal").classList.add("open")}
 async function submitPost(){
  const title=$("#f_title").value.trim(),body=$("#f_body").value.trim();if(!title)return toast("Title দিন");
- const old=S.posts.find(p=>p.id==S.edit),now=Date.now(),P=S.pending,b=$("#pubBtn"),dlv=$("#f_dl").value;
+ const old=S.posts.find(p=>p.id==S.edit),now=Date.now(),P=S.pending,b=$("#pubBtn"),dlv=$("#f_dl").value,atv=$("#f_at").value?new Date($("#f_at").value).getTime():0;
  const data={title,body,cat:$("#f_cat").value,link:$("#f_link").value.trim(),pinned:$("#f_pin").checked,cover:P.cover||null,files:[...P.files,...parseLinks($("#f_links").value)],
-  ts:old?old.ts:now,by:old?(old.by||S.uid):S.uid,updated:now,nf:P.files.length+parseLinks($("#f_links").value).length+(/^https?:\/\//.test($("#f_link").value.trim())?1:0),hc:!!P.cover,grp:(g=>g.length==PAGES.length?[]:g)([...document.querySelectorAll(".gcb:checked")].map(x=>x.value)),dl:dlv?new Date(dlv+"T23:59:59").getTime():null,
+  ts:atv||(old?old.ts:now),by:old?(old.by||S.uid):S.uid,updated:now,nf:P.files.length+parseLinks($("#f_links").value).length+(/^https?:\/\//.test($("#f_link").value.trim())?1:0),hc:!!P.cover,grp:(g=>g.length==PAGES.length?[]:g)([...document.querySelectorAll(".gcb:checked")].map(x=>x.value)),dl:dlv?new Date(dlv+"T23:59:59").getTime():null,at:atv||null,draft:$("#f_draft").checked,views:(old&&old.views)||0,
   hist:old?[{ts:now,by:S.uid,title:old.title||"",body:old.body||"",cat:old.cat||"notice",link:old.link||""},...(old.hist||[])].slice(0,20):[]};
  const clean=JSON.parse(JSON.stringify(data));
  if(JSON.stringify(clean).length>950000)return toast("Post ta onek boro – chobi kombao");

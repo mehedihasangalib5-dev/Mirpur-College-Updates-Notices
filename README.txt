@@ -67,3 +67,19 @@ E) PUSH NOTIFICATION (notun notice-e phone-e alert) -- free, Blaze lagbe na
   - iPhone (iOS 16.4+): Safari -> Share -> "Add to Home Screen" kore HOME SCREEN-er app theke khule Alert on korte hobe (Safari tab-e hoy na).
   - Post EDIT korle default-e push jay na (checkbox tick korle jabe).
   - Notification bondho korte chaile abar 🔔 button-e tap korlei off.
+
+F) NOTUN FEATURE (client-side, kono extra setup lagbe na)
+ - ⭐ Save: card-er ☆ ba post-page-er "Save" button. Nav-er "⭐ Saved" theke shob saved post (phone-e localStorage-e thake).
+ - Porā post auto dim hoy, "New" tag lukay.
+ - 📅 Deadline wala post-e "Google Calendar" ar ".ics" button (1 din age reminder shoho).
+
+G) ARO FEATURE
+ - Admin: "Schedule" (datetime) + "Draft" checkbox + 👁 Preview. Scheduled/draft post public-e dekhay na; somoy hole nijei dekhay (page reload-e).
+ - View counter: protita device-e ekbar +1 (admin list-e 👁). Er jonno firestore.rules abar Publish korte hobe!
+ - Home: stats strip, "শুধু Unread" ar "Deadline আছে" filter, Bangla-friendly search (ড়/য়, Bangla digit) + highlight.
+ - Note: Draft post Firestore API-te technically public-read; sensitive kichu draft-e rakhben na.
+
+H) DESIGN POLISH
+ - Category emoji-r jaygay SVG icon (card, tag, featured), cover na thakle category-color gradient placeholder.
+ - Dropdown-er bodole scrollable category chip. Mobile-e niche floating bottom nav (Home / Saved / Contact), purono Contact button bondho.
+ - prefers-reduced-motion mene animation bondho hoy.
