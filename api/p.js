@@ -16,8 +16,12 @@ module.exports = async (req, res) => {
       u.searchParams.set("key", KEY);
       u.searchParams.append("mask.fieldPaths", "title");
       u.searchParams.append("mask.fieldPaths", "body");
+      u.searchParams.append("mask.fieldPaths", "draft");
+      u.searchParams.append("mask.fieldPaths", "at");
       const r = await fetch(u);
       if (r.ok) {
+        const j0 = await r.clone().json(); const f0 = j0.fields || {};
+        if ((f0.draft && f0.draft.booleanValue) || (f0.at && Number(f0.at.integerValue) > Date.now())) throw new Error("hidden");
         const f = (await r.json()).fields || {};
         if (f.title && f.title.stringValue) title = f.title.stringValue;
         if (f.body && f.body.stringValue) desc = f.body.stringValue.replace(/\s+/g, " ").slice(0, 160);
