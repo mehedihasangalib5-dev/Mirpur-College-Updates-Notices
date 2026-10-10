@@ -106,3 +106,8 @@ H) GOOGLE LOGIN + REMEMBER ME
  - Complete screen-e Email/Password field thake na, shudhu Google account-er email dekhay.
  - Note: bhul kore tab bondho korle account Auth-e theke jay (Firestore profile chara). Porer bar dhukle abar setup screen ashe. Chaile Firebase Console -> Authentication theke muche din.
 
+I) APP UPDATE NOTICE
+ - Notun version deploy korle, ager install kora/purono user-er app-e niche "নতুন Update এসেছে! [Update]" banner ashe. "Update" chaple app nijei reload hoye notun version chalay. "পরে" chaple oi session-e ar dekhay na.
+ - Eta kaj korar jonno protibar notun release deploy korar age sw.js-er V (jemon "mcn-v8") ekta bariye din (v9, v10...).
+ - App khola thakle ba background theke ashle auto check hoy (protি 30 minute-o).
+

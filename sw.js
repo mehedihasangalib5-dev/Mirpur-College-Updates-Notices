@@ -1,5 +1,6 @@
 // Service worker: app-er moto install + offline shell. Admin ar API kokhono cache hoy na.
-const V = "mcn-v7";
+// Notun release dile ei V ta bodlan: tahole user-der app-e "Update" notice jabe.
+const V = "mcn-v8";
 const SHELL = ["/", "/logo.png", "/icon-192.png", "/manifest.webmanifest"];
 
 self.addEventListener("install", (e) => {
@@ -7,9 +8,10 @@ self.addEventListener("install", (e) => {
     caches.open(V)
       .then((c) => Promise.all(SHELL.map((u) => c.add(u).catch(() => {}))))
       .catch(() => {})
-      .then(() => self.skipWaiting())
   );
 });
+// Notun version "waiting" e thake; user "Update" chaple tabei active hoy (page theke message ashe).
+self.addEventListener("message", (e) => { if (e.data && e.data.type === "SKIP_WAITING") self.skipWaiting(); });
 self.addEventListener("activate", (e) => {
   e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== V).map((k) => caches.delete(k)))).then(() => self.clients.claim()));
 });

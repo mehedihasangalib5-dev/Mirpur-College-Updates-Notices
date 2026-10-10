@@ -282,13 +282,18 @@ h2.t span .ico{width:1.05em;height:1.05em;vertical-align:0;color:var(--pri)}
 .gacc span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .gacc em{font-style:normal;font-size:11px;color:#16a34a;font-weight:700;flex:none;display:inline-flex;align-items:center;gap:3px}
 @media(max-width:600px){.gbox{padding:26px 18px 20px;border-radius:26px}.glogo{width:64px;height:64px}.gbox h1{font-size:22px}}
+#updBar{position:fixed;left:12px;right:12px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;max-width:460px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:20px;background:var(--card);border:1px solid color-mix(in srgb,var(--pri) 30%,var(--line));box-shadow:0 20px 44px -16px color-mix(in srgb,var(--pri) 60%,#000);animation:ubin .4s cubic-bezier(.2,.8,.2,1) both}
+@keyframes ubin{from{opacity:0;transform:translateY(20px)}}
+.ub-i{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;display:grid;place-items:center;flex:none}.ub-i .ico{width:20px;height:20px}
+.ub-t{flex:1;min-width:0;display:flex;flex-direction:column;font-size:12.5px;color:var(--mute);line-height:1.35}.ub-t b{color:var(--ink);font-size:14px}
+.ub-b{display:flex;align-items:center;gap:6px;flex:none}.ub-x{background:none;color:var(--mute);font-weight:600;font-size:12.5px;padding:6px}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
 <nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="installBtn" style="display:none"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span class="hd"> Install</span></button><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="me" id="meBtn" aria-label="Profile" type="button"></button></div></header>
 <div id="gate"></div>
 <main class="wrap" id="app"></main>
 <footer><div>© <span id="yr"></span> Mirpur College Updates &amp; Notices. All rights reserved.</div>
-<div>Developed by <a href="https://cortex-it-kappa.vercel.app/" target="_blank" rel="noopener">Cortex IT</a></div><div style="margin-top:6px"><a href="#/">Home</a> · <a href="#/contact">Contact</a></div><div style="margin-top:8px;font-size:12px"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg> iPhone: Safari → Share → "Add to Home Screen"</div></footer><nav class="bnav" id="bnav" aria-label="Main"></nav><a class="fab" id="fab" href="#/contact" aria-label="Contact"><span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Contact</a>
+<div>Developed by <a href="https://cortex-it-kappa.vercel.app/" target="_blank" rel="noopener">Cortex IT</a> &nbsp;·&nbsp; <a href="https://www.facebook.com/share/1F83w5QvQ2/" target="_blank" rel="noopener" aria-label="Cortex IT Facebook" style="display:inline-flex;align-items:center;gap:4px;vertical-align:middle"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" style="flex:none"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H8v3h2.4V21h3.1z"/></svg> Facebook</a></div><div style="margin-top:6px"><a href="#/">Home</a> · <a href="#/contact">Contact</a></div><div style="margin-top:8px;font-size:12px"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg> iPhone: Safari → Share → "Add to Home Screen"</div></footer><nav class="bnav" id="bnav" aria-label="Main"></nav><a class="fab" id="fab" href="#/contact" aria-label="Contact"><span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Contact</a>
 <div class="modal" id="modal"><div class="sheet" id="sheet"></div></div><div class="toast" id="toast"></div>
 <script>
 const CATS={notice:{n:"Notice",c:"#e5484d"},syllabus:{n:"Syllabus",c:"#5b4bff"},suggestion:{n:"Suggestion",c:"#e08a00"},routine:{n:"Routine",c:"#0d9488"},result:{n:"Result",c:"#16a34a"},event:{n:"Event",c:"#d6409f"}};
@@ -548,7 +553,24 @@ $("#meBtn").onclick=()=>openProfile();
 let DP=null;addEventListener("beforeinstallprompt",e=>{e.preventDefault();DP=e;$("#installBtn").style.display=""});
 $("#installBtn").onclick=async()=>{if(!DP)return;DP.prompt();try{await DP.userChoice}catch(e){}DP=null;$("#installBtn").style.display="none"};
 addEventListener("appinstalled",()=>{$("#installBtn").style.display="none"});
-if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));
+/* ---- App update notice ---- */
+function showUpd(reg){if($("#updBar"))return;try{if(sessionStorage.getItem("mcn_upd_later"))return}catch(e){}
+ const d=document.createElement("div");d.id="updBar";d.setAttribute("role","alert");
+ d.innerHTML=`<div class="ub-i">${SVG("zap")}</div><div class="ub-t"><b>নতুন Update এসেছে!</b><span>নতুন feature ও fix পেতে app update করুন।</span></div><div class="ub-b"><button class="btn sm" id="updGo">Update</button><button class="ub-x" id="updLater" type="button">পরে</button></div>`;
+ document.body.appendChild(d);
+ $("#updGo").onclick=()=>{const g=$("#updGo");g.disabled=true;g.textContent="হচ্ছে…";window.__upd=true;
+  if(reg&&reg.waiting)reg.waiting.postMessage({type:"SKIP_WAITING"});else location.reload();
+  setTimeout(()=>location.reload(),4000)};
+ $("#updLater").onclick=()=>{try{sessionStorage.setItem("mcn_upd_later","1")}catch(e){}d.remove()}}
+if("serviceWorker"in navigator){let rl=false;
+ navigator.serviceWorker.addEventListener("controllerchange",()=>{if(rl||!window.__upd)return;rl=true;location.reload()});
+ addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").then(reg=>{
+  const ask=()=>{if(navigator.serviceWorker.controller&&reg.waiting)showUpd(reg)};
+  ask();
+  reg.addEventListener("updatefound",()=>{const w=reg.installing;if(w)w.addEventListener("statechange",()=>{if(w.state=="installed")ask()})});
+  const chk=()=>{reg.update().catch(()=>{})};
+  setInterval(chk,30*60*1000);
+  document.addEventListener("visibilitychange",()=>{if(!document.hidden)chk()})}).catch(()=>{}))}
 (function boot(){try{const c=JSON.parse(localStorage.getItem("mcn_posts")||"null");if(c&&c.posts){S.posts=c.posts;S.t=c.t;S.loaded=true}}catch(e){}
  document.addEventListener("visibilitychange",()=>{if(U.prof&&!document.hidden&&Date.now()-(S.t||0)>300000)refresh(true)});
  const c=readCache();
