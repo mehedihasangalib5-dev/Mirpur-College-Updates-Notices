@@ -1,5 +1,5 @@
 // POST /api/notify  { id }   Header: Authorization: Bearer <Firebase ID token>
-// Shudhu admin (config/admins-er email ba UID) call korte pare. Post-er title/body server nijei Firestore theke pore,
+// Shudhu Admin/Editor (config/admins-er emails, editors ba UID) call korte pare. Post-er title/body server nijei Firestore theke pore,
 // tarpor sob subscriber-ke push pathay.
 const { init, TOPIC, sameOrigin, body } = require("./_lib");
 
@@ -23,8 +23,10 @@ module.exports = async (req, res) => {
     const c = cfg.exists ? cfg.data() : {};
     const ids = c.ids || [];
     const emails = (c.emails || []).map((e) => String(e).toLowerCase());
-    const byEmail = user.email_verified === true && user.email && emails.includes(String(user.email).toLowerCase());
-    if (!ids.includes(user.uid) && !byEmail) return res.status(403).json({ ok: false, error: "admin na" });
+    const editors = (c.editors || []).map((e) => String(e).toLowerCase());
+    const em = user.email_verified === true && user.email ? String(user.email).toLowerCase() : "";
+    const allowed = ids.includes(user.uid) || (em && (emails.includes(em) || editors.includes(em)));
+    if (!allowed) return res.status(403).json({ ok: false, error: "admin na" });
 
     const snap = await admin.firestore().doc("posts/" + id).get();
     if (!snap.exists) return res.status(404).json({ ok: false, error: "post nai" });
