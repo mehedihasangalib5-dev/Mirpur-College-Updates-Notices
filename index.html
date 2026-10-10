@@ -287,6 +287,8 @@ h2.t span .ico{width:1.05em;height:1.05em;vertical-align:0;color:var(--pri)}
 .ub-i{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;display:grid;place-items:center;flex:none}.ub-i .ico{width:20px;height:20px}
 .ub-t{flex:1;min-width:0;display:flex;flex-direction:column;font-size:12.5px;color:var(--mute);line-height:1.35}.ub-t b{color:var(--ink);font-size:14px}
 .ub-b{display:flex;align-items:center;gap:6px;flex:none}.ub-x{background:none;color:var(--mute);font-weight:600;font-size:12.5px;padding:6px}
+.search input:focus{box-shadow:none;border:0}
+.sclr{flex:none;width:28px;height:28px;padding:0;border-radius:50%;background:var(--bg);color:var(--mute);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;line-height:1;cursor:pointer}.sclr[hidden]{display:none}.sclr:hover{color:var(--ink);border-color:var(--pri)}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
 <nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="installBtn" style="display:none"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span class="hd"> Install</span></button><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="me" id="meBtn" aria-label="Profile" type="button"></button></div></header>
@@ -373,7 +375,7 @@ function pHome(){const base=S.posts.filter(p=>match(p)&&vis(p)),c=CATS[S.cat];
  const fs=(!S.cat&&!S.q&&S.loaded)?sorted(base.filter(p=>!isExp(p)&&(p.pinned||(p.dl&&p.dl-Date.now()<=3*DAY)))).slice(0,6):[],fid=new Set(fs.map(p=>p.id));
  const l=sorted(base.filter(p=>(!S.cat||p.cat==S.cat)&&!fid.has(p.id)&&(!S.unread||!isRd(p.id))&&(!S.dlo||(p.dl&&!isExp(p))))),cc=k=>base.filter(p=>p.cat==k).length;
  return `<section class="hero">${tickHTML(base)}<img class="hero-logo" src="logo.png" alt=""><h1>সব <span>Notice, Syllabus</span><br>ও Suggestion এক জায়গায়</h1>${whoHTML()}<p>Mirpur College Updates &amp; Notices-এর সর্বশেষ আপডেট, category অনুযায়ী সাজানো।</p>${stripHTML(base)}
- <div class="sbar"><div class="search"><span class="si">${SVG("search")}</span><input id="q" placeholder="Notice, routine, result খুঁজুন…" value="${esc(S.q)}"><button class="btn sm" onclick="S.q=$('#q').value.trim();route()">Search</button></div></div></section>
+ <div class="sbar"><div class="search"><span class="si">${SVG("search")}</span><input id="q" type="text" enterkeyhint="search" autocomplete="off" placeholder="Notice, routine, result খুঁজুন…" value="${esc(S.q)}"><button type="button" class="sclr" aria-label="Search মুছুন" onclick="clearSearch()" ${S.q?"":"hidden"}>×</button><button class="btn sm" onclick="doSearch()">Search</button></div></div></section>
  <div class="cats"><button class="chip ${S.cat?"":"on"}" onclick="setCat('')">সব (${base.length})</button>${Object.entries(CATS).map(([k,x])=>`<button class="chip ${S.cat==k?"on":""}" style="--c:${x.c}" onclick="setCat('${k}')">${SVG(k)} ${x.n} (${cc(k)})</button>`).join("")}</div>
  <div class="filter mcat"><select aria-label="Category" onchange="setCat(this.value)"><option value="" ${S.cat?"":"selected"}>সব Category (${base.length})</option>${Object.entries(CATS).map(([k,x])=>`<option value="${k}" ${S.cat==k?"selected":""}>${x.n} (${cc(k)})</option>`).join("")}</select></div>
  <div class="stats"><div class="stat"><b>${base.length}</b><small>মোট Post</small></div><div class="stat"><b>${base.filter(p=>Date.now()-p.ts<7*DAY).length}</b><small>এই সপ্তাহে নতুন</small></div><div class="stat"><b>${base.filter(p=>p.dl&&!isExp(p)&&p.dl-Date.now()<=7*DAY).length}</b><small>Deadline ৭ দিনে</small></div></div>
@@ -432,7 +434,16 @@ function route(){const h=location.hash.replace(/^#\/?/,"").split("/"),pg=h[0]||"
  $("#links").innerHTML=`<a href="#/" class="${pg=="home"?"on":""}">Home</a><a href="#/saved" class="${pg=="saved"?"on":""}">${SVG("star")} Saved${SV().length?" ("+SV().length+")":""}</a><a href="#/contact" class="${pg=="contact"?"on":""}">Contact</a>`;
  $("#yr").textContent=new Date().getFullYear();$("#bnav").innerHTML=[["","home","Home"],["saved","star","Saved"],["contact","msg","Contact"]].map(([h,i,n])=>`<a href="#/${h}" class="${(pg=="home"&&!h)||pg==h?"on":""}">${SVG(i)}${n}</a>`).join("");{const f=$("#fab"),c=pg=="contact";f.href=c?"#/":"#/contact";f.innerHTML=c?"<span>"+SVG("home")+"</span>Home":"<span>"+SVG("msg")+"</span>Contact";f.setAttribute("aria-label",c?"Home":"Contact")}const k=document.activeElement&&document.activeElement.id;
  $("#app").innerHTML=pg=="contact"?pContact():pg=="saved"?pSaved():pg=="p"?pPost(h[1]):pHome();observeCovers();if(pg=="p"){markRead(h[1]);loadPost(h[1])}
- const q=$("#q");if(q){q.addEventListener("keydown",e=>{if(e.key=="Enter"){S.q=q.value.trim();route()}});if(k=="q")q.focus()}}
+ const q=$("#q");if(q){q.addEventListener("keydown",e=>{if(e.key=="Enter")doSearch()});q.addEventListener("input",onSearchInput);if(k=="q")q.focus()}}
+/* ---- live search: input-ta na bhenge shudhu niche-r result bodle ---- */
+let sT;
+function liveSearch(){const app=$("#app"),hero=app&&app.querySelector(".hero");if(!hero||location.hash.replace(/^#\/?/,"").split("/")[0]){route();return}
+ const t=document.createElement("div");t.innerHTML=pHome();const nh=t.querySelector(".hero");
+ while(hero.nextSibling)hero.nextSibling.remove();
+ [...t.childNodes].forEach(c=>{if(c!==nh)app.appendChild(c)});observeCovers()}
+function onSearchInput(e){const v=e.target.value;S.q=v.trim();const c=$(".sclr");if(c)c.hidden=!v;clearTimeout(sT);sT=setTimeout(liveSearch,180)}
+function clearSearch(){const q=$("#q");S.q="";if(q){q.value="";q.focus()}const c=$(".sclr");if(c)c.hidden=true;clearTimeout(sT);liveSearch()}
+function doSearch(){const q=$("#q");if(!q)return;S.q=q.value.trim();clearTimeout(sT);liveSearch();q.blur()}
 addEventListener("hashchange",()=>{route();scrollTo(0,0)});
 /* ---------- LOGIN / PROFILE ---------- */
 const U={user:null,prof:null,busy:false,mode:"login",started:false};
