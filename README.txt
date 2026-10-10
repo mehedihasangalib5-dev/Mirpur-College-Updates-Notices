@@ -83,3 +83,17 @@ H) DESIGN POLISH
  - Category emoji-r jaygay SVG icon (card, tag, featured), cover na thakle category-color gradient placeholder.
  - Dropdown-er bodole scrollable category chip. Mobile-e niche floating bottom nav (Home / Saved / Contact), purono Contact button bondho.
  - prefers-reduced-motion mene animation bondho hoy.
+
+=== ADMIN PANEL v2 (notun feature) ===
+Layout: sidebar (phone-e bottom bar) -- Dashboard | Notun Post | Sob Post | Messages | Admins | Tools
+ - Dashboard: stat card + sparkline, deadline 48 ghonta warning, view analytics, recent activity.
+ - Notun Post: Template, Live Preview, Draft/Schedule/Pin, "Subscriber-der notification" tick, Duplicate (Sob Post theke).
+ - Sob Post: table, search/filter/sort, bulk (Pin/Unpin/Publish/Expire/Category/Delete), delete-e Undo.
+ - Messages: Inbox/Unread/Starred/Archived, Reply (mail/WhatsApp), delete-e Undo.
+ - Admins: Role -- Owner (emails[0]) | Admin (emails) | Editor (editors: shudhu post create/edit, delete/message/backup pare na).
+ - Tools: JSON backup/import, Posts CSV, Registered Students (Year/Dept + CSV), Activity Log.
+IMPORTANT: firestore.rules ABAR Publish korte hobe (notun: editors, messages flag update, logs collection). Na korle
+ Editor role, message Read/Star/Archive ar Activity Log kaj korbe na. Vercel redeploy-o dao (api/notify.js Editor-ke allow kore).
+Template ("Tomar template") ei device-er browser-e save thake. Push subscriber-er sonkhya Firebase theke dekha jay na.
+Scheduled post auto-notify hoy na -- shomoy hole Sob Post theke bell button chapo.
+

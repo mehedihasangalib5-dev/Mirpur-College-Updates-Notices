@@ -1,5 +1,5 @@
 // Service worker: app-er moto install + offline shell. Admin ar API kokhono cache hoy na.
-const V = "mcn-v5";
+const V = "mcn-v6";
 const SHELL = ["/", "/logo.png", "/icon-192.png", "/manifest.webmanifest"];
 
 self.addEventListener("install", (e) => {

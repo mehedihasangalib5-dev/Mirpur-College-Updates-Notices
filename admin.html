@@ -148,43 +148,201 @@ footer a{color:var(--pri)}
 input[type=checkbox]{accent-color:var(--pri);width:18px;height:18px;padding:0}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 .pgy{font-size:12px;color:var(--mute);font-weight:700;margin:8px 0 4px}.pgs{display:block}
+
+/* ===== admin v2: sidebar shell, dashboard, tables ===== */
+.wrap{max-width:1240px}
+.ico{width:1.1em;height:1.1em;flex:none;vertical-align:-.18em}
+.btn .ico,.nv .ico{vertical-align:0}
+h3 .ico,.ic-h .ico{vertical-align:-.2em;color:var(--pri)}.ic-h{display:flex;align-items:center;gap:8px}
+.mut{color:var(--mute);font-weight:500}.mut2{color:var(--mute);font-size:13px;margin:4px 0 12px}
+.sub{margin:-8px 0 18px;color:var(--mute)}.sub2{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--mute);margin:8px 0}
+.cnt{font-size:14px;font-weight:700;color:var(--mute);background:var(--card);border:1px solid var(--line);padding:2px 10px;border-radius:99px;vertical-align:middle}
+.hdr-r #who{display:inline-flex}
+.shell{display:grid;grid-template-columns:224px minmax(0,1fr);gap:26px;align-items:start;padding-bottom:50px}
+.side{position:sticky;top:calc(78px + env(safe-area-inset-top,0px));display:grid;gap:4px;padding:10px;background:var(--card);border:1px solid var(--line);border-radius:22px;margin-top:22px}
+.nv{position:relative;display:flex;align-items:center;gap:11px;padding:11px 14px;border-radius:14px;background:none;color:var(--mute);font-weight:600;text-align:left;transition:.2s}
+.nv:hover{background:var(--bg);color:var(--ink)}
+.nv.on{background:linear-gradient(135deg,color-mix(in srgb,var(--pri) 16%,transparent),color-mix(in srgb,var(--pri2) 12%,transparent));color:var(--pri)}
+.nv .ico{width:19px;height:19px}
+.bd{margin-left:auto;font-style:normal;font-size:11px;font-weight:800;background:#ef4444;color:#fff;border-radius:99px;min-width:19px;height:19px;display:grid;place-items:center;padding:0 5px}
+.mainc{min-width:0}.nv .s{display:none}
+.g2{display:grid;gap:20px;grid-template-columns:minmax(0,1fr);align-items:start}.g2>*{min-width:0}
+@media(min-width:1000px){.g2{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}}
+.scs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:20px}
+.sc{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px 18px 12px;display:flex;flex-direction:column;gap:2px;overflow:hidden}
+.sc-t{display:flex;align-items:center;gap:9px;color:var(--mute);font-weight:600}
+.sc-i{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--c)}.sc-i .ico{width:18px;height:18px;vertical-align:0}
+.sc b{font-size:32px;line-height:1.15;letter-spacing:-.02em;margin-top:6px}.sc-s{font-size:12.5px}
+.spk{display:block;width:100%;height:34px;margin-top:8px}
+.alertb{display:flex;gap:12px;padding:14px 16px;border-radius:18px;margin-bottom:18px;background:color-mix(in srgb,#e08a00 12%,var(--card));border:1px solid color-mix(in srgb,#e08a00 40%,var(--line))}
+.alertb>.ico{color:#e08a00;width:22px;height:22px;margin-top:2px}.alertb>div{flex:1;min-width:0}
+.al-i{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:8px;font-size:14px}.al-i span{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.bar{margin:9px 0}.bar-l{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;font-weight:600}
+.bar-l span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:flex;align-items:center;gap:6px}.bar i{display:block;height:8px;border-radius:99px;margin-top:5px;transition:width .5s}
+.rc{display:flex;gap:12px;align-items:center}.rc-i{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;flex:none;background:color-mix(in srgb,var(--pri) 10%,transparent);color:var(--pri)}
+.rc b{font-weight:600}.rc small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.role{display:inline-flex;font-size:11px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;padding:2px 9px;border-radius:99px;vertical-align:middle}
+.r-owner{background:#fde68a;color:#92400e}.r-admin{background:color-mix(in srgb,var(--pri) 16%,transparent);color:var(--pri)}.r-editor{background:color-mix(in srgb,#16a34a 16%,transparent);color:#15803d}
+.rtab{display:grid;gap:12px}.rtab>div{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.rtab small{flex:1;min-width:200px}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;color:var(--c,var(--pri));background:color-mix(in srgb,var(--c,var(--pri)) 13%,transparent);white-space:nowrap}
+.chip .ico{width:13px;height:13px;vertical-align:0}.chip .lnk{padding:0;display:inline-flex}
+.st{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;white-space:nowrap}.st .ico{width:13px;height:13px;vertical-align:0}
+.st-ok{background:color-mix(in srgb,#16a34a 15%,transparent);color:#15803d}.st-warn{background:color-mix(in srgb,#e08a00 17%,transparent);color:#b45309}
+.st-mute{background:var(--bg);color:var(--mute);border:1px solid var(--line)}.st-info{background:color-mix(in srgb,#2563eb 14%,transparent);color:#2563eb}
+:root[data-theme="dark"] .st-ok{color:#4ade80}:root[data-theme="dark"] .st-warn{color:#fbbf24}:root[data-theme="dark"] .r-editor{color:#4ade80}
+.tbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;align-items:center}.tbar select{width:auto;padding:10px 12px}
+.sb{display:flex;align-items:center;gap:8px;flex:1;min-width:220px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:0 14px;color:var(--mute)}
+.sb input{border:0;background:none;box-shadow:none!important;padding:11px 0;outline:0}.sb:focus-within{border-color:var(--pri)}
+.ptab{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.ph,.pr{display:grid;grid-template-columns:34px 52px minmax(0,1fr) 112px 104px 64px 234px;gap:12px;align-items:center;padding:10px 16px}
+.ph{background:var(--bg);font-size:11.5px;font-weight:800;color:var(--mute);text-transform:uppercase;letter-spacing:.05em;padding-top:12px;padding-bottom:12px}
+.pr{border-top:1px solid var(--line);transition:.15s}.pr:hover{background:color-mix(in srgb,var(--pri) 4%,transparent)}.pr.sel{background:color-mix(in srgb,var(--pri) 9%,transparent)}
+.th{width:52px;height:42px;border-radius:12px;overflow:hidden;display:grid;place-items:center;background:color-mix(in srgb,var(--pri) 9%,var(--bg));color:var(--pri)}.th img{width:100%;height:100%;object-fit:cover}
+.pm{min-width:0}.pm b{display:flex;align-items:center;gap:6px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-weight:700}
+.pm small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pm small .ico{width:12px;height:12px;vertical-align:-1px}.pn{color:#e08a00;display:inline-flex}
+.pmeta{display:contents}.vw{display:inline-flex;align-items:center;gap:5px;color:var(--mute);font-weight:600;font-size:13px}
+.ck{display:flex!important;align-items:center;justify-content:center;margin:0!important}
+.pr .acts{justify-content:flex-end;flex-wrap:nowrap}
+.ib{width:34px;height:34px;border-radius:10px;display:inline-grid;place-items:center;background:var(--card);border:1px solid var(--line);color:var(--mute);transition:.15s;padding:0;flex:none}
+.ib:hover{color:var(--pri);border-color:var(--pri)}.ib.d:hover{color:#ef4444;border-color:#ef4444}.ib.on{color:#e08a00}.ib .ico{width:16px;height:16px;vertical-align:0}
+.bulk{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 14px;margin-bottom:12px;border-radius:16px;background:color-mix(in srgb,var(--pri) 10%,var(--card));border:1px solid color-mix(in srgb,var(--pri) 30%,var(--line));position:sticky;top:calc(70px + env(safe-area-inset-top,0px));z-index:4}
+.bulk select{width:auto;padding:7px 10px;font-size:13px}.bulk .lnk{margin-left:auto}
+.emp{text-align:center;color:var(--mute);padding:50px 0}.emp .ico{width:44px;height:44px;opacity:.5;stroke-width:1.5}
+.cgrid{display:grid;gap:20px;grid-template-columns:minmax(0,1fr);align-items:start}.cgrid>*{min-width:0}
+@media(min-width:1100px){.cgrid{grid-template-columns:minmax(0,1fr) 380px}.cside{position:sticky;top:calc(78px + env(safe-area-inset-top,0px))}}
+.tplb{display:flex;align-items:center;gap:10px;margin-bottom:6px;color:var(--pri)}.tplb .ico{width:20px;height:20px}
+.chks{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.mytpl{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.gchk .ico{width:15px;height:15px;vertical-align:0}
+.pv{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--bg)}.pv>img{width:100%;height:150px;object-fit:cover;display:block}
+.pv-ph{height:110px;display:grid;place-items:center;color:var(--c);background:color-mix(in srgb,var(--c) 12%,var(--bg))}.pv-ph .ico{width:38px;height:38px;stroke-width:1.6}
+.pv-b{padding:14px 16px;display:flex;flex-direction:column;gap:8px}.pv-t{display:flex;flex-wrap:wrap;gap:6px}
+.pv h3{margin:0;font-size:17px;line-height:1.35;word-break:break-word}
+.pv p{margin:0;color:var(--mute);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word}
+.pv-m{display:flex;flex-wrap:wrap;gap:10px;align-items:center;color:var(--mute);font-size:12.5px}.pv-m span{display:inline-flex;align-items:center;gap:5px}.pv-m .ico{width:13px;height:13px;vertical-align:0}
+.phd{color:var(--mute);opacity:.65;font-weight:400}
+.fchs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.fch{padding:8px 14px;border-radius:99px;background:var(--card);border:1px solid var(--line);color:var(--mute);font-weight:600;display:inline-flex;gap:7px;align-items:center}
+.fch em{font-style:normal;font-size:12px;background:var(--bg);border-radius:99px;padding:0 8px}.fch.on{background:var(--pri);border-color:var(--pri);color:#fff}.fch.on em{background:rgba(255,255,255,.25)}
+.mlist{padding:6px}.mi{border-bottom:1px solid var(--line);border-radius:14px;padding:8px 12px;transition:.15s}.mi:last-child{border:0}.mi.op{background:color-mix(in srgb,var(--pri) 5%,transparent)}
+.mh{display:flex;align-items:center;gap:12px;cursor:pointer}.mt{flex:1;min-width:0}.mt b{display:block;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mt small{display:block}.mi.unr .mt b{font-weight:800}
+.dot{width:9px;height:9px;border-radius:50%;background:transparent;flex:none}.mi.unr .dot{background:var(--pri)}
+.mp{margin:2px 0 4px 21px;color:var(--mute);font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mb{margin:8px 0 6px 21px}.mb .body{margin:8px 0 12px}
+.sts{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}.sts>div{flex:1;min-width:80px;background:var(--bg);border-radius:14px;padding:10px 14px;text-align:center}.sts b{font-size:24px;display:block}
+.tb{width:100%;border-collapse:collapse;font-size:14px}.tb th,.tb td{padding:8px 10px;text-align:center;border-bottom:1px solid var(--line)}.tb td:first-child{text-align:left;font-weight:600}.tb th{color:var(--mute);font-size:12px;text-transform:uppercase}
+.cf{text-align:center}.cf-i{width:54px;height:54px;border-radius:50%;display:inline-grid;place-items:center;background:color-mix(in srgb,var(--pri) 14%,transparent);color:var(--pri)}
+.cf-i.d{background:color-mix(in srgb,#ef4444 14%,transparent);color:#ef4444}.cf-i .ico{width:26px;height:26px;vertical-align:0}.cf h3{margin:12px 0 4px}.cf p{margin:0 0 4px;color:var(--mute);word-break:break-word}
+.toast{display:none;align-items:center;gap:12px}.tbtn{display:inline-flex;align-items:center;gap:5px;background:color-mix(in srgb,var(--bg) 22%,transparent);color:inherit;border-radius:9px;padding:4px 10px;font-weight:700}
+.ai{display:flex;align-items:center;gap:8px}.big-ic .ico{width:54px;height:54px;color:var(--pri);vertical-align:0}.fld>span{display:flex;color:var(--mute)}
+.pend small{display:inline-flex;align-items:center;gap:5px}.lnk{display:inline-flex;align-items:center;gap:4px}
+@media(max-width:899px){
+ .shell{grid-template-columns:minmax(0,1fr);gap:0;padding-bottom:96px}
+ .side{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));top:auto;z-index:15;display:flex;gap:2px;padding:6px;margin:0;border-radius:22px;background:color-mix(in srgb,var(--card) 90%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:var(--sh)}
+ .nv{flex:1;flex-direction:column;gap:3px;padding:8px 2px;font-size:10.5px;justify-content:center;text-align:center;border-radius:16px;min-width:0}
+ .nv .l{display:none}.nv .s{display:block;white-space:nowrap}
+ .bd{position:absolute;top:2px;right:calc(50% - 22px);margin:0;min-width:16px;height:16px;font-size:10px}
+ footer{margin-bottom:84px}.toast{bottom:100px}
+ .ph{display:none}
+ .pr{grid-template-columns:30px 48px minmax(0,1fr);grid-template-areas:"ck th pm" "meta meta meta" "acts acts acts";gap:8px 10px;padding:12px 14px}
+ .pr>.ck{grid-area:ck}.pr>.th{grid-area:th;width:48px}.pr>.pm{grid-area:pm}.pr>.acts{grid-area:acts}
+ .pmeta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;grid-area:meta}.pr .acts{justify-content:flex-start}
+ .bulk{top:calc(62px + env(safe-area-inset-top,0px))}.tbar select{flex:1;min-width:120px}
+}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="admin.html"><img src="logo.png" alt="Logo">Admin Panel</a><div class="sp"></div>
-<div class="hdr-r"><a class="btn ghost sm" href="index.html" target="_blank">🌐<span class="hd"> Website</span></a><button class="btn ghost sm" id="theme">🌓</button><button class="btn ghost sm" id="outBtn" style="display:none" onclick="logout()">Logout</button></div></div></header>
+<div class="hdr-r"><span id="who"></span><a class="btn ghost sm" href="index.html" target="_blank" rel="noopener" aria-label="Website"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></svg><span class="hd"> Website</span></a><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="btn ghost sm" id="outBtn" style="display:none" onclick="logout()" aria-label="Logout"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/></svg><span class="hd"> Logout</span></button></div></div></header>
 <main class="wrap" id="app"></main>
 <footer><div>© <span id="yr"></span> Mirpur College Updates &amp; Notices. All rights reserved.</div>
 <div>Developed by <a href="https://cortex-it-kappa.vercel.app/" target="_blank" rel="noopener">Cortex IT</a></div></footer><div class="modal" id="modal"><div class="sheet" id="sheet"></div></div><div class="toast" id="toast"></div>
 <script>
-const CATS={notice:{n:"Notice",i:"📢",c:"#e5484d"},syllabus:{n:"Syllabus",i:"📚",c:"#5b4bff"},suggestion:{n:"Suggestion",i:"💡",c:"#e08a00"},routine:{n:"Routine",i:"🗓",c:"#0d9488"},result:{n:"Result",i:"🏆",c:"#16a34a"},event:{n:"Event",i:"🎉",c:"#d6409f"}};
-const YEARS=["HSC 1st Year","HSC 2nd Year"],DEPTS=["Science","Arts","Commerce"]; // index.html-er sathe mil rakhte hobe
-const PAGES=YEARS.flatMap(y=>DEPTS.map(d=>y+" · "+d)); // protita Year x Department = ekta alada page
+/* ===== icons (Lucide) ===== */
+const IP={notice:'<path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>',syllabus:'<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',suggestion:'<path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6M10 22h4"/>',routine:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',result:'<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>',event:'<path d="m12 3 1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3z"/>',home:'<path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/>',star:'<path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.2-6.2 3.2L7 14.2 2 9.3l6.9-1z"/>',msg:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',cal:'<path d="M8 2v4M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01"/>',search:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',pin:'<path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/>',clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',flame:'<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>',hourglass:'<path d="M5 22h14M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/>',zap:'<path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>',clip:'<path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/>',dl:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/>',share:'<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98M15.41 6.51l-6.82 3.98"/>',link:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',inbox:'<path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>',lock:'<rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',mail:'<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',user:'<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',send:'<path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/>',check:'<path d="M20 6 9 17l-5-5"/>'};
+Object.assign(IP,{
+dash:'<rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/>',
+plus:'<circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/>',
+list:'<path d="M3 5h.01M3 12h.01M3 19h.01M8 5h13M8 12h13M8 19h13"/>',
+users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+tool:'<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+trash:'<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M10 11v6M14 11v6"/>',
+edit:'<path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/>',
+copy:'<rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
+eye:'<path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/>',
+archive:'<rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8M10 12h4"/>',
+reply:'<polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/>',
+upload:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/>',
+history:'<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/>',
+x:'<path d="M18 6 6 18M6 6l12 12"/>',
+shield:'<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>',
+alert:'<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/>',
+chart:'<path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9M13 17V5M8 17v-3"/>',
+globe:'<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/>',
+logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/>',
+file:'<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v4a2 2 0 0 0 2 2h4M10 9H8M16 13H8M16 17H8"/>',
+image:'<rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>',
+userplus:'<path d="M2 21a8 8 0 0 1 13.292-6"/><circle cx="10" cy="8" r="5"/><path d="M19 16v6M22 19h-6"/>',
+crown:'<path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z"/><path d="M5 21h14"/>',
+undo:'<path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/>',
+tpl:'<rect width="18" height="7" x="3" y="3" rx="1"/><rect width="9" height="7" x="3" y="14" rx="1"/><rect width="5" height="7" x="16" y="14" rx="1"/>',
+mailopen:'<path d="M21.2 8.4c.5.38.8.97.8 1.6v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10a2 2 0 0 1 .8-1.6l8-6a2 2 0 0 1 2.4 0l8 6Z"/><path d="m22 10-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 10"/>'
+});
+const IC=(k,f)=>`<svg class="ico" viewBox="0 0 24 24" fill="${f?"currentColor":"none"}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IP[k]||""}</svg>`;
+
+const CATS={notice:{n:"Notice",c:"#e5484d"},syllabus:{n:"Syllabus",c:"#5b4bff"},suggestion:{n:"Suggestion",c:"#e08a00"},routine:{n:"Routine",c:"#0d9488"},result:{n:"Result",c:"#16a34a"},event:{n:"Event",c:"#d6409f"}};
+const YEARS=["HSC 1st Year","HSC 2nd Year"],DEPTS=["Science","Arts","Commerce"]; // index.html + firestore.rules-er sathe mil rakhte hobe
+const PAGES=YEARS.flatMap(y=>DEPTS.map(d=>y+" · "+d));
 function pagesOf(p){const g=p.grp||[];if(!g.length)return PAGES;const out=new Set(g.filter(x=>PAGES.includes(x))),ly=g.filter(x=>YEARS.includes(x)),ld=g.filter(x=>DEPTS.includes(x));
  if(ly.length||ld.length)(ly.length?ly:YEARS).forEach(y=>(ld.length?ld:DEPTS).forEach(d=>out.add(y+" · "+d)));return out.size?[...out]:PAGES}
 const short=l=>l.replace("HSC ","");
 const pfOk=p=>!S.pf||pagesOf(p).includes(S.pf);
-const pgText=p=>{const g=pagesOf(p);return g.length==PAGES.length?"🌐 সব Page":"📄 "+g.map(short).join(", ")};
-const pfOpts=()=>`<option value="">📄 সব Page (${S.posts.length})</option>`+PAGES.map(l=>`<option value="${esc(l)}" ${S.pf==l?"selected":""}>${esc(short(l))} (${S.posts.filter(p=>pagesOf(p).includes(l)).length})</option>`).join("");
-function pgSet(on){document.querySelectorAll(".gcb").forEach(x=>x.checked=on)}
+const pgText=p=>{const g=pagesOf(p);return g.length==PAGES.length?"সব Page":g.map(short).join(", ")};
+function pgSet(on){document.querySelectorAll(".gcb").forEach(x=>x.checked=on);livePrev()}
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 const fmt=t=>new Date(t).toLocaleString("en-GB",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
-const tint=()=>"background:color-mix(in srgb,var(--pri) 12%,transparent);color:var(--pri)";
+const fmtD=t=>new Date(t).toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"});
+const DAY=864e5;
+const ago=t=>{const s=Math.max(0,(Date.now()-t)/1000);return s<60?"এইমাত্র":s<3600?Math.floor(s/60)+" মিনিট আগে":s<86400?Math.floor(s/3600)+" ঘণ্টা আগে":s<2592000?Math.floor(s/86400)+" দিন আগে":fmtD(t)};
+const hrs=ms=>{const h=Math.ceil(ms/36e5);return h<24?h+" ঘণ্টা বাকি":Math.ceil(h/24)+" দিন বাকি"};
 const sorted=l=>[...l].sort((a,b)=>(b.pinned?1:0)-(a.pinned?1:0)||b.ts-a.ts);
 const ok=u=>/^(https?:|data:image\/)/.test(u||"");
-function toast(m){const t=$("#toast");t.textContent=m;t.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display="none",2600)}
-function closeM(){$("#modal").classList.remove("open")}
+const toLocal=t=>new Date(t-new Date(t).getTimezoneOffset()*6e4).toISOString().slice(0,16);
+
+/* ---- toast (Undo button soho) + confirm modal ---- */
+function toast(m,act){const t=$("#toast");t.innerHTML=`<span>${esc(m)}</span>`+(act?`<button type="button" class="tbtn" onclick="toastAct()">${IC("undo")} ${esc(act.label)}</button>`:"");toast.fn=act&&act.fn;t.style.display="flex";clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display="none",act?8000:2600)}
+function toastAct(){const f=toast.fn;toast.fn=null;$("#toast").style.display="none";f&&f()}
+function closeM(){if(S._c){const r=S._c;S._c=null;r(false)}$("#modal").classList.remove("open")}
 $("#modal").addEventListener("click",e=>{if(e.target.id=="modal")closeM()});
+function confirmBox(title,msg,okL,danger){return new Promise(res=>{S._c=res;
+ $("#sheet").innerHTML=`<div class="cf"><span class="cf-i ${danger===false?"":"d"}">${IC(danger===false?"check":"alert")}</span><h3>${esc(title)}</h3><p>${esc(msg||"")}</p><div class="row" style="justify-content:center"><button class="btn ghost" onclick="cfa(false)">বাতিল</button><button class="btn ${danger===false?"":"danger"}" onclick="cfa(true)">${esc(okL||"Confirm")}</button></div></div>`;$("#modal").classList.add("open")})}
+function cfa(v){const r=S._c;S._c=null;$("#modal").classList.remove("open");r&&r(v)}
 $("#theme").onclick=()=>{const d=document.documentElement,t=(d.dataset.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"))=="dark"?"light":"dark";d.dataset.theme=t;try{localStorage.setItem("mcn_theme",t)}catch(e){}};
 
-const S={posts:[],emails:[],ids:[],msgs:[],uid:null,email:null,verified:false,cfg:false,ready:false,edit:null,pending:{cover:null,files:[]},sent:null};let FB=null;
+/* ---- state ---- */
+const S={posts:[],emails:[],ids:[],editors:[],msgs:[],logs:[],users:null,uid:null,email:null,verified:false,cfg:false,ready:false,
+ tab:"dash",edit:null,prefill:null,form:null,pending:{cover:null,files:[]},sent:null,
+ q:"",fc:"",fs:"",pf:"",so:"new",sel:new Set(),mf:"inbox",mq:"",open:null,_c:null};let FB=null;
 const me=()=>(S.email||"").toLowerCase();
-// Email allowlist: config/admins.emails (Owner = prothom email). Purono UID (config/admins.ids) o chole (backward compatible).
+// Roles: Owner = emails[0] | Admin = emails | Editor = editors (shudhu post create/edit). Purono UID (ids) o chole.
 const isAdmin=()=>!!S.uid&&(S.ids.includes(S.uid)||(S.verified&&S.emails.includes(me())));
 const isOwner=()=>!!S.uid&&(S.ids[0]===S.uid||(S.verified&&S.emails[0]===me()));
-const FIELDS=["f_cat","f_title","f_body","f_links","f_link","f_dl","f_at","em"];
-function snap(){const o={};FIELDS.forEach(i=>{const e=$("#"+i);if(e)o[i]=e.value});const p=$("#f_pin");if(p)o.pin=p.checked;const dr=$("#f_draft");if(dr)o.draft=dr.checked;o.grp=[...document.querySelectorAll(".gcb:checked")].map(x=>x.value);return o}
-function restore(o){FIELDS.forEach(i=>{const e=$("#"+i);if(e&&o[i]!=null)e.value=o[i]});const p=$("#f_pin");if(p&&o.pin!=null)p.checked=o.pin;const dr=$("#f_draft");if(dr&&o.draft!=null)dr.checked=o.draft;if(o.grp)document.querySelectorAll(".gcb").forEach(x=>x.checked=o.grp.includes(x.value))}
+const isEditor=()=>!!S.uid&&S.verified&&S.editors.includes(me())&&!isAdmin();
+const isStaff=()=>isAdmin()||isEditor();
+const roleOf=()=>isOwner()?"Owner":isAdmin()?"Admin":isEditor()?"Editor":"";
+const TABS=[["dash","dash","Dashboard",0,"Home"],["new","plus","নতুন Post",0,"নতুন"],["posts","list","সব Post",0,"Posts"],["msgs","mail","Messages",1,"Inbox"],["people","users","Admins",1,"Admins"],["tools","tool","Tools",1,"Tools"]];
+const allowed=t=>!t[3]||isAdmin();
+function go(t){if(location.hash=="#"+t){S.tab=t;render(true);scrollTo(0,0)}else location.hash=t}
+addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(TABS.some(t=>t[0]==h)){S.tab=h;render(true);scrollTo(0,0)}});
+{const h=location.hash.slice(1);if(TABS.some(t=>t[0]==h))S.tab=h}
+const live=p=>!p.draft&&!(p.at&&p.at>Date.now());
+const stOf=p=>p.draft?"draft":(p.at&&p.at>Date.now())?"sched":(p.dl&&Date.now()>p.dl)?"exp":"pub";
+const STL={pub:["Published","ok"],draft:["Draft","mute"],sched:["Scheduled","info"],exp:["Expired","warn"]};
+const stChip=p=>{const s=STL[stOf(p)];return `<span class="st st-${s[1]}">${s[0]}</span>`};
+const catChip=k=>{const c=CATS[k]||CATS.notice;return `<span class="chip" style="--c:${c.c}">${IC(CATS[k]?k:"notice")} ${c.n}</span>`};
+
+function snap(){const o={};document.querySelectorAll("#cform [id]").forEach(e=>{if(e.type=="file")return;o[e.id]=e.type=="checkbox"?e.checked:e.value});o.grp=[...document.querySelectorAll(".gcb:checked")].map(x=>x.value);return o}
+function restore(o){Object.keys(o).forEach(k=>{if(k=="grp")return;const e=$("#"+k);if(!e)return;if(e.type=="checkbox")e.checked=o[k];else e.value=o[k]});if(o.grp)document.querySelectorAll(".gcb").forEach(x=>x.checked=o.grp.includes(x.value))}
 function copy(t){navigator.clipboard&&navigator.clipboard.writeText(t);toast("Copied")}
+function saveFile(name,text,type){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),3000)}
+const csv=rows=>"\ufeff"+rows.map(r=>r.map(v=>{v=String(v??"");return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}).join(",")).join("\r\n");
 
 /* ---- image handling (no Storage / no Blaze) ---- */
 function shrink(file,max,q){return new Promise((res,rej)=>{const im=new Image(),u=URL.createObjectURL(file);
@@ -200,91 +358,278 @@ async function pick(kind,files,input){
  try{toast("Processing…");for(const f of files){const r=await upload(f);const P=S.pending;
   const tot=(P.cover?P.cover.url.length:0)+P.files.reduce((a,x)=>a+x.url.length,0)+r.url.length;
   if(tot>820000)throw new Error("Ek post-e onek beshi chobi (max ~800KB)");if(kind=="cover")P.cover=r;else P.files.push(r)}
-  render(true);toast("Added ✔")}catch(e){toast("Upload hoyni: "+(e.message||e.code))}
+  render(true);toast("Added")}catch(e){toast("Upload hoyni: "+(e.message||e.code))}
  input.value=""}
 
-/* ---- views ---- */
+/* ---- views: auth ---- */
 const loadingV=()=>`<div class="panel" style="margin-top:40px;text-align:center"><p>লোড হচ্ছে…</p></div>`;
-function deniedV(){return `<div class="panel" style="margin:40px auto;max-width:560px;text-align:center"><h2>🔒 Access নেই</h2><p>এই email (<b>${esc(S.email||"")}</b>) এর admin access নেই।<br>Access পেতে Owner-কে বলুন এই email টি Admin Access-এ add করতে।</p><div class="row" style="justify-content:center"><button class="btn sm" onclick="copy('${esc(S.email||"")}')">Copy email</button><button class="btn ghost sm" onclick="logout()">অন্য email দিয়ে Login</button></div></div>`}
+function deniedV(){return `<div class="panel" style="margin:40px auto;max-width:560px;text-align:center"><h2>${IC("lock")} Access নেই</h2><p>এই email (<b>${esc(S.email||"")}</b>) এর admin access নেই।<br>Access পেতে Owner-কে বলুন এই email টি Admin Access-এ add করতে।</p><div class="row" style="justify-content:center"><button class="btn sm" onclick="copy('${esc(S.email||"")}')">Copy email</button><button class="btn ghost sm" onclick="logout()">অন্য email দিয়ে Login</button></div></div>`}
 function loginV(){let saved="";try{saved=localStorage.getItem("mcn_admin_email")||""}catch(e){}
  return `<section class="auth"><div class="auth-side"><div class="blob b1"></div><div class="blob b2"></div><div class="auth-brand"><img src="logo.png" alt="Logo">Mirpur College<br>Updates &amp; Notices</div>
- <h2>Admin Access 🔐</h2><p>শুধু অনুমোদিত email দিয়ে ঢোকা যাবে — কোনো password বা sign up লাগে না।</p>
- <ul><li>📢 Notice ও Syllabus post করুন</li><li>🖼 ছবি ও 📎 file link যোগ করুন</li><li>🕘 Edit history ও restore</li></ul></div>
- <div class="auth-card">${S.sent?`<div class="sentbox"><div class="big-ic">📬</div><h3>Email check করুন</h3><p>Login link পাঠানো হয়েছে:<br><b>${esc(S.sent)}</b></p><small>Inbox না পেলে Spam/Promotions folder দেখুন। Link-এ click করলেই login হবে।</small><div class="row" style="justify-content:center"><button class="btn ghost sm" onclick="S.sent=null;render(false)">← অন্য email</button></div></div>`
+ <h2>Admin Access</h2><p>শুধু অনুমোদিত email দিয়ে ঢোকা যাবে — কোনো password বা sign up লাগে না।</p>
+ <ul><li class="ai">${IC("notice")} Notice ও Syllabus post করুন</li><li class="ai">${IC("image")} ছবি ও ${IC("clip")} file link যোগ করুন</li><li class="ai">${IC("history")} Edit history ও restore</li></ul></div>
+ <div class="auth-card">${S.sent?`<div class="sentbox"><div class="big-ic">${IC("mail")}</div><h3>Email check করুন</h3><p>Login link পাঠানো হয়েছে:<br><b>${esc(S.sent)}</b></p><small>Inbox না পেলে Spam/Promotions folder দেখুন। Link-এ click করলেই login হবে।</small><div class="row" style="justify-content:center"><button class="btn ghost sm" onclick="S.sent=null;render(false)">← অন্য email</button></div></div>`
  :`<button type="button" class="btn ghost wide gbtn" onclick="googleIn()"><svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.5 28.7a14.5 14.5 0 010-9.4l-7.9-6.1a24 24 0 000 21.6l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.9 2.3-8.4 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>Google দিয়ে Continue</button>
  <div class="or"><span>অথবা email link দিয়ে</span></div>
- <form onsubmit="sendLink(event)"><label>আপনার Email</label><div class="fld"><span>✉</span><input id="em" type="email" required autocomplete="email" placeholder="you@example.com" value="${esc(saved)}"></div>
- <div class="err" id="aerr"></div><button class="btn wide" id="abtn">✉ Login link পাঠান</button></form>
+ <form onsubmit="sendLink(event)"><label>আপনার Email</label><div class="fld"><span>${IC("mail")}</span><input id="em" type="email" required autocomplete="email" placeholder="you@example.com" value="${esc(saved)}"></div>
+ <div class="err" id="aerr"></div><button class="btn wide" id="abtn">${IC("send")} Login link পাঠান</button></form>
  <p class="hint">Email-এ একটি link যাবে, সেখানে click করলেই login — password লাগবে না। শুধু Owner যাদের email add করেছেন তারাই ঢুকতে পারবে।</p>`}</div></section>`}
-function panelV(){
- const e=S.posts.find(p=>p.id==S.edit)||{cat:"notice",title:"",body:"",link:"",pinned:false,files:[]},P=S.pending;
+
+/* ---- views: dashboard ---- */
+function bucket(a,k,days){const now=Date.now(),r=Array(days).fill(0);a.forEach(x=>{const i=days-1-Math.floor((now-(typeof k=="function"?k(x):x[k]))/DAY);if(i>=0&&i<days)r[i]++});return r}
+function spark(a,col){const w=100,h=30,m=Math.max(1,...a),pts=a.map((v,i)=>[+(i*(w/(a.length-1||1))).toFixed(1),+(h-3-(v/m)*(h-8)).toFixed(1)]),d=pts.map(p=>p.join(",")).join(" ");
+ return `<svg class="spk" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,${h} ${d} ${w},${h}" fill="${col}" opacity=".15"/><polyline points="${d}" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>`}
+const ACT={create:["notun post করেছে","plus"],edit:["post edit করেছে","edit"],delete:["post delete করেছে","trash"],restore:["restore করেছে","undo"],bulk:["bulk action চালিয়েছে","list"],import:["backup import করেছে","upload"],role:["access/role বদলেছে","shield"],notify:["push notification পাঠিয়েছে","bell"]};
+const nameOf=e=>String(e||"").split("@")[0]||"admin";
+function dashV(){
+ const now=Date.now(),P=S.posts,L=P.filter(live),wk=L.filter(p=>now-p.ts<7*DAY).length,hid=P.length-L.length,
+  dls=L.filter(p=>p.dl&&p.dl>now).sort((a,b)=>a.dl-b.dl),soon=dls.filter(p=>p.dl-now<=2*DAY),
+  unread=S.msgs.filter(m=>!m.read&&!m.arch).length,views=P.reduce((a,p)=>a+(p.views||0),0),
+  top=[...P].filter(p=>p.views).sort((a,b)=>b.views-a.views).slice(0,5),mx=top[0]?top[0].views:1,
+  cv=Object.keys(CATS).map(k=>[k,P.filter(p=>p.cat==k).reduce((a,p)=>a+(p.views||0),0)]),cm=Math.max(1,...cv.map(x=>x[1]));
+ const card=(ic,col,val,lab,sub,sp)=>`<div class="sc" style="--c:${col}"><div class="sc-t"><span class="sc-i">${IC(ic)}</span><small>${lab}</small></div><b>${val}</b><small class="sc-s">${sub}</small>${sp||""}</div>`;
+ const rec=isAdmin()?S.logs.slice(0,6).map(l=>{const a=ACT[l.act]||[l.act,"history"];return `<div class="li rc"><span class="rc-i">${IC(a[1])}</span><div><b>${esc(nameOf(l.email))} <span class="mut">${a[0]}</span></b><small>${l.title?esc(l.title)+" · ":""}${ago(l.ts)}</small></div></div>`}).join(""):
+  [...P].sort((a,b)=>(b.updated||b.ts)-(a.updated||a.ts)).slice(0,6).map(p=>`<div class="li rc"><span class="rc-i">${IC(CATS[p.cat]?p.cat:"notice")}</span><div><b>${esc(p.title)}</b><small>${ago(p.updated||p.ts)}</small></div></div>`).join("");
+ return `<h1 class="pt">Dashboard</h1><p class="sub">স্বাগতম, <b>${esc(nameOf(S.email))}</b> <span class="role r-${roleOf().toLowerCase()}">${roleOf()}</span></p>
+ ${soon.length?`<div class="alertb">${IC("alert")}<div><b>${soon.length}টি post-এর deadline ৪৮ ঘণ্টার মধ্যে শেষ হবে</b>${soon.map(p=>`<div class="al-i"><span>${esc(p.title)} <small>· ${hrs(p.dl-now)}</small></span><button class="btn ghost sm" onclick="startEdit('${p.id}')">${IC("edit")} Edit</button></div>`).join("")}</div></div>`:""}
+ <div class="scs">${card("file","#2850e8",P.length,"মোট Post",`${L.length} live · ${hid} draft/scheduled`,spark(bucket(P,"ts",14),"#2850e8"))}
+ ${card("zap","#16a34a",wk,"এই সপ্তাহে নতুন","গত ৭ দিনে",spark(bucket(L,"ts",7),"#16a34a"))}
+ ${card("hourglass","#e08a00",dls.length,"Active Deadline",dls[0]?"পরেরটা: "+hrs(dls[0].dl-now):"কোনো deadline নেই","")}
+ ${isAdmin()?card("mail","#d6409f",unread,"Unread Message",`মোট ${S.msgs.length}টি`,spark(bucket(S.msgs,"ts",14),"#d6409f")):card("eye","#d6409f",views,"মোট View","public site-এ","")}</div>
+ <div class="g2"><div class="panel"><h3>${IC("chart")} Analytics <small>· মোট ${views} view${P.length?" · গড় "+Math.round(views/P.length)+"/post":""}</small></h3>
+  <div class="sub2">সবচেয়ে বেশি দেখা Post</div>${top.map(p=>`<div class="bar"><div class="bar-l"><span>${esc(p.title)}</span><b>${p.views}</b></div><i style="width:${Math.max(4,p.views/mx*100)}%;background:${(CATS[p.cat]||CATS.notice).c}"></i></div>`).join("")||"<small>এখনো কোনো view নেই</small>"}
+  <div class="sub2" style="margin-top:16px">Category অনুযায়ী View</div>${cv.map(([k,v])=>`<div class="bar"><div class="bar-l"><span>${IC(k)} ${CATS[k].n}</span><b>${v}</b></div><i style="width:${Math.max(v?4:0,v/cm*100)}%;background:${CATS[k].c}"></i></div>`).join("")}</div>
+ <div><div class="panel"><h3>${IC("history")} ${isAdmin()?"Recent Activity":"Recently Updated"}</h3>${rec||"<small>কিছু নেই</small>"}</div>
+ <div class="panel"><h3>Quick Actions</h3><div class="row" style="margin:0"><button class="btn" onclick="go('new')">${IC("plus")} নতুন Post</button><button class="btn ghost" onclick="go('posts')">${IC("list")} সব Post</button>${isAdmin()?`<button class="btn ghost" onclick="go('msgs')">${IC("mail")} Messages${unread?" ("+unread+")":""}</button>`:""}</div></div></div></div>`}
+
+/* ---- views: compose ---- */
+const TPL=[
+ {n:"পরীক্ষার Routine",cat:"routine",t:"[পরীক্ষার নাম] – পরীক্ষার Routine",b:"[শ্রেণি/বিভাগ]-এর [পরীক্ষার নাম] পরীক্ষার routine প্রকাশ করা হয়েছে।\n\nপরীক্ষা শুরু: [তারিখ]\nসময়: [সকাল ১০টা – দুপুর ১টা]\n\nসবাইকে সময়মতো কলেজে উপস্থিত থাকার অনুরোধ করা হলো।"},
+ {n:"ফলাফল প্রকাশ",cat:"result",t:"[পরীক্ষার নাম] – ফলাফল প্রকাশিত",b:"[পরীক্ষার নাম]-এর ফলাফল প্রকাশ করা হয়েছে।\n\nফলাফল দেখতে: [লিংক]\n\nকোনো সমস্যা থাকলে [তারিখ]-এর মধ্যে অফিসে যোগাযোগ করুন।"},
+ {n:"ছুটির Notice",cat:"notice",t:"[উপলক্ষ] উপলক্ষে কলেজ বন্ধ",b:"[উপলক্ষ] উপলক্ষে [শুরুর তারিখ] থেকে [শেষ তারিখ] পর্যন্ত কলেজ বন্ধ থাকবে।\n\nকলেজ খুলবে: [তারিখ]"},
+ {n:"ফরম পূরণ",cat:"notice",t:"[পরীক্ষা/ক্লাস] ফরম পূরণ শুরু",b:"[শ্রেণি/বিভাগ]-এর শিক্ষার্থীদের [পরীক্ষা/ক্লাস] ফরম পূরণ শুরু হয়েছে।\n\nশেষ তারিখ: [তারিখ]\nফি: [টাকা]\nজমা দিতে হবে: [স্থান]\n\nনির্দিষ্ট সময়ের পর ফরম পূরণ করা যাবে না।"},
+ {n:"Syllabus Update",cat:"syllabus",t:"[বিষয়] – নতুন Syllabus",b:"[শ্রেণি/বিভাগ]-এর [বিষয়]-এর হালনাগাদ syllabus দেওয়া হলো।\n\nSyllabus PDF নিচের Attachment থেকে নামিয়ে নিন।"},
+ {n:"Event আমন্ত্রণ",cat:"event",t:"[অনুষ্ঠানের নাম]",b:"[অনুষ্ঠানের নাম] অনুষ্ঠিত হবে।\n\nতারিখ: [তারিখ]\nসময়: [সময়]\nস্থান: [স্থান]\n\nসবাই আমন্ত্রিত।"},
+ {n:"পড়ার Suggestion",cat:"suggestion",t:"[বিষয়] – প্রস্তুতির Suggestion",b:"[পরীক্ষার নাম]-এর জন্য [বিষয়]-এ গুরুত্বপূর্ণ অধ্যায়:\n\n১. [অধ্যায়]\n২. [অধ্যায়]\n৩. [অধ্যায়]"}];
+const myTpl=()=>{try{return JSON.parse(localStorage.getItem("mcn_tpl")||"[]")}catch(e){return[]}};
+const allTpl=()=>[...TPL,...myTpl().map(x=>({...x,u:1}))];
+async function applyTpl(sel){const i=+sel.value;sel.value="";if(isNaN(i)||sel.value==="x")return;const t=allTpl()[i];if(!t)return;
+ if(($("#f_title").value.trim()||$("#f_body").value.trim())&&!await confirmBox("Template apply করবেন?","বর্তমান Title ও Details বদলে যাবে।","Apply",false))return;
+ $("#f_cat").value=t.cat;$("#f_title").value=t.t;$("#f_body").value=t.b;livePrev();toast("Template বসেছে – [ ] ভরে নিন")}
+function saveTpl(){const t=$("#f_title").value.trim();if(!t)return toast("আগে Title দিন");const n=prompt("Template-er nam:",t.slice(0,30));if(!n)return;
+ const l=myTpl();l.push({n:n.slice(0,40),cat:$("#f_cat").value,t,b:$("#f_body").value});try{localStorage.setItem("mcn_tpl",JSON.stringify(l.slice(-20)));toast("Template save hoyeche (ei device-e)")}catch(e){toast("Save hoyni")};render(true)}
+function delTpl(i){const l=myTpl();l.splice(i,1);try{localStorage.setItem("mcn_tpl",JSON.stringify(l))}catch(e){};render(true)}
+function composeV(){
+ const e=S.posts.find(p=>p.id==S.edit)||S.prefill||{cat:"notice",title:"",body:"",link:"",pinned:false,files:[]},P=S.pending;
  const links=(e.files||[]).filter(f=>f.type=="link").map(f=>f.name+" | "+f.url).join("\n"),sel=(e.grp&&e.grp.length)?pagesOf(e):[];
- return `<h1 class="pt">⚙ Admin Panel</h1>
- <div class="adm"><div><div class="panel"><h3>${S.edit?"✏ Post Edit":"➕ নতুন Post"}</h3>
- <label>Category</label><select id="f_cat">${Object.entries(CATS).map(([k,c])=>`<option value="${k}" ${e.cat==k?"selected":""}>${c.i} ${c.n}</option>`).join("")}</select>
- <label>Title</label><input id="f_title" value="${esc(e.title)}"><label>Details <small>(optional)</small></label><textarea id="f_body">${esc(e.body)}</textarea>
- <label>📄 কোন Page-এ দেখাবে? (কিছু select না করলে সব Page-এ)</label>
+ const tp=allTpl(),mt=myTpl();
+ return `<h1 class="pt">${S.edit?"Post Edit":"নতুন Post"}</h1>
+ <div class="cgrid"><div class="panel" id="cform">
+ ${!S.edit?`<div class="tplb">${IC("tpl")}<select name="tpl" onchange="applyTpl(this)"><option value="x">Template theke shuru korun…</option>${tp.map((t,i)=>`<option value="${i}">${t.u?"★ ":""}${esc(t.n)}</option>`).join("")}</select></div>`:""}
+ <label>Category</label><select id="f_cat">${Object.entries(CATS).map(([k,c])=>`<option value="${k}" ${e.cat==k?"selected":""}>${c.n}</option>`).join("")}</select>
+ <label>Title</label><input id="f_title" value="${esc(e.title)}" maxlength="150"><label>Details <small>(optional)</small></label><textarea id="f_body">${esc(e.body)}</textarea>
+ <label>${IC("file")} কোন Page-এ দেখাবে? <small>(কিছু select না করলে সব Page-এ)</small></label>
  ${YEARS.map(y=>`<div class="pgy">${esc(y)}</div><div class="gset" style="margin-bottom:8px">${DEPTS.map(d=>{const l=y+" · "+d;return `<label class="gchk"><input type="checkbox" class="gcb" value="${esc(l)}" ${sel.includes(l)?"checked":""}> ${esc(d)}</label>`}).join("")}</div>`).join("")}
- <div class="row" style="margin:0 0 4px"><button type="button" class="btn ghost sm" onclick="pgSet(true)">✔ সব Page</button><button type="button" class="btn ghost sm" onclick="pgSet(false)">✕ Clear</button></div>
- <label>📅 Deadline / শেষ তারিখ (optional)</label><input type="date" id="f_dl" value="${e.dl?new Date(e.dl).toLocaleDateString("en-CA"):""}">
- <label>⏰ Schedule (optional) <small>— ei somoy-er age public-e dekhabe na</small></label><input type="datetime-local" id="f_at" value="${e.at?toLocal(e.at):""}">
- <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="f_draft" style="width:auto" ${e.draft?"checked":""}> 📝 Draft (public-e dekhabe na)</label>
+ <div class="row" style="margin:0 0 4px"><button type="button" class="btn ghost sm" onclick="pgSet(true)">${IC("check")} সব Page</button><button type="button" class="btn ghost sm" onclick="pgSet(false)">${IC("x")} Clear</button></div>
+ <div class="two"><div><label>${IC("cal")} Deadline <small>(optional)</small></label><input type="date" id="f_dl" value="${e.dl?new Date(e.dl).toLocaleDateString("en-CA"):""}"></div>
+ <div><label>${IC("clock")} Schedule <small>(optional)</small></label><input type="datetime-local" id="f_at" value="${e.at?toLocal(e.at):""}"></div></div>
+ <small>Schedule dile oi somoy-er age public-e dekhabe na.</small>
  <label>Cover Image</label><input type="file" accept="image/*" onchange="pick('cover',this.files,this)">
- ${P.cover?`<div class="pend"><small>✔ ${esc(P.cover.name)}</small><button type="button" class="lnk" onclick="S.pending.cover=null;render(true)">✕ remove</button></div>`:""}
+ ${P.cover?`<div class="pend"><small>${IC("check")} ${esc(P.cover.name)}</small><button type="button" class="lnk" onclick="S.pending.cover=null;render(true)">${IC("x")} remove</button></div>`:""}
  <label>অতিরিক্ত ছবি (auto compress হবে)</label><input type="file" accept="image/*" multiple onchange="pick('files',this.files,this)">
- ${P.files.map((f,i)=>`<div class="pend"><small>✔ ${esc(f.name)}</small><button type="button" class="lnk" onclick="S.pending.files.splice(${i},1);render(true)">✕ remove</button></div>`).join("")}
+ ${P.files.map((f,i)=>`<div class="pend"><small>${IC("check")} ${esc(f.name)}</small><button type="button" class="lnk" onclick="S.pending.files.splice(${i},1);render(true)">${IC("x")} remove</button></div>`).join("")}
  <label>Attachment links (PDF/Doc – Google Drive লিংক)</label><textarea id="f_links" style="min-height:80px" placeholder="Syllabus PDF | https://drive.google.com/file/d/...&#10;Routine | https://...">${esc(links)}</textarea><small>প্রতি লাইনে একটি: নাম | লিংক</small>
  <label>Extra Link (optional)</label><input id="f_link" value="${esc(e.link||"")}" placeholder="https://…">
- <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="f_pin" style="width:auto" ${e.pinned?"checked":""}> 📌 Pin to top</label>
- <div class="row"><button class="btn" id="pubBtn" onclick="submitPost()">${S.edit?"Update":"Publish"}</button><button class="btn ghost" onclick="previewPost()">👁 Preview</button>${S.edit?'<button class="btn ghost" onclick="cancelEdit()">Cancel</button>':""}</div></div>
- <div class="panel"><h3>👤 Admin Access (Email)</h3><div class="note">আপনার email: <code>${esc(S.email||"")}</code><br>কাউকে access দিতে তার email নিচে add করুন — সে Google বা email link দিয়ে login করে panel ব্যবহার করতে পারবে। ${isOwner()?"":"(শুধু Owner পরিবর্তন করতে পারে)"}</div>
- ${isOwner()?`<form class="row" style="margin:0 0 10px;flex-wrap:nowrap" onsubmit="addAdmin(event)"><input id="newem" type="email" required placeholder="name@gmail.com" style="flex:1;min-width:0"><button class="btn sm">Add</button></form>`:""}
- ${S.emails.map((u,i)=>`<div class="li"><div><code>${esc(u)}</code>${i==0?" <small>(Owner)</small>":""}${u==me()?" <small>(আপনি)</small>":""}</div>${isOwner()&&i>0?`<button class="btn danger sm" onclick="rmAdmin('${esc(u)}')">Remove</button>`:""}</div>`).join("")||"<small>কোনো email নেই</small>"}
- ${S.ids.map((u,i)=>`<div class="li"><div><code>${esc(u)}</code> <small>(পুরনো UID access)</small></div>${isOwner()?`<button class="btn danger sm" onclick="rmId('${esc(u)}')">Remove</button>`:""}</div>`).join("")}</div></div>
- <div class="panel"><h3>সব Post (${S.posts.filter(pfOk).length}${S.pf?" / "+S.posts.length:""})</h3><select id="pf_sel" onchange="S.pf=this.value;render(true)" style="margin-bottom:10px">${pfOpts()}</select>${sorted(S.posts.filter(pfOk)).map(p=>`<div class="li post"><span>${(CATS[p.cat]||CATS.notice).i}</span><div class="ttl"><b>${esc(p.title)}</b><small>${fmt(p.ts)}${BADGE(p)}${p.hist&&p.hist.length?" · ✎ "+p.hist.length+" edits":""}</small><small class="pgs">${pgText(p)}</small></div>
- <div class="acts"><button class="btn ghost sm" onclick="waShare('${p.id}')">📲</button><button class="btn ghost sm" onclick="startEdit('${p.id}')">Edit</button>${p.hist&&p.hist.length?`<button class="btn ghost sm" onclick="showHist('${p.id}')">History</button>`:""}<button class="btn danger sm" onclick="del('${p.id}')">Delete</button></div></div>`).join("")||"<small>কিছু নেই</small>"}</div></div>
- <div class="panel" style="margin-bottom:50px"><h3>📨 Contact Messages (${S.msgs.length})</h3>${[...S.msgs].sort((a,b)=>b.ts-a.ts).map(m=>`<div class="li msg"><b>${esc(m.subject)}</b><small>${esc(m.name)} · ${esc(m.email)}${m.phone?" · "+esc(m.phone):""} · ${fmt(m.ts)}</small><p class="body">${esc(m.message)}</p><div class="acts"><a class="btn ghost sm" href="mailto:${esc(m.email)}?subject=${encodeURIComponent("Re: "+m.subject)}">Reply</a><button class="btn danger sm" onclick="delMsg('${m.id}')">Delete</button></div></div>`).join("")||"<small>কোনো message নেই</small>"}</div>`}
-function render(keep){const o=keep&&($("#f_title")||$("#em"))?snap():null;
- $("#app").innerHTML=!S.ready?loadingV():!S.uid?loginV():!S.cfg?loadingV():!isAdmin()?deniedV():panelV();
- if(o)restore(o);$("#outBtn").style.display=S.uid?"":"none";$("#yr").textContent=new Date().getFullYear()}
+ <div class="chks"><label class="gchk"><input type="checkbox" id="f_pin" ${e.pinned?"checked":""}> ${IC("pin")} Pin to top</label>
+ <label class="gchk"><input type="checkbox" id="f_draft" ${e.draft?"checked":""}> ${IC("file")} Draft</label>
+ <label class="gchk"><input type="checkbox" id="f_push" ${!S.edit&&!e.draft?"checked":""}> ${IC("bell")} Subscriber-দের notification</label></div>
+ <div class="row"><button class="btn" id="pubBtn" onclick="submitPost()">${IC("send")} ${S.edit?"Update":"Publish"}</button>${S.edit?`<button class="btn ghost" onclick="cancelEdit()">Cancel</button>`:`<button class="btn ghost" onclick="saveTpl()">${IC("tpl")} Template hishebe save</button>`}</div>
+ ${mt.length&&!S.edit?`<div class="mytpl"><small>Tomar template:</small> ${mt.map((t,i)=>`<span class="chip">${esc(t.n)} <button type="button" class="lnk" title="Delete" onclick="delTpl(${i})">${IC("x")}</button></span>`).join(" ")}</div>`:""}
+ </div>
+ <div class="cside"><div class="panel"><h3>${IC("eye")} Live Preview</h3><div id="lp"></div><small class="phd">Public site-e card ei rokom dekhabe.</small></div></div></div>`}
+function livePrev(){const el=$("#lp");if(!el||!$("#f_title"))return;
+ const k=$("#f_cat").value,c=CATS[k]||CATS.notice,t=$("#f_title").value.trim(),b=$("#f_body").value.trim(),dl=$("#f_dl").value,at=$("#f_at").value,
+  pin=$("#f_pin").checked,dr=$("#f_draft").checked,P=S.pending,n=dl?Math.ceil((new Date(dl+"T23:59:59")-Date.now())/DAY):null,
+  pg=document.querySelectorAll(".gcb:checked").length,sch=at&&new Date(at)>new Date();
+ el.innerHTML=`<div class="pv">${P.cover&&ok(P.cover.url)?`<img src="${esc(P.cover.url)}" alt="">`:`<div class="pv-ph" style="--c:${c.c}">${IC(k)}</div>`}<div class="pv-b"><div class="pv-t">${catChip(k)}${pin?`<span class="chip" style="--c:#e08a00">${IC("pin")} Pinned</span>`:""}${n!=null?(n<0?`<span class="st st-mute">${IC("clock")} শেষ</span>`:n<=3?`<span class="st st-warn">${IC("hourglass")} ${n} দিন বাকি</span>`:`<span class="st st-ok">${IC("cal")} ${n} দিন বাকি</span>`):""}</div>
+  <h3>${esc(t)||'<span class="phd">Post-er title ekhane dekhabe…</span>'}</h3><p>${esc(b.slice(0,220))||'<span class="phd">Details ekhane…</span>'}</p>
+  <div class="pv-m"><span>${IC("clock")} ${fmtD(at?new Date(at).getTime():Date.now())}</span><span>${IC("file")} ${pg&&pg<PAGES.length?pg+"টি Page":"সব Page"}</span>${dr?'<span class="st st-mute">Draft</span>':sch?'<span class="st st-info">Scheduled</span>':""}</div></div></div>`}
 
-/* ---- actions ---- */
+/* ---- views: posts (table) ---- */
+function pfList(){let l=S.posts.filter(p=>(!S.fc||p.cat==S.fc)&&(!S.fs||stOf(p)==S.fs)&&pfOk(p)&&(!S.q||((p.title||"")+" "+(p.body||"")).toLowerCase().includes(S.q.toLowerCase())));
+ if(S.so=="views")l.sort((a,b)=>(b.views||0)-(a.views||0));else if(S.so=="old")l.sort((a,b)=>a.ts-b.ts);else if(S.so=="dl")l.sort((a,b)=>(a.dl||9e15)-(b.dl||9e15));else l=sorted(l);return l}
+function plistHTML(){const l=pfList(),n=[...S.sel].filter(id=>S.posts.some(p=>p.id==id)).length,all=l.length&&l.every(p=>S.sel.has(p.id));
+ const bulkB=n?`<div class="bulk">${IC("check")}<b>${n} selected</b><button class="btn ghost sm" onclick="bulk('pin')">${IC("pin")} Pin</button><button class="btn ghost sm" onclick="bulk('unpin')">Unpin</button><button class="btn ghost sm" onclick="bulk('pub')">${IC("globe")} Publish</button><button class="btn ghost sm" onclick="bulk('exp')">${IC("clock")} Expire</button>
+  <select onchange="bulk('cat',this.value);this.value=''"><option value="">Category বদলান…</option>${Object.entries(CATS).map(([k,c])=>`<option value="${k}">${c.n}</option>`).join("")}</select>${isAdmin()?`<button class="btn danger sm" onclick="bulk('del')">${IC("trash")} Delete</button>`:""}<button class="lnk" onclick="S.sel.clear();refreshPosts()">${IC("x")}</button></div>`:"";
+ return bulkB+`<div class="ptab"><div class="ph"><label class="ck"><input type="checkbox" ${all?"checked":""} onchange="selAll(this.checked)"></label><span></span><span>Post</span><span>Category</span><span>Status</span><span>Views</span><span></span></div>`+
+ (l.map(p=>{const k=CATS[p.cat]?p.cat:"notice",s=S.sel.has(p.id);
+ return `<div class="pr ${s?"sel":""}"><label class="ck"><input type="checkbox" ${s?"checked":""} onchange="selTog('${p.id}',this.checked)"></label>
+ <div class="th">${p.cover&&ok(p.cover.url)?`<img src="${esc(p.cover.url)}" alt="" loading="lazy">`:IC(k)}</div>
+ <div class="pm"><b>${p.pinned?`<span class="pn">${IC("pin")}</span>`:""}${esc(p.title)}</b><small>${fmtD(p.ts)} · ${esc(pgText(p))}${p.dl?" · "+IC("cal")+" "+fmtD(p.dl):""}${p.hist&&p.hist.length?" · "+p.hist.length+" edit":""}</small></div>
+ <div class="pmeta">${catChip(k)}${stChip(p)}<span class="vw">${IC("eye")} ${p.views||0}</span></div>
+ <div class="acts"><button class="ib" title="WhatsApp share" onclick="waShare('${p.id}')">${IC("msg")}</button><button class="ib" title="Push notification" onclick="notifyBtn('${p.id}')">${IC("bell")}</button><button class="ib" title="Edit" onclick="startEdit('${p.id}')">${IC("edit")}</button><button class="ib" title="Duplicate" onclick="dupPost('${p.id}')">${IC("copy")}</button>${p.hist&&p.hist.length?`<button class="ib" title="History" onclick="showHist('${p.id}')">${IC("history")}</button>`:""}${isAdmin()?`<button class="ib d" title="Delete" onclick="del('${p.id}')">${IC("trash")}</button>`:""}</div></div>`}).join("")||`<div class="emp">${IC("inbox")}<p>কোনো post পাওয়া যায়নি</p></div>`)+`</div>`}
+const refreshPosts=()=>{const e=$("#plist");if(e)e.innerHTML=plistHTML()};
+function selTog(id,on){on?S.sel.add(id):S.sel.delete(id);refreshPosts()}
+function selAll(on){pfList().forEach(p=>on?S.sel.add(p.id):S.sel.delete(p.id));refreshPosts()}
+function postsV(){const opt=(v,t,c)=>`<option value="${v}" ${c?"selected":""}>${t}</option>`;
+ return `<h1 class="pt">সব Post <small class="cnt">${S.posts.length}</small></h1>
+ <div class="tbar"><div class="sb">${IC("search")}<input id="p_q" placeholder="Title বা details খুঁজুন…" value="${esc(S.q)}" oninput="S.q=this.value;refreshPosts()"></div>
+ <select onchange="S.fc=this.value;refreshPosts()">${opt("","সব Category",!S.fc)}${Object.entries(CATS).map(([k,c])=>opt(k,c.n,S.fc==k)).join("")}</select>
+ <select onchange="S.fs=this.value;refreshPosts()">${opt("","সব Status",!S.fs)}${Object.entries(STL).map(([k,v])=>opt(k,v[0],S.fs==k)).join("")}</select>
+ <select onchange="S.pf=this.value;refreshPosts()">${opt("","সব Page",!S.pf)}${PAGES.map(l=>opt(esc(l),esc(short(l)),S.pf==l)).join("")}</select>
+ <select onchange="S.so=this.value;refreshPosts()">${opt("new","নতুন আগে",S.so=="new")}${opt("old","পুরনো আগে",S.so=="old")}${opt("views","বেশি View",S.so=="views")}${opt("dl","Deadline কাছে",S.so=="dl")}</select>
+ <button class="btn sm" onclick="go('new')">${IC("plus")} নতুন</button></div><div id="plist">${plistHTML()}</div>`}
+
+/* ---- views: messages ---- */
+const waNum=p=>{let d=String(p||"").replace(/\D/g,"");if(d.startsWith("00"))d=d.slice(2);if(d.startsWith("0"))d="88"+d;else if(d.length==10&&d.startsWith("1"))d="880"+d;return d.length>=11?d:""};
+const msgFilter=()=>{const q=S.mq.toLowerCase(),f=S.mf;return[...S.msgs].filter(m=>(f=="inbox"?!m.arch:f=="unread"?(!m.read&&!m.arch):f=="star"?m.star:m.arch)&&(!q||((m.subject||"")+(m.name||"")+(m.email||"")+(m.message||"")).toLowerCase().includes(q))).sort((a,b)=>b.ts-a.ts)};
+function mlistHTML(){return msgFilter().map(m=>{const o=S.open==m.id,wn=waNum(m.phone);
+ return `<div class="mi ${m.read?"":"unr"} ${o?"op":""}"><div class="mh" onclick="msgOpen('${m.id}')"><span class="dot"></span><div class="mt"><b>${esc(m.subject)}</b><small>${esc(m.name)} · ${ago(m.ts)}</small></div><button class="ib ${m.star?"on":""}" title="Star" onclick="msgStar(event,'${m.id}')">${IC("star",m.star)}</button></div>
+ ${o?`<div class="mb"><small>${esc(m.email)}${m.phone?" · "+esc(m.phone):""} · ${fmt(m.ts)}</small><p class="body">${esc(m.message)}</p><div class="acts"><a class="btn ghost sm" href="mailto:${esc(m.email)}?subject=${encodeURIComponent("Re: "+m.subject)}">${IC("reply")} Reply</a>${wn?`<a class="btn ghost sm" target="_blank" rel="noopener" href="https://wa.me/${wn}?text=${encodeURIComponent("আসসালামু আলাইকুম "+m.name+", আপনার \""+m.subject+"\" message-এর বিষয়ে –")}">${IC("msg")} WhatsApp</a>`:""}<button class="btn ghost sm" onclick="msgSet('${m.id}',{read:${!m.read}})">${IC("mailopen")} ${m.read?"Unread":"Read"}</button><button class="btn ghost sm" onclick="msgSet('${m.id}',{arch:${!m.arch}});S.open=null">${IC("archive")} ${m.arch?"Inbox-e":"Archive"}</button><button class="btn danger sm" onclick="delMsg('${m.id}')">${IC("trash")}</button></div></div>`
+ :`<p class="mp">${esc((m.message||"").slice(0,140))}</p>`}</div>`}).join("")||`<div class="emp">${IC("inbox")}<p>কোনো message নেই</p></div>`}
+const refreshMsgs=()=>{const e=$("#mlist");if(e)e.innerHTML=mlistHTML()};
+function msgsV(){const A=S.msgs,c={inbox:A.filter(m=>!m.arch).length,unread:A.filter(m=>!m.read&&!m.arch).length,star:A.filter(m=>m.star).length,arch:A.filter(m=>m.arch).length},
+ tab=(k,t)=>`<button class="fch ${S.mf==k?"on":""}" onclick="S.mf='${k}';S.open=null;render(true)">${t} <em>${c[k]}</em></button>`;
+ return `<h1 class="pt">Messages</h1><div class="tbar"><div class="sb">${IC("search")}<input id="m_q" placeholder="খুঁজুন…" value="${esc(S.mq)}" oninput="S.mq=this.value;refreshMsgs()"></div>${c.unread?`<button class="btn ghost sm" onclick="markAllRead()">${IC("check")} সব Read করুন</button>`:""}</div>
+ <div class="fchs">${tab("inbox","Inbox")}${tab("unread","Unread")}${tab("star","Starred")}${tab("arch","Archived")}</div><div id="mlist" class="panel mlist">${mlistHTML()}</div>`}
+
+/* ---- views: people ---- */
+function peopleV(){const own=isOwner(),row=(u,role,i)=>`<div class="li"><div><code>${esc(u)}</code> <span class="role r-${role.toLowerCase()}">${role}</span>${u==me()?" <small>(আপনি)</small>":""}</div>${own&&role!="Owner"?`<button class="btn ghost sm" onclick="setRole('${esc(u)}','${role=="Admin"?"editor":"admin"}')">${role=="Admin"?"Editor বানান":"Admin বানান"}</button><button class="btn danger sm" onclick="rmAdmin('${esc(u)}')">Remove</button>`:""}</div>`;
+ return `<h1 class="pt">Admins &amp; Roles</h1>
+ <div class="panel"><h3>${IC("shield")} কে কী করতে পারে</h3><div class="rtab"><div><span class="role r-owner">Owner</span><small>সব কিছু + অন্যদের access/role ঠিক করা</small></div><div><span class="role r-admin">Admin</span><small>Post (create/edit/delete), Messages, Backup, Students, Activity</small></div><div><span class="role r-editor">Editor</span><small>শুধু Post create ও edit — delete, message, backup পারবে না</small></div></div></div>
+ <div class="panel"><h3>${IC("userplus")} Access দিন</h3><div class="note">আপনার email: <code>${esc(S.email||"")}</code> · আপনি <b>${roleOf()}</b>. ${own?"":"(শুধু Owner পরিবর্তন করতে পারে)"}</div>
+ ${own?`<form class="row" style="margin:0 0 14px;flex-wrap:nowrap" onsubmit="addAdmin(event)"><input id="newem" type="email" required placeholder="name@gmail.com" style="flex:1;min-width:0"><select id="newrole" style="width:auto"><option value="editor">Editor</option><option value="admin">Admin</option></select><button class="btn sm">Add</button></form>`:""}
+ ${S.emails.map((u,i)=>row(u,i==0?"Owner":"Admin",i)).join("")}${S.editors.map(u=>row(u,"Editor")).join("")}
+ ${S.ids.map(u=>`<div class="li"><div><code>${esc(u)}</code> <small>(পুরনো UID access)</small></div>${own?`<button class="btn danger sm" onclick="rmId('${esc(u)}')">Remove</button>`:""}</div>`).join("")}</div>`}
+
+/* ---- views: tools ---- */
+function toolsV(){const u=S.users,cnt=(y,d)=>u.filter(x=>x.year==y&&x.dept==d).length;
+ return `<h1 class="pt">Tools</h1><div class="g2"><div>
+ <div class="panel"><h3>${IC("archive")} Backup &amp; Export</h3><p class="mut2">সব post (ছবি সহ) ও message JSON file-e nambe. Import korle same id thakle overwrite hobe.</p>
+ <div class="row" style="margin-top:0"><button class="btn" onclick="exportJSON()">${IC("dl")} JSON Backup</button><button class="btn ghost" onclick="exportCSV()">${IC("file")} Posts CSV</button></div>
+ <label>${IC("upload")} Backup Import (.json)</label><input type="file" accept=".json,application/json" onchange="importFile(this)"></div>
+ <div class="panel"><h3>${IC("users")} Registered Students</h3>${u?`<div class="sts"><div><b>${u.length}</b><small>মোট</small></div>${YEARS.map(y=>`<div><b>${DEPTS.reduce((a,d)=>a+cnt(y,d),0)}</b><small>${esc(short(y))}</small></div>`).join("")}</div>
+ <table class="tb"><tr><th></th>${DEPTS.map(d=>`<th>${d}</th>`).join("")}</tr>${YEARS.map(y=>`<tr><td>${esc(short(y))}</td>${DEPTS.map(d=>`<td>${cnt(y,d)}</td>`).join("")}</tr>`).join("")}</table>
+ <div class="row"><button class="btn ghost sm" onclick="exportUsers()">${IC("dl")} CSV Export</button><button class="btn ghost sm" onclick="loadUsers()">Refresh</button></div>`:`<p class="mut2">Login kora student-der sonkhya o Year/Dept breakdown.</p><button class="btn" onclick="loadUsers()">${IC("users")} Load korun</button>`}
+ <small class="mut2">Push subscriber-er sonkhya Firebase theke dekha jay na (topic subscription count dey na).</small></div></div>
+ <div class="panel"><h3>${IC("history")} Activity Log <small>· শেষ ${S.logs.length}টি</small></h3>${S.logs.map(l=>{const a=ACT[l.act]||[l.act,"history"];return `<div class="li rc"><span class="rc-i">${IC(a[1])}</span><div><b>${esc(nameOf(l.email))} <span class="mut">${a[0]}</span></b><small>${l.title?esc(l.title)+" · ":""}${fmt(l.ts)}</small></div></div>`}).join("")||"<small>এখনো কোনো activity নেই</small>"}</div></div>`}
+
+/* ---- shell + render ---- */
+function view(){switch(S.tab){case"new":return composeV();case"posts":return postsV();case"msgs":return msgsV();case"people":return peopleV();case"tools":return toolsV();default:return dashV()}}
+function panelV(){const un=S.msgs.filter(m=>!m.read&&!m.arch).length;
+ if(!allowed(TABS.find(t=>t[0]==S.tab)||TABS[0]))S.tab="dash";
+ return `<div class="shell"><nav class="side" aria-label="Admin menu">${TABS.filter(allowed).map(([k,i,n,a,sh])=>`<button class="nv ${S.tab==k?"on":""}" onclick="go('${k}')">${IC(i)}<span class="l">${n}</span><span class="s">${sh}</span>${k=="msgs"&&un?`<em class="bd">${un}</em>`:""}</button>`).join("")}</nav><section class="mainc">${view()}</section></div>`}
+function render(keep){
+ if($("#cform"))S.form=snap();
+ const em=$("#em")?$("#em").value:null,ae=document.activeElement,fa=ae&&ae.id,cs=ae&&ae.selectionStart;
+ $("#app").innerHTML=!S.ready?loadingV():!S.uid?loginV():!S.cfg?loadingV():!isStaff()?deniedV():panelV();
+ if($("#cform")){if(S.form)restore(S.form);livePrev()}
+ if(em!=null&&$("#em"))$("#em").value=em;
+ if(fa&&fa!="pubBtn"&&$("#"+fa)){const el=$("#"+fa);el.focus();try{if(cs!=null)el.setSelectionRange(cs,cs)}catch(x){}}
+ $("#outBtn").style.display=S.uid?"":"none";
+ $("#who").innerHTML=S.uid&&isStaff()?`<span class="role r-${roleOf().toLowerCase()}">${roleOf()}</span>`:"";
+ $("#yr").textContent=new Date().getFullYear()}
+$("#app").addEventListener("input",e=>{if(e.target.closest&&e.target.closest("#cform"))livePrev()});
+$("#app").addEventListener("change",e=>{if(e.target.closest&&e.target.closest("#cform"))livePrev()});
+
+/* ---- activity log ---- */
+function logAct(act,p){try{FB.addDoc(FB.collection(FB.db,"logs"),{ts:Date.now(),by:S.uid,email:me().slice(0,120),act,id:(p&&p.id)||"",title:String((p&&p.title)||"").slice(0,120)}).catch(()=>{})}catch(e){}}
+
+/* ---- share / push ---- */
 function waText(p,id){const c=CATS[p.cat]||CATS.notice,b=(p.body||"").replace(/\s+/g," ").trim();
- const pg=pagesOf(p),g=pg.length<PAGES.length?`\n👥 ${pg.map(short).join(", ")}`:"",d=p.dl?`\n📅 শেষ তারিখ: ${new Date(p.dl).toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"})}`:"";
+ const pg=pagesOf(p),g=pg.length<PAGES.length?`\n👥 ${pg.map(short).join(", ")}`:"",d=p.dl?`\n📅 শেষ তারিখ: ${fmtD(p.dl)}`:"";
  return `📢 *${c.n} – ${p.title}*${g}${d}\n\n${b.slice(0,220)}${b.length>220?"…":""}\n\n🔗 ${location.origin}/p/${id}\n\n_Mirpur College Updates & Notices_`}
-function showShare(id,p){$("#sheet").innerHTML=`<h2 style="margin-top:0">✅ Post হয়েছে!</h2><p><small>এখন WhatsApp group-এ পাঠান: নিচের button চাপলে WhatsApp খুলবে, সেখানে group select করে Send দিন। চাইলে message বদলে নিতে পারেন।</small></p><textarea id="wa_t" style="min-height:190px">${esc(waText(p,id))}</textarea><div class="row"><button class="btn" onclick="openWA()">📲 WhatsApp-এ পাঠান</button><button class="btn ghost" onclick="copy($('#wa_t').value)">📋 Copy</button><button class="btn ghost" onclick="closeM()">Close</button></div>`;$("#modal").classList.add("open")}
+function showShare(id,p){$("#sheet").innerHTML=`<h2 style="margin-top:0" class="ic-h">${IC("check")} Post হয়েছে!</h2><p><small>এখন WhatsApp group-এ পাঠান: নিচের button চাপলে WhatsApp খুলবে, সেখানে group select করে Send দিন। চাইলে message বদলে নিতে পারেন।</small></p><textarea id="wa_t" style="min-height:190px">${esc(waText(p,id))}</textarea><div class="row"><button class="btn" onclick="openWA()">${IC("msg")} WhatsApp-এ পাঠান</button><button class="btn ghost" onclick="copy($('#wa_t').value)">${IC("copy")} Copy</button><button class="btn ghost" onclick="closeM()">Close</button></div>`;$("#modal").classList.add("open")}
 const openWA=()=>window.open("https://api.whatsapp.com/send?text="+encodeURIComponent($("#wa_t").value),"_blank");
 function waShare(id){const p=S.posts.find(x=>x.id==id);if(p)showShare(id,p)}
-function startEdit(id){const p=S.posts.find(x=>x.id==id);if(!p)return;S.edit=id;S.pending={cover:p.cover||null,files:(p.files||[]).filter(f=>f.type!="link")};render(false);scrollTo(0,0)}
-function cancelEdit(){S.edit=null;S.pending={cover:null,files:[]};render(false)}
+async function notifyPush(id){const u=FB.auth.currentUser;if(!u)throw new Error("login lagbe");const tk=await u.getIdToken();
+ const r=await fetch("/api/notify",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+tk},body:JSON.stringify({id})});
+ const j=await r.json().catch(()=>({}));if(!r.ok||!j.ok)throw new Error(j.error||("HTTP "+r.status));return j}
+async function notifyBtn(id){const p=S.posts.find(x=>x.id==id);if(!p)return;if(!live(p))return toast("Draft/Scheduled post-er notification pathano jabe na");
+ if(!await confirmBox("Push notification pathabo?",p.title,"Pathan",false))return;
+ try{await notifyPush(id);logAct("notify",p);toast("Notification pathano hoyeche")}catch(e){toast("Push jayni: "+(e.message||e))}}
+
+/* ---- post actions ---- */
+function startEdit(id){const p=S.posts.find(x=>x.id==id);if(!p)return;S.edit=id;S.prefill=null;S.form=null;S.pending={cover:p.cover||null,files:(p.files||[]).filter(f=>f.type!="link")};go("new")}
+function cancelEdit(){S.edit=null;S.prefill=null;S.form=null;S.pending={cover:null,files:[]};go("posts")}
+function dupPost(id){const p=S.posts.find(x=>x.id==id);if(!p)return;S.edit=null;S.form=null;const d={...p};delete d.id;
+ S.prefill={...d,title:(p.title||"")+" (copy)",draft:true,pinned:false,hist:[],views:0,at:null};S.pending={cover:p.cover||null,files:(p.files||[]).filter(f=>f.type!="link")};go("new");toast("Copy ready – Draft hishebe, edit kore Publish korun")}
 function parseLinks(t){return t.split("\n").map(x=>x.trim()).filter(Boolean).map(x=>{const i=x.indexOf("|");return i<0?{name:"Attachment",url:x}:{name:x.slice(0,i).trim()||"Attachment",url:x.slice(i+1).trim()}}).filter(a=>/^https?:\/\//.test(a.url)).map(a=>({id:"",name:a.name,type:"link",url:a.url}))}
-const toLocal=t=>new Date(t-new Date(t).getTimezoneOffset()*6e4).toISOString().slice(0,16);
-const BADGE=p=>p.draft?" · 📝 Draft":p.at&&p.at>Date.now()?" · ⏰ Scheduled":(p.views?" · 👁 "+p.views:"");
-function previewPost(){const c=CATS[$("#f_cat").value]||CATS.notice;$("#sheet").innerHTML=`<small>👁 Preview</small><div style="margin:8px 0"><b>${c.i} ${c.n}</b></div><h2 style="margin:6px 0">${esc($("#f_title").value)||"(Title nei)"}</h2><p class="body" style="white-space:pre-wrap">${esc($("#f_body").value)}</p><div class="row"><button class="btn ghost" onclick="closeM()">Close</button></div>`;$("#modal").classList.add("open")}
 async function submitPost(){
  const title=$("#f_title").value.trim(),body=$("#f_body").value.trim();if(!title)return toast("Title দিন");
- const old=S.posts.find(p=>p.id==S.edit),now=Date.now(),P=S.pending,b=$("#pubBtn"),dlv=$("#f_dl").value,atv=$("#f_at").value?new Date($("#f_at").value).getTime():0;
- const data={title,body,cat:$("#f_cat").value,link:$("#f_link").value.trim(),pinned:$("#f_pin").checked,cover:P.cover||null,files:[...P.files,...parseLinks($("#f_links").value)],
-  ts:atv||(old?old.ts:now),by:old?(old.by||S.uid):S.uid,updated:now,nf:P.files.length+parseLinks($("#f_links").value).length+(/^https?:\/\//.test($("#f_link").value.trim())?1:0),hc:!!P.cover,grp:(g=>g.length==PAGES.length?[]:g)([...document.querySelectorAll(".gcb:checked")].map(x=>x.value)),dl:dlv?new Date(dlv+"T23:59:59").getTime():null,at:atv||null,draft:$("#f_draft").checked,views:(old&&old.views)||0,
+ const old=S.posts.find(p=>p.id==S.edit),now=Date.now(),P=S.pending,b=$("#pubBtn"),dlv=$("#f_dl").value,atv=$("#f_at").value?new Date($("#f_at").value).getTime():0,
+  lk=parseLinks($("#f_links").value),push=$("#f_push").checked,dr=$("#f_draft").checked;
+ const data={title,body,cat:$("#f_cat").value,link:$("#f_link").value.trim(),pinned:$("#f_pin").checked,cover:P.cover||null,files:[...P.files,...lk],
+  ts:atv||(old?old.ts:now),by:old?(old.by||S.uid):S.uid,updated:now,nf:P.files.length+lk.length+(/^https?:\/\//.test($("#f_link").value.trim())?1:0),hc:!!P.cover,
+  grp:(g=>g.length==PAGES.length?[]:g)([...document.querySelectorAll(".gcb:checked")].map(x=>x.value)),dl:dlv?new Date(dlv+"T23:59:59").getTime():null,at:atv||null,draft:dr,views:(old&&old.views)||0,
   hist:old?[{ts:now,by:S.uid,title:old.title||"",body:old.body||"",cat:old.cat||"notice",link:old.link||""},...(old.hist||[])].slice(0,20):[]};
  const clean=JSON.parse(JSON.stringify(data));
  if(JSON.stringify(clean).length>950000)return toast("Post ta onek boro – chobi kombao");
- 
  b.disabled=true;
- try{let nid=null;if(S.edit)await FB.setDoc(FB.doc(FB.db,"posts",S.edit),clean);else nid=(await FB.addDoc(FB.collection(FB.db,"posts"),clean)).id;
-  toast(S.edit?"Updated ✔":"Published ✔");S.edit=null;S.pending={cover:null,files:[]};render(false);if(nid)showShare(nid,clean)}
+ try{let id=S.edit;const was=!!id;if(id)await FB.setDoc(FB.doc(FB.db,"posts",id),clean);else id=(await FB.addDoc(FB.collection(FB.db,"posts"),clean)).id;
+  S.edit=null;S.prefill=null;S.form=null;S.pending={cover:null,files:[]};logAct(was?"edit":"create",{id,title});
+  go("posts");toast(was?"Updated":"Published");if(!was)showShare(id,clean);
+  if(push&&!dr&&!(atv&&atv>now))notifyPush(id).then(()=>{logAct("notify",{id,title});toast("Published · notification gelo")}).catch(e=>toast("Post hoyeche, kintu push jayni: "+(e.message||e)))}
  catch(e){toast("Save hoyni: "+(e.code||e.message));b.disabled=false}}
-async function del(id){if(!confirm("Delete করবেন?"))return;try{await FB.deleteDoc(FB.doc(FB.db,"posts",id));if(S.edit==id)cancelEdit();toast("Deleted")}catch(e){toast("Delete hoyni: "+(e.code||e.message))}}
-async function delMsg(id){if(!confirm("Message delete করবেন?"))return;try{await FB.deleteDoc(FB.doc(FB.db,"messages",id))}catch(e){toast("Delete hoyni")}}
-async function saveAdmins(emails,ids){try{await FB.setDoc(FB.doc(FB.db,"config","admins"),ids&&ids.length?{emails,ids}:{emails});toast("Saved ✔")}catch(e){toast("Save hoyni: "+(e.code||e.message))}}
-function addAdmin(ev){ev.preventDefault();const v=$("#newem").value.trim().toLowerCase();if(!/^\S+@\S+\.\S+$/.test(v))return toast("Email ta thik na");if(S.emails.includes(v))return toast("Ei email age-i ache");saveAdmins([...S.emails,v],S.ids)}
-const rmAdmin=u=>{if(confirm(u+" -এর access তুলে নেবেন?"))saveAdmins(S.emails.filter(x=>x!=u),S.ids)};
-const rmId=u=>{if(confirm("পুরনো UID access তুলে নেবেন?"))saveAdmins(S.emails,S.ids.filter(x=>x!=u))};
-function showHist(id){const p=S.posts.find(x=>x.id==id);
- $("#sheet").innerHTML=`<h2 style="margin-top:0">✎ Edit History</h2>${(p.hist||[]).map((h,i)=>`<div class="li"><div><b>${esc(h.title)}</b><small>${fmt(h.ts)} · ${(CATS[h.cat]||CATS.notice).n}</small><br><small>${esc((h.body||"").slice(0,120))}…</small></div><button class="btn ghost sm" onclick="restoreV('${id}',${i})">Restore</button></div>`).join("")}<div class="row"><button class="btn ghost" onclick="closeM()">Close</button></div>`;$("#modal").classList.add("open")}
+async function del(id){const p=S.posts.find(x=>x.id==id);if(!p||!isAdmin())return;if(!await confirmBox("Post delete করবেন?",p.title,"Delete"))return;
+ const d={...p};delete d.id;
+ try{await FB.deleteDoc(FB.doc(FB.db,"posts",id));S.sel.delete(id);if(S.edit==id){S.edit=null;S.form=null;S.pending={cover:null,files:[]}}logAct("delete",p);
+  toast("Deleted",{label:"Undo",fn:async()=>{try{await FB.setDoc(FB.doc(FB.db,"posts",id),JSON.parse(JSON.stringify(d)));logAct("restore",p);toast("Restored")}catch(e){toast("Undo hoyni: "+(e.code||e.message))}}})}
+ catch(e){toast("Delete hoyni: "+(e.code||e.message))}}
+async function bulk(act,val){const ids=[...S.sel].filter(id=>S.posts.some(p=>p.id==id));if(!ids.length||(act=="cat"&&!val))return;
+ if(act=="del"){if(!isAdmin())return;if(!await confirmBox(ids.length+"টি post delete করবেন?","Undo korar sujog thakbe (kichhukkhon).","Delete"))return}
+ const now=Date.now(),patch={pin:{pinned:true},unpin:{pinned:false},pub:{draft:false,at:null},exp:{dl:now},cat:{cat:val}}[act];
+ const olds=ids.map(id=>{const p=S.posts.find(x=>x.id==id),d={...p};delete d.id;return[id,d]});
+ const run=async(fn)=>{for(let i=0;i<olds.length;i+=400){const b=FB.writeBatch(FB.db);olds.slice(i,i+400).forEach(x=>fn(b,x));await b.commit()}};
+ try{if(act=="del")await run((b,[id])=>b.delete(FB.doc(FB.db,"posts",id)));else await run((b,[id])=>b.update(FB.doc(FB.db,"posts",id),{...patch,updated:now}));
+  S.sel.clear();logAct("bulk",{title:act+" × "+ids.length});
+  toast(act=="del"?ids.length+"টি deleted":ids.length+"টি post update hoyeche",{label:"Undo",fn:async()=>{try{
+   if(act=="del")await run((b,[id,d])=>b.set(FB.doc(FB.db,"posts",id),JSON.parse(JSON.stringify(d))));
+   else await run((b,[id,d])=>{const r={};Object.keys(patch).forEach(k=>r[k]=d[k]===undefined?(k=="dl"||k=="at"?null:false):d[k]);b.update(FB.doc(FB.db,"posts",id),r)});
+   toast("Undo hoyeche")}catch(e){toast("Undo hoyni: "+(e.code||e.message))}}})}
+ catch(e){toast("Hoyni: "+(e.code||e.message))}}
+function showHist(id){const p=S.posts.find(x=>x.id==id);if(!p)return;
+ $("#sheet").innerHTML=`<h2 style="margin-top:0" class="ic-h">${IC("history")} Edit History</h2>${(p.hist||[]).map((h,i)=>`<div class="li"><div><b>${esc(h.title)}</b><small>${fmt(h.ts)} · ${(CATS[h.cat]||CATS.notice).n}</small><br><small>${esc((h.body||"").slice(0,120))}…</small></div><button class="btn ghost sm" onclick="restoreV('${id}',${i})">Restore</button></div>`).join("")}<div class="row"><button class="btn ghost" onclick="closeM()">Close</button></div>`;$("#modal").classList.add("open")}
 async function restoreV(id,i){const p=S.posts.find(x=>x.id==id),h=p.hist[i],now=Date.now();
  const d={...p};delete d.id;Object.assign(d,{title:h.title,body:h.body,cat:h.cat,link:h.link||"",updated:now,hist:[{ts:now,by:S.uid,title:p.title||"",body:p.body||"",cat:p.cat||"notice",link:p.link||""},...(p.hist||[])].slice(0,20)});
- try{await FB.setDoc(FB.doc(FB.db,"posts",id),JSON.parse(JSON.stringify(d)));closeM();toast("Restored ✔")}catch(e){toast("Restore hoyni: "+(e.code||e.message))}}
+ try{await FB.setDoc(FB.doc(FB.db,"posts",id),JSON.parse(JSON.stringify(d)));logAct("edit",{id,title:h.title});closeM();toast("Restored")}catch(e){toast("Restore hoyni: "+(e.code||e.message))}}
+
+/* ---- message actions ---- */
+const msgSet=async(id,patch,quiet)=>{try{await FB.updateDoc(FB.doc(FB.db,"messages",id),patch)}catch(e){if(!quiet)toast("Hoyni: "+(e.code||e.message))}};
+function msgOpen(id){const m=S.msgs.find(x=>x.id==id);S.open=S.open==id?null:id;refreshMsgs();if(m&&!m.read&&S.open==id)msgSet(id,{read:true},1)}
+function msgStar(ev,id){ev.stopPropagation();const m=S.msgs.find(x=>x.id==id);if(m)msgSet(id,{star:!m.star})}
+async function markAllRead(){const l=S.msgs.filter(m=>!m.read);try{for(let i=0;i<l.length;i+=400){const b=FB.writeBatch(FB.db);l.slice(i,i+400).forEach(m=>b.update(FB.doc(FB.db,"messages",m.id),{read:true}));await b.commit()}toast("সব Read")}catch(e){toast("Hoyni: "+(e.code||e.message))}}
+async function delMsg(id){const m=S.msgs.find(x=>x.id==id);if(!m)return;if(!await confirmBox("Message delete করবেন?",m.subject))return;
+ const d={name:m.name,email:m.email,phone:m.phone||"",subject:m.subject,message:m.message,ts:m.ts};
+ try{await FB.deleteDoc(FB.doc(FB.db,"messages",id));S.open=null;toast("Deleted",{label:"Undo",fn:async()=>{try{await FB.setDoc(FB.doc(FB.db,"messages",id),d);toast("Restored")}catch(e){toast("Undo hoyni: "+(e.code||e.message))}}})}
+ catch(e){toast("Delete hoyni: "+(e.code||e.message))}}
+
+/* ---- roles ---- */
+async function saveAdmins(emails,ids,editors,what){try{const d={emails,editors};if(ids&&ids.length)d.ids=ids;await FB.setDoc(FB.doc(FB.db,"config","admins"),d);toast("Saved");if(what)logAct("role",{title:what})}catch(e){toast("Save hoyni: "+(e.code||e.message))}}
+function addAdmin(ev){ev.preventDefault();const v=$("#newem").value.trim().toLowerCase(),r=$("#newrole").value;if(!/^\S+@\S+\.\S+$/.test(v))return toast("Email ta thik na");if(S.emails.includes(v)||S.editors.includes(v))return toast("Ei email age-i ache");
+ r=="admin"?saveAdmins([...S.emails,v],S.ids,S.editors,v+" → Admin"):saveAdmins(S.emails,S.ids,[...S.editors,v],v+" → Editor")}
+async function setRole(u,r){if(!await confirmBox(u,r=="admin"?"Admin বানাবেন? (message, delete, backup-o পারবে)":"Editor বানাবেন? (শুধু post create/edit পারবে)","Confirm",false))return;
+ r=="admin"?saveAdmins([...S.emails,u],S.ids,S.editors.filter(x=>x!=u),u+" → Admin"):saveAdmins(S.emails.filter(x=>x!=u),S.ids,[...S.editors,u],u+" → Editor")}
+async function rmAdmin(u){if(!await confirmBox(u+"-এর access তুলে নেবেন?","","Remove"))return;saveAdmins(S.emails.filter(x=>x!=u),S.ids,S.editors.filter(x=>x!=u),u+" removed")}
+async function rmId(u){if(!await confirmBox("পুরনো UID access তুলে নেবেন?",u,"Remove"))return;saveAdmins(S.emails,S.ids.filter(x=>x!=u),S.editors,"UID removed")}
+
+/* ---- tools: backup / import / students ---- */
+const today=()=>new Date().toISOString().slice(0,10);
+function exportJSON(){saveFile("mcun-backup-"+today()+".json",JSON.stringify({v:1,ts:Date.now(),posts:S.posts,messages:S.msgs}),"application/json");toast("Backup nambche")}
+function exportCSV(){saveFile("mcun-posts-"+today()+".csv",csv([["Title","Category","Status","Date","Deadline","Views","Pinned","Pages"],...S.posts.map(p=>[p.title,p.cat,STL[stOf(p)][0],fmtD(p.ts),p.dl?fmtD(p.dl):"",p.views||0,p.pinned?"yes":"",pgText(p)])]),"text/csv")}
+const PF=["title","body","cat","link","pinned","cover","files","ts","by","updated","nf","hc","grp","dl","at","draft","views","hist"];
+async function importFile(inp){const f=inp.files[0];inp.value="";if(!f)return;let o;try{o=JSON.parse(await f.text())}catch(e){return toast("File ta valid JSON na")}
+ const arr=Array.isArray(o)?o:o&&o.posts;if(!Array.isArray(arr))return toast("Kono post paoa jayni");
+ const items=arr.filter(p=>p&&typeof p.title=="string"&&p.title.trim()).map(p=>{const d={};PF.forEach(k=>{if(p[k]!==undefined)d[k]=p[k]});if(!CATS[d.cat])d.cat="notice";if(typeof d.ts!="number")d.ts=Date.now();
+  if(JSON.stringify(d).length>950000)return null;return{id:String(p.id||"").replace(/[^A-Za-z0-9_-]/g,"").slice(0,40),d}}).filter(Boolean);
+ if(!items.length)return toast("Import korar moto post nei");
+ const ex=items.filter(x=>x.id&&S.posts.some(p=>p.id==x.id)).length;
+ if(!await confirmBox(items.length+"টি post import হবে",ex?ex+"টি আগের post overwrite হবে।":"নতুন post হিসেবে যোগ হবে।","Import",false))return;
+ try{let b=FB.writeBatch(FB.db),sz=0,n=0;for(const x of items){const ref=x.id?FB.doc(FB.db,"posts",x.id):FB.doc(FB.collection(FB.db,"posts")),l=JSON.stringify(x.d).length;
+   if(n&&(sz+l>6e6||n>=200)){await b.commit();b=FB.writeBatch(FB.db);sz=0;n=0}b.set(ref,JSON.parse(JSON.stringify(x.d)));sz+=l;n++}
+  await b.commit();logAct("import",{title:items.length+" posts"});toast(items.length+"টি import")}catch(e){toast("Import hoyni: "+(e.code||e.message))}}
+async function loadUsers(){try{const sn=await FB.getDocs(FB.collection(FB.db,"users"));S.users=sn.docs.map(d=>({id:d.id,...d.data()}));render(true)}catch(e){toast("Load hoyni: "+(e.code||e.message))}}
+function exportUsers(){saveFile("mcun-students-"+today()+".csv",csv([["Name","Email","Year","Department"],...(S.users||[]).map(u=>[u.name,u.email||"",u.year,u.dept])]),"text/csv")}
 
 /* ---- auth ---- */
 function authErr(c){return({"auth/invalid-email":"Email ta thik na.","auth/too-many-requests":"Onek beshi try hoyeche, ektu pore abar chesta korun.","auth/network-request-failed":"Internet connection check korun.","auth/operation-not-allowed":"Firebase Console → Authentication → Sign-in method-e Google ar Email/Password (Email link) enable korun.","auth/unauthorized-continue-uri":"Firebase Console → Authentication → Settings → Authorized domains-e ei site-er domain add korun.","auth/unauthorized-domain":"Firebase Console → Authentication → Settings → Authorized domains-e ei site-er domain add korun.","auth/invalid-action-code":"Link ta purono ba age-i use hoyeche — notun link nin.","auth/expired-action-code":"Link-er somoy shesh — notun link nin.","auth/popup-blocked":"Popup block hoyeche — allow kore abar chesta korun."})[c]||("Error: "+c)}
@@ -292,31 +637,32 @@ async function sendLink(e){e.preventDefault();const er=$("#aerr"),b=$("#abtn");e
  if(!FB){er.textContent="Firebase connect hoyni (file:// e kaj kore na, website-e deploy korun).";return}
  const em=$("#em").value.trim().toLowerCase();b.disabled=true;b.textContent="অপেক্ষা করুন…";
  try{await FB.sendSignInLinkToEmail(FB.auth,em,{url:location.origin+location.pathname,handleCodeInApp:true});try{localStorage.setItem("mcn_admin_email",em)}catch(x){}S.sent=em;render(false)}
- catch(x){er.textContent=authErr(x.code||x.message);b.disabled=false;b.textContent="✉ Login link পাঠান"}}
+ catch(x){er.textContent=authErr(x.code||x.message);b.disabled=false;b.innerHTML=IC("send")+" Login link পাঠান"}}
 async function googleIn(){const er=$("#aerr");if(er)er.textContent="";if(!FB)return toast("Firebase connect hoyni");
  try{await FB.signInWithPopup(FB.auth,new FB.GoogleAuthProvider())}
  catch(x){if(x.code=="auth/popup-closed-by-user"||x.code=="auth/cancelled-popup-request")return;const m=authErr(x.code||x.message);er?er.textContent=m:toast(m)}}
 function logout(){FB&&FB.signOut(FB.auth);toast("Logged out")}
 
-window.initBackend=f=>{FB=f;let uCfg=null,uMsg=null;
- FB.onSnapshot(FB.collection(FB.db,"posts"),sn=>{S.posts=sn.docs.map(d=>({id:d.id,...d.data()}));render(true)},e=>toast("Posts load hoyni: "+e.code));
+window.initBackend=f=>{FB=f;let uCfg=null,uMsg=null,uLog=null;
+ FB.onSnapshot(FB.collection(FB.db,"posts"),sn=>{S.posts=sn.docs.map(d=>({id:d.id,...d.data()}));[...S.sel].forEach(id=>{if(!S.posts.some(p=>p.id==id))S.sel.delete(id)});render(true)},e=>toast("Posts load hoyni: "+e.code));
  FB.onAuthStateChanged(FB.auth,u=>{S.ready=true;S.uid=u?u.uid:null;S.email=u?u.email:null;S.verified=!!(u&&u.emailVerified);if(u)S.sent=null;
-  uCfg&&uCfg();uMsg&&uMsg();uCfg=uMsg=null;S.emails=[];S.ids=[];S.msgs=[];S.cfg=!u;
-  if(u){uCfg=FB.onSnapshot(FB.doc(FB.db,"config","admins"),d=>{const x=d.exists()?d.data():{};S.emails=(x.emails||[]).map(v=>String(v).toLowerCase());S.ids=x.ids||[];S.cfg=true;render(true)},()=>{S.cfg=true;render(true)});
-   uMsg=FB.onSnapshot(FB.collection(FB.db,"messages"),sn=>{S.msgs=sn.docs.map(d=>({id:d.id,...d.data()}));render(true)},()=>{})}
+  uCfg&&uCfg();uMsg&&uMsg();uLog&&uLog();uCfg=uMsg=uLog=null;S.emails=[];S.ids=[];S.editors=[];S.msgs=[];S.logs=[];S.users=null;S.cfg=!u;
+  if(u){uCfg=FB.onSnapshot(FB.doc(FB.db,"config","admins"),d=>{const x=d.exists()?d.data():{};S.emails=(x.emails||[]).map(v=>String(v).toLowerCase());S.editors=(x.editors||[]).map(v=>String(v).toLowerCase());S.ids=x.ids||[];S.cfg=true;render(true)},()=>{S.cfg=true;render(true)});
+   uMsg=FB.onSnapshot(FB.collection(FB.db,"messages"),sn=>{S.msgs=sn.docs.map(d=>({id:d.id,...d.data()}));render(true)},()=>{});
+   uLog=FB.onSnapshot(FB.query(FB.collection(FB.db,"logs"),FB.orderBy("ts","desc"),FB.limit(100)),sn=>{S.logs=sn.docs.map(d=>({id:d.id,...d.data()}));render(true)},()=>{})}
   render(false)});
- // email link-e click kore ashle login complete koro
  if(FB.isSignInWithEmailLink(FB.auth,location.href)){let em="";try{em=localStorage.getItem("mcn_admin_email")||""}catch(x){}
   if(!em)em=(prompt("Link-e use kora email ta likhun (confirm korar jonno):")||"").trim().toLowerCase();
-  if(em)FB.signInWithEmailLink(FB.auth,em,location.href).then(()=>{try{localStorage.removeItem("mcn_admin_email")}catch(x){}history.replaceState(null,"",location.pathname)}).catch(x=>toast(authErr(x.code||x.message)))}};
+  if(em)FB.signInWithEmailLink(FB.auth,em,location.href).then(()=>{try{localStorage.removeItem("mcn_admin_email")}catch(x){}history.replaceState(null,"",location.pathname+location.hash)}).catch(x=>toast(authErr(x.code||x.message)))}};
 window.backendFailed=()=>{S.ready=true;render(false);toast("Firebase connect hoyni")};
 render(false);
+
 </script>
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 import {getAuth,onAuthStateChanged,signOut,sendSignInLinkToEmail,isSignInWithEmailLink,signInWithEmailLink,GoogleAuthProvider,signInWithPopup} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-import {getFirestore,collection,doc,addDoc,setDoc,deleteDoc,onSnapshot} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+import {getFirestore,collection,doc,addDoc,setDoc,updateDoc,deleteDoc,onSnapshot,writeBatch,query,orderBy,limit,getDocs} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 const firebaseConfig={apiKey:"AIzaSyAgZV0TeVSXYYnQiKqGKq7N2hAWk4FU4fo",authDomain:"muc-network-50a06.firebaseapp.com",projectId:"muc-network-50a06",storageBucket:"muc-network-50a06.firebasestorage.app",messagingSenderId:"143299318658",appId:"1:143299318658:web:5bb77c759dbd075f51359b"};
-try{const app=initializeApp(firebaseConfig);window.initBackend({auth:getAuth(app),db:getFirestore(app),onAuthStateChanged,signOut,sendSignInLinkToEmail,isSignInWithEmailLink,signInWithEmailLink,GoogleAuthProvider,signInWithPopup,collection,doc,addDoc,setDoc,deleteDoc,onSnapshot})}
+try{const app=initializeApp(firebaseConfig);window.initBackend({auth:getAuth(app),db:getFirestore(app),onAuthStateChanged,signOut,sendSignInLinkToEmail,isSignInWithEmailLink,signInWithEmailLink,GoogleAuthProvider,signInWithPopup,collection,doc,addDoc,setDoc,updateDoc,deleteDoc,onSnapshot,writeBatch,query,orderBy,limit,getDocs})}
 catch(e){console.error(e);window.backendFailed()}
 </script></body></html>
