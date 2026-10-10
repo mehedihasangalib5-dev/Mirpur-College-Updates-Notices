@@ -4,7 +4,7 @@
 <link rel="preconnect" href="https://firestore.googleapis.com"><link rel="icon" type="image/png" href="logo.png"><link rel="apple-touch-icon" href="/icon-192.png"><link rel="manifest" href="/manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MC Updates"><meta name="theme-color" content="#1d3fa8">
 <meta property="og:site_name" content="Mirpur College Updates &amp; Notices"><meta property="og:title" content="Mirpur College Updates &amp; Notices"><meta property="og:description" content="কলেজের সর্বশেষ নোটিশ, সিলেবাস, রুটিন ও আপডেট এক জায়গায়।"><meta property="og:image" content="/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap">
 <script>try{var t=localStorage.getItem("mcn_theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
-<script>try{if(!localStorage.getItem("mcn_user"))throw 0}catch(e){document.documentElement.classList.add("gated")}</script>
+<script>try{if(!localStorage.getItem("mcn_user")&&!sessionStorage.getItem("mcn_user"))throw 0}catch(e){document.documentElement.classList.add("gated")}</script>
 <title>Mirpur College Updates &amp; Notices</title>
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f4f6fb;--card:#fff;--ink:#0f172a;--mute:#64748b;--line:#e4e8f1;--pri:#2850e8;--pri2:#7c5cff;--acc:#f59e0b;--sh:0 16px 36px -16px rgba(30,50,120,.28);--hh:62px;color-scheme:light}
@@ -222,6 +222,66 @@ h2.t span .ico{width:1.05em;height:1.05em;vertical-align:0;color:var(--pri)}
 @keyframes tkm{to{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.tk-m{overflow-x:auto;scrollbar-width:none}}
 @media(max-width:600px){.hstrip{font-size:12.5px;padding:7px 12px;margin-bottom:12px}.tick{margin:-4px -2px 12px}.tk-l{padding:6px 10px}.tk-i{font-size:12.5px;padding:6px 18px 6px 12px}}
+.fcard .ft{flex-wrap:wrap;row-gap:6px}.fcard .ft .fl{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;flex:none}.fcard .ft .fl b{font-weight:700}.fcard .ft .fl i{font-style:normal;opacity:.8}.fcard .dlb{white-space:nowrap}
+.filter.mcat{display:none}
+@media(max-width:600px){.cats{display:none}.filter.mcat{display:block;width:auto;margin:12px 0 0}.filter.mcat select{height:44px;font-size:14px;border-radius:14px;padding:0 34px 0 14px;background-position:right 14px center;box-shadow:none}.fcard{width:min(270px,82vw)}}
+/* ===== auth page redesign ===== */
+#gate{position:relative;overflow:hidden;isolation:isolate;min-height:100vh;min-height:100dvh;padding:24px 16px}
+#gate::before,#gate::after{content:"";position:absolute;z-index:-1;border-radius:50%;filter:blur(64px);opacity:.5;animation:gfloat 14s ease-in-out infinite alternate;pointer-events:none}
+#gate::before{width:340px;height:340px;left:-90px;top:-80px;background:var(--pri)}
+#gate::after{width:300px;height:300px;right:-80px;bottom:-70px;background:var(--pri2);animation-delay:-6s}
+@keyframes gfloat{to{transform:translate(40px,30px) scale(1.15)}}
+.gbox{position:relative;max-width:420px;padding:30px 26px 22px;border-radius:30px;background:color-mix(in srgb,var(--card) 84%,transparent);-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);border:1px solid color-mix(in srgb,var(--pri) 18%,var(--line));box-shadow:0 30px 70px -28px color-mix(in srgb,var(--pri) 55%,#000);animation:gin .5s cubic-bezier(.2,.8,.2,1) both}
+.gbox::before{content:"";position:absolute;left:28px;right:28px;top:0;height:3px;border-radius:0 0 4px 4px;background:linear-gradient(90deg,var(--pri),var(--pri2))}
+@keyframes gin{from{opacity:0;transform:translateY(16px) scale(.98)}}
+.glogo{width:72px;height:72px;margin-bottom:12px;animation:glogo 5s ease-in-out infinite}
+@keyframes glogo{50%{transform:translateY(-4px)}}
+.gbox h1{font-size:24px}
+.gs{font-size:13.5px;line-height:1.55;margin:0 0 12px}
+.gchips{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:0 0 16px}
+.gchips span{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:99px;background:color-mix(in srgb,var(--pri) 10%,transparent);color:var(--pri)}
+.gtabs{position:relative;border-radius:16px;margin-bottom:6px}
+.gtabs::before{content:"";position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 6px);border-radius:12px;background:var(--card);box-shadow:0 4px 12px -4px rgba(0,0,0,.3);transition:transform .3s cubic-bezier(.4,.2,.2,1)}
+.gtabs[data-m="signup"]::before{transform:translateX(calc(100% + 4px))}
+.gtabs button,.gtabs button.on{position:relative;z-index:1;background:none;box-shadow:none;padding:10px}
+.gtabs button.on{color:var(--pri)}
+.gi{position:relative}
+.gi>.ico{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--mute);pointer-events:none;transition:color .2s;z-index:1}
+.gi:focus-within>.ico{color:var(--pri)}
+.gbox .gi input{padding-left:44px;height:50px;border-radius:15px}
+.gbox .pw.gi input{padding-right:48px}
+.gbox select{height:50px;border-radius:15px;appearance:none;-webkit-appearance:none;padding-right:38px;background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' fill='none' stroke='%2364748b' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 15px center}
+.gbox .two{gap:0 12px}
+.pws{height:4px;border-radius:4px;background:var(--line);margin:9px 2px 0;overflow:hidden}
+.pws i{display:block;height:100%;width:0;border-radius:4px;transition:width .3s,background .3s}
+.pwh{display:block;margin:5px 2px 0;font-size:11.5px;color:var(--mute);transition:color .2s}
+.gbox .btn{position:relative;overflow:hidden;height:52px;margin-top:18px;border-radius:15px;font-size:15px;font-weight:700;box-shadow:0 14px 26px -12px color-mix(in srgb,var(--pri) 80%,#000)}
+.gbox .btn::after{content:"";position:absolute;top:0;bottom:0;left:-80px;width:60px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:gshine 4s ease-in-out infinite;pointer-events:none}
+@keyframes gshine{0%,60%{left:-80px}100%{left:120%}}
+.gbox .btn:disabled{opacity:.75;cursor:progress}.gbox .btn:disabled::after{animation:none}
+.gerr{border-radius:14px;animation:gshake .35s}
+@keyframes gshake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.gfoot{margin-top:14px}
+.grow{display:flex;align-items:center;justify-content:space-between;gap:8px 12px;margin-top:14px;flex-wrap:wrap}
+.grow .lnk{font-size:13px}
+.grem{display:inline-flex;align-items:center;gap:9px;margin:0;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink);user-select:none}
+.grem input{appearance:none;-webkit-appearance:none;width:20px;height:20px;padding:0;margin:0;border-radius:7px;border:1.5px solid var(--line);background:var(--bg);display:grid;place-content:center;flex:none;cursor:pointer;transition:.2s;box-shadow:none}
+.grem input::after{content:"";width:10px;height:5px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(-45deg) scale(0);margin-top:-2px;transition:transform .15s}
+.grem input:checked{background:linear-gradient(135deg,var(--pri),var(--pri2));border-color:var(--pri)}
+.grem input:checked::after{transform:rotate(-45deg) scale(1)}
+.grem input:focus-visible{box-shadow:0 0 0 4px color-mix(in srgb,var(--pri) 18%,transparent)}
+.grow+.gerr{margin-top:10px}.grow~.btn{margin-top:14px}
+.gdiv{display:flex;align-items:center;gap:12px;margin:16px 0 0;color:var(--mute);font-size:12px;font-weight:600}
+.gdiv::before,.gdiv::after{content:"";flex:1;height:1px;background:var(--line)}
+.gg{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;height:50px;margin-top:14px;border-radius:15px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-weight:700;font-size:14.5px;cursor:pointer;transition:.2s}
+.gg:hover{border-color:var(--pri);transform:translateY(-1px)}.gg:active{transform:scale(.98)}.gg:disabled{opacity:.65;cursor:progress;transform:none}
+.gg svg{width:20px;height:20px;flex:none}
+.gfoot:empty{display:none}
+.gacc{display:flex;align-items:center;gap:10px;margin:0 0 6px;padding:10px 12px;border-radius:14px;background:color-mix(in srgb,var(--pri) 7%,var(--bg));border:1px solid var(--line);font-size:13px;font-weight:600;min-width:0}
+.gacc>svg{width:20px;height:20px;flex:none}.gacc>svg.ico{color:var(--mute)}
+.gacc span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gacc em{font-style:normal;font-size:11px;color:#16a34a;font-weight:700;flex:none;display:inline-flex;align-items:center;gap:3px}
+@media(max-width:600px){.gbox{padding:26px 18px 20px;border-radius:26px}.glogo{width:64px;height:64px}.gbox h1{font-size:22px}}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
 <nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="installBtn" style="display:none"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span class="hd"> Install</span></button><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="me" id="meBtn" aria-label="Profile" type="button"></button></div></header>
@@ -292,7 +352,7 @@ function card(p){const n=cnt(p),c=CATS[p.cat]||CATS.notice;
  const cv=p.cover&&ok(p.cover.url)?`<img src="${esc(p.cover.url)}" alt="">`:(!p.cover&&!S.sdk&&p.hc!==false?`<div class="cvr" data-cv="${p.id}" data-cat="${p.cat}" style="--c:${c.c}"></div>`:`<div class="cvr ph" style="--c:${c.c}">${SVG(p.cat)}</div>`);
  return `<article class="card ${isExp(p)?"expd":""} ${isRd(p.id)?"rd":""}" style="--c:${c.c}" onclick="openPost('${p.id}')">${svBtn(p.id)}${cv}<div class="cb"><div class="ctop">${tagsHTML(p)}${dlBadge(p)}</div><h3>${hl(p.title)}</h3><p>${hl(p.body)}</p><div class="meta"><span>${SVG("clock")} ${dDate(p.ts)}</span><span>${n?SVG("clip")+" "+n+" attachment":""}</span></div></div></article>`}
 function fcard(p){const c=CATS[p.cat]||CATS.notice;
- return `<article class="fcard" style="--c:${c.c}" onclick="openPost('${p.id}')"><div class="ft"><span>${SVG(p.cat)} ${c.n}${p.pinned?" · "+SVG("pin")+" Pinned":""}</span>${dlBadge(p)}</div><h3>${esc(p.title)}</h3><div class="fgo">পড়ুন →</div></article>`}
+ return `<article class="fcard" style="--c:${c.c}" onclick="openPost('${p.id}')"><div class="ft"><span class="fl">${SVG(p.cat)}<b>${c.n}</b>${p.pinned?`<i>·</i>${SVG("pin")}<b>Pinned</b>`:""}</span>${dlBadge(p)}</div><h3>${esc(p.title)}</h3><div class="fgo">পড়ুন →</div></article>`}
 const nz=t=>String(t||"").normalize("NFC").toLowerCase().replace(/[\u200c\u200d]/g,"").replace(/\u09A1\u09BC/g,"\u09DC").replace(/\u09A2\u09BC/g,"\u09DD").replace(/\u09AF\u09BC/g,"\u09DF").replace(/[\u09E6-\u09EF]/g,d=>d.charCodeAt(0)-2406);
 const toks=()=>nz(S.q).split(/\s+/).filter(Boolean);
 const match=p=>{if(!S.q)return true;const h=nz(p.title+" "+p.body);return toks().every(t=>h.includes(t))};
@@ -310,6 +370,7 @@ function pHome(){const base=S.posts.filter(p=>match(p)&&vis(p)),c=CATS[S.cat];
  return `<section class="hero">${tickHTML(base)}<img class="hero-logo" src="logo.png" alt=""><h1>সব <span>Notice, Syllabus</span><br>ও Suggestion এক জায়গায়</h1>${whoHTML()}<p>Mirpur College Updates &amp; Notices-এর সর্বশেষ আপডেট, category অনুযায়ী সাজানো।</p>${stripHTML(base)}
  <div class="sbar"><div class="search"><span class="si">${SVG("search")}</span><input id="q" placeholder="Notice, routine, result খুঁজুন…" value="${esc(S.q)}"><button class="btn sm" onclick="S.q=$('#q').value.trim();route()">Search</button></div></div></section>
  <div class="cats"><button class="chip ${S.cat?"":"on"}" onclick="setCat('')">সব (${base.length})</button>${Object.entries(CATS).map(([k,x])=>`<button class="chip ${S.cat==k?"on":""}" style="--c:${x.c}" onclick="setCat('${k}')">${SVG(k)} ${x.n} (${cc(k)})</button>`).join("")}</div>
+ <div class="filter mcat"><select aria-label="Category" onchange="setCat(this.value)"><option value="" ${S.cat?"":"selected"}>সব Category (${base.length})</option>${Object.entries(CATS).map(([k,x])=>`<option value="${k}" ${S.cat==k?"selected":""}>${x.n} (${cc(k)})</option>`).join("")}</select></div>
  <div class="stats"><div class="stat"><b>${base.length}</b><small>মোট Post</small></div><div class="stat"><b>${base.filter(p=>Date.now()-p.ts<7*DAY).length}</b><small>এই সপ্তাহে নতুন</small></div><div class="stat"><b>${base.filter(p=>p.dl&&!isExp(p)&&p.dl-Date.now()<=7*DAY).length}</b><small>Deadline ৭ দিনে</small></div></div>
  <div class="chips"><button class="btn ghost sm ${S.unread?"on":""}" onclick="S.unread=!S.unread;route()">${SVG("zap")} শুধু Unread (${base.filter(p=>!isRd(p.id)).length})</button><button class="btn ghost sm ${S.dlo?"on":""}" onclick="S.dlo=!S.dlo;route()">${SVG("hourglass")} Deadline আছে</button></div>
  ${fs.length?`<h2 class="t"><span>${SVG("pin")} গুরুত্বপূর্ণ</span><small>Pinned ও deadline কাছে</small></h2><div class="fs">${fs.map(fcard).join("")}</div>`:""}
@@ -346,13 +407,8 @@ function toggleSave(id,e){e&&e.stopPropagation();let a=SV();const on=!a.includes
  toast(on?"Saved":"Save সরানো হয়েছে");if(location.hash=="#/saved")route()}
 function incView(id){if(!S.posts.some(p=>p.id==id))return;fetch("https://firestore.googleapis.com/v1/projects/"+PROJ+"/databases/(default)/documents:commit?key="+KEY,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({writes:[{transform:{document:"projects/"+PROJ+"/databases/(default)/documents/posts/"+id,fieldTransforms:[{fieldPath:"views",increment:{integerValue:"1"}}]}}]})}).catch(()=>{})}
 function markRead(id){if(!id)return;const a=RD();if(a.includes(id))return;incView(id);lsSet("mcn_read",[id,...a].slice(0,300))}
-const dKey=n=>{const t=new Date(n);return t.getFullYear()+String(t.getMonth()+1).padStart(2,"0")+String(t.getDate()).padStart(2,"0")};
-function addCal(id){const p=FULL[id]||S.posts.find(x=>x.id==id);if(!p||!p.dl)return;
- const t=x=>String(x||"").replace(/[\\;,]/g,m=>"\\"+m).replace(/\r?\n/g,"\\n");
- const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//MCUN//BN","BEGIN:VEVENT","UID:"+id+"@mcun","DTSTAMP:"+new Date().toISOString().replace(/[-:]|\.\d+/g,""),"DTSTART;VALUE=DATE:"+dKey(p.dl),"DTEND;VALUE=DATE:"+dKey(p.dl+DAY),"SUMMARY:"+t("⏰ "+p.title),"DESCRIPTION:"+t(String(p.body||"").slice(0,300)+"\n"+location.origin+"/p/"+id),"BEGIN:VALARM","TRIGGER:-P1D","ACTION:DISPLAY","DESCRIPTION:Deadline kal","END:VALARM","END:VEVENT","END:VCALENDAR"].join("\r\n");
- const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([ics],{type:"text/calendar"}));a.download="deadline.ics";document.body.appendChild(a);a.click();a.remove();toast("Calendar file নামছে")}
-function actBar(p){const g=p.dl&&!isExp(p)?"https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("⏰ "+p.title)+"&dates="+dKey(p.dl)+"/"+dKey(p.dl+DAY)+"&details="+encodeURIComponent(location.origin+"/p/"+p.id):"";
- return `<div class="share" style="border:0;padding-top:0;margin-top:18px"><span>${SVG("star")}</span><button class="btn ghost sm" data-svl="${p.id}" onclick="toggleSave('${p.id}',event)">${SVG("star",isSv(p.id))} ${isSv(p.id)?"Saved":"Save"}</button>${g?`<a class="btn ghost sm" target="_blank" rel="noopener" href="${esc(g)}">${SVG("cal")} Google Calendar</a><button class="btn ghost sm" onclick="addCal('${p.id}')">${SVG("dl")} .ics</button>`:""}</div>`}
+function actBar(p){
+ return `<div class="share" style="border:0;padding-top:0;margin-top:18px"><span>${SVG("star")}</span><button class="btn ghost sm" data-svl="${p.id}" onclick="toggleSave('${p.id}',event)">${SVG("star",isSv(p.id))} ${isSv(p.id)?"Saved":"Save"}</button></div>`}
 function pSaved(){const l=sorted(SV().map(i=>S.posts.find(p=>p.id==i)).filter(p=>p&&vis(p)));
  return `<h2 class="t" id="list"><span>${SVG("star")} Saved Posts</span><small>${l.length} টি</small></h2><div class="grid">${!S.loaded?SK:l.length?l.map(card).join(""):`<div class="empty"><b>${SVG("star")}</b>কোনো post save করা নেই। Card-এর ${SVG("star")} চাপ দিন।</div>`}</div>`}
 function openPost(id){location.hash="#/p/"+id}
@@ -376,8 +432,14 @@ addEventListener("hashchange",()=>{route();scrollTo(0,0)});
 /* ---------- LOGIN / PROFILE ---------- */
 const U={user:null,prof:null,busy:false,mode:"login",started:false};
 const PK="mcn_user",root=document.documentElement;
-const readCache=()=>{try{return JSON.parse(localStorage.getItem(PK)||"null")}catch(e){return null}};
-const writeCache=()=>{try{U.prof?localStorage.setItem(PK,JSON.stringify(U.prof)):localStorage.removeItem(PK)}catch(e){}};
+const GSVG='<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>';
+const isG=u=>!!u&&(u.providerData||[]).some(x=>x.providerId=="google.com");
+const isFreshG=u=>isG(u)&&!!u.metadata&&u.metadata.creationTime==u.metadata.lastSignInTime;
+const REM=()=>{try{return localStorage.getItem("mcn_rem")!=="0"}catch(e){return true}};
+const readCache=()=>{try{return JSON.parse(localStorage.getItem(PK)||sessionStorage.getItem(PK)||"null")}catch(e){return null}};
+const writeCache=()=>{try{const on=REM(),a=on?localStorage:sessionStorage,b=on?sessionStorage:localStorage;b.removeItem(PK);U.prof?a.setItem(PK,JSON.stringify(U.prof)):a.removeItem(PK)}catch(e){}};
+async function setRem(auth,A,on){try{localStorage.setItem("mcn_rem",on?"1":"0")}catch(e){}
+ try{await A.setPersistence(auth,on?A.browserLocalPersistence:A.browserSessionPersistence)}catch(e){}}
 const gated=on=>root.classList.toggle("gated",on);
 const initial=n=>(String(n||"?").trim()[0]||"?").toUpperCase();
 const imgOk=u=>/^data:image\//.test(u||"");
@@ -390,27 +452,31 @@ function pagesOf(p){const g=p.grp||[];if(!g.length)return PAGES;const out=new Se
 const myPage=()=>U.prof?U.prof.year+" · "+U.prof.dept:"";
 const live=p=>!p.draft&&!(p.at&&p.at>Date.now());
 const vis=p=>!!U.prof&&live(p)&&pagesOf(p).includes(myPage());
-const AUTHERR={"auth/invalid-credential":"Email ba Password thik noy","auth/wrong-password":"Email ba Password thik noy","auth/user-not-found":"Email ba Password thik noy","auth/invalid-login-credentials":"Email ba Password thik noy","auth/email-already-in-use":"Ei email-e age-i account ache — Login tab-e jan","auth/weak-password":"Password kompokkhe 6 ta character hote hobe","auth/invalid-email":"Email ta thik noy","auth/network-request-failed":"Internet connection check korun","auth/too-many-requests":"Onek bar try hoyeche, kichukkhon pore abar chesta korun","auth/operation-not-allowed":"Firebase Console → Authentication → Sign-in method → Email/Password chalu korun"};
+const AUTHERR={"auth/invalid-credential":"Email ba Password thik noy","auth/wrong-password":"Email ba Password thik noy","auth/user-not-found":"Email ba Password thik noy","auth/invalid-login-credentials":"Email ba Password thik noy","auth/email-already-in-use":"Ei email-e age-i account ache — Login tab-e jan","auth/weak-password":"Password kompokkhe 6 ta character hote hobe","auth/invalid-email":"Email ta thik noy","auth/network-request-failed":"Internet connection check korun","auth/too-many-requests":"Onek bar try hoyeche, kichukkhon pore abar chesta korun","auth/operation-not-allowed":"Firebase Console → Authentication → Sign-in method → Email/Password chalu korun","auth/popup-blocked":"Popup block hoyeche — browser-e popup allow korun","auth/unauthorized-domain":"Firebase Console → Authentication → Settings → Authorized domains-e ei site-er domain add korun","auth/account-exists-with-different-credential":"Ei email-e onno method-e account ache — oi method-e login korun"};
 const authErr=e=>{const c=(e&&e.code)||"";return AUTHERR[c]||("Problem: "+(c||(e&&e.message)||e))};
 function paintMe(){const b=$("#meBtn");if(!U.prof||root.classList.contains("gated")){b.style.display="none";return}b.style.display="flex";b.innerHTML=avInner();b.title=U.prof.name+" — Profile"}
 const gv=id=>{const e=$("#"+id);return e?e.value:""};
-const gVals=()=>({name:gv("g_name").trim(),year:gv("g_year"),dept:gv("g_dept"),email:gv("g_email").trim()});
+const gVals=()=>({name:gv("g_name").trim(),year:gv("g_year"),dept:gv("g_dept"),email:gv("g_email").trim(),rem:$("#g_rem")?$("#g_rem").checked:undefined});
 function gErrShow(m){const e=$("#gErr");if(e){e.textContent=m||"";e.style.display=m?"block":"none"}}
 function renderGate(v){v=v||{};const m=U.mode,cp=m=="complete",su=m=="signup",re=m=="reset",p=U.prof||{};
- const nm=v.name??p.name??"",yr=v.year??p.year??"",dp=v.dept??p.dept??"";
+ const nm=v.name??p.name??"",yr=v.year??p.year??"",dp=v.dept??p.dept??"",rm=v.rem??REM();
  if(re&&U.sent){$("#gate").innerHTML=`<div class="gbox"><img class="glogo" src="logo.png" alt=""><h1>Email পাঠানো হয়েছে ${SVG("check")}</h1><p class="gs">${esc(U.sent)} ঠিকানায় Password reset link পাঠানো হয়েছে। Inbox দেখুন, না পেলে Spam folder দেখুন। Link-এ click করে নতুন Password দিন।</p><button class="btn" type="button" onclick="gMode('login')" style="width:100%;justify-content:center;margin-top:14px;padding:12px">← Login-এ ফিরে যান</button></div>`;return}
- $("#gate").innerHTML=`<div class="gbox"><img class="glogo" src="logo.png" alt=""><h1>${cp?"Profile সম্পূর্ণ করুন":re?"Password Reset "+SVG("key"):"স্বাগতম "+SVG("hand")}</h1><p class="gs">${cp?"আপনার Year ও Department select করুন":re?"আপনার Account-এর Email দিন, Password reset করার link পাঠানো হবে":su?"Account খুলে আপনার Year ও Department-এর update দেখুন":"Email ও Password দিয়ে Login করুন"}</p>
- ${cp||re?"":`<div class="gtabs"><button type="button" class="${su?"":"on"}" onclick="gMode('login')">Login</button><button type="button" class="${su?"on":""}" onclick="gMode('signup')">Sign up</button></div>`}
+ $("#gate").innerHTML=`<div class="gbox"><img class="glogo" src="logo.png" alt=""><h1>${cp?"Profile সম্পূর্ণ করুন":re?"Password Reset "+SVG("key"):"স্বাগতম "+SVG("hand")}</h1><p class="gs">${cp?(isFreshG(U.user)?"Account চালু করতে আপনার নাম, Year ও Department দিন":"আপনার Year ও Department select করুন"):re?"আপনার Account-এর Email দিন, Password reset করার link পাঠানো হবে":su?"Account খুলে আপনার Year ও Department-এর update দেখুন":"Email ও Password দিয়ে Login করুন"}</p>${cp&&U.user?`<div class="gacc">${isG(U.user)?GSVG:SVG("mail")}<span>${esc(U.user.email||p.email||"")}</span><em>${SVG("check")} Connected</em></div>`:""}${cp||re?"":`<div class="gchips"><span>${SVG("notice")} Notice</span><span>${SVG("routine")} Routine</span><span>${SVG("result")} Result</span></div>`}
+ ${cp||re?"":`<div class="gtabs" data-m="${su?"signup":"login"}"><button type="button" class="${su?"":"on"}" onclick="gMode('login')">Login</button><button type="button" class="${su?"on":""}" onclick="gMode('signup')">Sign up</button></div>`}
  <form id="gForm" onsubmit="gSubmit(event)">
- ${su||cp?`<label>Name${su||cp?" *":""}</label><input id="g_name" maxlength="80" ${su||cp?"required":""} autocomplete="name" placeholder="আপনার নাম" value="${esc(nm)}">
+ ${su||cp?`<label>Name${su||cp?" *":""}</label><div class="gi">${SVG("user")}<input id="g_name" maxlength="80" ${su||cp?"required":""} autocomplete="name" placeholder="আপনার নাম" value="${esc(nm)}"></div>
  <div class="two"><div><label>Year *</label><select id="g_year" required><option value="">Select</option>${opts(YEARS,yr)}</select></div><div><label>Department *</label><select id="g_dept" required><option value="">Select</option>${opts(DEPTS,dp)}</select></div></div>`:""}
- ${cp?"":`<label>Email *</label><input id="g_email" type="email" required maxlength="120" autocomplete="email" placeholder="you@example.com" value="${esc(v.email||"")}">
- ${re?"":`<label>Password *</label><div class="pw"><input id="g_pw" type="password" required minlength="6" maxlength="64" autocomplete="${su?"new-password":"current-password"}"><button type="button" onclick="togglePw()" aria-label="Show password">${SVG("eye")}</button></div>`}`}
+ ${cp?"":`<label>Email *</label><div class="gi">${SVG("mail")}<input id="g_email" type="email" required maxlength="120" autocomplete="email" placeholder="you@example.com" value="${esc(v.email||"")}"></div>
+ ${re?"":`<label>Password *</label><div class="pw gi">${SVG("lock")}<input id="g_pw" type="password" required minlength="6" maxlength="64" autocomplete="${su?"new-password":"current-password"}" placeholder="${su?"কমপক্ষে ৬ অক্ষর":"আপনার Password"}" ${su?'oninput="pwMeter(this.value)"':""}><button type="button" onclick="togglePw()" aria-label="Show password">${SVG("eye")}</button></div>${su?'<div class="pws"><i id="pwi"></i></div><small class="pwh" id="pwh">Password-এ অক্ষর, সংখ্যা ও চিহ্ন মেশান</small>':`<div class="grow"><label class="grem"><input type="checkbox" id="g_rem" ${rm?"checked":""}><span>মনে রাখুন</span></label><button type="button" class="lnk" onclick="gMode('reset')">Password ভুলে গেছেন?</button></div>`}`}`}
  <div class="gerr" id="gErr"></div>
  <button class="btn" id="g_btn">${cp?"Continue →":su?"Account খুলুন →":re?"Reset link পাঠান →":"Login →"}</button></form>
- <div class="gfoot">${cp?'<button type="button" class="lnk" onclick="logout()">Log out</button>':re?'<button type="button" class="lnk" onclick="gMode(\'login\')">← Login-এ ফিরে যান</button>':su?"":'<button type="button" class="lnk" onclick="gMode(\'reset\')">Password ভুলে গেছেন?</button>'}</div></div>`}
+ ${cp||re?"":`<div class="gdiv"><span>অথবা</span></div><button type="button" class="gg" id="g_google" onclick="gGoogle()">${GSVG}<span>Google দিয়ে ${su?"Sign up":"Login"} করুন</span></button>`}
+ <div class="gfoot">${cp?(isFreshG(U.user)?'<button type="button" class="lnk" id="g_cancel" onclick="cancelSetup()">বাতিল করুন — Account তৈরি হবে না</button>':'<button type="button" class="lnk" onclick="logout()">Log out</button>'):re?'<button type="button" class="lnk" onclick="gMode(\'login\')">← Login-এ ফিরে যান</button>':""}</div></div>`}
 function showGate(mode){U.mode=mode||"login";renderGate();gated(true);paintMe();scrollTo(0,0)}
 function gMode(m){const v=gVals();if(!v.email&&U.sent)v.email=U.sent;U.mode=m;U.sent=null;renderGate(v)}
+function pwMeter(v){const L=v.length,sc=!L?0:Math.min(4,(L>=6)+(L>=10)+(/[a-z]/i.test(v)&&/\d/.test(v))+(/[A-Z]|[^\w\s]/.test(v))),i=$("#pwi"),h=$("#pwh");if(!i||!h)return;
+ const C=["#e5484d","#e5484d","#f59e0b","#84cc16","#16a34a"],T=["Password-এ অক্ষর, সংখ্যা ও চিহ্ন মেশান","দুর্বল","মোটামুটি","ভালো","শক্তিশালী"];
+ i.style.width=sc*25+"%";i.style.background=C[sc];h.textContent=T[sc];h.style.color=sc?C[sc]:""}
 function togglePw(){const i=$("#g_pw"),t=i.type=="password"?"text":"password";i.type=t;const j=$("#g_pw2");if(j)j.type=t}
 async function fetchProfile(uid){try{const {db,f}=await getSDK();const sn=await f.getDoc(f.doc(db,"users",uid));return sn.exists()?sn.data():null}catch(e){return null}}
 async function saveProf(){if(!U.user||!U.prof)return false;
@@ -428,6 +494,7 @@ async function finishAuth(user,ch,isNew){
 async function gSubmit(e){e.preventDefault();if(U.busy)return;
  const v=gVals(),pw=gv("g_pw"),m=U.mode,b=$("#g_btn"),t=b.textContent;U.busy=true;b.disabled=true;b.textContent="অপেক্ষা করুন…";gErrShow("");
  try{const {auth,A}=await getSDK();
+  if(m=="login"||m=="signup")await setRem(auth,A,$("#g_rem")?$("#g_rem").checked:REM());
   if(m=="reset"){await A.sendPasswordResetEmail(auth,v.email);U.sent=v.email;U.busy=false;renderGate(v);return}
   if(m=="complete"){await finishAuth(auth.currentUser,v,true)}
   else{let cr;
@@ -436,6 +503,17 @@ async function gSubmit(e){e.preventDefault();if(U.busy)return;
    await finishAuth(cr.user,v,m=="signup")}}
  catch(x){gErrShow(authErr(x));b.disabled=false;b.textContent=t}
  U.busy=false}
+async function gGoogle(){if(U.busy)return;U.busy=true;const b=$("#g_google");if(b)b.disabled=true;gErrShow("");
+ try{const {auth,A}=await getSDK();await setRem(auth,A,$("#g_rem")?$("#g_rem").checked:REM());
+  const pr=new A.GoogleAuthProvider();pr.setCustomParameters({prompt:"select_account"});let cr;
+  try{cr=await A.signInWithPopup(auth,pr)}
+  catch(x){const c=x&&x.code;if(c=="auth/popup-blocked"||c=="auth/operation-not-supported-in-this-environment"){U.busy=false;await A.signInWithRedirect(auth,pr);return}throw x}
+  await finishAuth(cr.user,{},false)}
+ catch(x){const c=(x&&x.code)||"";if(c!="auth/popup-closed-by-user"&&c!="auth/cancelled-popup-request")gErrShow(c=="auth/operation-not-allowed"?"Firebase Console → Authentication → Sign-in method → Google chalu korun":authErr(x));if(b)b.disabled=false}
+ U.busy=false}
+async function cancelSetup(){const b=$("#g_cancel");if(b)b.disabled=true;
+ try{const {auth,A}=await getSDK(),u=auth.currentUser;if(isFreshG(u)){try{await A.deleteUser(u)}catch(e){}}}catch(e){}
+ await logout()}
 async function logout(){closeM();U.prof=null;U.user=null;writeCache();
  try{const {auth,A}=await getSDK();await A.signOut(auth)}catch(e){}
  location.hash="#/";showGate("login");toast("Log out hoyeche")}

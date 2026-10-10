@@ -71,7 +71,6 @@ E) PUSH NOTIFICATION (notun notice-e phone-e alert) -- free, Blaze lagbe na
 F) NOTUN FEATURE (client-side, kono extra setup lagbe na)
  - ⭐ Save: card-er ☆ ba post-page-er "Save" button. Nav-er "⭐ Saved" theke shob saved post (phone-e localStorage-e thake).
  - Porā post auto dim hoy, "New" tag lukay.
- - 📅 Deadline wala post-e "Google Calendar" ar ".ics" button (1 din age reminder shoho).
 
 G) ARO FEATURE
  - Admin: "Schedule" (datetime) + "Draft" checkbox + 👁 Preview. Scheduled/draft post public-e dekhay na; somoy hole nijei dekhay (page reload-e).
@@ -96,4 +95,14 @@ IMPORTANT: firestore.rules ABAR Publish korte hobe (notun: editors, messages fla
  Editor role, message Read/Star/Archive ar Activity Log kaj korbe na. Vercel redeploy-o dao (api/notify.js Editor-ke allow kore).
 Template ("Tomar template") ei device-er browser-e save thake. Push subscriber-er sonkhya Firebase theke dekha jay na.
 Scheduled post auto-notify hoy na -- shomoy hole Sob Post theke bell button chapo.
+
+H) GOOGLE LOGIN + REMEMBER ME
+ - Login/Sign up page-e "Google দিয়ে ... করুন" button ar Login tab-e "মনে রাখুন" checkbox.
+ - Google login chalu korte: Firebase Console -> Authentication -> Sign-in method -> Google -> Enable.
+ - Site-er domain (jemon xxx.vercel.app ba nijer domain) Authentication -> Settings -> Authorized domains-e add korun.
+ - Google diye prothom bar login korle Year/Department select korar screen ashe (email signup-er moto).
+ - "মনে রাখুন" off thakle browser/tab bondho korle abar login lagbe. On thakle login thake.
+ - Google diye notun user hole Name/Year/Department na dewa porjonto site-e dhukte pare na. "বাতিল করুন" chaple oi notun Google account Firebase theke delete hoye jay.
+ - Complete screen-e Email/Password field thake na, shudhu Google account-er email dekhay.
+ - Note: bhul kore tab bondho korle account Auth-e theke jay (Firestore profile chara). Porer bar dhukle abar setup screen ashe. Chaile Firebase Console -> Authentication theke muche din.
 
