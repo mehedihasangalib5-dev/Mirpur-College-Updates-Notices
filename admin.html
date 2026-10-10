@@ -456,7 +456,7 @@ function livePrev(){const el=$("#lp");if(!el||!$("#f_title"))return;
   <div class="pv-m"><span>${IC("clock")} ${fmtD(at?new Date(at).getTime():Date.now())}</span><span>${IC("file")} ${pg&&pg<PAGES.length?pg+"টি Page":"সব Page"}</span>${dr?'<span class="st st-mute">Draft</span>':sch?'<span class="st st-info">Scheduled</span>':""}</div></div></div>`}
 
 /* ---- views: posts (table) ---- */
-function pfList(){let l=S.posts.filter(p=>(!S.fc||p.cat==S.fc)&&(!S.fs||stOf(p)==S.fs)&&pfOk(p)&&(!S.q||((p.title||"")+" "+(p.body||"")).toLowerCase().includes(S.q.toLowerCase())));
+function pfList(){let l=S.posts.filter(p=>(!S.fc||p.cat==S.fc)&&(!S.fs||stOf(p)==S.fs)&&pfOk(p)&&(!S.q||((p.title||"")+" "+(p.body||"")+" "+((CATS[p.cat]||{}).n||"")+" "+(p.cat||"")).toLowerCase().includes(S.q.toLowerCase())));
  if(S.so=="views")l.sort((a,b)=>(b.views||0)-(a.views||0));else if(S.so=="old")l.sort((a,b)=>a.ts-b.ts);else if(S.so=="dl")l.sort((a,b)=>(a.dl||9e15)-(b.dl||9e15));else l=sorted(l);return l}
 function plistHTML(){const l=pfList(),n=[...S.sel].filter(id=>S.posts.some(p=>p.id==id)).length,all=l.length&&l.every(p=>S.sel.has(p.id));
  const bulkB=n?`<div class="bulk">${IC("check")}<b>${n} selected</b><button class="btn ghost sm" onclick="bulk('pin')">${IC("pin")} Pin</button><button class="btn ghost sm" onclick="bulk('unpin')">Unpin</button><button class="btn ghost sm" onclick="bulk('pub')">${IC("globe")} Publish</button><button class="btn ghost sm" onclick="bulk('exp')">${IC("clock")} Expire</button>
@@ -473,7 +473,7 @@ function selTog(id,on){on?S.sel.add(id):S.sel.delete(id);refreshPosts()}
 function selAll(on){pfList().forEach(p=>on?S.sel.add(p.id):S.sel.delete(p.id));refreshPosts()}
 function postsV(){const opt=(v,t,c)=>`<option value="${v}" ${c?"selected":""}>${t}</option>`;
  return `<h1 class="pt">সব Post <small class="cnt">${S.posts.length}</small></h1>
- <div class="tbar"><div class="sb">${IC("search")}<input id="p_q" placeholder="Title বা details খুঁজুন…" value="${esc(S.q)}" oninput="S.q=this.value;refreshPosts()"></div>
+ <div class="tbar"><div class="sb">${IC("search")}<input id="p_q" placeholder="Title, details বা category খুঁজুন…" value="${esc(S.q)}" oninput="S.q=this.value;refreshPosts()"></div>
  <select onchange="S.fc=this.value;refreshPosts()">${opt("","সব Category",!S.fc)}${Object.entries(CATS).map(([k,c])=>opt(k,c.n,S.fc==k)).join("")}</select>
  <select onchange="S.fs=this.value;refreshPosts()">${opt("","সব Status",!S.fs)}${Object.entries(STL).map(([k,v])=>opt(k,v[0],S.fs==k)).join("")}</select>
  <select onchange="S.pf=this.value;refreshPosts()">${opt("","সব Page",!S.pf)}${PAGES.map(l=>opt(esc(l),esc(short(l)),S.pf==l)).join("")}</select>

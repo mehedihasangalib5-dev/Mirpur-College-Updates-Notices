@@ -362,7 +362,9 @@ function fcard(p){const c=CATS[p.cat]||CATS.notice;
  return `<article class="fcard" style="--c:${c.c}" onclick="openPost('${p.id}')"><div class="ft"><span class="fl">${SVG(p.cat)}<b>${c.n}</b>${p.pinned?`<i>·</i>${SVG("pin")}<b>Pinned</b>`:""}</span>${dlBadge(p)}</div><h3>${esc(p.title)}</h3><div class="fgo">পড়ুন →</div></article>`}
 const nz=t=>String(t||"").normalize("NFC").toLowerCase().replace(/[\u200c\u200d]/g,"").replace(/\u09A1\u09BC/g,"\u09DC").replace(/\u09A2\u09BC/g,"\u09DD").replace(/\u09AF\u09BC/g,"\u09DF").replace(/[\u09E6-\u09EF]/g,d=>d.charCodeAt(0)-2406);
 const toks=()=>nz(S.q).split(/\s+/).filter(Boolean);
-const match=p=>{if(!S.q)return true;const h=nz(p.title+" "+p.body);return toks().every(t=>h.includes(t))};
+const CATBN={notice:"নোটিশ বিজ্ঞপ্তি",syllabus:"সিলেবাস",suggestion:"সাজেশন সাজেস্টশন",routine:"রুটিন",result:"রেজাল্ট ফলাফল",event:"ইভেন্ট অনুষ্ঠান"};
+const catWords=p=>{const c=CATS[p.cat];return c?c.n+" "+p.cat+" "+(CATBN[p.cat]||""):""}; // category-r naam (English + Bangla) search-e dhore
+const match=p=>{if(!S.q)return true;const h=nz(p.title+" "+p.body+" "+catWords(p));return toks().every(t=>h.includes(t))};
 const hl=t=>{const e=esc(t);if(!S.q)return e;const r=S.q.trim().split(/\s+/).filter(Boolean).map(x=>esc(x).replace(/[.*+?^${}()|[\]\\]/g,"\\$&"));return r.length?e.replace(new RegExp("("+r.join("|")+")","gi"),"<mark>$1</mark>"):e};
 const SK=Array(6).fill('<div class="card sk"><div class="cb"><span class="tag">&nbsp;</span><h3>&nbsp;</h3><p>&nbsp;</p></div></div>').join("");
 const urgentOf=b=>sorted(b.filter(p=>!isExp(p)&&((p.dl&&p.dl-Date.now()<=2*DAY)||(p.pinned&&p.cat=="notice")))).slice(0,6);
