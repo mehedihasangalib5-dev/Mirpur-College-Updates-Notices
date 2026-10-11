@@ -289,6 +289,39 @@ h2.t span .ico{width:1.05em;height:1.05em;vertical-align:0;color:var(--pri)}
 .ub-b{display:flex;align-items:center;gap:6px;flex:none}.ub-x{background:none;color:var(--mute);font-weight:600;font-size:12.5px;padding:6px}
 .search input:focus{box-shadow:none;border:0}
 .sclr{flex:none;width:28px;height:28px;padding:0;border-radius:50%;background:var(--bg);color:var(--mute);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;line-height:1;cursor:pointer}.sclr[hidden]{display:none}.sclr:hover{color:var(--ink);border-color:var(--pri)}
+
+/* ===== email verification (OTP) ===== */
+.vbox{text-align:center}
+.vstage{position:relative;min-height:156px;margin:4px 0 0}
+.otp{display:flex;justify-content:center;gap:8px;padding:28px 0 8px;transition:opacity .25s,transform .25s}
+.gbox .oi{width:46px;height:58px;padding:0;text-align:center;font-size:25px;font-weight:800;border-radius:14px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);caret-color:var(--pri);transition:border-color .2s,box-shadow .2s,background .2s,transform .2s}
+.gbox .oi:focus{outline:0;border-color:var(--pri);box-shadow:0 0 0 4px color-mix(in srgb,var(--pri) 16%,transparent);transform:translateY(-2px)}
+.gbox .oi.f{border-color:var(--pri);background:color-mix(in srgb,var(--pri) 8%,var(--bg))}
+.gbox .oi.err{border-color:#e5484d;background:color-mix(in srgb,#e5484d 9%,var(--bg));animation:gshake .4s}
+.vres{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;opacity:0;pointer-events:none;transform:scale(.92);transition:opacity .3s,transform .3s}
+.vstage:not([data-s="idle"]) .vres{opacity:1;transform:none}
+.vstage:not([data-s="idle"]) .otp{opacity:0;transform:scale(.94);pointer-events:none}
+.vres p{margin:0;font-weight:700;font-size:14px;color:var(--mute);padding:0 6px}
+.vres p.g{color:#16a34a}.vres p.r{color:#e5484d}
+.vspin{position:relative;width:66px;height:66px}
+.vspin i{position:absolute;inset:0;border-radius:50%;border:4px solid transparent}
+.vspin i:first-child{border-top-color:var(--pri);border-right-color:var(--pri);animation:vsp 1s cubic-bezier(.5,.1,.5,.9) infinite}
+.vspin i:last-child{inset:11px;border-bottom-color:var(--pri2);border-left-color:var(--pri2);animation:vsp .75s linear infinite reverse}
+@keyframes vsp{to{transform:rotate(360deg)}}
+.vsvg{width:74px;height:74px;fill:none;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.vsvg .c{stroke-dasharray:145;stroke-dashoffset:145;animation:vdraw .6s ease forwards}
+.vsvg .t{stroke-dasharray:50;stroke-dashoffset:50;animation:vdraw .4s .5s ease forwards}
+.vsvg.ok{stroke:#16a34a;filter:drop-shadow(0 8px 16px rgba(22,163,74,.38));animation:vpop .5s .55s ease both}
+.vsvg.bad{stroke:#e5484d;filter:drop-shadow(0 8px 16px rgba(229,72,77,.35));animation:gshake .45s .6s}
+@keyframes vdraw{to{stroke-dashoffset:0}}
+@keyframes vpop{50%{transform:scale(1.12)}}
+.vinfo{font-size:12.5px;color:var(--mute);min-height:18px;margin:6px 0 0;font-weight:600}
+.vexp{font-size:12px;font-weight:700;color:var(--mute);margin-top:2px;min-height:16px;font-variant-numeric:tabular-nums}.vexp.u{color:#e5484d}
+.vrow{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;font-size:13px;color:var(--mute)}
+.vrow .lnk:disabled{opacity:.5;cursor:not-allowed}.vrow .lnk b{font-variant-numeric:tabular-nums;font-weight:700}
+.vbox .btn{margin-top:14px}
+@media(max-width:380px){.gbox .oi{width:40px;height:52px;font-size:22px}.otp{gap:6px}}
+@media(prefers-reduced-motion:reduce){.vsvg .c,.vsvg .t{stroke-dashoffset:0!important}.vspin i:first-child{border-color:var(--pri)}}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
 <nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="installBtn" style="display:none"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span class="hd"> Install</span></button><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="me" id="meBtn" aria-label="Profile" type="button"></button></div></header>
@@ -476,7 +509,7 @@ function paintMe(){const b=$("#meBtn");if(!U.prof||root.classList.contains("gate
 const gv=id=>{const e=$("#"+id);return e?e.value:""};
 const gVals=()=>({name:gv("g_name").trim(),year:gv("g_year"),dept:gv("g_dept"),email:gv("g_email").trim(),rem:$("#g_rem")?$("#g_rem").checked:undefined});
 function gErrShow(m){const e=$("#gErr");if(e){e.textContent=m||"";e.style.display=m?"block":"none"}}
-function renderGate(v){v=v||{};const m=U.mode,cp=m=="complete",su=m=="signup",re=m=="reset",p=U.prof||{};
+function renderGate(v){v=v||{};if(U.mode=="verify"){renderVerify();return}const m=U.mode,cp=m=="complete",su=m=="signup",re=m=="reset",p=U.prof||{};
  const nm=v.name??p.name??"",yr=v.year??p.year??"",dp=v.dept??p.dept??"",rm=v.rem??REM();
  if(re&&U.sent){$("#gate").innerHTML=`<div class="gbox"><img class="glogo" src="logo.png" alt=""><h1>Email পাঠানো হয়েছে ${SVG("check")}</h1><p class="gs">${esc(U.sent)} ঠিকানায় Password reset link পাঠানো হয়েছে। Inbox দেখুন, না পেলে Spam folder দেখুন। Link-এ click করে নতুন Password দিন।</p><button class="btn" type="button" onclick="gMode('login')" style="width:100%;justify-content:center;margin-top:14px;padding:12px">← Login-এ ফিরে যান</button></div>`;return}
  $("#gate").innerHTML=`<div class="gbox"><img class="glogo" src="logo.png" alt=""><h1>${cp?"Profile সম্পূর্ণ করুন":re?"Password Reset "+SVG("key"):"স্বাগতম "+SVG("hand")}</h1><p class="gs">${cp?(isFreshG(U.user)?"Account চালু করতে আপনার নাম, Year ও Department দিন":"আপনার Year ও Department select করুন"):re?"আপনার Account-এর Email দিন, Password reset করার link পাঠানো হবে":su?"Account খুলে আপনার Year ও Department-এর update দেখুন":"Email ও Password দিয়ে Login করুন"}</p>${cp&&U.user?`<div class="gacc">${isG(U.user)?GSVG:SVG("mail")}<span>${esc(U.user.email||p.email||"")}</span><em>${SVG("check")} Connected</em></div>`:""}${cp||re?"":`<div class="gchips"><span>${SVG("notice")} Notice</span><span>${SVG("routine")} Routine</span><span>${SVG("result")} Result</span></div>`}
@@ -508,7 +541,7 @@ async function finishAuth(user,ch,isNew){
  U.user=user;
  U.prof={uid:user.uid,name:(ch.name||base.name||user.displayName||(user.email||"").split("@")[0]||"Student").slice(0,80),email:user.email||"",year:ch.year||base.year||"",dept:ch.dept||base.dept||"",photo:base.photo||""};
  if(!(YEARS.includes(U.prof.year)&&DEPTS.includes(U.prof.dept))){showGate("complete");return}
- writeCache();await saveProf();enter(true)}
+ writeCache();await saveProf();sheetSync();enter(true)}
 async function gSubmit(e){e.preventDefault();if(U.busy)return;
  const v=gVals(),pw=gv("g_pw"),m=U.mode,b=$("#g_btn"),t=b.textContent;U.busy=true;b.disabled=true;b.textContent="অপেক্ষা করুন…";gErrShow("");
  try{const {auth,A}=await getSDK();
@@ -516,9 +549,11 @@ async function gSubmit(e){e.preventDefault();if(U.busy)return;
   if(m=="reset"){await A.sendPasswordResetEmail(auth,v.email);U.sent=v.email;U.busy=false;renderGate(v);return}
   if(m=="complete"){await finishAuth(auth.currentUser,v,true)}
   else{let cr;
-   if(m=="signup"){cr=await A.createUserWithEmailAndPassword(auth,v.email,pw);try{await A.updateProfile(cr.user,{displayName:v.name})}catch(_){}}
-   else cr=await A.signInWithEmailAndPassword(auth,v.email,pw);
-   await finishAuth(cr.user,v,m=="signup")}}
+   if(m=="signup"){cr=await A.createUserWithEmailAndPassword(auth,v.email,pw);try{await A.updateProfile(cr.user,{displayName:v.name})}catch(_){}
+    await startVerify(cr.user,{name:v.name,year:v.year,dept:v.dept});U.busy=false;return}
+   cr=await A.signInWithEmailAndPassword(auth,v.email,pw);
+   if(needsVerify(cr.user)){await startVerify(cr.user,{});U.busy=false;return}
+   await finishAuth(cr.user,v,false)}}
  catch(x){gErrShow(authErr(x));b.disabled=false;b.textContent=t}
  U.busy=false}
 async function gGoogle(){if(U.busy)return;U.busy=true;const b=$("#g_google");if(b)b.disabled=true;gErrShow("");
@@ -538,9 +573,86 @@ async function logout(){closeM();U.prof=null;U.user=null;writeCache();
 async function authInit(){try{const {auth,A}=await getSDK();
  A.onAuthStateChanged(auth,async u=>{if(U.busy)return;
   if(!u){U.user=null;if(!root.classList.contains("gated")){U.prof=null;writeCache();showGate("login")}return}
-  U.user=u;const c=readCache();let pr=await fetchProfile(u.uid);if(!pr&&c&&c.uid==u.uid)pr=c;
+  U.user=u;if(needsVerify(u)){startVerify(u,loadPend(u.uid));return}const c=readCache();let pr=await fetchProfile(u.uid);if(!pr&&c&&c.uid==u.uid)pr=c;
   if(pr&&YEARS.includes(pr.year)&&DEPTS.includes(pr.dept)){U.prof={...pr,uid:u.uid,email:u.email||pr.email||""};writeCache();enter(false)}
   else{U.prof={uid:u.uid,name:u.displayName||(u.email||"").split("@")[0]||"",email:u.email||"",year:"",dept:"",photo:(pr&&pr.photo)||""};showGate("complete")}})}catch(e){}}
+/* ---------- EMAIL VERIFICATION (OTP) ---------- */
+const PEND="mcn_pend",V={iv:null,resendAt:0,expAt:0,state:"idle",sending:false};
+const needsVerify=u=>!!u&&!u.emailVerified&&!isG(u);
+const isFresh=u=>!!u&&!!u.metadata&&u.metadata.creationTime==u.metadata.lastSignInTime;
+const savePend=(uid,p)=>{try{localStorage.setItem(PEND,JSON.stringify({uid,...p}))}catch(e){}};
+const loadPend=uid=>{try{const p=JSON.parse(localStorage.getItem(PEND)||"null");return p&&p.uid==uid?p:{}}catch(e){return{}}};
+const clearPend=()=>{try{localStorage.removeItem(PEND)}catch(e){}};
+const maskEmail=e=>{const[a,b]=String(e||"").split("@");return a?a.slice(0,2)+"•".repeat(Math.max(1,Math.min(5,a.length-2)))+"@"+(b||""):""};
+const fmtT=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")};
+const wait=ms=>new Promise(z=>setTimeout(z,ms));
+async function api(path,data){const u=U.user;if(!u)throw new Error("login");const tk=await u.getIdToken();
+ const r=await fetch(path,{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+tk},body:JSON.stringify(data||{})});
+ let j={};try{j=await r.json()}catch(e){}return{...j,status:r.status}}
+function sheetSync(){try{if(U.user&&U.user.emailVerified)api("/api/sheet-sync",{}).catch(()=>{})}catch(e){}}
+async function startVerify(user,pend){U.user=user;U.pend=pend||{};if(pend&&(pend.name||pend.year))savePend(user.uid,pend);
+ U.mode="verify";U.sent=null;V.state="idle";V.resendAt=0;V.expAt=0;renderVerify();gated(true);paintMe();scrollTo(0,0);vSend(false)}
+const OTPB=()=>Array.from({length:6},(_,i)=>`<input class="oi" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="${i?"off":"one-time-code"}" aria-label="Digit ${i+1}">`).join("");
+function renderVerify(){const em=(U.user&&U.user.email)||"";
+ $("#gate").innerHTML=`<div class="gbox vbox"><img class="glogo" src="logo.png" alt=""><h1>Email যাচাই করুন ${SVG("mail")}</h1>
+ <p class="gs">আমরা <b>${esc(maskEmail(em))}</b> ঠিকানায় ৬ সংখ্যার একটি Verification Code পাঠিয়েছি। Inbox দেখুন, না পেলে Spam folder-ও দেখুন।</p>
+ <div class="vstage" id="vStage" data-s="idle"><div class="otp" id="otp">${OTPB()}</div><div class="vres" id="vRes" aria-live="polite"></div></div>
+ <div class="gerr" id="vErr"></div><div class="vinfo" id="vInfo"></div><div class="vexp" id="vExp"></div>
+ <button class="btn" id="v_btn" type="button" onclick="vSubmit()" disabled>Verify করুন →</button>
+ <div class="vrow"><span>Code পাননি?</span><button type="button" class="lnk" id="v_resend" onclick="vResend()" disabled>Resend code <b id="vTimer"></b></button></div>
+ <div class="gfoot"><button type="button" class="lnk" onclick="cancelVerify()">← ভুল email? আবার শুরু করুন</button></div></div>`;
+ wireOtp();vTick();clearInterval(V.iv);V.iv=setInterval(vTick,1000);setTimeout(()=>{const f=$(".oi");f&&f.focus()},80)}
+const otpEls=()=>[...document.querySelectorAll(".oi")];
+const otpCode=()=>otpEls().map(e=>e.value).join("");
+function otpSync(){const ins=otpEls();ins.forEach(e=>{e.classList.toggle("f",!!e.value);e.classList.remove("err")});const b=$("#v_btn");if(b)b.disabled=V.state!="idle"||otpCode().length<6}
+function otpFill(d,start){const ins=otpEls();d=d.replace(/\D/g,"").slice(0,6-start);[...d].forEach((c,k)=>{ins[start+k].value=c});
+ const n=Math.min(5,start+d.length);(ins[n]||ins[5]).focus();otpSync()}
+function otpClear(err){const ins=otpEls();ins.forEach(e=>{e.value="";e.classList.remove("f");e.classList.toggle("err",!!err)});otpSync();if(ins[0])ins[0].focus()}
+function wireOtp(){const ins=otpEls();
+ ins.forEach((el,i)=>{
+  el.addEventListener("input",()=>{const d=el.value.replace(/\D/g,"");if(d.length>2){otpFill(d,i&&d.length<6?i:0);return}el.value=d.slice(-1);if(el.value&&i<5)ins[i+1].focus();otpSync()});
+  el.addEventListener("keydown",e=>{if(e.key=="Backspace"&&!el.value&&i>0){ins[i-1].value="";ins[i-1].focus();otpSync();e.preventDefault()}
+   else if(e.key=="ArrowLeft"&&i>0){ins[i-1].focus();e.preventDefault()}else if(e.key=="ArrowRight"&&i<5){ins[i+1].focus();e.preventDefault()}
+   else if(e.key=="Enter"){e.preventDefault();vSubmit()}});
+  el.addEventListener("focus",()=>el.select());
+  el.addEventListener("paste",e=>{e.preventDefault();const t=((e.clipboardData||window.clipboardData).getData("text")||"").replace(/\D/g,"").slice(0,6);if(t)otpFill(t,0)})})}
+const SPN='<div class="vspin"><i></i><i></i></div>';
+const SOK='<svg class="vsvg ok" viewBox="0 0 52 52" aria-hidden="true"><circle class="c" cx="26" cy="26" r="23"/><path class="t" d="M15 27l8 8 14-16"/></svg>';
+const SBAD='<svg class="vsvg bad" viewBox="0 0 52 52" aria-hidden="true"><circle class="c" cx="26" cy="26" r="23"/><path class="t" d="M18 18l16 16M34 18L18 34"/></svg>';
+function vState(s,msg){V.state=s;const st=$("#vStage"),r=$("#vRes");if(!st||!r)return;st.dataset.s=s;
+ r.innerHTML=s=="loading"?SPN+`<p>${esc(msg||"যাচাই করা হচ্ছে…")}</p>`:s=="ok"?SOK+`<p class="g">${esc(msg||"সফলভাবে যাচাই হয়েছে!")}</p>`:s=="bad"?SBAD+`<p class="r">${esc(msg||"Code ঠিক নয় (Incorrect)")}</p>`:"";
+ const b=$("#v_btn");if(b)b.disabled=s!="idle"||otpCode().length<6;vTick()}
+const vErrShow=m=>{const e=$("#vErr");if(e){e.textContent=m||"";e.style.display=m?"block":"none"}};
+const vInfo=t=>{const e=$("#vInfo");if(e)e.textContent=t||""};
+function vTick(){const t=$("#vTimer");if(!t){clearInterval(V.iv);return}
+ const left=Math.max(0,Math.ceil((V.resendAt-Date.now())/1000)),rb=$("#v_resend");
+ t.textContent=left>0?"("+fmtT(left)+")":"";rb.disabled=left>0||V.sending||V.state!="idle";
+ const x=$("#vExp");if(x){const el=Math.ceil((V.expAt-Date.now())/1000);x.classList.toggle("u",V.expAt>0&&el<=60);x.textContent=!V.expAt?"":el>0?"Code-এর মেয়াদ: "+fmtT(el):"Code-এর মেয়াদ শেষ — Resend করুন"}}
+async function vSend(resend){if(V.sending)return;V.sending=true;vErrShow("");vInfo("Code পাঠানো হচ্ছে…");vTick();
+ let r;try{r=await api("/api/send-code",{resend:!!resend})}catch(e){r={error:"net"}}
+ V.sending=false;if(!$("#vStage"))return;
+ if(r.ok&&r.verified){try{await U.user.reload();await U.user.getIdToken(true)}catch(e){}const p=U.pend||{};clearPend();clearInterval(V.iv);await finishAuth(U.user,p,!!p.year);return}
+ if(r.ok){V.resendAt=Date.now()+(r.wait||0)*1000;V.expAt=Date.now()+(r.expires||600)*1000;
+  vInfo(resend?"নতুন code পাঠানো হয়েছে ✓":r.reused?"আগে পাঠানো code এখনো কার্যকর — email দেখুন":"Code পাঠানো হয়েছে ✓");if(resend)toast("নতুন code পাঠানো হয়েছে")}
+ else{vInfo("");
+  if(r.error=="wait"||r.error=="limit"){V.resendAt=Date.now()+(r.wait||60)*1000;vErrShow(r.error=="limit"?"অনেকবার code চাওয়া হয়েছে — "+fmtT(r.wait)+" পর আবার চেষ্টা করুন":"একটু অপেক্ষা করুন, তারপর Resend করুন")}
+  else{V.resendAt=0;vErrShow(r.error=="net"?"Internet connection check করুন":r.error=="quota"?"আজকের email limit শেষ — কিছুক্ষণ পর চেষ্টা করুন":"Code পাঠানো যায়নি — Resend চাপুন")}}
+ vTick()}
+function vResend(){if(V.state!="idle"||V.sending)return;otpClear();vSend(true)}
+async function vSubmit(){if(V.state!="idle")return;const code=otpCode();if(code.length<6)return;
+ vErrShow("");vState("loading");let r;
+ try{[r]=await Promise.all([api("/api/verify-code",{code}),wait(1100)])}catch(e){r={error:"net"}}
+ if(!$("#vStage"))return;
+ if(r.ok){try{await U.user.reload();await U.user.getIdToken(true)}catch(e){}
+  vState("ok");await wait(1500);const p=U.pend||{};clearPend();clearInterval(V.iv);U.busy=true;
+  try{await finishAuth(U.user,p,!!p.year)}finally{U.busy=false}return}
+ const M={wrong:"Code ঠিক নয় (Incorrect)"+(r.left>0?" — আর "+r.left+" বার চেষ্টা করতে পারবেন":""),expired:"Code-এর মেয়াদ শেষ হয়েছে",locked:"অনেকবার ভুল দিয়েছেন",net:"Internet connection check করুন"};
+ vState("bad",M[r.error]||"কিছু সমস্যা হয়েছে, আবার চেষ্টা করুন");await wait(1800);
+ if(!$("#vStage"))return;vState("idle");otpClear(r.error=="wrong");
+ if(r.error=="expired"||r.error=="locked"){V.resendAt=Math.min(V.resendAt,Date.now());vErrShow((r.error=="expired"?"Code-এর মেয়াদ শেষ":"অনেকবার ভুল code দেওয়া হয়েছে")+" — নতুন code নিতে Resend চাপুন");vTick()}}
+async function cancelVerify(){clearPend();clearInterval(V.iv);let del=false;
+ try{const{A}=await getSDK(),u=U.user;if(isFresh(u)&&needsVerify(u)){try{await A.deleteUser(u);del=true}catch(e){}}}catch(e){}
+ await logout();if(del)showGate("signup")}
 // ---- profile modal ----
 const pDraft=()=>$("#p_name")?{name:$("#p_name").value,year:$("#p_year").value,dept:$("#p_dept").value}:{};
 function openProfile(d){if(!U.prof)return;d=d||{};const p=U.prof,has=imgOk(p.photo);
@@ -560,7 +672,7 @@ async function pickPhoto(inp){const file=inp.files&&inp.files[0];if(!file)return
 async function rmPhoto(){const d=pDraft();U.prof.photo="";writeCache();paintMe();openProfile(d);if(await saveProf())toast("Photo remove hoyeche")}
 async function saveProfile(e){e.preventDefault();const d=pDraft(),b=$("#p_btn");b.disabled=true;
  U.prof={...U.prof,name:d.name.trim().slice(0,80)||U.prof.name,year:d.year,dept:d.dept};writeCache();paintMe();
- const ok=await saveProf();closeM();route();if(ok)toast("Profile update hoyeche")}
+ const ok=await saveProf();closeM();route();if(ok){sheetSync();toast("Profile update hoyeche")}}
 document.addEventListener("click",e=>{const a=e.target.closest(".dl");if(!a)return;a.classList.remove("go");void a.offsetWidth;a.classList.add("go");setTimeout(()=>a.classList.remove("go"),1000)});
 $("#meBtn").onclick=()=>openProfile();
 let DP=null;addEventListener("beforeinstallprompt",e=>{e.preventDefault();DP=e;$("#installBtn").style.display=""});

@@ -65,6 +65,7 @@ service cloud.firestore {
     match /users/{uid} {
       allow read: if request.auth != null && (request.auth.uid == uid || isAdmin());
       allow create, update: if request.auth != null && request.auth.uid == uid
+        && request.auth.token.email_verified == true     // email code diye verify na hole profile save hobe na
         && request.resource.data.keys().hasOnly(['uid','name','email','year','dept','photo','updated'])
         && request.resource.data.keys().hasAll(['uid','name','year','dept'])
         && request.resource.data.uid == uid
@@ -76,6 +77,8 @@ service cloud.firestore {
         && request.resource.data.get('updated', 0) is number;
       allow delete: if request.auth != null && (request.auth.uid == uid || isAdmin());
     }
+    // emailCodes/{uid} = verification code hash (shudhu server/Admin SDK likhe-pore; client kokhono na)
+    match /emailCodes/{id} { allow read, write: if false; }
     match /config/admins {
       allow read: if isStaff();           // Admin o Editor nijeder role jante read korte pare
       // shudhu Owner (emails[0] ba purono ids[0]) list bodlate pare

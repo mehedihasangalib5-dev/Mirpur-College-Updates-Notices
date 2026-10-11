@@ -111,3 +111,25 @@ I) APP UPDATE NOTICE
  - Eta kaj korar jonno protibar notun release deploy korar age sw.js-er V (jemon "mcn-v8") ekta bariye din (v9, v10...).
  - App khola thakle ba background theke ashle auto check hoy (protি 30 minute-o).
 
+
+=== J) EMAIL VERIFICATION CODE + GOOGLE SHEET (notun) ===
+Ki hoy:
+ - Sign up korar por email-e 6 digit code jay. Code boshiye "Verify" chaple spinner -> Success (ba Incorrect). Code 10 min-e expire, Resend 60 sec timer-er pore.
+ - Verify na kora email/password account login korle-o age code verify korte hoy.
+ - Verified student-er Name/Email/Year/Dept Google Sheet-e auto add/update hoy (Dashboard sheet-o ache).
+Setup (ekbar-i):
+ 1. Notun Google Sheet > Extensions > Apps Script > google-sheet/Code.gs-er pura code paste.
+    SECRET = "CHANGE_ME..." bodle lomba random password dao. Function "setup" Run kore Allow koro.
+ 2. Deploy > New deployment > Web app > Execute as: Me, Who has access: Anyone > Deploy > URL copy.
+ 3. Vercel > Settings > Environment Variables:
+       SHEET_WEBAPP_URL = <Web app URL>
+       SHEET_SECRET     = <Code.gs-er SECRET-er hubohu ekoi>
+    (FIREBASE_SERVICE_ACCOUNT age thekei ache -- lagbe.) Save kore Redeploy.
+ 4. firestore.rules abar Publish koro (users-e email_verified check + emailCodes lock).
+ 5. Admin Panel > Tools > Registered Students > "Google Sheet Sync" -- age-r sob student-ke ekbar Sheet-e tule dey.
+ Test: Sheet-er menu MCUN > "Send test email to me". Tarpor site-e notun account khulo.
+Note:
+ - Email Gmail diye jay (Apps Script MailApp): free Gmail-e din-e ~100 ta, Google Workspace-e ~1500 ta. Resend-o ekta kore gone.
+ - Age-r email/password user-ra next login-e ekbar code verify korbe (Google login user-der lagbe na).
+ - Code.gs bodlale: Deploy > Manage deployments > Edit > New version.
+ - Vercel Hobby plan-e function limit 12; ekhon 8 ta ache.

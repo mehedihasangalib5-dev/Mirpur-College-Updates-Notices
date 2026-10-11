@@ -510,7 +510,7 @@ function toolsV(){const u=S.users,cnt=(y,d)=>u.filter(x=>x.year==y&&x.dept==d).l
  <label>${IC("upload")} Backup Import (.json)</label><input type="file" accept=".json,application/json" onchange="importFile(this)"></div>
  <div class="panel"><h3>${IC("users")} Registered Students</h3>${u?`<div class="sts"><div><b>${u.length}</b><small>মোট</small></div>${YEARS.map(y=>`<div><b>${DEPTS.reduce((a,d)=>a+cnt(y,d),0)}</b><small>${esc(short(y))}</small></div>`).join("")}</div>
  <table class="tb"><tr><th></th>${DEPTS.map(d=>`<th>${d}</th>`).join("")}</tr>${YEARS.map(y=>`<tr><td>${esc(short(y))}</td>${DEPTS.map(d=>`<td>${cnt(y,d)}</td>`).join("")}</tr>`).join("")}</table>
- <div class="row"><button class="btn ghost sm" onclick="exportUsers()">${IC("dl")} CSV Export</button><button class="btn ghost sm" onclick="loadUsers()">Refresh</button></div>`:`<p class="mut2">Login kora student-der sonkhya o Year/Dept breakdown.</p><button class="btn" onclick="loadUsers()">${IC("users")} Load korun</button>`}
+ <div class="row"><button class="btn ghost sm" onclick="exportUsers()">${IC("dl")} CSV Export</button><button class="btn ghost sm" onclick="syncSheet()">${IC("upload")} Google Sheet Sync</button><button class="btn ghost sm" onclick="loadUsers()">Refresh</button></div>`:`<p class="mut2">Login kora student-der sonkhya o Year/Dept breakdown.</p><button class="btn" onclick="loadUsers()">${IC("users")} Load korun</button>`}
  <small class="mut2">Push subscriber-er sonkhya Firebase theke dekha jay na (topic subscription count dey na).</small></div></div>
  <div class="panel"><h3>${IC("history")} Activity Log <small>· শেষ ${S.logs.length}টি</small></h3>${S.logs.map(l=>{const a=ACT[l.act]||[l.act,"history"];return `<div class="li rc"><span class="rc-i">${IC(a[1])}</span><div><b>${esc(nameOf(l.email))} <span class="mut">${a[0]}</span></b><small>${l.title?esc(l.title)+" · ":""}${fmt(l.ts)}</small></div></div>`}).join("")||"<small>এখনো কোনো activity নেই</small>"}</div></div>`}
 
@@ -629,6 +629,9 @@ async function importFile(inp){const f=inp.files[0];inp.value="";if(!f)return;le
    if(n&&(sz+l>6e6||n>=200)){await b.commit();b=FB.writeBatch(FB.db);sz=0;n=0}b.set(ref,JSON.parse(JSON.stringify(x.d)));sz+=l;n++}
   await b.commit();logAct("import",{title:items.length+" posts"});toast(items.length+"টি import")}catch(e){toast("Import hoyni: "+(e.code||e.message))}}
 async function loadUsers(){try{const sn=await FB.getDocs(FB.collection(FB.db,"users"));S.users=sn.docs.map(d=>({id:d.id,...d.data()}));render(true)}catch(e){toast("Load hoyni: "+(e.code||e.message))}}
+async function syncSheet(){const u=FB.auth.currentUser;if(!u){toast("login lagbe");return}toast("Google Sheet-e sync hocche…");
+ try{const tk=await u.getIdToken(),r=await fetch("/api/sheet-sync",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+tk},body:JSON.stringify({all:true})}),j=await r.json().catch(()=>({}));
+  toast(j.ok?"Sheet sync hoyeche ("+j.count+" jon)":"Sync hoyni: "+(j.error||r.status))}catch(e){toast("Sync hoyni: "+(e.message||e))}}
 function exportUsers(){saveFile("mcun-students-"+today()+".csv",csv([["Name","Email","Year","Department"],...(S.users||[]).map(u=>[u.name,u.email||"",u.year,u.dept])]),"text/csv")}
 
 /* ---- auth ---- */
