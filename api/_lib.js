@@ -1,5 +1,6 @@
 // Shared helper (underscore = Vercel eta route hishebe dekhabe na)
 const admin = require("firebase-admin");
+const crypto = require("crypto");
 
 const TOPIC = "notices";
 
@@ -27,4 +28,52 @@ function body(req) {
   return b || {};
 }
 
-module.exports = { init, TOPIC, sameOrigin, body };
+// "Authorization: Bearer <Firebase ID token>" -> decoded token (ba null)
+async function bearerUser(adm, req) {
+  const m = /^Bearer (.+)$/.exec(req.headers.authorization || "");
+  if (!m) return null;
+  try { return await adm.auth().verifyIdToken(m[1]); } catch (e) { return null; }
+}
+
+// Owner / Admin (Editor noy) -- config/admins
+async function isAdminUser(adm, user) {
+  const cfg = await adm.firestore().doc("config/admins").get();
+  const c = cfg.exists ? cfg.data() : {};
+  const ids = c.ids || [];
+  const emails = (c.emails || []).map((e) => String(e).toLowerCase());
+  const em = user.email_verified === true && user.email ? String(user.email).toLowerCase() : "";
+  return ids.includes(user.uid) || (!!em && emails.includes(em));
+}
+
+// ---- OTP hash (code kokhono plain-e Firestore-e thake na) ----
+function otpKey() {
+  const k = process.env.OTP_SECRET || process.env.SHEET_SECRET;
+  if (!k) throw new Error("SHEET_SECRET not set");
+  return k;
+}
+const hashCode = (uid, code) => crypto.createHmac("sha256", otpKey()).update(uid + ":" + code).digest("hex");
+function safeEq(a, b) {
+  const x = Buffer.from(String(a)), y = Buffer.from(String(b));
+  return x.length === y.length && crypto.timingSafeEqual(x, y);
+}
+
+// ---- Google Apps Script (Sheet + Mail) ----
+async function callSheet(payload, timeoutMs) {
+  const url = process.env.SHEET_WEBAPP_URL, secret = process.env.SHEET_SECRET;
+  if (!url || !secret) throw new Error("SHEET_WEBAPP_URL / SHEET_SECRET not set");
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), timeoutMs || 20000);
+  try {
+    const r = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },   // Apps Script-e preflight laga bondho
+      body: JSON.stringify({ ...payload, secret }),
+      redirect: "follow",
+      signal: ctrl.signal,
+    });
+    const txt = await r.text();
+    try { return JSON.parse(txt); } catch (e) { return { ok: false, error: "bad response (Web app Anyone access + latest deployment check korun)" }; }
+  } finally { clearTimeout(t); }
+}
+
+module.exports = { init, TOPIC, sameOrigin, body, bearerUser, isAdminUser, hashCode, safeEq, callSheet };
