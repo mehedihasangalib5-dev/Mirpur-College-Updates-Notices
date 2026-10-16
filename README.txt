@@ -133,3 +133,29 @@ Note:
  - Age-r email/password user-ra next login-e ekbar code verify korbe (Google login user-der lagbe na).
  - Code.gs bodlale: Deploy > Manage deployments > Edit > New version.
  - Vercel Hobby plan-e function limit 12; ekhon 8 ta ache.
+
+=== K) ADMIN PANEL: STUDENTS (block / remove) ===
+ - Admin Panel > "Students" tab: sob student-er Name, Email, Year, Department, Status. Search + Year/Dept/Status filter.
+ - Block   : Firebase account disable + session revoke + users/{uid}.blocked. Student login korte parbe na ("account block kora hoyeche" dekhabe).
+ - Unblock : abar chalu.   Remove: Auth account + profile + Google Sheet row muche jay (ferano jay na).
+ - Owner/Admin chara keu parbe na. Admin/Editor account ba nijeke block/remove kora jay na.
+ - Dashboard-e "মোট Student" card + Year x Department chart. Google Sheet Dashboard-e Blocked count + Status = Blocked.
+ - Notun file: api/user-admin.js  (Vercel-e age-r mot-i FIREBASE_SERVICE_ACCOUNT, SHEET_WEBAPP_URL, SHEET_SECRET lagbe)
+ - Code.gs bodleche -> Apps Script-e paste kore Deploy > Manage deployments > Edit > New version.
+ - Vercel Hobby function limit 12: ekhon 9 ta (env-check.js delete korle 8).
+
+=== L) AUTO NOTIFICATION (student-er phone/device-e) ===
+ Kivabe kaj kore:
+  - Student login korle (ba site khulle) browser ekbar bhodro vabe "Notice-er alert chalu korun" jiggesh kore. Allow korle device auto subscribe hoy.
+    Age Allow dewa thakle kono prompt chhara chupchap subscribe hoy. Profile-e notification ON/OFF toggle ache.
+  - Admin Panel-e notun Post Publish korle ("Publish-er sathe sathe ... notification" tick thakle -- new post-e default tick) sob subscribed device-e
+    notification jay, phone lock thakleo/site bondho thakleo. Tap korle oi post khule.
+  - Logout korle oi device-e notification bondho. Block/Remove korle student-er sob device theke bondho.
+ Setup (ekbar-i):
+  1. Firebase Console > Project settings > Cloud Messaging > "Web Push certificates" > Generate key pair > PUBLIC key copy.
+  2. Vercel > Environment Variables: VAPID_PUBLIC_KEY = <oi public key>   (Redeploy korte hobe)
+  3. FIREBASE_SERVICE_ACCOUNT age-r moto lagbe. Firebase Cloud Messaging API (V1) Enabled thakte hobe.
+  4. Deploy. User-der app-e "Update" banner ashle ekbar Update chapte hobe (sw.js notun).
+ Note:
+  - iPhone (iOS 16.4+): Safari -> Share -> "Add to Home Screen" kore home screen-er app theke khulte hobe, tahole-i notification ashbe.
+  - Scheduled post-e auto notification jay na (shomoy hole admin Sob Post theke bell button chapo).

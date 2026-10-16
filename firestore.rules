@@ -79,6 +79,8 @@ service cloud.firestore {
     }
     // emailCodes/{uid} = verification code hash (shudhu server/Admin SDK likhe-pore; client kokhono na)
     match /emailCodes/{id} { allow read, write: if false; }
+    // pushTokens/{uid} = student-er device token (shudhu server likhe-pore)
+    match /pushTokens/{id} { allow read, write: if false; }
     match /config/admins {
       allow read: if isStaff();           // Admin o Editor nijeder role jante read korte pare
       // shudhu Owner (emails[0] ba purono ids[0]) list bodlate pare

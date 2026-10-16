@@ -322,6 +322,18 @@ h2.t span .ico{width:1.05em;height:1.05em;vertical-align:0;color:var(--pri)}
 .vbox .btn{margin-top:14px}
 @media(max-width:380px){.gbox .oi{width:40px;height:52px;font-size:22px}.otp{gap:6px}}
 @media(prefers-reduced-motion:reduce){.vsvg .c,.vsvg .t{stroke-dashoffset:0!important}.vspin i:first-child{border-color:var(--pri)}}
+/* ===== push notification ===== */
+.pbar{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);width:min(470px,calc(100vw - 24px));z-index:60;background:var(--card,var(--bg));color:var(--ink);border:1px solid var(--line);border-radius:20px;box-shadow:var(--sh);padding:14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;animation:pbin .4s ease}
+.pbar-i{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--pri),var(--pri2));flex:none}
+.pbar-i svg{width:22px;height:22px}
+.pbar>div:nth-child(2){flex:1;min-width:170px}.pbar b{display:block;font-size:14.5px}.pbar small{display:block;color:var(--mute);font-size:12.5px;line-height:1.4;margin-top:2px}
+.pbar-a{display:flex;gap:8px;width:100%;justify-content:flex-end}
+.pbar .btn{width:auto;height:auto;margin:0;padding:9px 16px;font-size:13.5px}
+@keyframes pbin{from{opacity:0;transform:translate(-50%,16px)}}
+.pf-nr{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 0 4px;padding:10px 12px;border:1px solid var(--line);border-radius:14px}
+.pf-nr span{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px}.pf-nr span svg{width:18px;height:18px}
+.pf-nr b{font-size:12px;padding:2px 9px;border-radius:99px;background:color-mix(in srgb,var(--mute) 18%,transparent)}.pf-nr b.g{background:color-mix(in srgb,#16a34a 18%,transparent);color:#16a34a}
+.pf-nr .btn{width:auto;margin:0;height:auto;padding:8px 14px;font-size:13px}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
 <nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="installBtn" style="display:none"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span class="hd"> Install</span></button><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="me" id="meBtn" aria-label="Profile" type="button"></button></div></header>
@@ -503,7 +515,7 @@ function pagesOf(p){const g=p.grp||[];if(!g.length)return PAGES;const out=new Se
 const myPage=()=>U.prof?U.prof.year+" · "+U.prof.dept:"";
 const live=p=>!p.draft&&!(p.at&&p.at>Date.now());
 const vis=p=>!!U.prof&&live(p)&&pagesOf(p).includes(myPage());
-const AUTHERR={"auth/invalid-credential":"Email ba Password thik noy","auth/wrong-password":"Email ba Password thik noy","auth/user-not-found":"Email ba Password thik noy","auth/invalid-login-credentials":"Email ba Password thik noy","auth/email-already-in-use":"Ei email-e age-i account ache — Login tab-e jan","auth/weak-password":"Password kompokkhe 6 ta character hote hobe","auth/invalid-email":"Email ta thik noy","auth/network-request-failed":"Internet connection check korun","auth/too-many-requests":"Onek bar try hoyeche, kichukkhon pore abar chesta korun","auth/operation-not-allowed":"Firebase Console → Authentication → Sign-in method → Email/Password chalu korun","auth/popup-blocked":"Popup block hoyeche — browser-e popup allow korun","auth/unauthorized-domain":"Firebase Console → Authentication → Settings → Authorized domains-e ei site-er domain add korun","auth/account-exists-with-different-credential":"Ei email-e onno method-e account ache — oi method-e login korun"};
+const AUTHERR={"auth/invalid-credential":"Email ba Password thik noy","auth/wrong-password":"Email ba Password thik noy","auth/user-not-found":"Email ba Password thik noy","auth/invalid-login-credentials":"Email ba Password thik noy","auth/email-already-in-use":"Ei email-e age-i account ache — Login tab-e jan","auth/weak-password":"Password kompokkhe 6 ta character hote hobe","auth/invalid-email":"Email ta thik noy","auth/user-disabled":"Apnar account block kora hoyeche — college admin-er sathe jogajog korun","auth/network-request-failed":"Internet connection check korun","auth/too-many-requests":"Onek bar try hoyeche, kichukkhon pore abar chesta korun","auth/operation-not-allowed":"Firebase Console → Authentication → Sign-in method → Email/Password chalu korun","auth/popup-blocked":"Popup block hoyeche — browser-e popup allow korun","auth/unauthorized-domain":"Firebase Console → Authentication → Settings → Authorized domains-e ei site-er domain add korun","auth/account-exists-with-different-credential":"Ei email-e onno method-e account ache — oi method-e login korun"};
 const authErr=e=>{const c=(e&&e.code)||"";return AUTHERR[c]||("Problem: "+(c||(e&&e.message)||e))};
 function paintMe(){const b=$("#meBtn");if(!U.prof||root.classList.contains("gated")){b.style.display="none";return}b.style.display="flex";b.innerHTML=avInner();b.title=U.prof.name+" — Profile"}
 const gv=id=>{const e=$("#"+id);return e?e.value:""};
@@ -533,7 +545,7 @@ async function fetchProfile(uid){try{const {db,f}=await getSDK();const sn=await 
 async function saveProf(){if(!U.user||!U.prof)return false;
  try{const {db,f}=await getSDK(),p=U.prof;await f.setDoc(f.doc(db,"users",U.user.uid),{uid:U.user.uid,name:p.name,email:p.email||"",year:p.year,dept:p.dept,photo:p.photo||"",updated:Date.now()});return true}
  catch(e){toast("Server-e save hoyni — Firestore rules update korun (ei device-e save ache)");return false}}
-function enter(fresh){gated(false);paintMe();route();
+function enter(fresh){gated(false);paintMe();route();pushAuto();
  if(fresh){S.t=0;toast("স্বাগতম, "+U.prof.name+"")}
  if(!S.started){S.started=true;refresh()}}
 async function finishAuth(user,ch,isNew){
@@ -567,15 +579,56 @@ async function gGoogle(){if(U.busy)return;U.busy=true;const b=$("#g_google");if(
 async function cancelSetup(){const b=$("#g_cancel");if(b)b.disabled=true;
  try{const {auth,A}=await getSDK(),u=auth.currentUser;if(isFreshG(u)){try{await A.deleteUser(u)}catch(e){}}}catch(e){}
  await logout()}
-async function logout(){closeM();U.prof=null;U.user=null;writeCache();
+async function logout(){closeM();try{await Promise.race([pushOff(),wait(2500)])}catch(e){}U.prof=null;U.user=null;writeCache();
  try{const {auth,A}=await getSDK();await A.signOut(auth)}catch(e){}
  location.hash="#/";showGate("login");toast("Log out hoyeche")}
 async function authInit(){try{const {auth,A}=await getSDK();
  A.onAuthStateChanged(auth,async u=>{if(U.busy)return;
   if(!u){U.user=null;if(!root.classList.contains("gated")){U.prof=null;writeCache();showGate("login")}return}
-  U.user=u;if(needsVerify(u)){startVerify(u,loadPend(u.uid));return}const c=readCache();let pr=await fetchProfile(u.uid);if(!pr&&c&&c.uid==u.uid)pr=c;
+  U.user=u;if(needsVerify(u)){startVerify(u,loadPend(u.uid));return}const c=readCache();let pr=await fetchProfile(u.uid);if(pr&&pr.blocked){await blockedOut();return}if(!pr&&c&&c.uid==u.uid)pr=c;
   if(pr&&YEARS.includes(pr.year)&&DEPTS.includes(pr.dept)){U.prof={...pr,uid:u.uid,email:u.email||pr.email||""};writeCache();enter(false)}
   else{U.prof={uid:u.uid,name:u.displayName||(u.email||"").split("@")[0]||"",email:u.email||"",year:"",dept:"",photo:(pr&&pr.photo)||""};showGate("complete")}})}catch(e){}}
+async function blockedOut(){try{const{auth,A}=await getSDK();await A.signOut(auth)}catch(e){}U.user=null;U.prof=null;writeCache();showGate("login");gErrShow("Apnar account block kora hoyeche — college admin-er sathe jogajog korun")}
+/* ---------- PUSH NOTIFICATION (login-er por auto) ---------- */
+const PKEY="mcn_push",PASK="mcn_push_ask",PPREF="mcn_push_pref",PTS="mcn_push_t";
+const pushOK=()=>"Notification" in window&&"serviceWorker" in navigator&&"PushManager" in window;
+const pGet=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+const pSet=(k,v)=>{try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}};
+async function pApi(data){const u=U.user;if(!u)throw new Error("login");const tk=await u.getIdToken();
+ const r=await fetch("/api/subscribe",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+tk},body:JSON.stringify(data)});
+ let j={};try{j=await r.json()}catch(e){}return{...j,status:r.status}}
+// ask=true hole permission chay (button tap-er por). Return: on | default | denied | unsupported | nokey | error
+async function pushOn(ask){
+ if(!pushOK()||!U.user)return"unsupported";
+ let perm=Notification.permission;if(perm=="denied")return"denied";
+ if(perm=="default"){if(!ask)return"default";perm=await Notification.requestPermission();if(perm!="granted")return perm=="denied"?"denied":"default"}
+ try{const cfg=await fetch("/api/subscribe").then(r=>r.json());if(!cfg.vapid)return"nokey";
+  const{app}=await getSDK();const M=await import("https://www.gstatic.com/firebasejs/12.19.0/firebase-messaging.js");
+  if(!(await M.isSupported()))return"unsupported";
+  const reg=await navigator.serviceWorker.ready;
+  const token=await M.getToken(M.getMessaging(app),{vapidKey:cfg.vapid,serviceWorkerRegistration:reg});
+  if(!token)return"error";
+  const r=await pApi({token,action:"sub"});if(!r.ok)return"error";
+  pSet(PKEY,token);pSet(PTS,String(Date.now()));pSet(PPREF,"on");return"on"}catch(e){return"error"}}
+async function pushOff(){const t=pGet(PKEY);pSet(PKEY,null);pSet(PTS,null);if(!t||!U.user)return;try{await pApi({token:t,action:"unsub"})}catch(e){}}
+function pushAuto(){if(!pushOK()||!U.user||pGet(PPREF)=="off")return;
+ const p=Notification.permission;
+ if(p=="granted"){if(pGet(PKEY)&&Date.now()-(+pGet(PTS)||0)<432e5)return;pushOn(false);return}   // age allow dewa thakle chupchap subscribe
+ if(p=="default"&&Date.now()-(+pGet(PASK)||0)>3*864e5)setTimeout(pushPrompt,2500)}              // na hole ekbar bhodro prompt
+function pushPrompt(){if($("#pbar")||!U.prof||Notification.permission!="default")return;
+ const d=document.createElement("div");d.id="pbar";d.className="pbar";
+ d.innerHTML=`<span class="pbar-i">${SVG("bell")}</span><div><b>Notice-er alert chalu korun</b><small>Notun Notice, Routine ba Result ashle phone-e sathe sathe jante parben.</small></div><div class="pbar-a"><button class="btn ghost sm" id="pb_no" type="button">Pore</button><button class="btn sm" id="pb_on" type="button">Chalu korun</button></div>`;
+ document.body.appendChild(d);
+ $("#pb_on").onclick=async()=>{d.remove();pushToast(await pushOn(true))};
+ $("#pb_no").onclick=()=>{pSet(PASK,String(Date.now()));d.remove()}}
+function pushToast(r){toast(r=="on"?"Notification chalu hoyeche ✓":r=="denied"?"Browser-e notification block kora — Site settings theke Allow korun":r=="nokey"?"Notification setup shesh hoyni — Admin-ke janan":r=="unsupported"?"Ei browser-e notification hoy na (iPhone-e Share → Add to Home Screen korun)":r=="default"?"Notification allow kora hoyni":"Notification chalu hoyni, abar chesta korun")}
+const pIsOn=()=>pushOK()&&Notification.permission=="granted"&&pGet(PPREF)!="off"&&!!pGet(PKEY);
+function pfNotif(){const e=$("#pfN");if(!e)return;
+ if(!pushOK()){e.innerHTML=`<small class="mut">Ei browser-e notification support kore na${/iPhone|iPad/.test(navigator.userAgent)?" — Safari → Share → Add to Home Screen kore app theke khulun":""}</small>`;return}
+ const p=Notification.permission,on=pIsOn();
+ e.innerHTML=`<div class="pf-nr"><span>${SVG("bell")} Notice notification <b class="${on?"g":""}">${on?"ON":p=="denied"?"Blocked":"OFF"}</b></span>${p=="denied"?"":`<button type="button" class="btn ghost sm" id="pf_nb" onclick="pfNtog()">${on?"Bondho korun":"Chalu korun"}</button>`}</div>${p=="denied"?`<small class="mut">Browser Site settings theke Notifications Allow korun</small>`:""}`}
+async function pfNtog(){const b=$("#pf_nb");if(b)b.disabled=true;
+ if(pIsOn()){await pushOff();pSet(PPREF,"off");toast("Notification bondho hoyeche")}else{pushToast(await pushOn(true))}pfNotif()}
 /* ---------- EMAIL VERIFICATION (OTP) ---------- */
 const PEND="mcn_pend",V={iv:null,resendAt:0,expAt:0,state:"idle",sending:false};
 const needsVerify=u=>!!u&&!u.emailVerified&&!isG(u);
@@ -661,8 +714,9 @@ function openProfile(d){if(!U.prof)return;d=d||{};const p=U.prof,has=imgOk(p.pho
  <form onsubmit="saveProfile(event)"><label>Name *</label><input id="p_name" required maxlength="80" value="${esc(d.name??p.name)}">
  <div class="two"><div><label>Year *</label><select id="p_year" required>${opts(YEARS,d.year??p.year)}</select></div><div><label>Department *</label><select id="p_dept" required>${opts(DEPTS,d.dept??p.dept)}</select></div></div>
  <label>Email</label><input value="${esc(p.email)}" disabled>
+ <div id="pfN"></div>
  <div class="row"><button class="btn" id="p_btn">${SVG("check")} Save</button><button type="button" class="btn ghost" onclick="closeM()">Cancel</button><button type="button" class="btn danger" onclick="logout()"><svg class="lo-ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg><span>Log out</span></button></div></form>`;
- $("#modal").classList.add("open")}
+ $("#modal").classList.add("open");pfNotif()}
 function resizeImg(file,size){return new Promise((res,rej)=>{const url=URL.createObjectURL(file),im=new Image();
  im.onload=()=>{try{const s=Math.min(im.width,im.height),c=document.createElement("canvas");c.width=c.height=size;c.getContext("2d").drawImage(im,(im.width-s)/2,(im.height-s)/2,s,s,0,0,size,size);URL.revokeObjectURL(url);res(c.toDataURL("image/jpeg",.82))}catch(e){rej(e)}};
  im.onerror=()=>{URL.revokeObjectURL(url);rej(new Error("img"))};im.src=url})}

@@ -1,6 +1,6 @@
 // Service worker: app-er moto install + offline shell. Admin ar API kokhono cache hoy na.
 // Notun release dile ei V ta bodlan: tahole user-der app-e "Update" notice jabe.
-const V = "mcn-v12";
+const V = "mcn-v14";
 const SHELL = ["/", "/logo.png", "/icon-192.png", "/manifest.webmanifest"];
 
 self.addEventListener("install", (e) => {
@@ -33,6 +33,34 @@ self.addEventListener("fetch", (e) => {
     caches.match(r).then((hit) => {
       const net = fetch(r).then((res) => { if (res.ok) { const copy = res.clone(); caches.open(V).then((c) => c.put(r, copy)); } return res; }).catch(() => hit || Response.error());
       return hit || net;
+    })
+  );
+});
+
+// ---- Push notification (FCM data message) ----
+self.addEventListener("push", (e) => {
+  let d = {};
+  try { const j = e.data ? e.data.json() : {}; d = j.data || j.notification || j; }
+  catch (_) { try { d = { body: e.data.text() }; } catch (__) {} }
+  const title = d.title || "Mirpur College Updates";
+  e.waitUntil(self.registration.showNotification(title, {
+    body: d.body || "",
+    icon: "/icon-192.png",
+    badge: "/icon-192.png",
+    tag: d.tag || "mcn",
+    data: { url: d.url || "/" },
+  }));
+});
+
+self.addEventListener("notificationclick", (e) => {
+  e.notification.close();
+  const url = (e.notification.data && e.notification.data.url) || "/";
+  e.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((cs) => {
+      for (const c of cs) {
+        if ("focus" in c) { if (c.navigate) c.navigate(url).catch(() => {}); return c.focus(); }
+      }
+      return self.clients.openWindow(url);
     })
   );
 });
