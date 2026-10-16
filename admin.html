@@ -252,6 +252,14 @@ h3 .ico,.ic-h .ico{vertical-align:-.2em;color:var(--pri)}.ic-h{display:flex;alig
 .su-i{flex:1;min-width:160px}.su-i b{display:block}.su-i small{color:var(--mute);word-break:break-all}
 .su-m{display:flex;gap:6px;flex-wrap:wrap;align-items:center}.su-a{display:flex;gap:6px;flex-wrap:wrap}
 .su.bl .su-av{background:#9ca3af}.su.bl .su-i b{opacity:.6}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px}
+.seg button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px;border-radius:99px;font-weight:700;font-size:13px}
+.seg button.on{background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;border-color:transparent}
+.nf-c{margin:10px 0;padding:10px 12px;border-radius:14px;background:var(--bg);font-size:14px}
+.nf-sel{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.nfp{display:flex;gap:12px;align-items:flex-start;background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:12px}
+.nfp.u{border-color:#e5484d}.nfp img{width:40px;height:40px;border-radius:10px;flex:none}
+.nfp b{display:block}.nfp small{display:block;color:var(--mute);word-break:break-word}.nfp i{display:block;font-size:11px;color:var(--mute);font-style:normal;margin-top:4px}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="admin.html"><img src="/logo.png" onerror="this.onerror=null;this.src=LOGO_FB" alt="Logo">Admin Panel</a><div class="sp"></div>
 <div class="hdr-r"><span id="who"></span><a class="btn ghost sm" href="index.html" target="_blank" rel="noopener" aria-label="Website"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></svg><span class="hd"> Website</span></a><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="btn ghost sm" id="outBtn" style="display:none" onclick="logout()" aria-label="Logout"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/></svg><span class="hd"> Logout</span></button></div></div></header>
@@ -332,7 +340,7 @@ const isOwner=()=>!!S.uid&&(S.ids[0]===S.uid||(S.verified&&S.emails[0]===me()));
 const isEditor=()=>!!S.uid&&S.verified&&S.editors.includes(me())&&!isAdmin();
 const isStaff=()=>isAdmin()||isEditor();
 const roleOf=()=>isOwner()?"Owner":isAdmin()?"Admin":isEditor()?"Editor":"";
-const TABS=[["dash","dash","Dashboard",0,"Home"],["new","plus","নতুন Post",0,"নতুন"],["posts","list","সব Post",0,"Posts"],["msgs","mail","Messages",1,"Inbox"],["students","userplus","Students",1,"Students"],["people","users","Admins",1,"Admins"],["tools","tool","Tools",1,"Tools"]];
+const TABS=[["dash","dash","Dashboard",0,"Home"],["new","plus","নতুন Post",0,"নতুন"],["posts","list","সব Post",0,"Posts"],["msgs","mail","Messages",1,"Inbox"],["students","userplus","Students",1,"Students"],["notify","bell","Notify",1,"Notify"],["people","users","Admins",1,"Admins"],["tools","tool","Tools",1,"Tools"]];
 const allowed=t=>!t[3]||isAdmin();
 function go(t){if(location.hash=="#"+t){S.tab=t;render(true);scrollTo(0,0)}else location.hash=t}
 addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(TABS.some(t=>t[0]==h)){S.tab=h;render(true);scrollTo(0,0)}});
@@ -384,7 +392,7 @@ function loginV(){let saved="";try{saved=localStorage.getItem("mcn_admin_email")
 function bucket(a,k,days){const now=Date.now(),r=Array(days).fill(0);a.forEach(x=>{const i=days-1-Math.floor((now-(typeof k=="function"?k(x):x[k]))/DAY);if(i>=0&&i<days)r[i]++});return r}
 function spark(a,col){const w=100,h=30,m=Math.max(1,...a),pts=a.map((v,i)=>[+(i*(w/(a.length-1||1))).toFixed(1),+(h-3-(v/m)*(h-8)).toFixed(1)]),d=pts.map(p=>p.join(",")).join(" ");
  return `<svg class="spk" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,${h} ${d} ${w},${h}" fill="${col}" opacity=".15"/><polyline points="${d}" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>`}
-const ACT={create:["notun post করেছে","plus"],edit:["post edit করেছে","edit"],delete:["post delete করেছে","trash"],restore:["restore করেছে","undo"],bulk:["bulk action চালিয়েছে","list"],import:["backup import করেছে","upload"],role:["access/role বদলেছে","shield"],notify:["push notification পাঠিয়েছে","bell"],ublock:["student block করেছে","lock"],uunblock:["student unblock করেছে","check"],uremove:["student remove করেছে","trash"]};
+const ACT={create:["notun post করেছে","plus"],edit:["post edit করেছে","edit"],delete:["post delete করেছে","trash"],restore:["restore করেছে","undo"],bulk:["bulk action চালিয়েছে","list"],import:["backup import করেছে","upload"],role:["access/role বদলেছে","shield"],notify:["push notification পাঠিয়েছে","bell"],push:["custom notification পাঠিয়েছে","bell"],ublock:["student block করেছে","lock"],uunblock:["student unblock করেছে","check"],uremove:["student remove করেছে","trash"]};
 const nameOf=e=>String(e||"").split("@")[0]||"admin";
 function dashV(){
  const now=Date.now(),P=S.posts,L=P.filter(live),wk=L.filter(p=>now-p.ts<7*DAY).length,hid=P.length-L.length,
@@ -518,7 +526,7 @@ function stuRow(x){const nm=x.name||"(নাম নেই)",bl=!!x.blocked,id=es
  return `<div class="su ${bl?"bl":""}"><span class="su-av">${esc(nm.trim().charAt(0).toUpperCase()||"?")}</span>
  <div class="su-i"><b>${esc(nm)}</b><small>${esc(x.email||"email nei")}</small></div>
  <div class="su-m"><span class="chip">${esc(short(x.year||""))}</span><span class="chip" style="--c:${DCOL[x.dept]||"#7c5cff"}">${esc(x.dept||"-")}</span>${bl?`<span class="chip" style="--c:#e5484d">${IC("lock")} Blocked</span>`:`<span class="chip" style="--c:#16a34a">${IC("check")} Active</span>`}</div>
- <div class="su-a">${isProt(x)?`<small class="mut2">Admin / আপনি</small>`:`<button class="btn ghost sm" onclick="stuAct('${bl?"unblock":"block"}','${id}')">${IC(bl?"undo":"alert")} ${bl?"Unblock":"Block"}</button><button class="btn danger sm" onclick="stuAct('remove','${id}')">${IC("trash")} Remove</button>`}</div></div>`}
+ <div class="su-a">${isProt(x)?`<small class="mut2">Admin / আপনি</small>`:`${bl?"":`<button class="btn ghost sm" onclick="nfTo('${id}')">${IC("bell")} Notify</button>`}<button class="btn ghost sm" onclick="stuAct('${bl?"unblock":"block"}','${id}')">${IC(bl?"undo":"alert")} ${bl?"Unblock":"Block"}</button><button class="btn danger sm" onclick="stuAct('remove','${id}')">${IC("trash")} Remove</button>`}</div></div>`}
 function studentsV(){
  if(!S.users)return `<h1 class="pt">Students</h1><div class="panel"><p class="mut2">Student list load hocche…</p><button class="btn" onclick="loadUsers()">${IC("users")} Load korun</button></div>`;
  const u=S.users,bl=u.filter(x=>x.blocked).length,all=stuList(),lim=S.ulim||50,list=all.slice(0,lim);
@@ -552,6 +560,77 @@ function stuDash(card){const u=S.users;
   ${YEARS.map(y=>`<div class="sub2">${esc(short(y))}</div>${DEPTS.map(d=>{const n=cnt(y,d);return `<div class="bar"><div class="bar-l"><span>${d}</span><b>${n}</b></div><i style="width:${Math.max(n?4:0,n/mx*100)}%;background:${DCOL[d]}"></i></div>`}).join("")}`).join("")}
   <div class="row"><button class="btn ghost sm" onclick="go('students')">${IC("users")} সব Student দেখুন</button></div></div>`}}
 
+/* ---- views: notify (custom push) ---- */
+const NF0=()=>({title:"",body:"",urgent:false,aud:"all",years:[],depts:[],uids:[],link:"none",postId:"",url:"",cnt:null,busy:false});
+S.nf=NF0();S.nh=null;S.nq="";
+const nfAud=()=>{const n=S.nf;return n.aud=="me"?{type:"me"}:n.aud=="all"?{type:"all"}:n.aud=="filter"?{type:"filter",years:n.years,depts:n.depts}:{type:"users",uids:n.uids}};
+async function nfApi(data){const u=FB.auth.currentUser;if(!u)throw new Error("login lagbe");const tk=await u.getIdToken();
+ const r=await fetch("/api/send-push",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+tk},body:JSON.stringify(data)});
+ let j={};try{j=await r.json()}catch(e){}return{...j,status:r.status}}
+const nfPv=()=>{const n=S.nf;return `<div class="nfp${n.urgent?" u":""}"><img src="/icon-192.png" alt=""><div><b>${esc(n.title||"Title ekhane dekhabe")}</b><small>${esc(n.body||"Message ekhane dekhabe…")}</small><i>Mirpur College Updates${n.urgent?" · 🔴 Urgent":""}</i></div></div>`};
+function nfPvUpd(){const e=$("#nf_pv");if(e)e.innerHTML=nfPv();const a=$("#nf_tc");if(a)a.textContent=S.nf.title.length+"/80";const b=$("#nf_bc");if(b)b.textContent=S.nf.body.length+"/240"}
+function nfIn(k,v){S.nf[k]=v;nfPvUpd()}
+function nfAudSet(k){S.nf.aud=k;S.nf.cnt=null;render(true)}
+function nfTog(k,v){const a=S.nf[k],i=a.indexOf(v);i<0?a.push(v):a.splice(i,1);S.nf.cnt=null;render(true)}
+function nfAdd(id){if(!S.nf.uids.includes(id))S.nf.uids.push(id);S.nq="";S.nf.cnt=null;render(true)}
+function nfRm(id){S.nf.uids=S.nf.uids.filter(x=>x!=id);S.nf.cnt=null;render(true)}
+function nfReset(){S.nf=NF0();S.nq="";render(true)}
+function nfTo(id){S.nf={...NF0(),aud:"users",uids:[id]};go("notify")}
+function nfCntHtml(){const c=S.nf.cnt;if(!c)return `<small class="mut2">Audience select korun…</small>`;if(c.err)return `<small class="mut2">Count ana gelo na</small>`;
+ return `<div class="nf-c"><b>${c.students}</b> jon student · <b>${c.devices}</b> device-e notification jabe${c.students>c.withDevices?` <small class="mut2">(${c.students-c.withDevices} jon-er notification ON nei)</small>`:""}</div>`}
+const nfCntPaint=()=>{const e=$("#nf_cnt");if(e)e.innerHTML=nfCntHtml()};
+let nfT=null;
+function nfCount(){clearTimeout(nfT);nfT=setTimeout(async()=>{const n=S.nf;
+ if((n.aud=="filter"&&!n.years.length&&!n.depts.length)||(n.aud=="users"&&!n.uids.length)){n.cnt=null;nfCntPaint();return}
+ try{const j=await nfApi({action:"count",audience:nfAud()});n.cnt=j.ok?j:{err:j.error||"x"}}catch(e){n.cnt={err:"net"}}nfCntPaint()},350)}
+function nfPicker(){const n=S.nf,u=S.users||[],q=(S.nq||"").toLowerCase().trim();
+ const sel=n.uids.map(id=>u.find(x=>x.id==id)).filter(Boolean);
+ const res=q?u.filter(x=>!x.blocked&&!n.uids.includes(x.id)&&(String(x.name||"").toLowerCase().includes(q)||String(x.email||"").toLowerCase().includes(q))).slice(0,8):[];
+ return `<div class="nf-sel">${sel.map(x=>`<span class="chip">${esc(x.name||x.email||"")} <button type="button" class="lnk" onclick="nfRm('${esc(x.id)}')">${IC("x")}</button></span>`).join("")||`<small class="mut2">Kono student select kora nei</small>`}</div>
+ <input id="nf_q" type="search" placeholder="Name ba email diye khujun…" value="${esc(S.nq||"")}" oninput="S.nq=this.value;render(true)">
+ ${res.map(x=>`<div class="li"><div><b>${esc(x.name||"")}</b> <small>${esc(x.email||"")} · ${esc(short(x.year||""))} ${esc(x.dept||"")}</small></div><button type="button" class="btn ghost sm" onclick="nfAdd('${esc(x.id)}')">${IC("plus")} Add</button></div>`).join("")}`}
+function nfHist(){if(S.nh===null)return `<small class="mut2">Load hocche…</small>`;
+ return S.nh.map((h,i)=>`<div class="li rc"><span class="rc-i">${IC(h.urgent?"alert":"bell")}</span><div style="flex:1;min-width:150px"><b>${esc(h.title)}</b><small>${esc(h.aud||"")} · ${h.sent} device${h.failed?" ("+h.failed+" fail)":""} · ${ago(h.ts)}</small></div><button class="btn ghost sm" onclick="nfReuse(${i})">${IC("undo")} Reuse</button></div>`).join("")||`<small class="mut2">Ekhono kichu pathano hoyni</small>`}
+function nfReuse(i){const h=S.nh&&S.nh[i];if(!h)return;S.nf={...NF0(),title:h.title,body:h.body,urgent:!!h.urgent};render(true);scrollTo(0,0)}
+async function nfHistLoad(){try{const j=await nfApi({action:"history"});S.nh=j.ok?j.items:[]}catch(e){S.nh=[]}render(true)}
+const NFT=[["Class bondho","Kal [tarikh] class bondho thakbe. Pore janano hobe."],["Exam notice","[Exam-er nam] ei [tarikh]-e shuru. Routine site-e dewa hoyeche."],["Zoruri","Ekhuni office-e jogajog korun."]];
+function notifyV(){const n=S.nf,posts=S.posts.filter(live).sort((a,b)=>b.ts-a.ts).slice(0,25);
+ return `<h1 class="pt">Notify</h1><p class="sub">Je student-ke chai tader phone/device-e shorashori notification pathan.</p>
+ <div class="g2"><div class="panel"><h3>${IC("bell")} Notun notification</h3>
+ <label>Kake pathaben?</label>
+ <div class="seg">${[["all","সব Student"],["filter","Year / Dept"],["users","নির্দিষ্ট Student"],["me","শুধু আমি (Test)"]].map(([k,l])=>`<button type="button" class="${n.aud==k?"on":""}" onclick="nfAudSet('${k}')">${l}</button>`).join("")}</div>
+ ${n.aud=="filter"?`<div class="chks">${YEARS.map(y=>`<label class="gchk"><input type="checkbox" ${n.years.includes(y)?"checked":""} onchange="nfTog('years','${esc(y)}')"> ${esc(y)}</label>`).join("")}${DEPTS.map(d=>`<label class="gchk"><input type="checkbox" ${n.depts.includes(d)?"checked":""} onchange="nfTog('depts','${d}')"> ${d}</label>`).join("")}</div>`:""}
+ ${n.aud=="users"?nfPicker():""}
+ <div id="nf_cnt">${nfCntHtml()}</div>
+ <div class="sub2">Template</div><div class="row" style="margin:0 0 6px">${NFT.map((t,i)=>`<button type="button" class="btn ghost sm" onclick="nfTpl(${i})">${esc(t[0])}</button>`).join("")}</div>
+ <label>Title * <small id="nf_tc">${n.title.length}/80</small></label><input id="nf_t" maxlength="80" value="${esc(n.title)}" oninput="nfIn('title',this.value)" placeholder="Jemon: Kal class bondho">
+ <label>Message * <small id="nf_bc">${n.body.length}/240</small></label><textarea id="nf_b" maxlength="240" style="min-height:90px" oninput="nfIn('body',this.value)">${esc(n.body)}</textarea>
+ <div class="chks"><label class="gchk"><input type="checkbox" id="nf_u" ${n.urgent?"checked":""} onchange="nfIn('urgent',this.checked)"> 🔴 Urgent — screen-e thakbe, dismiss na korle jabe na (vibrate-o korbe)</label></div>
+ <label>Tap korle ki khulbe?</label>
+ <select id="nf_l" onchange="nfIn('link',this.value);render(true)"><option value="none" ${n.link=="none"?"selected":""}>Site-er home</option><option value="post" ${n.link=="post"?"selected":""}>Ekta Post</option><option value="url" ${n.link=="url"?"selected":""}>Custom link</option></select>
+ ${n.link=="post"?`<select id="nf_p" onchange="nfIn('postId',this.value)"><option value="">Post select korun</option>${posts.map(p=>`<option value="${esc(p.id)}" ${n.postId==p.id?"selected":""}>${esc(String(p.title||"").slice(0,70))}</option>`).join("")}</select>`:""}
+ ${n.link=="url"?`<input id="nf_url" value="${esc(n.url)}" oninput="nfIn('url',this.value)" placeholder="https://...">`:""}
+ <div class="row"><button class="btn" onclick="nfSend()">${IC("send")} Pathan</button><button class="btn ghost" onclick="nfSend(true)">${IC("eye")} Nijer-e Test</button><button class="btn ghost" onclick="nfReset()">Clear</button></div>
+ <small class="mut2">Block kora student-ke pathano hoy na. Shudhu jader site-e bell ON ache tader device-e jay. Test pathate apnar nijer device-e site-er bell ON thakte hobe.</small></div>
+ <div><div class="panel"><h3>${IC("eye")} Preview</h3><div id="nf_pv">${nfPv()}</div></div><div class="panel"><h3>${IC("history")} Sent History</h3>${nfHist()}</div></div></div>`}
+function nfTpl(i){const t=NFT[i];S.nf.title=t[0];S.nf.body=t[1];render(true)}
+async function nfSend(test){const n=S.nf;if(n.busy)return;const t=n.title.trim(),b=n.body.trim();
+ if(!t||!b){toast("Title ar Message duto-i dite hobe");return}
+ if(n.link=="post"&&!n.postId){toast("Post select korun");return}
+ if(n.link=="url"&&!/^https:\/\//i.test(n.url.trim())){toast("Link https:// diye shuru hote hobe");return}
+ if(!test){
+  if(n.aud=="filter"&&!n.years.length&&!n.depts.length){toast("Year ba Department select korun");return}
+  if(n.aud=="users"&&!n.uids.length){toast("Kono student select korun");return}
+  if(n.aud=="me")test=true;
+  else{const c=n.cnt&&!n.cnt.err?n.cnt:null;
+   if(!await confirmBox("Notification pathabo?",(c?c.students+" jon student, "+c.devices+" device-e":"Select kora audience-e")+" jabe — "+t+(n.urgent?" (Urgent)":""),"Pathan",false))return}}
+ n.busy=true;toast("Pathano hocche…");
+ try{const j=await nfApi({action:test?"test":"send",title:t,body:b,urgent:n.urgent,link:n.link,postId:n.postId,url:n.url.trim(),audience:nfAud()});
+  if(!j.ok){toast("Pathano jayni: "+(j.error||j.status));return}
+  toast(test?"Test gelo ("+j.sent+" device)":"Pathano hoyeche — "+j.sent+" device-e"+(j.failed?", "+j.failed+" fail":""));
+  if(!test){logAct("push",{id:"",title:t});S.nh=null;S._nhl=0;render(true)}}
+ catch(e){toast("Pathano jayni: "+(e.message||e))}finally{n.busy=false}}
+
 /* ---- views: tools ---- */
 function toolsV(){const u=S.users,cnt=(y,d)=>u.filter(x=>x.year==y&&x.dept==d).length;
  return `<h1 class="pt">Tools</h1><div class="g2"><div>
@@ -565,7 +644,7 @@ function toolsV(){const u=S.users,cnt=(y,d)=>u.filter(x=>x.year==y&&x.dept==d).l
  <div class="panel"><h3>${IC("history")} Activity Log <small>· শেষ ${S.logs.length}টি</small></h3>${S.logs.map(l=>{const a=ACT[l.act]||[l.act,"history"];return `<div class="li rc"><span class="rc-i">${IC(a[1])}</span><div><b>${esc(nameOf(l.email))} <span class="mut">${a[0]}</span></b><small>${l.title?esc(l.title)+" · ":""}${fmt(l.ts)}</small></div></div>`}).join("")||"<small>এখনো কোনো activity নেই</small>"}</div></div>`}
 
 /* ---- shell + render ---- */
-function view(){switch(S.tab){case"new":return composeV();case"posts":return postsV();case"msgs":return msgsV();case"students":return studentsV();case"people":return peopleV();case"tools":return toolsV();default:return dashV()}}
+function view(){switch(S.tab){case"new":return composeV();case"posts":return postsV();case"msgs":return msgsV();case"students":return studentsV();case"notify":return notifyV();case"people":return peopleV();case"tools":return toolsV();default:return dashV()}}
 function panelV(){const un=S.msgs.filter(m=>!m.read&&!m.arch).length;
  if(!allowed(TABS.find(t=>t[0]==S.tab)||TABS[0]))S.tab="dash";
  return `<div class="shell"><nav class="side" aria-label="Admin menu">${TABS.filter(allowed).map(([k,i,n,a,sh])=>`<button class="nv ${S.tab==k?"on":""}" onclick="go('${k}')">${IC(i)}<span class="l">${n}</span><span class="s">${sh}</span>${k=="msgs"&&un?`<em class="bd">${un}</em>`:""}</button>`).join("")}</nav><section class="mainc">${view()}</section></div>`}
@@ -579,7 +658,8 @@ function render(keep){
  $("#outBtn").style.display=S.uid?"":"none";
  $("#who").innerHTML=S.uid&&isStaff()?`<span class="role r-${roleOf().toLowerCase()}">${roleOf()}</span>`:"";
  $("#yr").textContent=new Date().getFullYear();
- if(S.ready&&S.uid&&S.cfg&&isAdmin()&&S.users===null&&!S._ul&&(S.tab=="students"||S.tab=="dash")){S._ul=1;loadUsers()}}
+ if(S.ready&&S.uid&&S.cfg&&isAdmin()&&S.users===null&&!S._ul&&(S.tab=="students"||S.tab=="dash"||S.tab=="notify")){S._ul=1;loadUsers()}
+ if(S.ready&&S.uid&&S.cfg&&isAdmin()&&S.tab=="notify"){if(S.nh===null&&!S._nhl){S._nhl=1;nfHistLoad()}if(S.nf.cnt===null)nfCount()}}
 $("#app").addEventListener("input",e=>{if(e.target.closest&&e.target.closest("#cform"))livePrev()});
 $("#app").addEventListener("change",e=>{if(e.target.closest&&e.target.closest("#cform"))livePrev()});
 
@@ -700,7 +780,7 @@ function logout(){FB&&FB.signOut(FB.auth);toast("Logged out")}
 window.initBackend=f=>{FB=f;let uCfg=null,uMsg=null,uLog=null;
  FB.onSnapshot(FB.collection(FB.db,"posts"),sn=>{S.posts=sn.docs.map(d=>({id:d.id,...d.data()}));[...S.sel].forEach(id=>{if(!S.posts.some(p=>p.id==id))S.sel.delete(id)});render(true)},e=>toast("Posts load hoyni: "+e.code));
  FB.onAuthStateChanged(FB.auth,u=>{S.ready=true;S.uid=u?u.uid:null;S.email=u?u.email:null;S.verified=!!(u&&u.emailVerified);if(u)S.sent=null;
-  uCfg&&uCfg();uMsg&&uMsg();uLog&&uLog();uCfg=uMsg=uLog=null;S.emails=[];S.ids=[];S.editors=[];S.msgs=[];S.logs=[];S.users=null;S._ul=0;S.cfg=!u;
+  uCfg&&uCfg();uMsg&&uMsg();uLog&&uLog();uCfg=uMsg=uLog=null;S.emails=[];S.ids=[];S.editors=[];S.msgs=[];S.logs=[];S.users=null;S._ul=0;S.nh=null;S._nhl=0;S.cfg=!u;
   if(u){uCfg=FB.onSnapshot(FB.doc(FB.db,"config","admins"),d=>{const x=d.exists()?d.data():{};S.emails=(x.emails||[]).map(v=>String(v).toLowerCase());S.editors=(x.editors||[]).map(v=>String(v).toLowerCase());S.ids=x.ids||[];S.cfg=true;render(true)},()=>{S.cfg=true;render(true)});
    uMsg=FB.onSnapshot(FB.collection(FB.db,"messages"),sn=>{S.msgs=sn.docs.map(d=>({id:d.id,...d.data()}));render(true)},()=>{});
    uLog=FB.onSnapshot(FB.query(FB.collection(FB.db,"logs"),FB.orderBy("ts","desc"),FB.limit(100)),sn=>{S.logs=sn.docs.map(d=>({id:d.id,...d.data()}));render(true)},()=>{})}

@@ -1,6 +1,6 @@
 // Service worker: app-er moto install + offline shell. Admin ar API kokhono cache hoy na.
 // Notun release dile ei V ta bodlan: tahole user-der app-e "Update" notice jabe.
-const V = "mcn-v14";
+const V = "mcn-v16";
 const SHELL = ["/", "/logo.png", "/icon-192.png", "/manifest.webmanifest"];
 
 self.addEventListener("install", (e) => {
@@ -43,11 +43,14 @@ self.addEventListener("push", (e) => {
   try { const j = e.data ? e.data.json() : {}; d = j.data || j.notification || j; }
   catch (_) { try { d = { body: e.data.text() }; } catch (__) {} }
   const title = d.title || "Mirpur College Updates";
+  const urgent = d.urgent === "1";
   e.waitUntil(self.registration.showNotification(title, {
     body: d.body || "",
     icon: "/icon-192.png",
     badge: "/icon-192.png",
     tag: d.tag || "mcn",
+    requireInteraction: urgent,
+    vibrate: urgent ? [200, 100, 200, 100, 200] : undefined,
     data: { url: d.url || "/" },
   }));
 });
@@ -55,6 +58,8 @@ self.addEventListener("push", (e) => {
 self.addEventListener("notificationclick", (e) => {
   e.notification.close();
   const url = (e.notification.data && e.notification.data.url) || "/";
+  let abs; try { abs = new URL(url, self.location.origin); } catch (_) { abs = new URL("/", self.location.origin); }
+  if (abs.origin !== self.location.origin) { e.waitUntil(self.clients.openWindow(abs.href)); return; }
   e.waitUntil(
     self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((cs) => {
       for (const c of cs) {

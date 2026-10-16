@@ -152,10 +152,25 @@ Note:
     notification jay, phone lock thakleo/site bondho thakleo. Tap korle oi post khule.
   - Logout korle oi device-e notification bondho. Block/Remove korle student-er sob device theke bondho.
  Setup (ekbar-i):
-  1. Firebase Console > Project settings > Cloud Messaging > "Web Push certificates" > Generate key pair > PUBLIC key copy.
-  2. Vercel > Environment Variables: VAPID_PUBLIC_KEY = <oi public key>   (Redeploy korte hobe)
+  1. (OPTIONAL) Firebase Console > Project settings > Cloud Messaging > niche scroll > "Web configuration" > Web Push certificates > Generate key pair.
+     Dekha na gele SKIP koro -- key chhara Firebase-er default key-te-o kaj kore.
+  2. (OPTIONAL) Key peley Vercel > Environment Variables: VAPID_PUBLIC_KEY = <public key>  (Redeploy korte hobe)
   3. FIREBASE_SERVICE_ACCOUNT age-r moto lagbe. Firebase Cloud Messaging API (V1) Enabled thakte hobe.
   4. Deploy. User-der app-e "Update" banner ashle ekbar Update chapte hobe (sw.js notun).
  Note:
   - iPhone (iOS 16.4+): Safari -> Share -> "Add to Home Screen" kore home screen-er app theke khulte hobe, tahole-i notification ashbe.
   - Scheduled post-e auto notification jay na (shomoy hole admin Sob Post theke bell button chapo).
+
+=== M) ADMIN PANEL: NOTIFY (je student-ke chai take notification) ===
+ Admin Panel > "Notify" tab (shudhu Owner/Admin):
+  - Kake: সব Student | Year/Department | নির্দিষ্ট Student (search kore select) | শুধু আমি (Test)
+  - Live count: koto jon student, koto device-e jabe (ar kotojon-er notification ON nei)
+  - Title (80) + Message (240), Template button, Live Preview
+  - Urgent option: notification screen-e thake (dismiss na korle jay na) + vibrate
+  - Tap korle ki khulbe: Site home | ekta Post | custom https link
+  - Pathanor age confirm; pathanor por delivery report (koto device-e gelo / fail)
+  - Sent History (last 20) + "Reuse" button; Students tab theke student-er pashe "Notify" button-e shorashori oi student-ke
+  - Block kora student-ke pathay na; mora device token auto muche; ghonta-y max 30 ta (spam thekate)
+ Notun file: api/send-push.js   (Vercel function ekhon 10 ta; limit 12. env-check.js delete korle 9 ta)
+ Test: prothome nijer phone-e site-er bell ON korun, tarpor Notify > "Nijer-e Test".
+ Note: shudhu jader device-e bell ON ache tader-i jabe. Student-ra login korle prompt dekhe Allow korle auto ON hoy.

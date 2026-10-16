@@ -330,13 +330,17 @@ h2.t span .ico{width:1.05em;height:1.05em;vertical-align:0;color:var(--pri)}
 .pbar-a{display:flex;gap:8px;width:100%;justify-content:flex-end}
 .pbar .btn{width:auto;height:auto;margin:0;padding:9px 16px;font-size:13.5px}
 @keyframes pbin{from{opacity:0;transform:translate(-50%,16px)}}
+#bellBtn{display:none;position:relative;padding:8px 11px;align-items:center;justify-content:center}
+#bellBtn .bdot{position:absolute;top:5px;right:6px;width:9px;height:9px;border-radius:50%;background:#e5484d;border:2px solid var(--card)}
+#bellBtn.on{color:var(--pri)}#bellBtn.on .bdot{background:#16a34a}
+#bellBtn:disabled{opacity:.6}
 .pf-nr{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 0 4px;padding:10px 12px;border:1px solid var(--line);border-radius:14px}
 .pf-nr span{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px}.pf-nr span svg{width:18px;height:18px}
 .pf-nr b{font-size:12px;padding:2px 9px;border-radius:99px;background:color-mix(in srgb,var(--mute) 18%,transparent)}.pf-nr b.g{background:color-mix(in srgb,#16a34a 18%,transparent);color:#16a34a}
 .pf-nr .btn{width:auto;margin:0;height:auto;padding:8px 14px;font-size:13px}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
-<nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="installBtn" style="display:none"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span class="hd"> Install</span></button><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="me" id="meBtn" aria-label="Profile" type="button"></button></div></header>
+<nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="installBtn" style="display:none"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span class="hd"> Install</span></button><button class="btn ghost sm" id="bellBtn" type="button" aria-label="Notification" onclick="bellTap()"></button><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="me" id="meBtn" aria-label="Profile" type="button"></button></div></header>
 <div id="gate"></div>
 <main class="wrap" id="app"></main>
 <footer><div>© <span id="yr"></span> Mirpur College Updates &amp; Notices. All rights reserved.</div>
@@ -517,7 +521,7 @@ const live=p=>!p.draft&&!(p.at&&p.at>Date.now());
 const vis=p=>!!U.prof&&live(p)&&pagesOf(p).includes(myPage());
 const AUTHERR={"auth/invalid-credential":"Email ba Password thik noy","auth/wrong-password":"Email ba Password thik noy","auth/user-not-found":"Email ba Password thik noy","auth/invalid-login-credentials":"Email ba Password thik noy","auth/email-already-in-use":"Ei email-e age-i account ache — Login tab-e jan","auth/weak-password":"Password kompokkhe 6 ta character hote hobe","auth/invalid-email":"Email ta thik noy","auth/user-disabled":"Apnar account block kora hoyeche — college admin-er sathe jogajog korun","auth/network-request-failed":"Internet connection check korun","auth/too-many-requests":"Onek bar try hoyeche, kichukkhon pore abar chesta korun","auth/operation-not-allowed":"Firebase Console → Authentication → Sign-in method → Email/Password chalu korun","auth/popup-blocked":"Popup block hoyeche — browser-e popup allow korun","auth/unauthorized-domain":"Firebase Console → Authentication → Settings → Authorized domains-e ei site-er domain add korun","auth/account-exists-with-different-credential":"Ei email-e onno method-e account ache — oi method-e login korun"};
 const authErr=e=>{const c=(e&&e.code)||"";return AUTHERR[c]||("Problem: "+(c||(e&&e.message)||e))};
-function paintMe(){const b=$("#meBtn");if(!U.prof||root.classList.contains("gated")){b.style.display="none";return}b.style.display="flex";b.innerHTML=avInner();b.title=U.prof.name+" — Profile"}
+function paintMe(){try{paintBell()}catch(e){}const b=$("#meBtn");if(!U.prof||root.classList.contains("gated")){b.style.display="none";return}b.style.display="flex";b.innerHTML=avInner();b.title=U.prof.name+" — Profile"}
 const gv=id=>{const e=$("#"+id);return e?e.value:""};
 const gVals=()=>({name:gv("g_name").trim(),year:gv("g_year"),dept:gv("g_dept"),email:gv("g_email").trim(),rem:$("#g_rem")?$("#g_rem").checked:undefined});
 function gErrShow(m){const e=$("#gErr");if(e){e.textContent=m||"";e.style.display=m?"block":"none"}}
@@ -602,15 +606,15 @@ async function pushOn(ask){
  if(!pushOK()||!U.user)return"unsupported";
  let perm=Notification.permission;if(perm=="denied")return"denied";
  if(perm=="default"){if(!ask)return"default";perm=await Notification.requestPermission();if(perm!="granted")return perm=="denied"?"denied":"default"}
- try{const cfg=await fetch("/api/subscribe").then(r=>r.json());if(!cfg.vapid)return"nokey";
+ try{const cfg=await fetch("/api/subscribe").then(r=>r.json()).catch(()=>({}));
   const{app}=await getSDK();const M=await import("https://www.gstatic.com/firebasejs/12.19.0/firebase-messaging.js");
   if(!(await M.isSupported()))return"unsupported";
   const reg=await navigator.serviceWorker.ready;
-  const token=await M.getToken(M.getMessaging(app),{vapidKey:cfg.vapid,serviceWorkerRegistration:reg});
+  const token=await M.getToken(M.getMessaging(app),cfg.vapid?{vapidKey:cfg.vapid,serviceWorkerRegistration:reg}:{serviceWorkerRegistration:reg});   // VAPID key na thakle Firebase-er default key
   if(!token)return"error";
   const r=await pApi({token,action:"sub"});if(!r.ok)return"error";
-  pSet(PKEY,token);pSet(PTS,String(Date.now()));pSet(PPREF,"on");return"on"}catch(e){return"error"}}
-async function pushOff(){const t=pGet(PKEY);pSet(PKEY,null);pSet(PTS,null);if(!t||!U.user)return;try{await pApi({token:t,action:"unsub"})}catch(e){}}
+  pSet(PKEY,token);pSet(PTS,String(Date.now()));pSet(PPREF,"on");try{paintBell()}catch(e){}return"on"}catch(e){return"error"}}
+async function pushOff(){const t=pGet(PKEY);pSet(PKEY,null);pSet(PTS,null);try{paintBell()}catch(e){}if(!t||!U.user)return;try{await pApi({token:t,action:"unsub"})}catch(e){}}
 function pushAuto(){if(!pushOK()||!U.user||pGet(PPREF)=="off")return;
  const p=Notification.permission;
  if(p=="granted"){if(pGet(PKEY)&&Date.now()-(+pGet(PTS)||0)<432e5)return;pushOn(false);return}   // age allow dewa thakle chupchap subscribe
@@ -622,7 +626,15 @@ function pushPrompt(){if($("#pbar")||!U.prof||Notification.permission!="default"
  $("#pb_on").onclick=async()=>{d.remove();pushToast(await pushOn(true))};
  $("#pb_no").onclick=()=>{pSet(PASK,String(Date.now()));d.remove()}}
 function pushToast(r){toast(r=="on"?"Notification chalu hoyeche ✓":r=="denied"?"Browser-e notification block kora — Site settings theke Allow korun":r=="nokey"?"Notification setup shesh hoyni — Admin-ke janan":r=="unsupported"?"Ei browser-e notification hoy na (iPhone-e Share → Add to Home Screen korun)":r=="default"?"Notification allow kora hoyni":"Notification chalu hoyni, abar chesta korun")}
-const pIsOn=()=>pushOK()&&Notification.permission=="granted"&&pGet(PPREF)!="off"&&!!pGet(PKEY);
+function pIsOn(){return pushOK()&&Notification.permission=="granted"&&pGet(PPREF)!="off"&&!!pGet(PKEY)}
+function paintBell(){const b=$("#bellBtn");if(!b)return;
+ if(!U.prof||root.classList.contains("gated")){b.style.display="none";return}
+ const on=pIsOn();b.style.display="inline-flex";b.classList.toggle("on",on);
+ b.innerHTML=SVG("bell")+'<span class="bdot"></span>';
+ b.title=on?"Notification ON — bondho korte tap korun":"Notification chalu korun"}
+async function bellTap(){const b=$("#bellBtn");if(b)b.disabled=true;
+ try{if(pIsOn()){await pushOff();pSet(PPREF,"off");toast("Notification bondho hoyeche")}else{pushToast(await pushOn(true))}}catch(e){toast("Notification chalu hoyni")}
+ if(b)b.disabled=false;paintBell()}
 function pfNotif(){const e=$("#pfN");if(!e)return;
  if(!pushOK()){e.innerHTML=`<small class="mut">Ei browser-e notification support kore na${/iPhone|iPad/.test(navigator.userAgent)?" — Safari → Share → Add to Home Screen kore app theke khulun":""}</small>`;return}
  const p=Notification.permission,on=pIsOn();
