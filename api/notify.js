@@ -35,6 +35,11 @@ module.exports = async (req, res) => {
     const title = ((ICON[p.cat] || "📢") + " " + String(p.title || "New update")).slice(0, 120);
     const text = String(p.body || "").replace(/\s+/g, " ").trim().slice(0, 140);
 
+    // bell-er list-e dekhabar jonno (push na gele-o site-e dekha jabe)
+    try {
+      await admin.firestore().doc("notifAll/p" + Date.now().toString(36) + id.slice(0, 8)).set({ ts: Date.now(), title: title.trim(), body: text, url: "/#/p/" + id, urgent: false, kind: "post" });
+    } catch (e) { console.error("notifAll write failed", e && e.message); }
+
     await admin.messaging().send({
       topic: TOPIC,
       data: { title, body: text, url: "/#/p/" + id, tag: "post-" + id },

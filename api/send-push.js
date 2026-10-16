@@ -16,7 +16,7 @@ function mkUrl(b) {
     const u = String(b.url || "").trim();
     return /^https:\/\/[^\s]{1,500}$/i.test(u) ? u : null;
   }
-  return "/";
+  return "/?n=1";                               // site khule notification list dekhabe
 }
 
 module.exports = async (req, res) => {
@@ -82,7 +82,8 @@ module.exports = async (req, res) => {
     if (!title || !text) return res.status(400).json({ ok: false, error: "title/message dao" });
     const url = mkUrl(b);
     if (url === null) return res.status(400).json({ ok: false, error: "link https:// diye shuru hote hobe" });
-    if (!owners.length) return res.status(400).json({ ok: false, error: action === "test" ? "Apnar nijer device-e notification ON nei (site-e bell chepe ON korun)" : "Kono device-e notification ON nei" });
+    if (action === "test" && !owners.length) return res.status(400).json({ ok: false, error: "Apnar nijer device-e phone alert ON nei (site-e bell chepe ON korun)" });
+    if (action === "send" && !uids.length) return res.status(400).json({ ok: false, error: "Kono student paoa jayni" });
 
     const now = Date.now();
     if (action === "send") {                   // rate limit
@@ -92,6 +93,17 @@ module.exports = async (req, res) => {
     }
 
     const urgent = b.urgent === true;
+    // ---- site-er bell list-e rakho (phone alert OFF thakleo student dekhte pabe) ----
+    if (action === "send") {
+      const id = "n" + now.toString(36) + Math.random().toString(36).slice(2, 6);
+      const doc = { ts: now, title, body: text, url, urgent, kind: "admin" };
+      if (a.type === "all") await db.doc("notifAll/" + id).set(doc);
+      else for (const part of chunks(uids, 450)) {
+        const batch = db.batch();
+        part.forEach((u) => batch.set(db.doc("users/" + u + "/inbox/" + id), doc));
+        await batch.commit();
+      }
+    }
     const data = { title, body: text, url, tag: "adm-" + now, urgent: urgent ? "1" : "0" };
     let sent = 0, failed = 0; const bad = [];
     for (const part of chunks(owners, 500)) {

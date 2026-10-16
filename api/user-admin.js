@@ -65,6 +65,7 @@ module.exports = async (req, res) => {
     } else {
       await unsubDevices();
       await db.doc("pushTokens/" + uid).delete().catch(() => {});
+      try { await db.recursiveDelete(db.collection("users/" + uid + "/inbox")); } catch (e) {}
       if (rec) await auth.deleteUser(uid);
       await ref.delete().catch(() => {});
       await db.doc("emailCodes/" + uid).delete().catch(() => {});
