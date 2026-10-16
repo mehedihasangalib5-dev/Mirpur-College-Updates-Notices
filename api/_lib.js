@@ -29,10 +29,10 @@ function body(req) {
 }
 
 // "Authorization: Bearer <Firebase ID token>" -> decoded token (ba null)
-async function bearerUser(adm, req) {
+async function bearerUser(adm, req, checkRevoked) {
   const m = /^Bearer (.+)$/.exec(req.headers.authorization || "");
   if (!m) return null;
-  try { return await adm.auth().verifyIdToken(m[1]); } catch (e) { return null; }
+  try { return await adm.auth().verifyIdToken(m[1], !!checkRevoked); } catch (e) { return null; }
 }
 
 // Owner / Admin (Editor noy) -- config/admins
@@ -76,4 +76,22 @@ async function callSheet(payload, timeoutMs) {
   } finally { clearTimeout(t); }
 }
 
-module.exports = { init, TOPIC, sameOrigin, body, bearerUser, isAdminUser, hashCode, safeEq, callSheet };
+// Firestore profile + Firebase Auth record -> Sheet row
+function toRow(uid, p, rec) {
+  p = p || {};
+  const google = (rec.providerData || []).some((x) => x.providerId === "google.com");
+  return {
+    uid,
+    name: p.name || rec.displayName || "",
+    email: rec.email || p.email || "",
+    year: p.year || "",
+    dept: p.dept || "",
+    method: google ? "Google" : "Email",
+    verified: !!rec.emailVerified,
+    blocked: !!rec.disabled || !!p.blocked,
+    regAt: Date.parse(rec.metadata.creationTime) || Date.now(),
+    lastLogin: Date.parse(rec.metadata.lastSignInTime) || 0,
+  };
+}
+
+module.exports = { toRow, init, TOPIC, sameOrigin, body, bearerUser, isAdminUser, hashCode, safeEq, callSheet };

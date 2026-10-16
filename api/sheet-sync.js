@@ -1,22 +1,7 @@
 // POST /api/sheet-sync  {}            -> login kora (verified) user-er nijer row Google Sheet-e add/update
 // POST /api/sheet-sync  { all:true }  -> shudhu Owner/Admin: sob registered student ekshathe Sheet-e (backfill)
 // Data Firestore (users/{uid}) + Firebase Auth theke server nijei pore -- client-er pathano data bishshash kora hoy na.
-const { init, sameOrigin, body, bearerUser, isAdminUser, callSheet } = require("./_lib");
-
-function toRow(uid, p, rec) {
-  const google = (rec.providerData || []).some((x) => x.providerId === "google.com");
-  return {
-    uid,
-    name: p.name || rec.displayName || "",
-    email: rec.email || p.email || "",
-    year: p.year || "",
-    dept: p.dept || "",
-    method: google ? "Google" : "Email",
-    verified: !!rec.emailVerified,
-    regAt: Date.parse(rec.metadata.creationTime) || Date.now(),
-    lastLogin: Date.parse(rec.metadata.lastSignInTime) || 0,
-  };
-}
+const { init, sameOrigin, body, bearerUser, isAdminUser, callSheet, toRow } = require("./_lib");
 
 module.exports = async (req, res) => {
   if (req.method !== "POST") return res.status(405).json({ ok: false });
