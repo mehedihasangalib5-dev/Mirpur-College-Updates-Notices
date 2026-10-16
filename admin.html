@@ -260,6 +260,36 @@ h3 .ico,.ic-h .ico{vertical-align:-.2em;color:var(--pri)}.ic-h{display:flex;alig
 .nfp{display:flex;gap:12px;align-items:flex-start;background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:12px}
 .nfp.u{border-color:#e5484d}.nfp img{width:40px;height:40px;border-radius:10px;flex:none}
 .nfp b{display:block}.nfp small{display:block;color:var(--mute);word-break:break-word}.nfp i{display:block;font-size:11px;color:var(--mute);font-style:normal;margin-top:4px}
+/* ===== toggle switch (notification options) ===== */
+.tgl{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:var(--bg);cursor:pointer;font-weight:600;line-height:1.35}
+.tgl input{-webkit-appearance:none;appearance:none;flex:none;order:2;margin:0 0 0 auto;padding:0;width:48px;height:28px;border:0;border-radius:99px;background:color-mix(in srgb,var(--mute) 38%,transparent);position:relative;cursor:pointer;transition:background .25s}
+.tgl input::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.28);transition:transform .28s cubic-bezier(.34,1.56,.64,1)}
+.tgl input:checked{background:linear-gradient(135deg,var(--pri),var(--pri2))}
+.tgl input:checked::after{transform:translateX(20px)}
+.tgl input:focus-visible{outline:2px solid var(--pri);outline-offset:2px}
+/* ===== mobile bottom bar: rotate button + more menu ===== */
+.nv.fabx,.morewrap{display:none}
+@media(max-width:899px){
+ .nv.xtra{display:none}
+ .nv.fabx{display:flex;flex:0 0 66px;position:relative;padding:0;background:none!important;overflow:visible}
+ .fabx .fx{position:absolute;left:50%;top:-34px;margin-left:-29px;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--pri),var(--pri2));box-shadow:0 12px 24px -8px color-mix(in srgb,var(--pri) 75%,transparent),0 0 0 6px var(--bg);transition:transform .45s cubic-bezier(.34,1.56,.64,1)}
+ .fabx .fx svg{position:absolute;inset:0;margin:auto;width:26px;height:26px;transition:transform .5s cubic-bezier(.34,1.56,.64,1),opacity .25s}
+ .fabx .fx .c{opacity:0;transform:rotate(-180deg) scale(.5)}
+ .fabx.open .fx{transform:scale(1.06)}
+ .fabx.open .fx .g{opacity:0;transform:rotate(180deg) scale(.5)}
+ .fabx.open .fx .c{opacity:1;transform:none}
+ .fabx.on:not(.open) .fx::after{content:"";position:absolute;bottom:-14px;left:50%;margin-left:-3px;width:6px;height:6px;border-radius:50%;background:var(--pri)}
+ .morewrap{display:flex;position:fixed;inset:0;z-index:14;align-items:flex-end;justify-content:center;padding:0 14px calc(112px + env(safe-area-inset-bottom,0px));background:rgba(8,10,30,0);opacity:0;pointer-events:none;transition:opacity .25s,background .25s}
+ .morewrap.open{opacity:1;pointer-events:auto;background:rgba(8,10,30,.45);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+ .more{display:grid;grid-template-columns:repeat(auto-fit,minmax(84px,1fr));gap:8px;width:100%;max-width:420px;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:16px;box-shadow:var(--sh);transform:translateY(26px) scale(.9);transform-origin:50% 100%;transition:transform .38s cubic-bezier(.34,1.56,.64,1)}
+ .morewrap.open .more{transform:none}
+ .mi{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 4px;border-radius:18px;background:none;color:var(--ink);font-size:12.5px;font-weight:700;opacity:0;transform:translateY(12px) scale(.8);transition:opacity .25s,transform .4s cubic-bezier(.34,1.56,.64,1)}
+ .morewrap.open .mi{opacity:1;transform:none;transition-delay:var(--d,0ms)}
+ .mi-i{width:50px;height:50px;border-radius:17px;display:grid;place-items:center;color:var(--pri);background:linear-gradient(135deg,color-mix(in srgb,var(--pri) 16%,transparent),color-mix(in srgb,var(--pri2) 12%,transparent))}
+ .mi.on .mi-i{color:#fff;background:linear-gradient(135deg,var(--pri),var(--pri2))}
+ .mi-i svg{width:22px;height:22px}
+}
+@media(prefers-reduced-motion:reduce){.fabx .fx,.fabx .fx svg,.more,.mi,.morewrap{transition:none!important}}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="admin.html"><img src="/logo.png" onerror="this.onerror=null;this.src=LOGO_FB" alt="Logo">Admin Panel</a><div class="sp"></div>
 <div class="hdr-r"><span id="who"></span><a class="btn ghost sm" href="index.html" target="_blank" rel="noopener" aria-label="Website"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></svg><span class="hd"> Website</span></a><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="btn ghost sm" id="outBtn" style="display:none" onclick="logout()" aria-label="Logout"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/></svg><span class="hd"> Logout</span></button></div></div></header>
@@ -456,7 +486,7 @@ function composeV(){
  <label>Extra Link (optional)</label><input id="f_link" value="${esc(e.link||"")}" placeholder="https://…">
  <div class="chks"><label class="gchk"><input type="checkbox" id="f_pin" ${e.pinned?"checked":""}> ${IC("pin")} Pin to top</label>
  <label class="gchk"><input type="checkbox" id="f_draft" ${e.draft?"checked":""}> ${IC("file")} Draft</label>
- <label class="gchk"><input type="checkbox" id="f_push" ${!S.edit&&!e.draft?"checked":""}> ${IC("bell")} Publish korar sathe sathe sob student-er phone-e notification pathan</label></div>
+ <label class="gchk tgl"><input type="checkbox" id="f_push" ${!S.edit&&!e.draft?"checked":""}> ${IC("bell")} Publish korar sathe sathe sob student-er phone-e notification pathan</label></div>
  <div class="row"><button class="btn" id="pubBtn" onclick="submitPost()">${IC("send")} ${S.edit?"Update":"Publish"}</button>${S.edit?`<button class="btn ghost" onclick="cancelEdit()">Cancel</button>`:`<button class="btn ghost" onclick="saveTpl()">${IC("tpl")} Template hishebe save</button>`}</div>
  ${mt.length&&!S.edit?`<div class="mytpl"><small>Tomar template:</small> ${mt.map((t,i)=>`<span class="chip">${esc(t.n)} <button type="button" class="lnk" title="Delete" onclick="delTpl(${i})">${IC("x")}</button></span>`).join(" ")}</div>`:""}
  </div>
@@ -515,6 +545,18 @@ function peopleV(){const own=isOwner(),row=(u,role,i)=>`<div class="li"><div><co
  ${own?`<form class="row" style="margin:0 0 14px;flex-wrap:nowrap" onsubmit="addAdmin(event)"><input id="newem" type="email" required placeholder="name@gmail.com" style="flex:1;min-width:0"><select id="newrole" style="width:auto"><option value="editor">Editor</option><option value="admin">Admin</option></select><button class="btn sm">Add</button></form>`:""}
  ${S.emails.map((u,i)=>row(u,i==0?"Owner":"Admin",i)).join("")}${S.editors.map(u=>row(u,"Editor")).join("")}
  ${S.ids.map(u=>`<div class="li"><div><code>${esc(u)}</code> <small>(পুরনো UID access)</small></div>${own?`<button class="btn danger sm" onclick="rmId('${esc(u)}')">Remove</button>`:""}</div>`).join("")}</div>`}
+
+/* ---- mobile bottom bar: main features pase, majhkhane rotate button -> baki feature ---- */
+const MAINT=["dash","new","posts","msgs"];
+const MORE_SVG='<svg class="g" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="2"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="2"/></svg><svg class="c" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+function navBar(un){const al=TABS.filter(allowed),main=al.filter(t=>MAINT.includes(t[0])),xt=al.filter(t=>!MAINT.includes(t[0])),h=Math.ceil(main.length/2);
+ const b=(t,x)=>{const[k,i,n,a,sh]=t;return `<button class="nv${S.tab==k?" on":""}${x?" xtra":""}" onclick="go('${k}')">${IC(i)}<span class="l">${n}</span><span class="s">${sh}</span>${k=="msgs"&&un?`<em class="bd">${un}</em>`:""}</button>`};
+ const mid=xt.length?`<button class="nv fabx${xt.some(t=>t[0]==S.tab)?" on":""}" id="moreBtn" type="button" aria-label="Aro feature" aria-expanded="false" onclick="toggleMore()"><span class="fx">${MORE_SVG}</span></button>`:"";
+ return main.slice(0,h).map(t=>b(t)).join("")+mid+main.slice(h).map(t=>b(t)).join("")+xt.map(t=>b(t,1)).join("")}
+function morePop(){const xt=TABS.filter(allowed).filter(t=>!MAINT.includes(t[0]));if(!xt.length)return"";
+ return `<div class="morewrap" id="morewrap" onclick="if(event.target===this)toggleMore(false)"><div class="more" role="menu">${xt.map(([k,i,n],j)=>`<button class="mi${S.tab==k?" on":""}" role="menuitem" style="--d:${j*50}ms" onclick="go('${k}')"><span class="mi-i">${IC(i)}</span><span>${n}</span></button>`).join("")}</div></div>`}
+function toggleMore(f){const w=$("#morewrap"),b=$("#moreBtn");if(!w||!b)return;const o=typeof f=="boolean"?f:!w.classList.contains("open");w.classList.toggle("open",o);b.classList.toggle("open",o);b.setAttribute("aria-expanded",o?"true":"false")}
+document.addEventListener("keydown",e=>{if(e.key=="Escape")toggleMore(false)});
 
 /* ---- views: students (list + block/remove) ---- */
 const DCOL={Science:"#2563eb",Arts:"#db2777",Commerce:"#7c3aed"};
@@ -577,7 +619,7 @@ function nfRm(id){S.nf.uids=S.nf.uids.filter(x=>x!=id);S.nf.cnt=null;render(true
 function nfReset(){S.nf=NF0();S.nq="";render(true)}
 function nfTo(id){S.nf={...NF0(),aud:"users",uids:[id]};go("notify")}
 function nfCntHtml(){const c=S.nf.cnt;if(!c)return `<small class="mut2">Audience select korun…</small>`;if(c.err)return `<small class="mut2">Count ana gelo na</small>`;
- return `<div class="nf-c"><b>${c.students}</b> jon student · <b>${c.devices}</b> device-e notification jabe${c.students>c.withDevices?` <small class="mut2">(${c.students-c.withDevices} jon-er notification ON nei)</small>`:""}</div>`}
+ return `<div class="nf-c"><b>${c.students}</b> jon student-er site-er bell-e dekhabe · <b>${c.devices}</b> device-e phone alert jabe${c.students>c.withDevices?` <small class="mut2">(${c.students-c.withDevices} jon-er phone alert ON nei, tara bell-e dekhbe)</small>`:""}</div>`}
 const nfCntPaint=()=>{const e=$("#nf_cnt");if(e)e.innerHTML=nfCntHtml()};
 let nfT=null;
 function nfCount(){clearTimeout(nfT);nfT=setTimeout(async()=>{const n=S.nf;
@@ -605,13 +647,13 @@ function notifyV(){const n=S.nf,posts=S.posts.filter(live).sort((a,b)=>b.ts-a.ts
  <div class="sub2">Template</div><div class="row" style="margin:0 0 6px">${NFT.map((t,i)=>`<button type="button" class="btn ghost sm" onclick="nfTpl(${i})">${esc(t[0])}</button>`).join("")}</div>
  <label>Title * <small id="nf_tc">${n.title.length}/80</small></label><input id="nf_t" maxlength="80" value="${esc(n.title)}" oninput="nfIn('title',this.value)" placeholder="Jemon: Kal class bondho">
  <label>Message * <small id="nf_bc">${n.body.length}/240</small></label><textarea id="nf_b" maxlength="240" style="min-height:90px" oninput="nfIn('body',this.value)">${esc(n.body)}</textarea>
- <div class="chks"><label class="gchk"><input type="checkbox" id="nf_u" ${n.urgent?"checked":""} onchange="nfIn('urgent',this.checked)"> 🔴 Urgent — screen-e thakbe, dismiss na korle jabe na (vibrate-o korbe)</label></div>
+ <div class="chks"><label class="gchk tgl"><input type="checkbox" id="nf_u" ${n.urgent?"checked":""} onchange="nfIn('urgent',this.checked)"> 🔴 Urgent — screen-e thakbe, dismiss na korle jabe na (vibrate-o korbe)</label></div>
  <label>Tap korle ki khulbe?</label>
  <select id="nf_l" onchange="nfIn('link',this.value);render(true)"><option value="none" ${n.link=="none"?"selected":""}>Site-er home</option><option value="post" ${n.link=="post"?"selected":""}>Ekta Post</option><option value="url" ${n.link=="url"?"selected":""}>Custom link</option></select>
  ${n.link=="post"?`<select id="nf_p" onchange="nfIn('postId',this.value)"><option value="">Post select korun</option>${posts.map(p=>`<option value="${esc(p.id)}" ${n.postId==p.id?"selected":""}>${esc(String(p.title||"").slice(0,70))}</option>`).join("")}</select>`:""}
  ${n.link=="url"?`<input id="nf_url" value="${esc(n.url)}" oninput="nfIn('url',this.value)" placeholder="https://...">`:""}
  <div class="row"><button class="btn" onclick="nfSend()">${IC("send")} Pathan</button><button class="btn ghost" onclick="nfSend(true)">${IC("eye")} Nijer-e Test</button><button class="btn ghost" onclick="nfReset()">Clear</button></div>
- <small class="mut2">Block kora student-ke pathano hoy na. Shudhu jader site-e bell ON ache tader device-e jay. Test pathate apnar nijer device-e site-er bell ON thakte hobe.</small></div>
+ <small class="mut2">Block kora student-ke pathano hoy na. Sob target student site-er bell-e (notification list) dekhbe; phone alert shudhu jader ON ache tader device-e jabe. Test pathate apnar nijer device-e site-er bell ON thakte hobe.</small></div>
  <div><div class="panel"><h3>${IC("eye")} Preview</h3><div id="nf_pv">${nfPv()}</div></div><div class="panel"><h3>${IC("history")} Sent History</h3>${nfHist()}</div></div></div>`}
 function nfTpl(i){const t=NFT[i];S.nf.title=t[0];S.nf.body=t[1];render(true)}
 async function nfSend(test){const n=S.nf;if(n.busy)return;const t=n.title.trim(),b=n.body.trim();
@@ -623,11 +665,11 @@ async function nfSend(test){const n=S.nf;if(n.busy)return;const t=n.title.trim()
   if(n.aud=="users"&&!n.uids.length){toast("Kono student select korun");return}
   if(n.aud=="me")test=true;
   else{const c=n.cnt&&!n.cnt.err?n.cnt:null;
-   if(!await confirmBox("Notification pathabo?",(c?c.students+" jon student, "+c.devices+" device-e":"Select kora audience-e")+" jabe — "+t+(n.urgent?" (Urgent)":""),"Pathan",false))return}}
+   if(!await confirmBox("Notification pathabo?",(c?c.students+" jon student-er bell-e ar "+c.devices+" device-e phone alert":"Select kora audience-e")+" jabe — "+t+(n.urgent?" (Urgent)":""),"Pathan",false))return}}
  n.busy=true;toast("Pathano hocche…");
  try{const j=await nfApi({action:test?"test":"send",title:t,body:b,urgent:n.urgent,link:n.link,postId:n.postId,url:n.url.trim(),audience:nfAud()});
   if(!j.ok){toast("Pathano jayni: "+(j.error||j.status));return}
-  toast(test?"Test gelo ("+j.sent+" device)":"Pathano hoyeche — "+j.sent+" device-e"+(j.failed?", "+j.failed+" fail":""));
+  toast(test?"Test gelo ("+j.sent+" device)":"Pathano hoyeche — "+j.students+" jon-er bell-e, "+j.sent+" device-e phone alert"+(j.failed?", "+j.failed+" fail":""));
   if(!test){logAct("push",{id:"",title:t});S.nh=null;S._nhl=0;render(true)}}
  catch(e){toast("Pathano jayni: "+(e.message||e))}finally{n.busy=false}}
 
@@ -647,7 +689,7 @@ function toolsV(){const u=S.users,cnt=(y,d)=>u.filter(x=>x.year==y&&x.dept==d).l
 function view(){switch(S.tab){case"new":return composeV();case"posts":return postsV();case"msgs":return msgsV();case"students":return studentsV();case"notify":return notifyV();case"people":return peopleV();case"tools":return toolsV();default:return dashV()}}
 function panelV(){const un=S.msgs.filter(m=>!m.read&&!m.arch).length;
  if(!allowed(TABS.find(t=>t[0]==S.tab)||TABS[0]))S.tab="dash";
- return `<div class="shell"><nav class="side" aria-label="Admin menu">${TABS.filter(allowed).map(([k,i,n,a,sh])=>`<button class="nv ${S.tab==k?"on":""}" onclick="go('${k}')">${IC(i)}<span class="l">${n}</span><span class="s">${sh}</span>${k=="msgs"&&un?`<em class="bd">${un}</em>`:""}</button>`).join("")}</nav><section class="mainc">${view()}</section></div>`}
+ return `<div class="shell"><nav class="side" aria-label="Admin menu">${navBar(un)}</nav>${morePop()}<section class="mainc">${view()}</section></div>`}
 function render(keep){
  if($("#cform"))S.form=snap();
  const em=$("#em")?$("#em").value:null,ae=document.activeElement,fa=ae&&ae.id,cs=ae&&ae.selectionStart;

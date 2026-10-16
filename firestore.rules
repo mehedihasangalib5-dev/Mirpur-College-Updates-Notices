@@ -83,6 +83,10 @@ service cloud.firestore {
     match /pushTokens/{id} { allow read, write: if false; }
     // notifLogs = Admin panel-e pathano notification-er history (shudhu server likhe-pore)
     match /notifLogs/{id} { allow read, write: if false; }
+    // notifAll = sobar jonno notification (bell-er list). Shudhu verified login kora user pore; server likhe.
+    match /notifAll/{id} { allow read: if request.auth != null && request.auth.token.email_verified == true; allow write: if false; }
+    // users/{uid}/inbox = shudhu oi student-er jonno pathano notification (bell-er list)
+    match /users/{uid}/inbox/{id} { allow read: if request.auth != null && request.auth.uid == uid; allow write: if false; }
     match /config/admins {
       allow read: if isStaff();           // Admin o Editor nijeder role jante read korte pare
       // shudhu Owner (emails[0] ba purono ids[0]) list bodlate pare

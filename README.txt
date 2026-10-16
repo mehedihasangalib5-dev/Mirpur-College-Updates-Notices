@@ -174,3 +174,28 @@ Note:
  Notun file: api/send-push.js   (Vercel function ekhon 10 ta; limit 12. env-check.js delete korle 9 ta)
  Test: prothome nijer phone-e site-er bell ON korun, tarpor Notify > "Nijer-e Test".
  Note: shudhu jader device-e bell ON ache tader-i jabe. Student-ra login korle prompt dekhe Allow korle auto ON hoy.
+
+=== N) SITE-ER BELL = NOTIFICATION LIST (inbox) ===
+ - Header-er bell tap korle notification list khole (modal). Notun hole bell-e lal number badge, list-e notun gulo highlight.
+ - List-e item tap korle oi post/link khule. Upore "Phone alert ON/OFF" toggle ache.
+ - Ki ki ashe: (1) notun Post publish-er notification, (2) Admin > Notify theke pathano custom notification (sobai ba shudhu target student).
+   Phone alert OFF thakleo student bell-e dekhte pabe.
+ - Phone-e push notification tap korle site khule ar list dekhay (custom notification), post-er notification-e oi post khule.
+ - firestore.rules abar PUBLISH korte hobe (notifAll + users/{uid}/inbox rule notun). Na korle list khali dekhabe.
+ - Data: notifAll (sobar jonno), users/{uid}/inbox (target student). Student Remove korle tar inbox-o muche jay.
+
+=== O) ADMIN PANEL: MOBILE BOTTOM BAR (rotate button) + TOGGLE SWITCH ===
+ - Phone/tablet (<900px): bottom bar-e main 4 ta feature duipashe (Home, Post, Posts, Inbox), majhkhane gol rotate button.
+   Tap korle button ghure (grid -> X) ar baki feature (Students, Notify, Admins, Tools) popup-e dekhay. Bairey tap / Esc / kono item tap korle bondho.
+   Editor-der (shudhu 3 ta feature) majhkhane button thakbe na. Desktop-e age-r moto side menu.
+ - Notification option gulo toggle switch: Post form-er "Publish-er sathe sathe notification pathan" ar Notify tab-er "Urgent".
+
+=== P) SITE: MOBILE BOTTOM BAR (rotate button) + NOTIFICATION TOGGLE ===
+ - Phone (<=600px): bottom bar-e Home, Saved | majhkhane gol rotate button | Contact, Profile.
+   Majhkhaner button tap korle ghure (grid -> X) ekta menu ashe:
+     * Notification  -> TOGGLE switch (tap korle phone alert ON/OFF; sub-text-e ki obostha dekhay)
+     * Inbox         -> notification list (notun thakle lal number)
+     * Theme         -> dark/light
+     * Install       -> app install (shudhu jokhon install kora jay)
+ - Rotate button-e lal dot = notun notification ache.
+ - Phone-e header-e shudhu logo thake (Install/Bell/Theme/Profile bar-e shorano hoyeche). Desktop/tablet-e age-r moto header.

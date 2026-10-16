@@ -334,17 +334,53 @@ h2.t span .ico{width:1.05em;height:1.05em;vertical-align:0;color:var(--pri)}
 #bellBtn .bdot{position:absolute;top:5px;right:6px;width:9px;height:9px;border-radius:50%;background:#e5484d;border:2px solid var(--card)}
 #bellBtn.on{color:var(--pri)}#bellBtn.on .bdot{background:#16a34a}
 #bellBtn:disabled{opacity:.6}
+.bbd{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;border-radius:9px;background:#e5484d;color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;padding:0 5px;border:2px solid var(--card);line-height:1}
+.ni{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:12px;margin:8px 0;cursor:pointer}
+.ni.new{border-color:var(--pri);background:color-mix(in srgb,var(--pri) 7%,var(--bg))}.ni.u{border-left:4px solid #e5484d}
+.ni-i{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--pri),var(--pri2));flex:none}.ni-i svg{width:18px;height:18px}
+.ni b{display:block;font-size:14.5px}.ni small{display:block;color:var(--mute);font-size:13px;margin-top:2px;word-break:break-word}.ni i{display:block;font-style:normal;font-size:11.5px;color:var(--mute);margin-top:4px}
+#nlist{margin:8px 0;max-height:52vh;overflow:auto}
 .pf-nr{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 0 4px;padding:10px 12px;border:1px solid var(--line);border-radius:14px}
 .pf-nr span{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px}.pf-nr span svg{width:18px;height:18px}
 .pf-nr b{font-size:12px;padding:2px 9px;border-radius:99px;background:color-mix(in srgb,var(--mute) 18%,transparent)}.pf-nr b.g{background:color-mix(in srgb,#16a34a 18%,transparent);color:#16a34a}
 .pf-nr .btn{width:auto;margin:0;height:auto;padding:8px 14px;font-size:13px}
+/* ===== mobile bottom bar: rotate button + menu ===== */
+.bmid,.mm{display:none}
+@media(max-width:600px){
+ #bellBtn,#theme,#installBtn,#meBtn{display:none!important}
+ .bnav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;border-radius:16px;color:var(--mute);font:inherit;font-size:11.5px;font-weight:700;background:none;border:0;cursor:pointer}
+ .bnav .bav{width:22px;height:22px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;font-size:11px;font-weight:800}
+ .bnav .bav img{width:100%;height:100%;object-fit:cover}
+ .bnav button.bmid{display:flex;flex:0 0 66px;position:relative;padding:0;overflow:visible}
+ .bfx{position:absolute;left:50%;top:-36px;margin-left:-29px;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--pri),var(--pri2));box-shadow:0 12px 24px -8px color-mix(in srgb,var(--pri) 75%,transparent),0 0 0 6px var(--bg);transition:transform .45s cubic-bezier(.34,1.56,.64,1)}
+ .bfx svg{position:absolute;inset:0;margin:auto;width:26px;height:26px;transition:transform .5s cubic-bezier(.34,1.56,.64,1),opacity .25s}
+ .bfx .c{opacity:0;transform:rotate(-180deg) scale(.5)}
+ .bmid.open .bfx{transform:scale(1.06)}.bmid.open .bfx .g{opacity:0;transform:rotate(180deg) scale(.5)}.bmid.open .bfx .c{opacity:1;transform:none}
+ .bdt{display:none;position:absolute;top:-34px;left:50%;margin-left:14px;width:13px;height:13px;border-radius:50%;background:#e5484d;border:2px solid var(--card);z-index:2}
+ .mm{display:flex;position:fixed;inset:0;z-index:14;align-items:flex-end;justify-content:center;padding:0 14px calc(112px + env(safe-area-inset-bottom,0px));background:rgba(8,10,30,0);opacity:0;pointer-events:none;transition:opacity .25s,background .25s}
+ .mm.open{opacity:1;pointer-events:auto;background:rgba(8,10,30,.45);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+ .mm-c{width:100%;max-width:420px;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:14px;box-shadow:var(--sh);transform:translateY(26px) scale(.9);transform-origin:50% 100%;transition:transform .38s cubic-bezier(.34,1.56,.64,1)}
+ .mm.open .mm-c{transform:none}
+ .mm-tg{display:flex;align-items:center;gap:12px;width:100%;text-align:left;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:12px;cursor:pointer}
+ .mm-tg:disabled{opacity:.6}
+ .mm-tx{flex:1;min-width:0}.mm-tx b{display:block;font-size:14.5px}.mm-tx small{display:block;color:var(--mute);font-size:12px;margin-top:1px}
+ .mm-sw{flex:none;position:relative;width:48px;height:28px;border-radius:99px;background:color-mix(in srgb,var(--mute) 38%,transparent);transition:background .25s}
+ .mm-sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.28);transition:transform .28s cubic-bezier(.34,1.56,.64,1)}
+ .mm-sw.on{background:linear-gradient(135deg,var(--pri),var(--pri2))}.mm-sw.on::after{transform:translateX(20px)}
+ .mm-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(84px,1fr));gap:8px;margin-top:10px}
+ .mm-i{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 4px;border-radius:18px;background:none;border:0;color:var(--ink);font:inherit;font-size:12.5px;font-weight:700;cursor:pointer}
+ .mm-ic{position:relative;flex:none;width:46px;height:46px;border-radius:16px;display:grid;place-items:center;color:var(--pri);background:linear-gradient(135deg,color-mix(in srgb,var(--pri) 16%,transparent),color-mix(in srgb,var(--pri2) 12%,transparent))}
+ .mm-ic svg{width:22px;height:22px}
+ .mm-bd{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;border-radius:9px;background:#e5484d;color:#fff;font-size:11px;font-weight:800;font-style:normal;display:grid;place-items:center;padding:0 5px;border:2px solid var(--card);line-height:1}
+}
+@media(prefers-reduced-motion:reduce){.bfx,.bfx svg,.mm,.mm-c,.mm-sw,.mm-sw::after{transition:none!important}}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
 <nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="installBtn" style="display:none"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span class="hd"> Install</span></button><button class="btn ghost sm" id="bellBtn" type="button" aria-label="Notification" onclick="bellTap()"></button><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="me" id="meBtn" aria-label="Profile" type="button"></button></div></header>
 <div id="gate"></div>
 <main class="wrap" id="app"></main>
 <footer><div>© <span id="yr"></span> Mirpur College Updates &amp; Notices. All rights reserved.</div>
-<div>Developed by <a href="https://www.facebook.com/share/1F83w5QvQ2/" target="_blank" rel="noopener" aria-label="Md Mehedi Hassan - Facebook" style="display:inline-flex;align-items:center;gap:5px;vertical-align:middle"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true" style="flex:none"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H8v3h2.4V21h3.1z"/></svg> Md Mehedi Hassan</a></div><div style="margin-top:6px"><a href="#/">Home</a> · <a href="#/contact">Contact</a></div><div style="margin-top:8px;font-size:12px"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg> iPhone: Safari → Share → "Add to Home Screen"</div></footer><nav class="bnav" id="bnav" aria-label="Main"></nav><a class="fab" id="fab" href="#/contact" aria-label="Contact"><span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Contact</a>
+<div>Developed by <a href="https://www.facebook.com/share/1F83w5QvQ2/" target="_blank" rel="noopener" aria-label="Md Mehedi Hassan - Facebook" style="display:inline-flex;align-items:center;gap:5px;vertical-align:middle"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true" style="flex:none"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H8v3h2.4V21h3.1z"/></svg> Md Mehedi Hassan</a></div><div style="margin-top:6px"><a href="#/">Home</a> · <a href="#/contact">Contact</a></div><div style="margin-top:8px;font-size:12px"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg> iPhone: Safari → Share → "Add to Home Screen"</div></footer><nav class="bnav" id="bnav" aria-label="Main"></nav><div class="mm" id="mmore" onclick="if(event.target===this)toggleMore(false)"><div class="mm-c" id="mmc" role="menu"></div></div><a class="fab" id="fab" href="#/contact" aria-label="Contact"><span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Contact</a>
 <div class="modal" id="modal"><div class="sheet" id="sheet"></div></div><div class="toast" id="toast"></div>
 <script>
 const CATS={notice:{n:"Notice",c:"#e5484d"},syllabus:{n:"Syllabus",c:"#5b4bff"},suggestion:{n:"Suggestion",c:"#e08a00"},routine:{n:"Routine",c:"#0d9488"},result:{n:"Result",c:"#16a34a"},event:{n:"Event",c:"#d6409f"}};
@@ -483,7 +519,7 @@ async function loadPost(id){const p=S.posts.find(x=>x.id==id);
  try{await getFull(id)}catch(e){FAIL[id]=1}if(location.hash.includes(id))route()}
 function route(){const h=location.hash.replace(/^#\/?/,"").split("/"),pg=h[0]||"home";
  $("#links").innerHTML=`<a href="#/" class="${pg=="home"?"on":""}">Home</a><a href="#/saved" class="${pg=="saved"?"on":""}">${SVG("star")} Saved${SV().length?" ("+SV().length+")":""}</a><a href="#/contact" class="${pg=="contact"?"on":""}">Contact</a>`;
- $("#yr").textContent=new Date().getFullYear();$("#bnav").innerHTML=[["","home","Home"],["saved","star","Saved"],["contact","msg","Contact"]].map(([h,i,n])=>`<a href="#/${h}" class="${(pg=="home"&&!h)||pg==h?"on":""}">${SVG(i)}${n}</a>`).join("");{const f=$("#fab"),c=pg=="contact";f.href=c?"#/":"#/contact";f.innerHTML=c?"<span>"+SVG("home")+"</span>Home":"<span>"+SVG("msg")+"</span>Contact";f.setAttribute("aria-label",c?"Home":"Contact")}const k=document.activeElement&&document.activeElement.id;
+ $("#yr").textContent=new Date().getFullYear();paintBnav(pg);{const f=$("#fab"),c=pg=="contact";f.href=c?"#/":"#/contact";f.innerHTML=c?"<span>"+SVG("home")+"</span>Home":"<span>"+SVG("msg")+"</span>Contact";f.setAttribute("aria-label",c?"Home":"Contact")}const k=document.activeElement&&document.activeElement.id;
  $("#app").innerHTML=pg=="contact"?pContact():pg=="saved"?pSaved():pg=="p"?pPost(h[1]):pHome();observeCovers();if(pg=="p"){markRead(h[1]);loadPost(h[1])}
  const q=$("#q");if(q){q.addEventListener("keydown",e=>{if(e.key=="Enter")doSearch()});q.addEventListener("input",onSearchInput);if(k=="q")q.focus()}}
 /* ---- live search: input-ta na bhenge shudhu niche-r result bodle ---- */
@@ -521,7 +557,7 @@ const live=p=>!p.draft&&!(p.at&&p.at>Date.now());
 const vis=p=>!!U.prof&&live(p)&&pagesOf(p).includes(myPage());
 const AUTHERR={"auth/invalid-credential":"Email ba Password thik noy","auth/wrong-password":"Email ba Password thik noy","auth/user-not-found":"Email ba Password thik noy","auth/invalid-login-credentials":"Email ba Password thik noy","auth/email-already-in-use":"Ei email-e age-i account ache — Login tab-e jan","auth/weak-password":"Password kompokkhe 6 ta character hote hobe","auth/invalid-email":"Email ta thik noy","auth/user-disabled":"Apnar account block kora hoyeche — college admin-er sathe jogajog korun","auth/network-request-failed":"Internet connection check korun","auth/too-many-requests":"Onek bar try hoyeche, kichukkhon pore abar chesta korun","auth/operation-not-allowed":"Firebase Console → Authentication → Sign-in method → Email/Password chalu korun","auth/popup-blocked":"Popup block hoyeche — browser-e popup allow korun","auth/unauthorized-domain":"Firebase Console → Authentication → Settings → Authorized domains-e ei site-er domain add korun","auth/account-exists-with-different-credential":"Ei email-e onno method-e account ache — oi method-e login korun"};
 const authErr=e=>{const c=(e&&e.code)||"";return AUTHERR[c]||("Problem: "+(c||(e&&e.message)||e))};
-function paintMe(){try{paintBell()}catch(e){}const b=$("#meBtn");if(!U.prof||root.classList.contains("gated")){b.style.display="none";return}b.style.display="flex";b.innerHTML=avInner();b.title=U.prof.name+" — Profile"}
+function paintMe(){try{paintBell()}catch(e){}const b=$("#meBtn");if(!U.prof||root.classList.contains("gated")){b.style.display="none";return}b.style.display="flex";b.innerHTML=avInner();try{const pb=$("#bnav .bav");if(pb)pb.innerHTML=avInner()}catch(e){}b.title=U.prof.name+" — Profile"}
 const gv=id=>{const e=$("#"+id);return e?e.value:""};
 const gVals=()=>({name:gv("g_name").trim(),year:gv("g_year"),dept:gv("g_dept"),email:gv("g_email").trim(),rem:$("#g_rem")?$("#g_rem").checked:undefined});
 function gErrShow(m){const e=$("#gErr");if(e){e.textContent=m||"";e.style.display=m?"block":"none"}}
@@ -549,7 +585,8 @@ async function fetchProfile(uid){try{const {db,f}=await getSDK();const sn=await 
 async function saveProf(){if(!U.user||!U.prof)return false;
  try{const {db,f}=await getSDK(),p=U.prof;await f.setDoc(f.doc(db,"users",U.user.uid),{uid:U.user.uid,name:p.name,email:p.email||"",year:p.year,dept:p.dept,photo:p.photo||"",updated:Date.now()});return true}
  catch(e){toast("Server-e save hoyni — Firestore rules update korun (ei device-e save ache)");return false}}
-function enter(fresh){gated(false);paintMe();route();pushAuto();
+function enter(fresh){gated(false);paintMe();route();pushAuto();nStart();
+ if(/[?&]n=1\b/.test(location.search)){try{history.replaceState(null,"",location.pathname+location.hash)}catch(e){}setTimeout(openNotifs,700)}
  if(fresh){S.t=0;toast("স্বাগতম, "+U.prof.name+"")}
  if(!S.started){S.started=true;refresh()}}
 async function finishAuth(user,ch,isNew){
@@ -583,7 +620,7 @@ async function gGoogle(){if(U.busy)return;U.busy=true;const b=$("#g_google");if(
 async function cancelSetup(){const b=$("#g_cancel");if(b)b.disabled=true;
  try{const {auth,A}=await getSDK(),u=auth.currentUser;if(isFreshG(u)){try{await A.deleteUser(u)}catch(e){}}}catch(e){}
  await logout()}
-async function logout(){closeM();try{await Promise.race([pushOff(),wait(2500)])}catch(e){}U.prof=null;U.user=null;writeCache();
+async function logout(){closeM();try{await Promise.race([pushOff(),wait(2500)])}catch(e){}nStop();U.prof=null;U.user=null;writeCache();
  try{const {auth,A}=await getSDK();await A.signOut(auth)}catch(e){}
  location.hash="#/";showGate("login");toast("Log out hoyeche")}
 async function authInit(){try{const {auth,A}=await getSDK();
@@ -627,14 +664,68 @@ function pushPrompt(){if($("#pbar")||!U.prof||Notification.permission!="default"
  $("#pb_no").onclick=()=>{pSet(PASK,String(Date.now()));d.remove()}}
 function pushToast(r){toast(r=="on"?"Notification chalu hoyeche ✓":r=="denied"?"Browser-e notification block kora — Site settings theke Allow korun":r=="nokey"?"Notification setup shesh hoyni — Admin-ke janan":r=="unsupported"?"Ei browser-e notification hoy na (iPhone-e Share → Add to Home Screen korun)":r=="default"?"Notification allow kora hoyni":"Notification chalu hoyni, abar chesta korun")}
 function pIsOn(){return pushOK()&&Notification.permission=="granted"&&pGet(PPREF)!="off"&&!!pGet(PKEY)}
-function paintBell(){const b=$("#bellBtn");if(!b)return;
+function paintBell(){try{const d=$("#bmid .bdt");if(d)d.style.display=nUnread()?"block":"none"}catch(e){}const b=$("#bellBtn");if(!b)return;
  if(!U.prof||root.classList.contains("gated")){b.style.display="none";return}
- const on=pIsOn();b.style.display="inline-flex";b.classList.toggle("on",on);
- b.innerHTML=SVG("bell")+'<span class="bdot"></span>';
- b.title=on?"Notification ON — bondho korte tap korun":"Notification chalu korun"}
-async function bellTap(){const b=$("#bellBtn");if(b)b.disabled=true;
+ const n=nUnread();b.style.display="inline-flex";b.classList.toggle("on",pIsOn());
+ b.innerHTML=SVG("bell")+(n?`<span class="bbd">${n>9?"9+":n}</span>`:"");
+ b.title=n?n+"টি নতুন notification":"Notifications"}
+function bellTap(){openNotifs()}
+/* ---------- MOBILE BOTTOM BAR: main feature pase, majhkhane rotate button -> baki feature ---------- */
+let MMO=false;
+const MORE_SVG='<svg class="g" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="2"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="2"/></svg><svg class="c" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+const THEME_SVG='<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg>';
+function paintBnav(pg){
+ const it=([h,i,n])=>`<a href="#/${h}" class="${(pg=="home"&&!h)||pg==h?"on":""}">${SVG(i)}${n}</a>`;
+ let av="";try{av=U.prof?avInner():""}catch(e){}
+ $("#bnav").innerHTML=it(["","home","Home"])+it(["saved","star","Saved"])
+  +`<button class="bmid${MMO?" open":""}" id="bmid" type="button" aria-label="Aro feature" aria-expanded="${MMO}" onclick="toggleMore()"><span class="bfx">${MORE_SVG}</span><i class="bdt"></i></button>`
+  +it(["contact","msg","Contact"])
+  +`<button class="bme" type="button" onclick="openProfile()"><span class="bav">${av}</span>Profile</button>`;
+ try{paintBell()}catch(e){}}
+function paintMore(){const e=$("#mmc");if(!e)return;const ok=pushOK(),on=pIsOn(),n=nUnread();
+ const sub=!ok?"Ei browser-e hoy na":Notification.permission=="denied"?"Browser-e Blocked":on?"Phone-e alert ON":"Phone-e alert OFF";
+ e.innerHTML=`<button type="button" class="mm-tg" id="mm_alert" role="switch" aria-checked="${on}" onclick="mmAlert()"><span class="mm-ic">${SVG("bell")}</span><span class="mm-tx"><b>Notification</b><small>${sub}</small></span><span class="mm-sw${on?" on":""}"></span></button>
+ <div class="mm-g"><button type="button" class="mm-i" onclick="mmList()"><span class="mm-ic">${SVG("inbox")}${n?`<em class="mm-bd">${n>9?"9+":n}</em>`:""}</span>Inbox</button>
+ <button type="button" class="mm-i" onclick="mmTheme()"><span class="mm-ic">${THEME_SVG}</span>Theme</button>
+ ${typeof DP!="undefined"&&DP?`<button type="button" class="mm-i" onclick="mmInstall()"><span class="mm-ic">${SVG("dl")}</span>Install</button>`:""}</div>`}
+function toggleMore(f){const w=$("#mmore"),b=$("#bmid");if(!w||!b)return;const o=typeof f=="boolean"?f:!MMO;MMO=o;if(o)paintMore();w.classList.toggle("open",o);b.classList.toggle("open",o);b.setAttribute("aria-expanded",o?"true":"false")}
+async function mmAlert(){const b=$("#mm_alert");if(b)b.disabled=true;
  try{if(pIsOn()){await pushOff();pSet(PPREF,"off");toast("Notification bondho hoyeche")}else{pushToast(await pushOn(true))}}catch(e){toast("Notification chalu hoyni")}
- if(b)b.disabled=false;paintBell()}
+ paintMore();try{paintBell()}catch(e){}}
+function mmList(){toggleMore(false);openNotifs()}
+function mmTheme(){$("#theme").click()}
+function mmInstall(){toggleMore(false);$("#installBtn").click()}
+addEventListener("hashchange",()=>toggleMore(false));
+addEventListener("keydown",e=>{if(e.key=="Escape")toggleMore(false)});
+/* ---------- NOTIFICATION CENTER (bell tap korle list) ---------- */
+const N={all:[],inbox:[],un:[],uid:null,seen:0,hl:0};
+const nList=()=>[...N.all,...N.inbox].sort((a,b)=>(b.ts||0)-(a.ts||0)).slice(0,40);
+const nUnread=()=>nList().filter(x=>(x.ts||0)>N.seen).length;
+const nAgo=ts=>{const s=Math.max(0,(Date.now()-ts)/1000);return s<60?"এইমাত্র":s<3600?Math.floor(s/60)+" মিনিট আগে":s<86400?Math.floor(s/3600)+" ঘণ্টা আগে":s<604800?Math.floor(s/86400)+" দিন আগে":new Date(ts).toLocaleDateString("en-GB",{day:"numeric",month:"short"})};
+async function nStart(){const u=U.user;if(!u||N.uid==u.uid)return;nStop();N.uid=u.uid;
+ const k="mcn_nseen_"+u.uid;N.seen=+pGet(k)||0;if(!N.seen){N.seen=Date.now();pSet(k,String(N.seen))}
+ try{const{db,f}=await getSDK();
+  N.un.push(f.onSnapshot(f.query(f.collection(db,"notifAll"),f.orderBy("ts","desc"),f.limit(30)),sn=>{N.all=sn.docs.map(d=>({id:d.id,...d.data()}));nPaint()},()=>{}));
+  N.un.push(f.onSnapshot(f.query(f.collection(db,"users",u.uid,"inbox"),f.orderBy("ts","desc"),f.limit(30)),sn=>{N.inbox=sn.docs.map(d=>({id:d.id,...d.data()}));nPaint()},()=>{}))}catch(e){}}
+function nStop(){try{toggleMore(false)}catch(e){}N.un.forEach(x=>{try{x()}catch(e){}});N.un=[];N.all=[];N.inbox=[];N.uid=null;try{paintBell()}catch(e){}}
+function nPaint(){try{paintBell()}catch(e){}if($("#nlist"))nListPaint();if(MMO)paintMore()}
+function openNotifs(){if(!U.prof)return;
+ N.hl=N.seen;const top=nList()[0];if(top&&top.ts>N.seen){N.seen=top.ts;pSet("mcn_nseen_"+N.uid,String(N.seen))}
+ $("#sheet").innerHTML=`<h3 style="margin:0 0 8px">${SVG("bell")} Notifications</h3><div id="nsw"></div><div id="nlist"></div><div class="row"><button class="btn ghost" type="button" onclick="closeM()">Close</button></div>`;
+ $("#modal").classList.add("open");nSwPaint();nListPaint();try{paintBell()}catch(e){}}
+function nSwPaint(){const e=$("#nsw");if(!e)return;
+ if(!pushOK()){e.innerHTML=`<small style="color:var(--mute)">Ei browser-e phone alert hoy na${/iPhone|iPad/.test(navigator.userAgent)?" — Safari → Share → Add to Home Screen kore app theke khulun":""}</small>`;return}
+ const p=Notification.permission,on=pIsOn();
+ e.innerHTML=`<div class="pf-nr"><span>${SVG("bell")} Phone alert <b class="${on?"g":""}">${on?"ON":p=="denied"?"Blocked":"OFF"}</b></span>${p=="denied"?"":`<button type="button" class="btn ghost sm" id="n_sw" onclick="nSwTog()">${on?"Bondho korun":"Chalu korun"}</button>`}</div>${p=="denied"?`<small style="color:var(--mute)">Browser Site settings theke Notifications Allow korun</small>`:""}`}
+async function nSwTog(){const b=$("#n_sw");if(b)b.disabled=true;
+ try{if(pIsOn()){await pushOff();pSet(PPREF,"off");toast("Phone alert bondho hoyeche")}else{pushToast(await pushOn(true))}}catch(e){toast("Notification chalu hoyni")}
+ nSwPaint();try{paintBell()}catch(e){}}
+function nListPaint(){const e=$("#nlist");if(!e)return;const l=nList();
+ e.innerHTML=l.length?l.map(x=>`<button type="button" class="ni${(x.ts||0)>N.hl?" new":""}${x.urgent?" u":""}" data-u="${esc(x.url||"")}"><span class="ni-i">${SVG("bell")}</span><div><b>${esc(x.title||"")}</b><small>${esc(x.body||"")}</small><i>${nAgo(x.ts||0)}${x.urgent?" · 🔴 Urgent":""}</i></div></button>`).join(""):`<p style="color:var(--mute);text-align:center;margin:22px 0">Ekhono kono notification nei</p>`;
+ e.onclick=ev=>{const b=ev.target.closest(".ni");if(b)nOpen(b.dataset.u)}}
+function nOpen(u){closeM();u=String(u||"");
+ if(/^https:\/\//i.test(u)){window.open(u,"_blank","noopener");return}
+ if(u.indexOf("/#/")==0)location.hash=u.slice(1)}
 function pfNotif(){const e=$("#pfN");if(!e)return;
  if(!pushOK()){e.innerHTML=`<small class="mut">Ei browser-e notification support kore na${/iPhone|iPad/.test(navigator.userAgent)?" — Safari → Share → Add to Home Screen kore app theke khulun":""}</small>`;return}
  const p=Notification.permission,on=pIsOn();
