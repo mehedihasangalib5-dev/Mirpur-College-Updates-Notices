@@ -339,7 +339,6 @@ h2.t span .ico{width:1.05em;height:1.05em;vertical-align:0;color:var(--pri)}
 .ni.new{border-color:var(--pri);background:color-mix(in srgb,var(--pri) 7%,var(--bg))}.ni.u{border-left:4px solid #e5484d}
 .ni-i{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--pri),var(--pri2));flex:none}.ni-i svg{width:18px;height:18px}
 .ni b{display:block;font-size:14.5px}.ni small{display:block;color:var(--mute);font-size:13px;margin-top:2px;word-break:break-word}.ni i{display:block;font-style:normal;font-size:11.5px;color:var(--mute);margin-top:4px}
-#nlist{margin:8px 0;max-height:52vh;overflow:auto}
 .pf-nr{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 0 4px;padding:10px 12px;border:1px solid var(--line);border-radius:14px}
 .pf-nr span{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px}.pf-nr span svg{width:18px;height:18px}
 .pf-nr b{font-size:12px;padding:2px 9px;border-radius:99px;background:color-mix(in srgb,var(--mute) 18%,transparent)}.pf-nr b.g{background:color-mix(in srgb,#16a34a 18%,transparent);color:#16a34a}
@@ -361,19 +360,70 @@ h2.t span .ico{width:1.05em;height:1.05em;vertical-align:0;color:var(--pri)}
  .mm.open{opacity:1;pointer-events:auto;background:rgba(8,10,30,.45);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
  .mm-c{width:100%;max-width:420px;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:14px;box-shadow:var(--sh);transform:translateY(26px) scale(.9);transform-origin:50% 100%;transition:transform .38s cubic-bezier(.34,1.56,.64,1)}
  .mm.open .mm-c{transform:none}
- .mm-tg{display:flex;align-items:center;gap:12px;width:100%;text-align:left;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:12px;cursor:pointer}
- .mm-tg:disabled{opacity:.6}
+ .mm-tg{display:flex;align-items:center;gap:4px;background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:10px 8px 10px 12px}
+ .mm-main{flex:1;min-width:0;display:flex;align-items:center;gap:12px;background:none;border:0;padding:0;font:inherit;color:var(--ink);text-align:left;cursor:pointer}
  .mm-tx{flex:1;min-width:0}.mm-tx b{display:block;font-size:14.5px}.mm-tx small{display:block;color:var(--mute);font-size:12px;margin-top:1px}
- .mm-sw{flex:none;position:relative;width:48px;height:28px;border-radius:99px;background:color-mix(in srgb,var(--mute) 38%,transparent);transition:background .25s}
- .mm-sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.28);transition:transform .28s cubic-bezier(.34,1.56,.64,1)}
- .mm-sw.on{background:linear-gradient(135deg,var(--pri),var(--pri2))}.mm-sw.on::after{transform:translateX(20px)}
  .mm-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(84px,1fr));gap:8px;margin-top:10px}
  .mm-i{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 4px;border-radius:18px;background:none;border:0;color:var(--ink);font:inherit;font-size:12.5px;font-weight:700;cursor:pointer}
  .mm-ic{position:relative;flex:none;width:46px;height:46px;border-radius:16px;display:grid;place-items:center;color:var(--pri);background:linear-gradient(135deg,color-mix(in srgb,var(--pri) 16%,transparent),color-mix(in srgb,var(--pri2) 12%,transparent))}
  .mm-ic svg{width:22px;height:22px}
  .mm-bd{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;border-radius:9px;background:#e5484d;color:#fff;font-size:11px;font-weight:800;font-style:normal;display:grid;place-items:center;padding:0 5px;border:2px solid var(--card);line-height:1}
 }
-@media(prefers-reduced-motion:reduce){.bfx,.bfx svg,.mm,.mm-c,.mm-sw,.mm-sw::after{transition:none!important}}
+@media(prefers-reduced-motion:reduce){.bfx,.bfx svg,.mm,.mm-c,.tsw,.tsw::after{transition:none!important}}
+/* ===== expired feature ===== */
+.stseg{display:flex;gap:4px;padding:4px;margin:14px 0 0;background:var(--card);border:1px solid var(--line);border-radius:16px}
+.stseg button{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 6px;border:0;border-radius:12px;background:none;color:var(--mute);font:inherit;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:.2s}
+.stseg button.on{background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;box-shadow:0 8px 18px -10px color-mix(in srgb,var(--pri) 80%,transparent)}
+.stseg .ico{width:1em;height:1em}
+.card.expd{opacity:1}
+.card.expd>*:not(.exr):not(.sv){opacity:.6;filter:grayscale(.55)}
+.exr{position:absolute;top:12px;left:12px;z-index:3;display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:800;padding:4px 11px;border-radius:99px;background:rgba(15,23,42,.8);color:#fff;letter-spacing:.02em;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.exr .ico{width:1em;height:1em}
+.exh{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 0 2px;padding:10px 14px;border-radius:14px;background:var(--bg);border:1px dashed var(--line);font-weight:800;color:var(--mute)}
+.exh span{display:inline-flex;align-items:center;gap:6px}.exh small{font-weight:600}
+.exb{display:flex;gap:12px;align-items:center;margin:4px 0 14px;padding:12px 14px;border-radius:16px;background:color-mix(in srgb,#e5484d 9%,var(--card));border:1px solid color-mix(in srgb,#e5484d 30%,var(--line));color:var(--ink)}
+.exb svg{width:22px;height:22px;color:#e5484d;flex:none}.exb b{display:block}.exb small{color:var(--mute)}
+/* ===== profile + inbox pages ===== */
+.tsw-b{flex:none;background:none;border:0;padding:6px;cursor:pointer;border-radius:99px}.tsw-b:focus-visible{outline:2px solid var(--pri);outline-offset:1px}
+.tsw{display:block;position:relative;width:50px;height:30px;border-radius:99px;background:color-mix(in srgb,var(--mute) 38%,transparent);transition:background .25s}
+.tsw::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.28);transition:transform .28s cubic-bezier(.34,1.56,.64,1)}
+.tsw.on{background:linear-gradient(135deg,var(--pri),var(--pri2))}.tsw.on::after{transform:translateX(20px)}
+.bnav button.on{color:var(--pri)}
+.pgback{display:inline-flex;align-items:center;gap:6px;margin:6px 0 14px;font-weight:700;color:var(--mute);text-decoration:none;font-size:14px}.pgback:hover{color:var(--pri)}.pgback .ico{width:18px;height:18px}
+.pp,.ib{max-width:720px;margin:0 auto;padding:4px 0 28px}
+.pp-card{background:var(--card);border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:var(--sh)}
+.pp-cover{height:104px;background:radial-gradient(circle at 18% 20%,rgba(255,255,255,.3),transparent 46%),linear-gradient(135deg,var(--pri),var(--pri2))}
+.pp-head{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 20px 22px;margin-top:-52px}
+.pp-avw{position:relative;width:104px;height:104px}
+.pp-av{width:104px;height:104px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;font-size:40px;font-weight:800;border:5px solid var(--card);box-shadow:0 12px 28px -12px rgba(30,50,120,.5)}
+.pp-av img{width:100%;height:100%;object-fit:cover}
+.pp-cam{position:absolute;right:-2px;bottom:2px;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:3px solid var(--card);background:var(--ink);color:var(--card);cursor:pointer;padding:0}.pp-cam svg{width:16px;height:16px}
+.pp-name{margin:14px 0 2px;font-size:22px;letter-spacing:-.01em}
+.pp-mail{margin:0 0 12px;color:var(--mute);font-size:14px;word-break:break-all}
+.pp-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.pp-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:99px;font-size:12.5px;font-weight:700;color:var(--pri);background:color-mix(in srgb,var(--pri) 11%,transparent)}
+.pp-chip.alt{color:var(--pri2);background:color-mix(in srgb,var(--pri2) 12%,transparent)}.pp-chip.ok{color:#16a34a;background:color-mix(in srgb,#16a34a 12%,transparent)}.pp-chip.mute{color:var(--mute);background:color-mix(in srgb,var(--mute) 14%,transparent)}
+.pp-chip svg{width:13px;height:13px}
+.pp-rm{margin-top:12px;border:0;background:none;color:var(--mute);font:inherit;font-size:13px;font-weight:600;cursor:pointer;display:inline-flex;gap:6px;align-items:center}.pp-rm:hover{color:#e5484d}.pp-rm svg{width:14px;height:14px}
+.pp-sec{margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px}
+.pp-sec h2{margin:0 0 14px;font-size:12.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--mute)}
+.pp-f{margin-bottom:14px}.pp-f label{display:block;margin:0 0 6px;font-size:13px;font-weight:700}.pp-f small{display:block;margin-top:5px;color:var(--mute);font-size:12px}
+.pp-two{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:420px){.pp-two{grid-template-columns:1fr}}
+.pp-lock{position:relative}.pp-lock input{padding-right:42px}.pp-lock svg{position:absolute;right:14px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--mute)}
+.pp-act .btn{width:100%;justify-content:center}.pp-act .btn:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(.3)}
+.pp-row{display:flex;align-items:center;gap:12px;padding:13px 4px;border-top:1px solid var(--line);color:var(--ink);text-decoration:none;font-weight:700}
+.pp-sec h2+.pp-row{border-top:0}.pp-row>svg:first-child{width:20px;height:20px;color:var(--pri)}.pp-row span{flex:1}
+.pp-row b{min-width:24px;height:24px;padding:0 8px;border-radius:99px;display:grid;place-items:center;font-size:12.5px;background:color-mix(in srgb,var(--pri) 12%,transparent);color:var(--pri)}.pp-row b.red{background:#e5484d;color:#fff}
+.pp-row .chev{width:16px;height:16px;color:var(--mute)}
+.pp-out{width:100%;margin-top:16px;padding:14px;border-radius:18px;border:1px solid color-mix(in srgb,#e5484d 35%,var(--line));background:color-mix(in srgb,#e5484d 7%,var(--card));color:#e5484d;font:inherit;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}.pp-out:hover{background:color-mix(in srgb,#e5484d 14%,var(--card))}
+.ib-hd{margin:2px 0 16px}.ib-hd h1{margin:0;font-size:26px;letter-spacing:-.02em}.ib-hd p{margin:4px 0 0;color:var(--mute);font-size:14px}
+.ib-alert{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--line);border-radius:20px;background:var(--card)}
+.ib-ai{width:44px;height:44px;border-radius:15px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--pri),var(--pri2));flex:none}.ib-ai svg{width:22px;height:22px}
+.ib-at{flex:1;min-width:0}.ib-at b{display:block}.ib-at small{display:block;color:var(--mute);font-size:12.5px;margin-top:2px}
+.ib-day{margin:22px 4px 4px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--mute)}
+.ib-empty{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:48px 20px;color:var(--mute)}
+.ib-empty span{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;margin-bottom:6px;color:var(--pri);background:color-mix(in srgb,var(--pri) 10%,transparent)}.ib-empty span svg{width:28px;height:28px}.ib-empty b{color:var(--ink);font-size:16px}
+.ni-tag{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:99px;font-size:10.5px;font-weight:800;vertical-align:middle;background:var(--pri);color:#fff}.ni-tag.r{background:#e5484d}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
 <nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="installBtn" style="display:none"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span class="hd"> Install</span></button><button class="btn ghost sm" id="bellBtn" type="button" aria-label="Notification" onclick="bellTap()"></button><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="me" id="meBtn" aria-label="Profile" type="button"></button></div></header>
@@ -442,7 +492,7 @@ function attHTML(f){const u=esc(f.url);
 const cnt=p=>p.nf!=null?p.nf:atts(p).length;
 function card(p){const n=cnt(p),c=CATS[p.cat]||CATS.notice;
  const cv=p.cover&&ok(p.cover.url)?`<img src="${esc(p.cover.url)}" alt="">`:(!p.cover&&!S.sdk&&p.hc!==false?`<div class="cvr" data-cv="${p.id}" data-cat="${p.cat}" style="--c:${c.c}"></div>`:`<div class="cvr ph" style="--c:${c.c}">${SVG(p.cat)}</div>`);
- return `<article class="card ${isExp(p)?"expd":""} ${isRd(p.id)?"rd":""}" style="--c:${c.c}" onclick="openPost('${p.id}')">${svBtn(p.id)}${cv}<div class="cb"><div class="ctop">${tagsHTML(p)}${dlBadge(p)}</div><h3>${hl(p.title)}</h3><p>${hl(p.body)}</p><div class="meta"><span>${SVG("clock")} ${dDate(p.ts)}</span><span>${n?SVG("clip")+" "+n+" attachment":""}</span></div></div></article>`}
+ return `<article class="card ${isExp(p)?"expd":""} ${isRd(p.id)?"rd":""}" style="--c:${c.c}" onclick="openPost('${p.id}')">${svBtn(p.id)}${isExp(p)?'<span class="exr">'+SVG("hourglass")+" Expired</span>":""}${cv}<div class="cb"><div class="ctop">${tagsHTML(p)}${dlBadge(p)}</div><h3>${hl(p.title)}</h3><p>${hl(p.body)}</p><div class="meta"><span>${SVG("clock")} ${dDate(p.ts)}</span><span>${n?SVG("clip")+" "+n+" attachment":""}</span></div></div></article>`}
 function fcard(p){const c=CATS[p.cat]||CATS.notice;
  return `<article class="fcard" style="--c:${c.c}" onclick="openPost('${p.id}')"><div class="ft"><span class="fl">${SVG(p.cat)}<b>${c.n}</b>${p.pinned?`<i>·</i>${SVG("pin")}<b>Pinned</b>`:""}</span>${dlBadge(p)}</div><h3>${esc(p.title)}</h3><div class="fgo">পড়ুন →</div></article>`}
 const nz=t=>String(t||"").normalize("NFC").toLowerCase().replace(/[\u200c\u200d]/g,"").replace(/\u09A1\u09BC/g,"\u09DC").replace(/\u09A2\u09BC/g,"\u09DD").replace(/\u09AF\u09BC/g,"\u09DF").replace(/[\u09E6-\u09EF]/g,d=>d.charCodeAt(0)-2406);
@@ -459,17 +509,21 @@ function tickHTML(b){if(!S.loaded)return"";const u=urgentOf(b);if(!u.length)retu
 function stripHTML(b){if(!S.loaded)return"";const n=b.filter(p=>Date.now()-p.ts<7*DAY).length,d=b.filter(p=>p.dl&&!isExp(p)&&p.dl-Date.now()<=7*DAY).length;if(!n&&!d)return"";
  return `<div class="hstrip">${n?`<span>${SVG("zap")}নতুন <b>${n}</b> টি notice</span>`:""}${n&&d?'<i aria-hidden="true"></i>':""}${d?`<span>${SVG("clock")}<b>${d}</b> টি deadline এই সপ্তাহে</span>`:""}</div>`}
 function pHome(){const base=S.posts.filter(p=>match(p)&&vis(p)),c=CATS[S.cat];
- const fs=(!S.cat&&!S.q&&S.loaded)?sorted(base.filter(p=>!isExp(p)&&(p.pinned||(p.dl&&p.dl-Date.now()<=3*DAY)))).slice(0,6):[],fid=new Set(fs.map(p=>p.id));
- const l=sorted(base.filter(p=>(!S.cat||p.cat==S.cat)&&!fid.has(p.id)&&(!S.unread||!isRd(p.id))&&(!S.dlo||(p.dl&&!isExp(p))))),cc=k=>base.filter(p=>p.cat==k).length;
+ const fs=(!S.cat&&!S.q&&S.loaded&&S.st!="expired")?sorted(base.filter(p=>!isExp(p)&&(p.pinned||(p.dl&&p.dl-Date.now()<=3*DAY)))).slice(0,6):[],fid=new Set(fs.map(p=>p.id));
+ const l=sorted(base.filter(p=>(!S.cat||p.cat==S.cat)&&!fid.has(p.id)&&(!S.unread||!isRd(p.id))&&(!S.dlo||(p.dl&&!isExp(p)))&&(S.st=="expired"?isExp(p):S.st=="active"?!isExp(p):true))),cc=k=>base.filter(p=>p.cat==k).length,ex=base.filter(p=>(!S.cat||p.cat==S.cat)&&isExp(p)).length,ac=base.filter(p=>!S.cat||p.cat==S.cat).length-ex;
  return `<section class="hero">${tickHTML(base)}<img class="hero-logo" src="logo.png" alt=""><h1>সব <span>Notice, Syllabus</span><br>ও Suggestion এক জায়গায়</h1>${whoHTML()}<p>Mirpur College Updates &amp; Notices-এর সর্বশেষ আপডেট, category অনুযায়ী সাজানো।</p>${stripHTML(base)}
  <div class="sbar"><div class="search"><span class="si">${SVG("search")}</span><input id="q" type="text" enterkeyhint="search" autocomplete="off" placeholder="Notice, routine, result খুঁজুন…" value="${esc(S.q)}"><button type="button" class="sclr" aria-label="Search মুছুন" onclick="clearSearch()" ${S.q?"":"hidden"}>×</button><button class="btn sm" onclick="doSearch()">Search</button></div></div></section>
  <div class="cats"><button class="chip ${S.cat?"":"on"}" onclick="setCat('')">সব (${base.length})</button>${Object.entries(CATS).map(([k,x])=>`<button class="chip ${S.cat==k?"on":""}" style="--c:${x.c}" onclick="setCat('${k}')">${SVG(k)} ${x.n} (${cc(k)})</button>`).join("")}</div>
  <div class="filter mcat"><select aria-label="Category" onchange="setCat(this.value)"><option value="" ${S.cat?"":"selected"}>সব Category (${base.length})</option>${Object.entries(CATS).map(([k,x])=>`<option value="${k}" ${S.cat==k?"selected":""}>${x.n} (${cc(k)})</option>`).join("")}</select></div>
  <div class="stats"><div class="stat"><b>${base.length}</b><small>মোট Post</small></div><div class="stat"><b>${base.filter(p=>Date.now()-p.ts<7*DAY).length}</b><small>এই সপ্তাহে নতুন</small></div><div class="stat"><b>${base.filter(p=>p.dl&&!isExp(p)&&p.dl-Date.now()<=7*DAY).length}</b><small>Deadline ৭ দিনে</small></div></div>
+ <div class="stseg" role="group" aria-label="Status"><button type="button" class="${!S.st?"on":""}" onclick="setSt('')">All (${ac+ex})</button><button type="button" class="${S.st=="active"?"on":""}" onclick="setSt('active')">${SVG("zap")} Active (${ac})</button><button type="button" class="${S.st=="expired"?"on":""}" onclick="setSt('expired')">${SVG("hourglass")} Expired (${ex})</button></div>
  <div class="chips"><button class="btn ghost sm ${S.unread?"on":""}" onclick="S.unread=!S.unread;route()">${SVG("zap")} শুধু Unread (${base.filter(p=>!isRd(p.id)).length})</button><button class="btn ghost sm ${S.dlo?"on":""}" onclick="S.dlo=!S.dlo;route()">${SVG("hourglass")} Deadline আছে</button></div>
  ${fs.length?`<h2 class="t"><span>${SVG("pin")} গুরুত্বপূর্ণ</span><small>Pinned ও deadline কাছে</small></h2><div class="fs">${fs.map(fcard).join("")}</div>`:""}
  <h2 class="t" id="list"><span>${c?SVG(S.cat)+" "+c.n:SVG("zap")+" সর্বশেষ Post"}</span><small>${l.length} টি</small></h2>
- <div class="grid">${!S.loaded?SK:l.length?l.map(card).join(""):`<div class="empty"><b>${SVG("inbox")}</b>এই category-তে এখনো কোনো post নেই।</div>`}</div>`}
+ <div class="grid">${!S.loaded?SK:l.length?listHTML(l):`<div class="empty"><b>${SVG("inbox")}</b>এই category-তে এখনো কোনো post নেই।</div>`}</div>`}
+function setSt(k){S.st=k||"";route();const el=$("#list");el&&el.scrollIntoView({behavior:"smooth"})}
+const listHTML=l=>{if(S.st||!l.some(isExp)||!l.some(p=>!isExp(p)))return l.map(card).join("");const i=l.findIndex(isExp);
+ return l.slice(0,i).map(card).join("")+`<div class="exh"><span>${SVG("hourglass")} Expired</span><small>${l.length-i}ti post-er meyad shesh</small></div>`+l.slice(i).map(card).join("")};
 function setCat(k){S.cat=k||null;route();const el=$("#list");el&&el.scrollIntoView({behavior:"smooth"})}
 function pContact(){return `<section class="hero" style="padding-bottom:10px"><h1>${SVG("mail")} <span>Contact</span> করুন</h1><p>প্রশ্ন, পরামর্শ বা অভিযোগ থাকলে নিচের form-এ জানান।</p></section>
  <div class="panel" style="max-width:660px;margin:0 auto 50px"><form onsubmit="sendMsg(event)">
@@ -512,7 +566,7 @@ function pPost(id){const p=FULL[id]||S.posts.find(x=>x.id==id);
   if(!p)return `<div class="panel post-page">${back}${S.fresh&&TRY[id]==2?"<h3>Post ta pawa jayni</h3>":'<div class="card sk" style="border:0"><div class="cb"><span class="tag">&nbsp;</span><h3>&nbsp;</h3><p>&nbsp;</p><p>&nbsp;</p></div></div>'}</div>`;
  const lite=!FULL[id]&&!S.sdk,pend=lite&&!FAIL[id]&&(p.nf==null||p.nf>0||p.hc!==false);
  const c=CATS[p.cat]||CATS.notice,a=atts(p);
- return `<div class="panel post-page">${back}${tagsHTML(p)}<h2 style="margin:8px 0">${esc(p.title)}</h2><small>${fmt(p.ts)}</small>${dlLine(p)}${p.cover&&ok(p.cover.url)?`<img class="big" src="${esc(p.cover.url)}" alt="">`:""}<p class="body">${esc(p.body)}</p>${pend?'<p><small>'+SVG("hourglass")+' Attachment লোড হচ্ছে…</small></p>':lite&&FAIL[id]?'<p><small>'+SVG("alert")+' Attachment load hoyni, page refresh korun.</small></p>':""}${a.length?`<h4 style="margin:18px 0 6px">${SVG("clip")} Attachments</h4>`+a.map(attHTML).join(""):""}${actBar(p)}${shareBar(p)}</div>`}
+ return `<div class="panel post-page">${back}${isExp(p)?`<div class="exb">${SVG("hourglass")}<div><b>Ei post-er meyad shesh hoyeche</b><small>Deadline chhilo: ${dDate(p.dl)}</small></div></div>`:""}${tagsHTML(p)}<h2 style="margin:8px 0">${esc(p.title)}</h2><small>${fmt(p.ts)}</small>${dlLine(p)}${p.cover&&ok(p.cover.url)?`<img class="big" src="${esc(p.cover.url)}" alt="">`:""}<p class="body">${esc(p.body)}</p>${pend?'<p><small>'+SVG("hourglass")+' Attachment লোড হচ্ছে…</small></p>':lite&&FAIL[id]?'<p><small>'+SVG("alert")+' Attachment load hoyni, page refresh korun.</small></p>':""}${a.length?`<h4 style="margin:18px 0 6px">${SVG("clip")} Attachments</h4>`+a.map(attHTML).join(""):""}${actBar(p)}${shareBar(p)}</div>`}
 async function loadPost(id){const p=S.posts.find(x=>x.id==id);
  if(!p&&!FULL[id]&&!TRY[id]){TRY[id]=1;try{await getFull(id)}catch(e){}TRY[id]=2;if(location.hash.includes(id))route();return}
  if(!p||S.sdk||FULL[id]||FAIL[id])return;if(!(p.nf==null||p.nf>0||p.hc!==false))return;
@@ -520,7 +574,8 @@ async function loadPost(id){const p=S.posts.find(x=>x.id==id);
 function route(){const h=location.hash.replace(/^#\/?/,"").split("/"),pg=h[0]||"home";
  $("#links").innerHTML=`<a href="#/" class="${pg=="home"?"on":""}">Home</a><a href="#/saved" class="${pg=="saved"?"on":""}">${SVG("star")} Saved${SV().length?" ("+SV().length+")":""}</a><a href="#/contact" class="${pg=="contact"?"on":""}">Contact</a>`;
  $("#yr").textContent=new Date().getFullYear();paintBnav(pg);{const f=$("#fab"),c=pg=="contact";f.href=c?"#/":"#/contact";f.innerHTML=c?"<span>"+SVG("home")+"</span>Home":"<span>"+SVG("msg")+"</span>Contact";f.setAttribute("aria-label",c?"Home":"Contact")}const k=document.activeElement&&document.activeElement.id;
- $("#app").innerHTML=pg=="contact"?pContact():pg=="saved"?pSaved():pg=="p"?pPost(h[1]):pHome();observeCovers();if(pg=="p"){markRead(h[1]);loadPost(h[1])}
+ if(pg=="inbox"&&S.pg!="inbox"){try{N.hl=N.seen;nMarkSeen()}catch(e){}}if(pg!="profile")S.pfd=null;if(S.pg!=pg&&(pg=="profile"||pg=="inbox"))scrollTo(0,0);S.pg=pg;
+ $("#app").innerHTML=pg=="contact"?pContact():pg=="saved"?pSaved():pg=="p"?pPost(h[1]):pg=="profile"?pProfile():pg=="inbox"?pInbox():pHome();observeCovers();if(pg=="p"){markRead(h[1]);loadPost(h[1])}
  const q=$("#q");if(q){q.addEventListener("keydown",e=>{if(e.key=="Enter")doSearch()});q.addEventListener("input",onSearchInput);if(k=="q")q.focus()}}
 /* ---- live search: input-ta na bhenge shudhu niche-r result bodle ---- */
 let sT;
@@ -620,7 +675,7 @@ async function gGoogle(){if(U.busy)return;U.busy=true;const b=$("#g_google");if(
 async function cancelSetup(){const b=$("#g_cancel");if(b)b.disabled=true;
  try{const {auth,A}=await getSDK(),u=auth.currentUser;if(isFreshG(u)){try{await A.deleteUser(u)}catch(e){}}}catch(e){}
  await logout()}
-async function logout(){closeM();try{await Promise.race([pushOff(),wait(2500)])}catch(e){}nStop();U.prof=null;U.user=null;writeCache();
+async function logout(){closeM();if(/^#\/(profile|inbox)/.test(location.hash))location.hash="#/";try{await Promise.race([pushOff(),wait(2500)])}catch(e){}nStop();U.prof=null;U.user=null;writeCache();
  try{const {auth,A}=await getSDK();await A.signOut(auth)}catch(e){}
  location.hash="#/";showGate("login");toast("Log out hoyeche")}
 async function authInit(){try{const {auth,A}=await getSDK();
@@ -680,18 +735,13 @@ function paintBnav(pg){
  $("#bnav").innerHTML=it(["","home","Home"])+it(["saved","star","Saved"])
   +`<button class="bmid${MMO?" open":""}" id="bmid" type="button" aria-label="Aro feature" aria-expanded="${MMO}" onclick="toggleMore()"><span class="bfx">${MORE_SVG}</span><i class="bdt"></i></button>`
   +it(["contact","msg","Contact"])
-  +`<button class="bme" type="button" onclick="openProfile()"><span class="bav">${av}</span>Profile</button>`;
+  +`<button class="bme${pg=="profile"?" on":""}" type="button" onclick="openProfile()"><span class="bav">${av}</span>Profile</button>`;
  try{paintBell()}catch(e){}}
-function paintMore(){const e=$("#mmc");if(!e)return;const ok=pushOK(),on=pIsOn(),n=nUnread();
- const sub=!ok?"Ei browser-e hoy na":Notification.permission=="denied"?"Browser-e Blocked":on?"Phone-e alert ON":"Phone-e alert OFF";
- e.innerHTML=`<button type="button" class="mm-tg" id="mm_alert" role="switch" aria-checked="${on}" onclick="mmAlert()"><span class="mm-ic">${SVG("bell")}</span><span class="mm-tx"><b>Notification</b><small>${sub}</small></span><span class="mm-sw${on?" on":""}"></span></button>
- <div class="mm-g"><button type="button" class="mm-i" onclick="mmList()"><span class="mm-ic">${SVG("inbox")}${n?`<em class="mm-bd">${n>9?"9+":n}</em>`:""}</span>Inbox</button>
- <button type="button" class="mm-i" onclick="mmTheme()"><span class="mm-ic">${THEME_SVG}</span>Theme</button>
+function paintMore(){const e=$("#mmc");if(!e)return;const n=nUnread();
+ e.innerHTML=`<div class="mm-tg"><button type="button" class="mm-main" onclick="mmList()"><span class="mm-ic">${SVG("bell")}${n?`<em class="mm-bd">${n>9?"9+":n}</em>`:""}</span><span class="mm-tx"><b>Notifications</b><small>${n?n+" new · ":""}${alertSub()}</small></span></button>${swBtn()}</div>
+ <div class="mm-g"><button type="button" class="mm-i" onclick="mmTheme()"><span class="mm-ic">${THEME_SVG}</span>Theme</button>
  ${typeof DP!="undefined"&&DP?`<button type="button" class="mm-i" onclick="mmInstall()"><span class="mm-ic">${SVG("dl")}</span>Install</button>`:""}</div>`}
 function toggleMore(f){const w=$("#mmore"),b=$("#bmid");if(!w||!b)return;const o=typeof f=="boolean"?f:!MMO;MMO=o;if(o)paintMore();w.classList.toggle("open",o);b.classList.toggle("open",o);b.setAttribute("aria-expanded",o?"true":"false")}
-async function mmAlert(){const b=$("#mm_alert");if(b)b.disabled=true;
- try{if(pIsOn()){await pushOff();pSet(PPREF,"off");toast("Notification bondho hoyeche")}else{pushToast(await pushOn(true))}}catch(e){toast("Notification chalu hoyni")}
- paintMore();try{paintBell()}catch(e){}}
 function mmList(){toggleMore(false);openNotifs()}
 function mmTheme(){$("#theme").click()}
 function mmInstall(){toggleMore(false);$("#installBtn").click()}
@@ -708,30 +758,34 @@ async function nStart(){const u=U.user;if(!u||N.uid==u.uid)return;nStop();N.uid=
   N.un.push(f.onSnapshot(f.query(f.collection(db,"notifAll"),f.orderBy("ts","desc"),f.limit(30)),sn=>{N.all=sn.docs.map(d=>({id:d.id,...d.data()}));nPaint()},()=>{}));
   N.un.push(f.onSnapshot(f.query(f.collection(db,"users",u.uid,"inbox"),f.orderBy("ts","desc"),f.limit(30)),sn=>{N.inbox=sn.docs.map(d=>({id:d.id,...d.data()}));nPaint()},()=>{}))}catch(e){}}
 function nStop(){try{toggleMore(false)}catch(e){}N.un.forEach(x=>{try{x()}catch(e){}});N.un=[];N.all=[];N.inbox=[];N.uid=null;try{paintBell()}catch(e){}}
-function nPaint(){try{paintBell()}catch(e){}if($("#nlist"))nListPaint();if(MMO)paintMore()}
-function openNotifs(){if(!U.prof)return;
- N.hl=N.seen;const top=nList()[0];if(top&&top.ts>N.seen){N.seen=top.ts;pSet("mcn_nseen_"+N.uid,String(N.seen))}
- $("#sheet").innerHTML=`<h3 style="margin:0 0 8px">${SVG("bell")} Notifications</h3><div id="nsw"></div><div id="nlist"></div><div class="row"><button class="btn ghost" type="button" onclick="closeM()">Close</button></div>`;
- $("#modal").classList.add("open");nSwPaint();nListPaint();try{paintBell()}catch(e){}}
-function nSwPaint(){const e=$("#nsw");if(!e)return;
- if(!pushOK()){e.innerHTML=`<small style="color:var(--mute)">Ei browser-e phone alert hoy na${/iPhone|iPad/.test(navigator.userAgent)?" — Safari → Share → Add to Home Screen kore app theke khulun":""}</small>`;return}
- const p=Notification.permission,on=pIsOn();
- e.innerHTML=`<div class="pf-nr"><span>${SVG("bell")} Phone alert <b class="${on?"g":""}">${on?"ON":p=="denied"?"Blocked":"OFF"}</b></span>${p=="denied"?"":`<button type="button" class="btn ghost sm" id="n_sw" onclick="nSwTog()">${on?"Bondho korun":"Chalu korun"}</button>`}</div>${p=="denied"?`<small style="color:var(--mute)">Browser Site settings theke Notifications Allow korun</small>`:""}`}
-async function nSwTog(){const b=$("#n_sw");if(b)b.disabled=true;
+function nPaint(){if(onInbox())nMarkSeen();try{paintBell()}catch(e){}if(onInbox())inboxPaint();if(MMO)paintMore()}
+/* ---------- INBOX PAGE (#/inbox) + shared notification control ---------- */
+const ARW='<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>';
+const CHEV='<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+const LOGOUT_SVG='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>';
+const onInbox=()=>location.hash.replace(/^#\/?/,"").split("/")[0]=="inbox";
+function openNotifs(){if(U.prof)location.hash="#/inbox"}
+function nMarkSeen(){const t=nList()[0];if(t&&t.ts>N.seen){N.seen=t.ts;pSet("mcn_nseen_"+N.uid,String(N.seen))}try{paintBell()}catch(e){}}
+function alertSub(){return !pushOK()?"Ei browser-e phone alert hoy na":Notification.permission=="denied"?"Browser-e Blocked — Site settings theke Allow korun":pIsOn()?"Phone alert ON":"Phone alert OFF"}
+const swBtn=()=>pushOK()?`<button type="button" class="tsw-b" role="switch" aria-checked="${pIsOn()}" aria-label="Phone alert" onclick="alertToggle()"><span class="tsw${pIsOn()?" on":""}"></span></button>`:"";
+let ALB=false;
+async function alertToggle(){if(ALB)return;ALB=true;
  try{if(pIsOn()){await pushOff();pSet(PPREF,"off");toast("Phone alert bondho hoyeche")}else{pushToast(await pushOn(true))}}catch(e){toast("Notification chalu hoyni")}
- nSwPaint();try{paintBell()}catch(e){}}
-function nListPaint(){const e=$("#nlist");if(!e)return;const l=nList();
- e.innerHTML=l.length?l.map(x=>`<button type="button" class="ni${(x.ts||0)>N.hl?" new":""}${x.urgent?" u":""}" data-u="${esc(x.url||"")}"><span class="ni-i">${SVG("bell")}</span><div><b>${esc(x.title||"")}</b><small>${esc(x.body||"")}</small><i>${nAgo(x.ts||0)}${x.urgent?" · 🔴 Urgent":""}</i></div></button>`).join(""):`<p style="color:var(--mute);text-align:center;margin:22px 0">Ekhono kono notification nei</p>`;
- e.onclick=ev=>{const b=ev.target.closest(".ni");if(b)nOpen(b.dataset.u)}}
-function nOpen(u){closeM();u=String(u||"");
- if(/^https:\/\//i.test(u)){window.open(u,"_blank","noopener");return}
- if(u.indexOf("/#/")==0)location.hash=u.slice(1)}
-function pfNotif(){const e=$("#pfN");if(!e)return;
- if(!pushOK()){e.innerHTML=`<small class="mut">Ei browser-e notification support kore na${/iPhone|iPad/.test(navigator.userAgent)?" — Safari → Share → Add to Home Screen kore app theke khulun":""}</small>`;return}
- const p=Notification.permission,on=pIsOn();
- e.innerHTML=`<div class="pf-nr"><span>${SVG("bell")} Notice notification <b class="${on?"g":""}">${on?"ON":p=="denied"?"Blocked":"OFF"}</b></span>${p=="denied"?"":`<button type="button" class="btn ghost sm" id="pf_nb" onclick="pfNtog()">${on?"Bondho korun":"Chalu korun"}</button>`}</div>${p=="denied"?`<small class="mut">Browser Site settings theke Notifications Allow korun</small>`:""}`}
-async function pfNtog(){const b=$("#pf_nb");if(b)b.disabled=true;
- if(pIsOn()){await pushOff();pSet(PPREF,"off");toast("Notification bondho hoyeche")}else{pushToast(await pushOn(true))}pfNotif()}
+ ALB=false;alertRepaint()}
+function alertRepaint(){try{paintBell()}catch(e){}if(MMO)paintMore();if(onInbox())inboxPaint()}
+const ibAlertHTML=()=>`<span class="ib-ai">${SVG("bell")}</span><div class="ib-at"><b>Phone alerts</b><small>${alertSub()}</small></div>${swBtn()}`;
+function inboxSub(){const l=nList(),w=l.filter(x=>(x.ts||0)>N.hl).length;return l.length?l.length+" notification"+(w?" · "+w+" new":""):"All caught up"}
+const ibItem=x=>{const nw=(x.ts||0)>N.hl;return `<button type="button" class="ni${nw?" new":""}${x.urgent?" u":""}" data-u="${esc(x.url||"")}"><span class="ni-i">${SVG(x.urgent?"alert":"bell")}</span><div><b>${esc(x.title||"")}${nw?'<span class="ni-tag">New</span>':""}${x.urgent?'<span class="ni-tag r">Urgent</span>':""}</b><small>${esc(x.body||"")}</small><i>${nAgo(x.ts||0)}</i></div></button>`};
+function ibListHTML(){const l=nList();
+ if(!l.length)return `<div class="ib-empty"><span>${SVG("bell")}</span><b>Ekhono kono notification nei</b><small>Notun Notice, Result ba Admin-er message ashle ekhane dekhabe.</small></div>`;
+ const d=new Date(),t0=new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime(),O=["Today","Yesterday","Earlier"],g={Today:[],Yesterday:[],Earlier:[]};
+ l.forEach(x=>{const t=x.ts||0;g[t>=t0?"Today":t>=t0-864e5?"Yesterday":"Earlier"].push(x)});
+ return O.filter(k=>g[k].length).map(k=>`<h3 class="ib-day">${k}</h3>`+g[k].map(ibItem).join("")).join("")}
+function inboxPaint(){const l=$("#ibList"),a=$("#ibAlert"),t=$("#ibSub");if(l)l.innerHTML=ibListHTML();if(a)a.innerHTML=ibAlertHTML();if(t)t.textContent=inboxSub()}
+function pInbox(){if(!U.prof)return pHome();
+ return `<div class="ib"><a class="pgback" href="#/">${ARW} Home</a><div class="ib-hd"><h1>Inbox</h1><p id="ibSub">${inboxSub()}</p></div><div class="ib-alert" id="ibAlert">${ibAlertHTML()}</div><div id="ibList">${ibListHTML()}</div></div>`}
+function nOpen(u){u=String(u||"");if(/^https:\/\//i.test(u)){window.open(u,"_blank","noopener");return}if(u.indexOf("/#/")==0)location.hash=u.slice(1)}
+document.addEventListener("click",e=>{const b=e.target.closest(".ni");if(b&&b.dataset.u!==undefined)nOpen(b.dataset.u)});
 /* ---------- EMAIL VERIFICATION (OTP) ---------- */
 const PEND="mcn_pend",V={iv:null,resendAt:0,expAt:0,state:"idle",sending:false};
 const needsVerify=u=>!!u&&!u.emailVerified&&!isG(u);
@@ -811,15 +865,29 @@ async function cancelVerify(){clearPend();clearInterval(V.iv);let del=false;
  await logout();if(del)showGate("signup")}
 // ---- profile modal ----
 const pDraft=()=>$("#p_name")?{name:$("#p_name").value,year:$("#p_year").value,dept:$("#p_dept").value}:{};
-function openProfile(d){if(!U.prof)return;d=d||{};const p=U.prof,has=imgOk(p.photo);
- $("#sheet").innerHTML=`<h3 style="margin:0 0 6px">${SVG("user")} আমার Profile</h3>
- <div class="pf-top"><div class="av">${avInner()}</div><div class="row"><button class="btn sm" type="button" onclick="$('#pfFile').click()">${SVG("camera")} ${has?"Photo বদলান":"Photo add করুন"}</button>${has?'<button class="btn ghost sm" type="button" onclick="rmPhoto()">'+SVG("trash")+' Remove</button>':""}<input type="file" id="pfFile" accept="image/*" hidden onchange="pickPhoto(this)"></div></div>
- <form onsubmit="saveProfile(event)"><label>Name *</label><input id="p_name" required maxlength="80" value="${esc(d.name??p.name)}">
- <div class="two"><div><label>Year *</label><select id="p_year" required>${opts(YEARS,d.year??p.year)}</select></div><div><label>Department *</label><select id="p_dept" required>${opts(DEPTS,d.dept??p.dept)}</select></div></div>
- <label>Email</label><input value="${esc(p.email)}" disabled>
- <div id="pfN"></div>
- <div class="row"><button class="btn" id="p_btn">${SVG("check")} Save</button><button type="button" class="btn ghost" onclick="closeM()">Cancel</button><button type="button" class="btn danger" onclick="logout()"><svg class="lo-ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg><span>Log out</span></button></div></form>`;
- $("#modal").classList.add("open");pfNotif()}
+function openProfile(d){if(!U.prof)return;if(d){S.pfd=d;route();return}S.pfd=null;if(location.hash.replace(/^#\/?/,"").split("/")[0]=="profile")route();else location.hash="#/profile"}
+function pfDirty(){const b=$("#p_btn"),p=U.prof;if(!b||!p)return;b.disabled=($("#p_name").value.trim()==p.name&&$("#p_year").value==p.year&&$("#p_dept").value==p.dept)}
+function pProfile(){const p=U.prof;if(!p)return pHome();
+ const d=S.pfd||{},has=imgOk(p.photo),u=U.user,ver=!!u&&(u.emailVerified||isG(u)),nm=d.name??p.name,yr=d.year??p.year,dp=d.dept??p.dept,un=nUnread();
+ let joined="";try{if(u&&u.metadata&&u.metadata.creationTime)joined=new Date(u.metadata.creationTime).toLocaleDateString("en-GB",{month:"short",year:"numeric"})}catch(e){}
+ const dirty=nm.trim()!=p.name||yr!=p.year||dp!=p.dept;
+ return `<div class="pp"><a class="pgback" href="#/">${ARW} Home</a>
+ <div class="pp-card"><div class="pp-cover"></div><div class="pp-head">
+  <div class="pp-avw"><div class="pp-av">${avInner()}</div><button class="pp-cam" type="button" aria-label="Photo bodlan" onclick="$('#pfFile').click()">${SVG("camera")}</button><input type="file" id="pfFile" accept="image/*" hidden onchange="pickPhoto(this)"></div>
+  <h1 class="pp-name">${esc(p.name)}</h1><p class="pp-mail">${esc(p.email||"")}</p>
+  <div class="pp-chips"><span class="pp-chip">${esc(p.year||"")}</span><span class="pp-chip alt">${esc(p.dept||"")}</span>${ver?`<span class="pp-chip ok">${SVG("check")} Verified</span>`:""}${joined?`<span class="pp-chip mute">Joined ${joined}</span>`:""}</div>
+  ${has?`<button class="pp-rm" type="button" onclick="rmPhoto()">${SVG("trash")} Photo remove korun</button>`:""}</div></div>
+ <div class="pp-sec"><h2>Personal information</h2>
+  <form id="pfForm" onsubmit="saveProfile(event)" oninput="pfDirty()">
+   <div class="pp-f"><label for="p_name">Full name</label><input id="p_name" required maxlength="80" autocomplete="name" value="${esc(nm)}"></div>
+   <div class="pp-two"><div class="pp-f"><label for="p_year">Year</label><select id="p_year" required>${opts(YEARS,yr)}</select></div><div class="pp-f"><label for="p_dept">Department</label><select id="p_dept" required>${opts(DEPTS,dp)}</select></div></div>
+   <div class="pp-f"><label for="p_mail">Email</label><div class="pp-lock"><input id="p_mail" value="${esc(p.email||"")}" disabled>${SVG("lock")}</div><small>Email bodlano jay na</small></div>
+   <div class="pp-act"><button class="btn" id="p_btn" ${dirty?"":"disabled"}>${SVG("check")} Save changes</button></div>
+  </form></div>
+ <div class="pp-sec"><h2>Shortcuts</h2>
+  <a class="pp-row" href="#/saved">${SVG("star")}<span>Saved posts</span><b>${SV().length}</b>${CHEV}</a>
+  <a class="pp-row" href="#/inbox">${SVG("bell")}<span>Inbox</span>${un?`<b class="red">${un}</b>`:""}${CHEV}</a></div>
+ <button class="pp-out" type="button" onclick="logout()">${LOGOUT_SVG} Log out</button></div>`}
 function resizeImg(file,size){return new Promise((res,rej)=>{const url=URL.createObjectURL(file),im=new Image();
  im.onload=()=>{try{const s=Math.min(im.width,im.height),c=document.createElement("canvas");c.width=c.height=size;c.getContext("2d").drawImage(im,(im.width-s)/2,(im.height-s)/2,s,s,0,0,size,size);URL.revokeObjectURL(url);res(c.toDataURL("image/jpeg",.82))}catch(e){rej(e)}};
  im.onerror=()=>{URL.revokeObjectURL(url);rej(new Error("img"))};im.src=url})}
@@ -829,7 +897,7 @@ async function pickPhoto(inp){const file=inp.files&&inp.files[0];if(!file)return
 async function rmPhoto(){const d=pDraft();U.prof.photo="";writeCache();paintMe();openProfile(d);if(await saveProf())toast("Photo remove hoyeche")}
 async function saveProfile(e){e.preventDefault();const d=pDraft(),b=$("#p_btn");b.disabled=true;
  U.prof={...U.prof,name:d.name.trim().slice(0,80)||U.prof.name,year:d.year,dept:d.dept};writeCache();paintMe();
- const ok=await saveProf();closeM();route();if(ok){sheetSync();toast("Profile update hoyeche")}}
+ const ok=await saveProf();S.pfd=null;route();if(ok){sheetSync();toast("Profile update hoyeche")}}
 document.addEventListener("click",e=>{const a=e.target.closest(".dl");if(!a)return;a.classList.remove("go");void a.offsetWidth;a.classList.add("go");setTimeout(()=>a.classList.remove("go"),1000)});
 $("#meBtn").onclick=()=>openProfile();
 let DP=null;addEventListener("beforeinstallprompt",e=>{e.preventDefault();DP=e;$("#installBtn").style.display=""});

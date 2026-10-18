@@ -199,3 +199,22 @@ Note:
      * Install       -> app install (shudhu jokhon install kora jay)
  - Rotate button-e lal dot = notun notification ache.
  - Phone-e header-e shudhu logo thake (Install/Bell/Theme/Profile bar-e shorano hoyeche). Desktop/tablet-e age-r moto header.
+
+=== Q) MAIN PAGE: EXPIRED FEATURE ===
+ Deadline (Admin > Post form-er "Deadline") peye gele post "Expired" hoy. Main page-e ekhon:
+  - Filter: All (N) | Active (N) | Expired (N)  -- Category select kora thakle oi category-r count dekhay.
+  - "All" view-e Expired post gulo list-er niche alada "Expired" divider-er pore dekhay (greyed + "Expired" ribbon).
+  - "Expired" filter chaple shudhu meyad-shesh post; "Active" chaple shudhu cholmaan post.
+  - Post khulle upore lal banner: "Ei post-er meyad shesh hoyeche. Deadline chhilo: <date>".
+  - Admin-e post-er deadline barale (ba muchle) post abar Active hoye jay.
+
+=== R) SITE: PROFILE PAGE + INBOX PAGE + EKTA NOTIFICATION BUTTON ===
+ - Profile ekhon popup noy, alada page: #/profile  (bottom bar-er "Profile" ba desktop header-er avatar tap korle)
+     Cover + boro avatar (camera button-e photo), naam/email, Year/Dept/Verified/Joined chip,
+     "Personal information" form (change korle tobei Save button chalu), Shortcuts (Saved posts, Inbox), Log out.
+ - Inbox ekhon popup noy, alada page: #/inbox
+     Upore "Phone alerts" switch (ON/OFF), niche Today / Yesterday / Earlier onujayi notification list; notun gulo "New" tag-shoho.
+ - Notification button EKTA:
+     Phone-e: rotate button-er menu-te ek row -> row tap = Inbox page khole, row-er dan-er switch tap = phone alert ON/OFF.
+     Desktop: header-er bell tap = Inbox page (switch oi page-e).
+ - Phone notification tap korle (custom notification) Inbox page khole.
