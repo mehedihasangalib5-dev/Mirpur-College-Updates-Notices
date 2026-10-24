@@ -290,9 +290,20 @@ h3 .ico,.ic-h .ico{vertical-align:-.2em;color:var(--pri)}.ic-h{display:flex;alig
  .mi-i svg{width:22px;height:22px}
 }
 @media(prefers-reduced-motion:reduce){.fabx .fx,.fabx .fx svg,.more,.mi,.morewrap{transition:none!important}}
+.mi{text-decoration:none}
+/* ===== admin: device layouts ===== */
+@media(min-width:1440px){.wrap{max-width:1480px}}
+@media(min-width:600px) and (max-width:899px){
+ .side{left:50%;right:auto;transform:translateX(-50%);width:min(560px,calc(100% - 20px))}
+ .scs{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-height:480px) and (orientation:landscape) and (max-width:899px){
+ .shell{padding-bottom:78px}.nv{padding:4px 2px}.fabx .fx{top:-26px;width:50px;height:50px;margin-left:-25px}
+}
+@media(pointer:coarse){.btn{min-height:42px}}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="admin.html"><img src="/logo.png" onerror="this.onerror=null;this.src=LOGO_FB" alt="Logo">Admin Panel</a><div class="sp"></div>
-<div class="hdr-r"><span id="who"></span><a class="btn ghost sm" href="index.html" target="_blank" rel="noopener" aria-label="Website"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></svg><span class="hd"> Website</span></a><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="btn ghost sm" id="outBtn" style="display:none" onclick="logout()" aria-label="Logout"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/></svg><span class="hd"> Logout</span></button></div></div></header>
+<div class="hdr-r"><span id="who"></span><a class="btn ghost sm" href="/" aria-label="Back to main website"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></svg><span class="hd"> Main site</span></a><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="btn ghost sm" id="outBtn" style="display:none" onclick="logout()" aria-label="Logout"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/></svg><span class="hd"> Logout</span></button></div></div></header>
 <main class="wrap" id="app"></main>
 <footer><div>© <span id="yr"></span> Mirpur College Updates &amp; Notices. All rights reserved.</div>
 <div>Developed by <a href="https://www.facebook.com/share/1F83w5QvQ2/" target="_blank" rel="noopener" aria-label="Md Mehedi Hassan - Facebook" style="display:inline-flex;align-items:center;gap:5px;vertical-align:middle"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true" style="flex:none"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H8v3h2.4V21h3.1z"/></svg> Md Mehedi Hassan</a></div></footer><div class="modal" id="modal"><div class="sheet" id="sheet"></div></div><div class="toast" id="toast"></div>
@@ -554,7 +565,7 @@ function navBar(un){const al=TABS.filter(allowed),main=al.filter(t=>MAINT.includ
  const mid=xt.length?`<button class="nv fabx${xt.some(t=>t[0]==S.tab)?" on":""}" id="moreBtn" type="button" aria-label="Aro feature" aria-expanded="false" onclick="toggleMore()"><span class="fx">${MORE_SVG}</span></button>`:"";
  return main.slice(0,h).map(t=>b(t)).join("")+mid+main.slice(h).map(t=>b(t)).join("")+xt.map(t=>b(t,1)).join("")}
 function morePop(){const xt=TABS.filter(allowed).filter(t=>!MAINT.includes(t[0]));if(!xt.length)return"";
- return `<div class="morewrap" id="morewrap" onclick="if(event.target===this)toggleMore(false)"><div class="more" role="menu">${xt.map(([k,i,n],j)=>`<button class="mi${S.tab==k?" on":""}" role="menuitem" style="--d:${j*50}ms" onclick="go('${k}')"><span class="mi-i">${IC(i)}</span><span>${n}</span></button>`).join("")}</div></div>`}
+ return `<div class="morewrap" id="morewrap" onclick="if(event.target===this)toggleMore(false)"><div class="more" role="menu">${xt.map(([k,i,n],j)=>`<button class="mi${S.tab==k?" on":""}" role="menuitem" style="--d:${j*50}ms" onclick="go('${k}')"><span class="mi-i">${IC(i)}</span><span>${n}</span></button>`).join("")}<a class="mi" href="/"><span class="mi-i"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></span><span>Website</span></a></div></div>`}
 function toggleMore(f){const w=$("#morewrap"),b=$("#moreBtn");if(!w||!b)return;const o=typeof f=="boolean"?f:!w.classList.contains("open");w.classList.toggle("open",o);b.classList.toggle("open",o);b.setAttribute("aria-expanded",o?"true":"false")}
 document.addEventListener("keydown",e=>{if(e.key=="Escape")toggleMore(false)});
 

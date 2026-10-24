@@ -218,3 +218,13 @@ Note:
      Phone-e: rotate button-er menu-te ek row -> row tap = Inbox page khole, row-er dan-er switch tap = phone alert ON/OFF.
      Desktop: header-er bell tap = Inbox page (switch oi page-e).
  - Phone notification tap korle (custom notification) Inbox page khole.
+
+=== S) STAFF ENTRY + EXPIRED ALADA + DEVICE LAYOUTS ===
+ 1. Owner/Admin/Editor login korle main site-e nijei "Admin Panel" button ashe (kono setup lagbe na -- config/admins theke role dekhe):
+      Desktop/tablet: header-e "Admin" button | Phone: rotate menu-te "Admin" tile (role likha) | Profile page-e role chip + "Admin Panel" row.
+    Admin Panel theke upore "Main site" (phone-e icon ba rotate menu-r "Website") chaple main website-e fera jay. Role 10 min cache hoy.
+ 2. Header bell ar ON hole blue hoy na (ON/OFF shudhu switch-e dekhay).
+ 3. Expired post shudhu "Expired" feature-e thake: Active list, search, category count, featured, ticker, Saved -- kothao dekhay na.
+    Deadline shesh hole 30 sec-er moddhei nijei Active theke Expired-e chole jay. Search-e expired match thakle hint dekhay. Direct link-e post khulle banner shoho dekha jay.
+ 4. Device layout: Phone(<=600) 1 col + bottom bar | Tablet(601-1023) 2 col | Laptop(1024+) 3 col | Desktop(1440+) 4 col | TV(1920+) 5 col |
+    phone landscape compact | touch device-e boro tap target | Profile page desktop-e 2 column. Admin-o tablet/landscape/boro screen-e adjust kora.
