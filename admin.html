@@ -301,6 +301,20 @@ h3 .ico,.ic-h .ico{vertical-align:-.2em;color:var(--pri)}.ic-h{display:flex;alig
  .shell{padding-bottom:78px}.nv{padding:4px 2px}.fabx .fx{top:-26px;width:50px;height:50px;margin-left:-25px}
 }
 @media(pointer:coarse){.btn{min-height:42px}}
+/* ===== admin: phone fixes (design ager moto, shudhu layout fix) ===== */
+.btn.danger{background:#ef4444;color:#fff}
+@media(max-width:599px){
+ header .role{display:none}
+ .scs{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .sc{padding:12px 14px 10px}
+ .sc b{font-size:26px}
+ .sc svg:not(.ico){display:none}
+ .tbar #uq{flex:1 1 100%;min-width:100%}
+}
+.scbox,.scedit{margin:10px 0;padding:12px 14px;border:1px dashed var(--line);border-radius:14px;background:var(--bg)}
+.scchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.scchip{font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:99px;background:color-mix(in srgb,var(--pri) 12%,transparent);color:var(--pri)}
+.scchip.all{background:color-mix(in srgb,var(--mute) 14%,transparent);color:var(--mute)}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="admin.html"><img src="/logo.png" onerror="this.onerror=null;this.src=LOGO_FB" alt="Logo">Admin Panel</a><div class="sp"></div>
 <div class="hdr-r"><span id="who"></span><a class="btn ghost sm" href="/" aria-label="Back to main website"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></svg><span class="hd"> Main site</span></a><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="btn ghost sm" id="outBtn" style="display:none" onclick="logout()" aria-label="Logout"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/></svg><span class="hd"> Logout</span></button></div></div></header>
@@ -381,6 +395,20 @@ const isOwner=()=>!!S.uid&&(S.ids[0]===S.uid||(S.verified&&S.emails[0]===me()));
 const isEditor=()=>!!S.uid&&S.verified&&S.editors.includes(me())&&!isAdmin();
 const isStaff=()=>isAdmin()||isEditor();
 const roleOf=()=>isOwner()?"Owner":isAdmin()?"Admin":isEditor()?"Editor":"";
+/* ---- Scope: Owner jar jonno Year + Department thik kore dey, se shudhu oi Page-er moddhe kaj korte pare ---- */
+const DOTP=" \u00b7 ";
+const ROLE_L={owner:"Owner",admin:"Admin",editor:"Editor"};
+const myScope=()=>{if(isOwner())return[];const a=(S.scope||{})[me()];return Array.isArray(a)?a.map(String):[]};
+const scoped=()=>isStaff()&&!isOwner()&&myScope().length>0;
+const pageOk=k=>!scoped()||myScope().includes(k);
+const grpInScope=g=>!scoped()||(Array.isArray(g)&&g.length>0&&g.every(x=>myScope().includes(x)));
+const scopePages=()=>scoped()?PAGES.filter(k=>myScope().includes(k)):PAGES;
+const scopeYears=()=>YEARS.filter(y=>scopePages().some(k=>k.startsWith(y+DOTP)));
+const scopeDepts=()=>DEPTS.filter(d=>scopePages().some(k=>k.endsWith(DOTP+d)));
+const roleKey=()=>isOwner()?"owner":isAdmin()?"admin":"editor";
+const myName=()=>S.myName||nameOf(S.email);
+const scopeNote=()=>scoped()?`<div class="note">\u0986\u09aa\u09a8\u09be\u09b0 scope (Year + Department): <b>${myScope().map(short).join(", ")}</b> \u2014 \u09b6\u09c1\u09a7\u09c1 \u098f\u0987 Page-\u098f\u09b0 post, student \u0993 notification \u09a6\u09c7\u0996\u09be/\u09aa\u09be\u09a0\u09be\u09a8\u09cb \u09af\u09be\u09ac\u09c7\u0964</div>`:"";
+function applyScope(){S.posts=(S.rawPosts||[]).filter(p=>grpInScope(p.grp))}
 const TABS=[["dash","dash","Dashboard",0,"Home"],["new","plus","নতুন Post",0,"নতুন"],["posts","list","সব Post",0,"Posts"],["msgs","mail","Messages",1,"Inbox"],["students","userplus","Students",1,"Students"],["notify","bell","Notify",1,"Notify"],["people","users","Admins",1,"Admins"],["tools","tool","Tools",1,"Tools"]];
 const allowed=t=>!t[3]||isAdmin();
 function go(t){if(location.hash=="#"+t){S.tab=t;render(true);scrollTo(0,0)}else location.hash=t}
@@ -445,7 +473,7 @@ function dashV(){
  const SU=isAdmin()?stuDash(card):{c:"",p:""};
  const rec=isAdmin()?S.logs.slice(0,6).map(l=>{const a=ACT[l.act]||[l.act,"history"];return `<div class="li rc"><span class="rc-i">${IC(a[1])}</span><div><b>${esc(nameOf(l.email))} <span class="mut">${a[0]}</span></b><small>${l.title?esc(l.title)+" · ":""}${ago(l.ts)}</small></div></div>`}).join(""):
   [...P].sort((a,b)=>(b.updated||b.ts)-(a.updated||a.ts)).slice(0,6).map(p=>`<div class="li rc"><span class="rc-i">${IC(CATS[p.cat]?p.cat:"notice")}</span><div><b>${esc(p.title)}</b><small>${ago(p.updated||p.ts)}</small></div></div>`).join("");
- return `<h1 class="pt">Dashboard</h1><p class="sub">স্বাগতম, <b>${esc(nameOf(S.email))}</b> <span class="role r-${roleOf().toLowerCase()}">${roleOf()}</span></p>
+ return `<h1 class="pt">Dashboard</h1><p class="sub">স্বাগতম, <b>${esc(nameOf(S.email))}</b> <span class="role r-${roleOf().toLowerCase()}">${roleOf()}</span></p>${scopeNote()}
  ${soon.length?`<div class="alertb">${IC("alert")}<div><b>${soon.length}টি post-এর deadline ৪৮ ঘণ্টার মধ্যে শেষ হবে</b>${soon.map(p=>`<div class="al-i"><span>${esc(p.title)} <small>· ${hrs(p.dl-now)}</small></span><button class="btn ghost sm" onclick="startEdit('${p.id}')">${IC("edit")} Edit</button></div>`).join("")}</div></div>`:""}
  <div class="scs">${card("file","#2850e8",P.length,"মোট Post",`${L.length} live · ${hid} draft/scheduled`,spark(bucket(P,"ts",14),"#2850e8"))}
  ${card("zap","#16a34a",wk,"এই সপ্তাহে নতুন","গত ৭ দিনে",spark(bucket(L,"ts",7),"#16a34a"))}
@@ -476,15 +504,15 @@ function saveTpl(){const t=$("#f_title").value.trim();if(!t)return toast("আগ
 function delTpl(i){const l=myTpl();l.splice(i,1);try{localStorage.setItem("mcn_tpl",JSON.stringify(l))}catch(e){};render(true)}
 function composeV(){
  const e=S.posts.find(p=>p.id==S.edit)||S.prefill||{cat:"notice",title:"",body:"",link:"",pinned:false,files:[]},P=S.pending;
- const links=(e.files||[]).filter(f=>f.type=="link").map(f=>f.name+" | "+f.url).join("\n"),sel=(e.grp&&e.grp.length)?pagesOf(e):[];
+ const links=(e.files||[]).filter(f=>f.type=="link").map(f=>f.name+" | "+f.url).join("\n"),sel=(e.grp&&e.grp.length)?pagesOf(e):(scoped()?scopePages():[]);
  const tp=allTpl(),mt=myTpl();
  return `<h1 class="pt">${S.edit?"Post Edit":"নতুন Post"}</h1>
  <div class="cgrid"><div class="panel" id="cform">
  ${!S.edit?`<div class="tplb">${IC("tpl")}<select name="tpl" onchange="applyTpl(this)"><option value="x">Template theke shuru korun…</option>${tp.map((t,i)=>`<option value="${i}">${t.u?"★ ":""}${esc(t.n)}</option>`).join("")}</select></div>`:""}
  <label>Category</label><select id="f_cat">${Object.entries(CATS).map(([k,c])=>`<option value="${k}" ${e.cat==k?"selected":""}>${c.n}</option>`).join("")}</select>
  <label>Title</label><input id="f_title" value="${esc(e.title)}" maxlength="150"><label>Details <small>(optional)</small></label><textarea id="f_body">${esc(e.body)}</textarea>
- <label>${IC("file")} কোন Page-এ দেখাবে? <small>(কিছু select না করলে সব Page-এ)</small></label>
- ${YEARS.map(y=>`<div class="pgy">${esc(y)}</div><div class="gset" style="margin-bottom:8px">${DEPTS.map(d=>{const l=y+" · "+d;return `<label class="gchk"><input type="checkbox" class="gcb" value="${esc(l)}" ${sel.includes(l)?"checked":""}> ${esc(d)}</label>`}).join("")}</div>`).join("")}
+ <label>${IC("file")} কোন Page-এ দেখাবে? ${scoped()?"":`<small>(কিছু select না করলে সব Page-এ)</small>`}</label>
+ ${scopeNote()}${YEARS.filter(y=>DEPTS.some(d=>pageOk(y+DOTP+d))).map(y=>`<div class="pgy">${esc(y)}</div><div class="gset" style="margin-bottom:8px">${DEPTS.filter(d=>pageOk(y+DOTP+d)).map(d=>{const l=y+" · "+d;return `<label class="gchk"><input type="checkbox" class="gcb" value="${esc(l)}" ${sel.includes(l)?"checked":""}> ${esc(d)}</label>`}).join("")}</div>`).join("")}
  <div class="row" style="margin:0 0 4px"><button type="button" class="btn ghost sm" onclick="pgSet(true)">${IC("check")} সব Page</button><button type="button" class="btn ghost sm" onclick="pgSet(false)">${IC("x")} Clear</button></div>
  <div class="two"><div><label>${IC("cal")} Deadline <small>(optional)</small></label><input type="date" id="f_dl" value="${e.dl?new Date(e.dl).toLocaleDateString("en-CA"):""}"></div>
  <div><label>${IC("clock")} Schedule <small>(optional)</small></label><input type="datetime-local" id="f_at" value="${e.at?toLocal(e.at):""}"></div></div>
@@ -520,7 +548,7 @@ function plistHTML(){const l=pfList(),n=[...S.sel].filter(id=>S.posts.some(p=>p.
  (l.map(p=>{const k=CATS[p.cat]?p.cat:"notice",s=S.sel.has(p.id);
  return `<div class="pr ${s?"sel":""}"><label class="ck"><input type="checkbox" ${s?"checked":""} onchange="selTog('${p.id}',this.checked)"></label>
  <div class="th">${p.cover&&ok(p.cover.url)?`<img src="${esc(p.cover.url)}" alt="" loading="lazy">`:IC(k)}</div>
- <div class="pm"><b>${p.pinned?`<span class="pn">${IC("pin")}</span>`:""}${esc(p.title)}</b><small>${fmtD(p.ts)} · ${esc(pgText(p))}${p.dl?" · "+IC("cal")+" "+fmtD(p.dl):""}${p.hist&&p.hist.length?" · "+p.hist.length+" edit":""}</small></div>
+ <div class="pm"><b>${p.pinned?`<span class="pn">${IC("pin")}</span>`:""}${esc(p.title)}</b><small>${fmtD(p.ts)} · ${esc(pgText(p))}${p.byName?" · "+esc(p.byName)+" ("+esc(ROLE_L[p.byRole]||"")+")":""}${p.dl?" · "+IC("cal")+" "+fmtD(p.dl):""}${p.hist&&p.hist.length?" · "+p.hist.length+" edit":""}</small></div>
  <div class="pmeta">${catChip(k)}${stChip(p)}<span class="vw">${IC("eye")} ${p.views||0}</span></div>
  <div class="acts"><button class="ib" title="WhatsApp share" onclick="waShare('${p.id}')">${IC("msg")}</button><button class="ib" title="Push notification" onclick="notifyBtn('${p.id}')">${IC("bell")}</button><button class="ib" title="Edit" onclick="startEdit('${p.id}')">${IC("edit")}</button><button class="ib" title="Duplicate" onclick="dupPost('${p.id}')">${IC("copy")}</button>${p.hist&&p.hist.length?`<button class="ib" title="History" onclick="showHist('${p.id}')">${IC("history")}</button>`:""}${isAdmin()?`<button class="ib d" title="Delete" onclick="del('${p.id}')">${IC("trash")}</button>`:""}</div></div>`}).join("")||`<div class="emp">${IC("inbox")}<p>কোনো post পাওয়া যায়নি</p></div>`)+`</div>`}
 const refreshPosts=()=>{const e=$("#plist");if(e)e.innerHTML=plistHTML()};
@@ -531,7 +559,7 @@ function postsV(){const opt=(v,t,c)=>`<option value="${v}" ${c?"selected":""}>${
  <div class="tbar"><div class="sb">${IC("search")}<input id="p_q" placeholder="Title, details বা category খুঁজুন…" value="${esc(S.q)}" oninput="S.q=this.value;refreshPosts()"></div>
  <select onchange="S.fc=this.value;refreshPosts()">${opt("","সব Category",!S.fc)}${Object.entries(CATS).map(([k,c])=>opt(k,c.n,S.fc==k)).join("")}</select>
  <select onchange="S.fs=this.value;refreshPosts()">${opt("","সব Status",!S.fs)}${Object.entries(STL).map(([k,v])=>opt(k,v[0],S.fs==k)).join("")}</select>
- <select onchange="S.pf=this.value;refreshPosts()">${opt("","সব Page",!S.pf)}${PAGES.map(l=>opt(esc(l),esc(short(l)),S.pf==l)).join("")}</select>
+ <select onchange="S.pf=this.value;refreshPosts()">${opt("","সব Page",!S.pf)}${scopePages().map(l=>opt(esc(l),esc(short(l)),S.pf==l)).join("")}</select>
  <select onchange="S.so=this.value;refreshPosts()">${opt("new","নতুন আগে",S.so=="new")}${opt("old","পুরনো আগে",S.so=="old")}${opt("views","বেশি View",S.so=="views")}${opt("dl","Deadline কাছে",S.so=="dl")}</select>
  <button class="btn sm" onclick="go('new')">${IC("plus")} নতুন</button></div><div id="plist">${plistHTML()}</div>`}
 
@@ -549,11 +577,11 @@ function msgsV(){const A=S.msgs,c={inbox:A.filter(m=>!m.arch).length,unread:A.fi
  <div class="fchs">${tab("inbox","Inbox")}${tab("unread","Unread")}${tab("star","Starred")}${tab("arch","Archived")}</div><div id="mlist" class="panel mlist">${mlistHTML()}</div>`}
 
 /* ---- views: people ---- */
-function peopleV(){const own=isOwner(),row=(u,role,i)=>`<div class="li"><div><code>${esc(u)}</code> <span class="role r-${role.toLowerCase()}">${role}</span>${u==me()?" <small>(আপনি)</small>":""}</div>${own&&role!="Owner"?`<button class="btn ghost sm" onclick="setRole('${esc(u)}','${role=="Admin"?"editor":"admin"}')">${role=="Admin"?"Editor বানান":"Admin বানান"}</button><button class="btn danger sm" onclick="rmAdmin('${esc(u)}')">Remove</button>`:""}</div>`;
+function peopleV(){const own=isOwner(),row=(u,role,i)=>`<div class="li"><div><code>${esc(u)}</code> <span class="role r-${role.toLowerCase()}">${role}</span>${role!="Owner"?scopeChips(u):""}${u==me()?" <small>(আপনি)</small>":""}</div>${own&&role!="Owner"?`<button class="btn ghost sm" onclick="editScope('${esc(u)}')">${IC("pin")} Scope</button><button class="btn ghost sm" onclick="setRole('${esc(u)}','${role=="Admin"?"editor":"admin"}')">${role=="Admin"?"Editor বানান":"Admin বানান"}</button><button class="btn danger sm" onclick="rmAdmin('${esc(u)}')">Remove</button>`:""}</div>${S.scEdit==u?scopeEditor(u):""}`;
  return `<h1 class="pt">Admins &amp; Roles</h1>
  <div class="panel"><h3>${IC("shield")} কে কী করতে পারে</h3><div class="rtab"><div><span class="role r-owner">Owner</span><small>সব কিছু + অন্যদের access/role ঠিক করা</small></div><div><span class="role r-admin">Admin</span><small>Post (create/edit/delete), Messages, Backup, Students, Activity</small></div><div><span class="role r-editor">Editor</span><small>শুধু Post create ও edit — delete, message, backup পারবে না</small></div></div></div>
  <div class="panel"><h3>${IC("userplus")} Access দিন</h3><div class="note">আপনার email: <code>${esc(S.email||"")}</code> · আপনি <b>${roleOf()}</b>. ${own?"":"(শুধু Owner পরিবর্তন করতে পারে)"}</div>
- ${own?`<form class="row" style="margin:0 0 14px;flex-wrap:nowrap" onsubmit="addAdmin(event)"><input id="newem" type="email" required placeholder="name@gmail.com" style="flex:1;min-width:0"><select id="newrole" style="width:auto"><option value="editor">Editor</option><option value="admin">Admin</option></select><button class="btn sm">Add</button></form>`:""}
+ ${own?`<form style="margin:0 0 14px" onsubmit="addAdmin(event)"><div class="row" style="margin:0 0 10px;flex-wrap:nowrap"><input id="newem" type="email" required placeholder="name@gmail.com" style="flex:1;min-width:0"><select id="newrole" style="width:auto"><option value="editor">Editor</option><option value="admin">Admin</option></select><button class="btn sm">Add</button></div><div class="scbox"><b>কোন Year ও Department-এ কাজ করতে পারবে?</b><small class="mut2" style="display:block;margin:2px 0 8px">সবগুলো tick থাকলে সব Page-এ। কম সিলেক্ট করলে শুধু সেই Page-এ post, student ও notification use করতে পারবে।</small>${scopeGrid("scn",PAGES)}</div></form>`:""}
  ${S.emails.map((u,i)=>row(u,i==0?"Owner":"Admin",i)).join("")}${S.editors.map(u=>row(u,"Editor")).join("")}
  ${S.ids.map(u=>`<div class="li"><div><code>${esc(u)}</code> <small>(পুরনো UID access)</small></div>${own?`<button class="btn danger sm" onclick="rmId('${esc(u)}')">Remove</button>`:""}</div>`).join("")}</div>`}
 
@@ -583,13 +611,13 @@ function stuRow(x){const nm=x.name||"(নাম নেই)",bl=!!x.blocked,id=es
 function studentsV(){
  if(!S.users)return `<h1 class="pt">Students</h1><div class="panel"><p class="mut2">Student list load hocche…</p><button class="btn" onclick="loadUsers()">${IC("users")} Load korun</button></div>`;
  const u=S.users,bl=u.filter(x=>x.blocked).length,all=stuList(),lim=S.ulim||50,list=all.slice(0,lim);
- return `<h1 class="pt">Students</h1><p class="sub">Registered student-der Name, Year, Department — Block ba Remove korte paren.</p>
+ return `<h1 class="pt">Students</h1><p class="sub">Registered student-der Name, Year, Department — Block ba Remove korte paren.</p>${scopeNote()}
  <div class="sts"><div><b>${u.length}</b><small>মোট</small></div><div><b>${u.length-bl}</b><small>Active</small></div><div><b style="color:#e5484d">${bl}</b><small>Blocked</small></div></div>
  <div class="panel"><div class="tbar"><input id="uq" type="search" placeholder="Name ba email khujun…" value="${esc(S.uq||"")}" oninput="S.uq=this.value;S.ulim=50;render(true)" style="flex:1;min-width:160px">
  <select id="uy" onchange="S.uy=this.value;S.ulim=50;render(true)"><option value="">সব Year</option>${YEARS.map(y=>`<option value="${esc(y)}" ${S.uy==y?"selected":""}>${esc(y)}</option>`).join("")}</select>
  <select id="ud" onchange="S.ud=this.value;S.ulim=50;render(true)"><option value="">সব Department</option>${DEPTS.map(d=>`<option value="${d}" ${S.ud==d?"selected":""}>${d}</option>`).join("")}</select>
  <select id="us" onchange="S.us=this.value;S.ulim=50;render(true)"><option value="">সব Status</option><option value="active" ${S.us=="active"?"selected":""}>Active</option><option value="blocked" ${S.us=="blocked"?"selected":""}>Blocked</option></select></div>
- <div class="row" style="margin:0 0 6px"><button class="btn ghost sm" onclick="loadUsers()">Refresh</button><button class="btn ghost sm" onclick="exportUsers()">${IC("dl")} CSV</button><button class="btn ghost sm" onclick="syncSheet()">${IC("upload")} Google Sheet Sync</button></div>
+ <div class="row" style="margin:0 0 6px"><button class="btn ghost sm" onclick="loadUsers()">Refresh</button><button class="btn ghost sm" onclick="exportUsers()">${IC("dl")} CSV</button>${scoped()?"":`<button class="btn ghost sm" onclick="syncSheet()">${IC("upload")} Google Sheet Sync</button>`}</div>
  <small class="mut2">${all.length}জন দেখাচ্ছে</small>
  ${list.map(stuRow).join("")||`<p class="mut2">কাউকে পাওয়া যায়নি</p>`}
  ${all.length>lim?`<div class="row" style="justify-content:center"><button class="btn ghost" onclick="S.ulim=(S.ulim||50)+50;render(true)">আরও দেখুন (${all.length-lim})</button></div>`:""}</div>`}
@@ -652,7 +680,7 @@ function notifyV(){const n=S.nf,posts=S.posts.filter(live).sort((a,b)=>b.ts-a.ts
  <div class="g2"><div class="panel"><h3>${IC("bell")} Notun notification</h3>
  <label>Kake pathaben?</label>
  <div class="seg">${[["all","সব Student"],["filter","Year / Dept"],["users","নির্দিষ্ট Student"],["me","শুধু আমি (Test)"]].map(([k,l])=>`<button type="button" class="${n.aud==k?"on":""}" onclick="nfAudSet('${k}')">${l}</button>`).join("")}</div>
- ${n.aud=="filter"?`<div class="chks">${YEARS.map(y=>`<label class="gchk"><input type="checkbox" ${n.years.includes(y)?"checked":""} onchange="nfTog('years','${esc(y)}')"> ${esc(y)}</label>`).join("")}${DEPTS.map(d=>`<label class="gchk"><input type="checkbox" ${n.depts.includes(d)?"checked":""} onchange="nfTog('depts','${d}')"> ${d}</label>`).join("")}</div>`:""}
+ ${n.aud=="filter"?`<div class="chks">${scopeYears().map(y=>`<label class="gchk"><input type="checkbox" ${n.years.includes(y)?"checked":""} onchange="nfTog('years','${esc(y)}')"> ${esc(y)}</label>`).join("")}${scopeDepts().map(d=>`<label class="gchk"><input type="checkbox" ${n.depts.includes(d)?"checked":""} onchange="nfTog('depts','${d}')"> ${d}</label>`).join("")}</div>`:""}
  ${n.aud=="users"?nfPicker():""}
  <div id="nf_cnt">${nfCntHtml()}</div>
  <div class="sub2">Template</div><div class="row" style="margin:0 0 6px">${NFT.map((t,i)=>`<button type="button" class="btn ghost sm" onclick="nfTpl(${i})">${esc(t[0])}</button>`).join("")}</div>
@@ -692,7 +720,7 @@ function toolsV(){const u=S.users,cnt=(y,d)=>u.filter(x=>x.year==y&&x.dept==d).l
  <label>${IC("upload")} Backup Import (.json)</label><input type="file" accept=".json,application/json" onchange="importFile(this)"></div>
  <div class="panel"><h3>${IC("users")} Registered Students</h3>${u?`<div class="sts"><div><b>${u.length}</b><small>মোট</small></div>${YEARS.map(y=>`<div><b>${DEPTS.reduce((a,d)=>a+cnt(y,d),0)}</b><small>${esc(short(y))}</small></div>`).join("")}</div>
  <table class="tb"><tr><th></th>${DEPTS.map(d=>`<th>${d}</th>`).join("")}</tr>${YEARS.map(y=>`<tr><td>${esc(short(y))}</td>${DEPTS.map(d=>`<td>${cnt(y,d)}</td>`).join("")}</tr>`).join("")}</table>
- <div class="row"><button class="btn ghost sm" onclick="exportUsers()">${IC("dl")} CSV Export</button><button class="btn ghost sm" onclick="syncSheet()">${IC("upload")} Google Sheet Sync</button><button class="btn ghost sm" onclick="loadUsers()">Refresh</button></div>`:`<p class="mut2">Login kora student-der sonkhya o Year/Dept breakdown.</p><button class="btn" onclick="loadUsers()">${IC("users")} Load korun</button>`}
+ <div class="row"><button class="btn ghost sm" onclick="exportUsers()">${IC("dl")} CSV Export</button>${scoped()?"":`<button class="btn ghost sm" onclick="syncSheet()">${IC("upload")} Google Sheet Sync</button>`}<button class="btn ghost sm" onclick="loadUsers()">Refresh</button></div>`:`<p class="mut2">Login kora student-der sonkhya o Year/Dept breakdown.</p><button class="btn" onclick="loadUsers()">${IC("users")} Load korun</button>`}
  <small class="mut2">Push subscriber-er sonkhya Firebase theke dekha jay na (topic subscription count dey na).</small></div></div>
  <div class="panel"><h3>${IC("history")} Activity Log <small>· শেষ ${S.logs.length}টি</small></h3>${S.logs.map(l=>{const a=ACT[l.act]||[l.act,"history"];return `<div class="li rc"><span class="rc-i">${IC(a[1])}</span><div><b>${esc(nameOf(l.email))} <span class="mut">${a[0]}</span></b><small>${l.title?esc(l.title)+" · ":""}${fmt(l.ts)}</small></div></div>`}).join("")||"<small>এখনো কোনো activity নেই</small>"}</div></div>`}
 
@@ -739,13 +767,14 @@ function cancelEdit(){S.edit=null;S.prefill=null;S.form=null;S.pending={cover:nu
 function dupPost(id){const p=S.posts.find(x=>x.id==id);if(!p)return;S.edit=null;S.form=null;const d={...p};delete d.id;
  S.prefill={...d,title:(p.title||"")+" (copy)",draft:true,pinned:false,hist:[],views:0,at:null};S.pending={cover:p.cover||null,files:(p.files||[]).filter(f=>f.type!="link")};go("new");toast("Copy ready – Draft hishebe, edit kore Publish korun")}
 function parseLinks(t){return t.split("\n").map(x=>x.trim()).filter(Boolean).map(x=>{const i=x.indexOf("|");return i<0?{name:"Attachment",url:x}:{name:x.slice(0,i).trim()||"Attachment",url:x.slice(i+1).trim()}}).filter(a=>/^https?:\/\//.test(a.url)).map(a=>({id:"",name:a.name,type:"link",url:a.url}))}
-async function submitPost(){
+async function submitPost(){if(scoped()&&!document.querySelectorAll(".gcb:checked").length){toast("Komporkkhe ekta Page select korun");return}
+ 
  const title=$("#f_title").value.trim(),body=$("#f_body").value.trim();if(!title)return toast("Title দিন");
  const old=S.posts.find(p=>p.id==S.edit),now=Date.now(),P=S.pending,b=$("#pubBtn"),dlv=$("#f_dl").value,atv=$("#f_at").value?new Date($("#f_at").value).getTime():0,
   lk=parseLinks($("#f_links").value),push=$("#f_push").checked,dr=$("#f_draft").checked;
  const data={title,body,cat:$("#f_cat").value,link:$("#f_link").value.trim(),pinned:$("#f_pin").checked,cover:P.cover||null,files:[...P.files,...lk],
-  ts:atv||(old?old.ts:now),by:old?(old.by||S.uid):S.uid,updated:now,nf:P.files.length+lk.length+(/^https?:\/\//.test($("#f_link").value.trim())?1:0),hc:!!P.cover,
-  grp:(g=>g.length==PAGES.length?[]:g)([...document.querySelectorAll(".gcb:checked")].map(x=>x.value)),dl:dlv?new Date(dlv+"T23:59:59").getTime():null,at:atv||null,draft:dr,views:(old&&old.views)||0,
+  ts:atv||(old?old.ts:now),by:old?(old.by||S.uid):S.uid,...(old?(old.byName?{byName:old.byName,byRole:old.byRole||""}:{}):{byName:myName(),byRole:roleKey()}),updated:now,nf:P.files.length+lk.length+(/^https?:\/\//.test($("#f_link").value.trim())?1:0),hc:!!P.cover,
+  grp:(g=>scoped()?g:(g.length==PAGES.length?[]:g))([...document.querySelectorAll(".gcb:checked")].map(x=>x.value)),dl:dlv?new Date(dlv+"T23:59:59").getTime():null,at:atv||null,draft:dr,views:(old&&old.views)||0,
   hist:old?[{ts:now,by:S.uid,title:old.title||"",body:old.body||"",cat:old.cat||"notice",link:old.link||""},...(old.hist||[])].slice(0,20):[]};
  const clean=JSON.parse(JSON.stringify(data));
  if(JSON.stringify(clean).length>950000)return toast("Post ta onek boro – chobi kombao");
@@ -789,9 +818,23 @@ async function delMsg(id){const m=S.msgs.find(x=>x.id==id);if(!m)return;if(!awai
  catch(e){toast("Delete hoyni: "+(e.code||e.message))}}
 
 /* ---- roles ---- */
-async function saveAdmins(emails,ids,editors,what){try{const d={emails,editors};if(ids&&ids.length)d.ids=ids;await FB.setDoc(FB.doc(FB.db,"config","admins"),d);toast("Saved");if(what)logAct("role",{title:what})}catch(e){toast("Save hoyni: "+(e.code||e.message))}}
+async function saveAdmins(emails,ids,editors,what,sc){try{const d={emails,editors};if(ids&&ids.length)d.ids=ids;
+ const base=sc===undefined?(S.scope||{}):sc,out={};
+ [...emails.slice(1),...editors].forEach(e=>{const g=base[e];if(Array.isArray(g)&&g.length&&g.length<PAGES.length)out[e]=g.filter(k=>PAGES.includes(k))});
+ d.scope=out;await FB.setDoc(FB.doc(FB.db,"config","admins"),d);toast("Saved");if(what)logAct("role",{title:what})}catch(e){toast("Save hoyni: "+(e.code||e.message))}}
 function addAdmin(ev){ev.preventDefault();const v=$("#newem").value.trim().toLowerCase(),r=$("#newrole").value;if(!/^\S+@\S+\.\S+$/.test(v))return toast("Email ta thik na");if(S.emails.includes(v)||S.editors.includes(v))return toast("Ei email age-i ache");
- r=="admin"?saveAdmins([...S.emails,v],S.ids,S.editors,v+" → Admin"):saveAdmins(S.emails,S.ids,[...S.editors,v],v+" → Editor")}
+ const sel=[...document.querySelectorAll(".scn:checked")].map(x=>x.value);if(!sel.length)return toast("Komporkkhe ekta Year/Department select korun");
+ const sc={...(S.scope||{})};if(sel.length<PAGES.length)sc[v]=sel;else delete sc[v];
+ const lab=sel.length<PAGES.length?" ["+sel.map(short).join(", ")+"]":"";
+ r=="admin"?saveAdmins([...S.emails,v],S.ids,S.editors,v+" \u2192 Admin"+lab,sc):saveAdmins(S.emails,S.ids,[...S.editors,v],v+" \u2192 Editor"+lab,sc)}
+const scAll=(cls,on)=>document.querySelectorAll("."+cls).forEach(x=>x.checked=on);
+const editScope=u=>{S.scEdit=S.scEdit==u?null:u;render(true)};
+function saveScope(u){const sel=[...document.querySelectorAll(".sce:checked")].map(x=>x.value);if(!sel.length)return toast("Komporkkhe ekta Year/Department select korun");
+ const sc={...(S.scope||{})};if(sel.length<PAGES.length)sc[u]=sel;else delete sc[u];S.scEdit=null;
+ saveAdmins(S.emails,S.ids,S.editors,u+" scope: "+(sel.length<PAGES.length?sel.map(short).join(", "):"sob Page"),sc)}
+const scopeGrid=(cls,sel)=>`<div class="scg">${YEARS.map(y=>`<div class="pgy">${esc(y)}</div><div class="gset" style="margin-bottom:8px">${DEPTS.map(d=>{const l=y+DOTP+d;return `<label class="gchk"><input type="checkbox" class="${cls}" value="${esc(l)}" ${sel.includes(l)?"checked":""}> ${esc(d)}</label>`}).join("")}</div>`).join("")}</div><div class="row" style="margin:4px 0 0"><button type="button" class="btn ghost sm" onclick="scAll('${cls}',true)">${IC("check")} \u09b8\u09ac Page</button><button type="button" class="btn ghost sm" onclick="scAll('${cls}',false)">${IC("x")} Clear</button></div>`;
+const scopeChips=u=>{const g=(S.scope||{})[u];return Array.isArray(g)&&g.length&&g.length<PAGES.length?`<div class="scchips">${g.map(k=>`<span class="scchip">${esc(short(k))}</span>`).join("")}</div>`:`<div class="scchips"><span class="scchip all">\u09b8\u09ac Page</span></div>`};
+const scopeEditor=u=>{const g=(S.scope||{})[u],sel=Array.isArray(g)&&g.length?g:PAGES;return `<div class="scedit"><b>${esc(u)}</b> \u2014 \u0995\u09cb\u09a8 Year \u0993 Department-\u098f \u0995\u09be\u099c \u0995\u09b0\u09a4\u09c7 \u09aa\u09be\u09b0\u09ac\u09c7?${scopeGrid("sce",sel)}<div class="row" style="margin:10px 0 0"><button type="button" class="btn sm" onclick="saveScope('${esc(u)}')">${IC("check")} Save</button><button type="button" class="btn ghost sm" onclick="editScope('${esc(u)}')">Cancel</button></div></div>`};
 async function setRole(u,r){if(!await confirmBox(u,r=="admin"?"Admin বানাবেন? (message, delete, backup-o পারবে)":"Editor বানাবেন? (শুধু post create/edit পারবে)","Confirm",false))return;
  r=="admin"?saveAdmins([...S.emails,u],S.ids,S.editors.filter(x=>x!=u),u+" → Admin"):saveAdmins(S.emails.filter(x=>x!=u),S.ids,[...S.editors,u],u+" → Editor")}
 async function rmAdmin(u){if(!await confirmBox(u+"-এর access তুলে নেবেন?","","Remove"))return;saveAdmins(S.emails.filter(x=>x!=u),S.ids,S.editors.filter(x=>x!=u),u+" removed")}
@@ -812,8 +855,14 @@ async function importFile(inp){const f=inp.files[0];inp.value="";if(!f)return;le
  try{let b=FB.writeBatch(FB.db),sz=0,n=0;for(const x of items){const ref=x.id?FB.doc(FB.db,"posts",x.id):FB.doc(FB.collection(FB.db,"posts")),l=JSON.stringify(x.d).length;
    if(n&&(sz+l>6e6||n>=200)){await b.commit();b=FB.writeBatch(FB.db);sz=0;n=0}b.set(ref,JSON.parse(JSON.stringify(x.d)));sz+=l;n++}
   await b.commit();logAct("import",{title:items.length+" posts"});toast(items.length+"টি import")}catch(e){toast("Import hoyni: "+(e.code||e.message))}}
-async function loadUsers(){try{const sn=await FB.getDocs(FB.collection(FB.db,"users"));S.users=sn.docs.map(d=>({id:d.id,...d.data()}));render(true)}catch(e){toast("Load hoyni: "+(e.code||e.message))}}
-async function syncSheet(){const u=FB.auth.currentUser;if(!u){toast("login lagbe");return}toast("Google Sheet-e sync hocche…");
+async function admApi(path,data){const u=FB.auth.currentUser;if(!u)throw new Error("login lagbe");const tk=await u.getIdToken();
+ const r=await fetch(path,{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+tk},body:JSON.stringify(data||{})});
+ let j={};try{j=await r.json()}catch(e){}return{...j,status:r.status}}
+async function loadUsers(){try{
+ if(scoped()){const j=await admApi("/api/students",{});if(!j.ok)throw new Error(j.error||j.status);S.users=j.users}
+ else{const sn=await FB.getDocs(FB.collection(FB.db,"users"));S.users=sn.docs.map(d=>({id:d.id,...d.data()}))}
+ render(true)}catch(e){toast("Load hoyni: "+(e.code||e.message))}}
+async function syncSheet(){const u=FB.auth.currentUser;if(!u){toast("login lagbe");return}if(scoped()){toast("Shudhu Owner ba scope chhara Admin");return}toast("Google Sheet-e sync hocche…");
  try{const tk=await u.getIdToken(),r=await fetch("/api/sheet-sync",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+tk},body:JSON.stringify({all:true})}),j=await r.json().catch(()=>({}));
   toast(j.ok?"Sheet sync hoyeche ("+j.count+" jon)":"Sync hoyni: "+(j.error||r.status))}catch(e){toast("Sync hoyni: "+(e.message||e))}}
 function exportUsers(){saveFile("mcun-students-"+today()+".csv",csv([["Name","Email","Year","Department"],...(S.users||[]).map(u=>[u.name,u.email||"",u.year,u.dept])]),"text/csv")}
@@ -831,10 +880,10 @@ async function googleIn(){const er=$("#aerr");if(er)er.textContent="";if(!FB)ret
 function logout(){FB&&FB.signOut(FB.auth);toast("Logged out")}
 
 window.initBackend=f=>{FB=f;let uCfg=null,uMsg=null,uLog=null;
- FB.onSnapshot(FB.collection(FB.db,"posts"),sn=>{S.posts=sn.docs.map(d=>({id:d.id,...d.data()}));[...S.sel].forEach(id=>{if(!S.posts.some(p=>p.id==id))S.sel.delete(id)});render(true)},e=>toast("Posts load hoyni: "+e.code));
- FB.onAuthStateChanged(FB.auth,u=>{S.ready=true;S.uid=u?u.uid:null;S.email=u?u.email:null;S.verified=!!(u&&u.emailVerified);if(u)S.sent=null;
-  uCfg&&uCfg();uMsg&&uMsg();uLog&&uLog();uCfg=uMsg=uLog=null;S.emails=[];S.ids=[];S.editors=[];S.msgs=[];S.logs=[];S.users=null;S._ul=0;S.nh=null;S._nhl=0;S.cfg=!u;
-  if(u){uCfg=FB.onSnapshot(FB.doc(FB.db,"config","admins"),d=>{const x=d.exists()?d.data():{};S.emails=(x.emails||[]).map(v=>String(v).toLowerCase());S.editors=(x.editors||[]).map(v=>String(v).toLowerCase());S.ids=x.ids||[];S.cfg=true;render(true)},()=>{S.cfg=true;render(true)});
+ FB.onSnapshot(FB.collection(FB.db,"posts"),sn=>{S.rawPosts=sn.docs.map(d=>({id:d.id,...d.data()}));applyScope();[...S.sel].forEach(id=>{if(!S.posts.some(p=>p.id==id))S.sel.delete(id)});render(true)},e=>toast("Posts load hoyni: "+e.code));
+ FB.onAuthStateChanged(FB.auth,u=>{S.ready=true;S.uid=u?u.uid:null;S.email=u?u.email:null;S.verified=!!(u&&u.emailVerified);if(u){S.sent=null;try{FB.getDoc(FB.doc(FB.db,"users",u.uid)).then(s=>{if(s.exists()&&s.data().name)S.myName=s.data().name}).catch(()=>{})}catch(e){}}
+  uCfg&&uCfg();uMsg&&uMsg();uLog&&uLog();uCfg=uMsg=uLog=null;S.emails=[];S.ids=[];S.editors=[];S.scope={};S.msgs=[];S.logs=[];S.users=null;S._ul=0;S.nh=null;S._nhl=0;S.cfg=!u;
+  if(u){uCfg=FB.onSnapshot(FB.doc(FB.db,"config","admins"),d=>{const x=d.exists()?d.data():{};S.emails=(x.emails||[]).map(v=>String(v).toLowerCase());S.editors=(x.editors||[]).map(v=>String(v).toLowerCase());S.ids=x.ids||[];S.scope=(x.scope&&typeof x.scope=="object")?x.scope:{};applyScope();S.cfg=true;render(true)},()=>{S.cfg=true;render(true)});
    uMsg=FB.onSnapshot(FB.collection(FB.db,"messages"),sn=>{S.msgs=sn.docs.map(d=>({id:d.id,...d.data()}));render(true)},()=>{});
    uLog=FB.onSnapshot(FB.query(FB.collection(FB.db,"logs"),FB.orderBy("ts","desc"),FB.limit(100)),sn=>{S.logs=sn.docs.map(d=>({id:d.id,...d.data()}));render(true)},()=>{})}
   render(false)});
@@ -848,8 +897,8 @@ render(false);
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 import {getAuth,onAuthStateChanged,signOut,sendSignInLinkToEmail,isSignInWithEmailLink,signInWithEmailLink,GoogleAuthProvider,signInWithPopup} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-import {getFirestore,collection,doc,addDoc,setDoc,updateDoc,deleteDoc,onSnapshot,writeBatch,query,orderBy,limit,getDocs} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+import {getFirestore,collection,doc,addDoc,setDoc,updateDoc,deleteDoc,onSnapshot,writeBatch,query,orderBy,limit,getDocs,getDoc} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 const firebaseConfig={apiKey:"AIzaSyAgZV0TeVSXYYnQiKqGKq7N2hAWk4FU4fo",authDomain:"muc-network-50a06.firebaseapp.com",projectId:"muc-network-50a06",storageBucket:"muc-network-50a06.firebasestorage.app",messagingSenderId:"143299318658",appId:"1:143299318658:web:5bb77c759dbd075f51359b"};
-try{const app=initializeApp(firebaseConfig);window.initBackend({auth:getAuth(app),db:getFirestore(app),onAuthStateChanged,signOut,sendSignInLinkToEmail,isSignInWithEmailLink,signInWithEmailLink,GoogleAuthProvider,signInWithPopup,collection,doc,addDoc,setDoc,updateDoc,deleteDoc,onSnapshot,writeBatch,query,orderBy,limit,getDocs})}
+try{const app=initializeApp(firebaseConfig);window.initBackend({auth:getAuth(app),db:getFirestore(app),onAuthStateChanged,signOut,sendSignInLinkToEmail,isSignInWithEmailLink,signInWithEmailLink,GoogleAuthProvider,signInWithPopup,collection,doc,addDoc,setDoc,updateDoc,deleteDoc,onSnapshot,writeBatch,query,orderBy,limit,getDocs,getDoc})}
 catch(e){console.error(e);window.backendFailed()}
 </script></body></html>

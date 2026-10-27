@@ -228,3 +228,21 @@ Note:
     Deadline shesh hole 30 sec-er moddhei nijei Active theke Expired-e chole jay. Search-e expired match thakle hint dekhay. Direct link-e post khulle banner shoho dekha jay.
  4. Device layout: Phone(<=600) 1 col + bottom bar | Tablet(601-1023) 2 col | Laptop(1024+) 3 col | Desktop(1440+) 4 col | TV(1920+) 5 col |
     phone landscape compact | touch device-e boro tap target | Profile page desktop-e 2 column. Admin-o tablet/landscape/boro screen-e adjust kora.
+
+=== T) DESIGN: ager look-e fera ===
+ Notun "flat/clean" design apnar pochondo hoyni, tai site-er design ager look-e (gradient, boro hero, stats box) fera hoyeche.
+ Bakhi sob feature thake (Expired, rotate menu, Profile/Inbox page, Admin button, responsive grid ityadi).
+ Admin-e shudhu phone-er layout fix rakha hoyeche: header-e role badge lukano (logout kete jachhilo), stat card 2 column, student search full-width.
+
+=== U) SCOPE: Year + Department onujayi Admin/Editor + Publisher naam ===
+ Owner Admins tab theke prottek Admin/Editor-ke Year + Department scope dite pare (default = sob Page, age-r moto):
+   - Notun jon-ke add korar somoy checkbox grid; ager jon-er jonno "Scope" button -> inline editor -> Save.
+   - Scope-wala Admin/Editor shudhu oi Page-er post dekhe/banay/edit kore (Post form-e shudhu tader Page select kora jay).
+   - Scope-wala Admin shudhu oi Year/Dept-er student dekhe (/api/students), Block/Remove kore, Notify pathay (server-e enforce kora).
+   - Scope-wala Admin Google Sheet Sync/Backup-all korte pare na. Owner kokhono restricted noy.
+   - Rules-e enforce: posts create/update/delete scope-er baire hole denied; users direct read shudhu Owner/scope-chhara Admin.
+   - Scope ba Page "sob" (khali grp) post scope-wala-ra chhute pare na.
+ Publisher: notun post-e "Published by <naam> [Owner/Admin/Editor]" card ar post page-e dekhay (purono post-e dekhabe na).
+   Naam: profile-er naam, na thakle Google naam, na thakle email-er shuru ongsho.
+ DEPLOY: (1) firestore.rules Publish  (2) Vercel deploy (notun api/students.js; env-check.js soriye fela hoyeche -- ekhon 10 ta function)
+ Rules test (Firebase Console > Rules > Rules Playground): scope-wala Editor -> posts create grp=[oi page] = allow; grp=[onno page] = deny; grp=[] = deny.

@@ -23,12 +23,33 @@ service cloud.firestore {
     }
     function isStaff() { return isAdmin() || isEditor(); }
 
+    // ---- Scope (Year + Department) ----
+    // config/admins.scope = { "editor@gmail.com": ["HSC 2nd Year \u00b7 Science", ...] }
+    // Owner kokhono restricted noy. scope khali/nai hole Admin/Editor sob Page-e kaj korte pare (age-r moto).
+    // scope thakle shudhu oi Page-er post create/edit/delete kora jay (grp khali = "sob page" -> allowed noy).
+    function isOwner() {
+      return request.auth != null
+        && exists(/databases/$(db)/documents/config/admins)
+        && ((adm().get('ids', []).size() > 0 && adm().ids[0] == request.auth.uid)
+            || (adm().get('emails', []).size() > 0 && emailIn([adm().emails[0]])));
+    }
+    function scopeOf() {
+      return request.auth.token.email_verified == true
+        ? adm().get('scope', {}).get(request.auth.token.email.lower(), [])
+        : [];
+    }
+    function isScoped() { return isStaff() && !isOwner() && scopeOf().size() > 0; }
+    function pagesOk(grp) {
+      return !isScoped() || (grp is list && grp.size() > 0 && grp.hasOnly(scopeOf()));
+    }
+    function isWide() { return isAdmin() && !isScoped(); }
+
     match /posts/{id} {
       allow read: if true;              // public site
-      allow create: if isStaff();       // Admin + Editor
-      allow delete: if isAdmin();       // shudhu Admin/Owner
+      allow create: if isStaff() && pagesOk(request.resource.data.get('grp', []));       // Admin + Editor (scope-er moddhe)
+      allow delete: if isAdmin() && pagesOk(resource.data.get('grp', []));                // shudhu Admin/Owner (scope-er moddhe)
       // Admin/Editor jekono field update korte pare; visitor shudhu "views" ekbare +1
-      allow update: if isStaff()
+      allow update: if (isStaff() && pagesOk(resource.data.get('grp', [])) && pagesOk(request.resource.data.get('grp', [])))
         || (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['views'])
             && request.resource.data.get('views', 0) == resource.data.get('views', 0) + 1);
     }
@@ -63,7 +84,8 @@ service cloud.firestore {
     // shudhu nijer doc-ta nijei read/write korte pabe; Admin read korte pare
     // Year/Department list index.html + admin.html-er sathe mil rakhte hobe
     match /users/{uid} {
-      allow read: if request.auth != null && (request.auth.uid == uid || isAdmin());
+      // scope-wala Admin direct read korte pabe na -- tara /api/students diye shudhu nijer scope-er student dekhe
+      allow read: if request.auth != null && (request.auth.uid == uid || isWide());
       allow create, update: if request.auth != null && request.auth.uid == uid
         && request.auth.token.email_verified == true     // email code diye verify na hole profile save hobe na
         && request.resource.data.keys().hasOnly(['uid','name','email','year','dept','photo','updated'])
@@ -75,7 +97,7 @@ service cloud.firestore {
         && request.resource.data.dept in ['Science', 'Arts', 'Commerce']
         && request.resource.data.get('photo', '') is string && request.resource.data.get('photo', '').size() <= 100000
         && request.resource.data.get('updated', 0) is number;
-      allow delete: if request.auth != null && (request.auth.uid == uid || isAdmin());
+      allow delete: if request.auth != null && (request.auth.uid == uid || isWide());
     }
     // emailCodes/{uid} = verification code hash (shudhu server/Admin SDK likhe-pore; client kokhono na)
     match /emailCodes/{id} { allow read, write: if false; }

@@ -462,6 +462,14 @@ a.btn#adminBtn{text-decoration:none}
  .pp-sec,.pp-out{grid-column:2}.pp-card+.pp-sec{margin-top:0}
  .ib{max-width:780px}
 }
+/* ===== publisher (name + role) ===== */
+.pby{display:flex;align-items:center;gap:8px;margin:10px 0 0;font-size:13px;color:var(--mute)}
+.pby-av{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;flex:none;font-size:12px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--pri),var(--pri2))}
+.pby-t b{color:var(--ink);font-weight:700}
+.pby-r{padding:1px 9px;border-radius:99px;font-size:11.5px;font-weight:800;background:color-mix(in srgb,var(--pri) 13%,transparent);color:var(--pri)}
+.pby-r.r-owner{background:color-mix(in srgb,#f59e0b 20%,transparent);color:#b45309}
+.pby-r.r-editor{background:color-mix(in srgb,#16a34a 15%,transparent);color:#15803d}
+.pby.mini{margin:2px 0 0;font-size:12.5px}.pby.mini .pby-av{width:20px;height:20px;font-size:11px}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
 <nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="installBtn" style="display:none"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span class="hd"> Install</span></button><a class="btn ghost sm" id="adminBtn" href="/admin" style="display:none" aria-label="Admin Panel"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.4 8.4-8 9-4.6-.6-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg> Admin</a><button class="btn ghost sm" id="bellBtn" type="button" aria-label="Notification" onclick="bellTap()"></button><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="me" id="meBtn" aria-label="Profile" type="button"></button></div></header>
@@ -498,7 +506,7 @@ const firebaseConfig={apiKey:KEY,authDomain:PROJ+".firebaseapp.com",projectId:PR
 const fv=v=>"stringValue"in v?v.stringValue:"integerValue"in v?+v.integerValue:"doubleValue"in v?v.doubleValue:"booleanValue"in v?v.booleanValue:"arrayValue"in v?(v.arrayValue.values||[]).map(fv):"mapValue"in v?fo(v.mapValue.fields||{}):null;
 const fo=f=>Object.fromEntries(Object.entries(f).map(([k,v])=>[k,fv(v)]));
 const toDoc=d=>({id:d.name.split("/").pop(),...fo(d.fields||{})});
-const LITE=["title","body","cat","pinned","ts","nf","hc","link","grp","dl"];
+const LITE=["title","body","cat","pinned","ts","nf","hc","link","grp","dl","byName","byRole"];
 const COVER={},FULL={};
 const rurl=(p,mask)=>{const u=new URL(BASE+p);u.searchParams.set("key",KEY);(mask||[]).forEach(m=>u.searchParams.append("mask.fieldPaths",m));return u};
 async function loadPosts(){const out=[];let tok="";
@@ -528,9 +536,11 @@ function attHTML(f){const u=esc(f.url);
  const d=driveDl(f.url);
  return `<div class="file"><span>${SVG("clip")} ${esc(f.name)}</span><span class="sp"></span><a class="btn ghost sm" href="${u}" target="_blank" rel="noopener">Open</a>${d?`<a class="btn sm dl" href="${esc(d)}" target="_blank" rel="noopener"><span class="ic">${SVG("dl")}</span> Download</a>`:""}</div>`}
 const cnt=p=>p.nf!=null?p.nf:atts(p).length;
+const byHTML=(p,mini)=>{if(!p||!p.byName)return"";const r=p.byRole&&ROLE_N[p.byRole]?p.byRole:"",nm=String(p.byName);
+ return `<div class="pby${mini?" mini":""}"><span class="pby-av">${esc(nm.trim().charAt(0).toUpperCase()||"?")}</span><span class="pby-t">Published by <b>${esc(nm)}</b></span>${r?`<span class="pby-r r-${r}">${ROLE_N[r]}</span>`:""}</div>`};
 function card(p){const n=cnt(p),c=CATS[p.cat]||CATS.notice;
  const cv=p.cover&&ok(p.cover.url)?`<img src="${esc(p.cover.url)}" alt="">`:(!p.cover&&!S.sdk&&p.hc!==false?`<div class="cvr" data-cv="${p.id}" data-cat="${p.cat}" style="--c:${c.c}"></div>`:`<div class="cvr ph" style="--c:${c.c}">${SVG(p.cat)}</div>`);
- return `<article class="card ${isExp(p)?"expd":""} ${isRd(p.id)?"rd":""}" style="--c:${c.c}" onclick="openPost('${p.id}')">${svBtn(p.id)}${isExp(p)?'<span class="exr">'+SVG("hourglass")+" Expired</span>":""}${cv}<div class="cb"><div class="ctop">${tagsHTML(p)}${dlBadge(p)}</div><h3>${hl(p.title)}</h3><p>${hl(p.body)}</p><div class="meta"><span>${SVG("clock")} ${dDate(p.ts)}</span><span>${n?SVG("clip")+" "+n+" attachment":""}</span></div></div></article>`}
+ return `<article class="card ${isExp(p)?"expd":""} ${isRd(p.id)?"rd":""}" style="--c:${c.c}" onclick="openPost('${p.id}')">${svBtn(p.id)}${isExp(p)?'<span class="exr">'+SVG("hourglass")+" Expired</span>":""}${cv}<div class="cb"><div class="ctop">${tagsHTML(p)}${dlBadge(p)}</div><h3>${hl(p.title)}</h3><p>${hl(p.body)}</p>${byHTML(p,1)}<div class="meta"><span>${SVG("clock")} ${dDate(p.ts)}</span><span>${n?SVG("clip")+" "+n+" attachment":""}</span></div></div></article>`}
 function fcard(p){const c=CATS[p.cat]||CATS.notice;
  return `<article class="fcard" style="--c:${c.c}" onclick="openPost('${p.id}')"><div class="ft"><span class="fl">${SVG(p.cat)}<b>${c.n}</b>${p.pinned?`<i>·</i>${SVG("pin")}<b>Pinned</b>`:""}</span>${dlBadge(p)}</div><h3>${esc(p.title)}</h3><div class="fgo">পড়ুন →</div></article>`}
 const nz=t=>String(t||"").normalize("NFC").toLowerCase().replace(/[\u200c\u200d]/g,"").replace(/\u09A1\u09BC/g,"\u09DC").replace(/\u09A2\u09BC/g,"\u09DD").replace(/\u09AF\u09BC/g,"\u09DF").replace(/[\u09E6-\u09EF]/g,d=>d.charCodeAt(0)-2406);
@@ -604,7 +614,7 @@ function pPost(id){const p=FULL[id]||S.posts.find(x=>x.id==id);
   if(!p)return `<div class="panel post-page">${back}${S.fresh&&TRY[id]==2?"<h3>Post ta pawa jayni</h3>":'<div class="card sk" style="border:0"><div class="cb"><span class="tag">&nbsp;</span><h3>&nbsp;</h3><p>&nbsp;</p><p>&nbsp;</p></div></div>'}</div>`;
  const lite=!FULL[id]&&!S.sdk,pend=lite&&!FAIL[id]&&(p.nf==null||p.nf>0||p.hc!==false);
  const c=CATS[p.cat]||CATS.notice,a=atts(p);
- return `<div class="panel post-page">${back}${isExp(p)?`<div class="exb">${SVG("hourglass")}<div><b>Ei post-er meyad shesh hoyeche</b><small>Deadline chhilo: ${dDate(p.dl)}</small></div></div>`:""}${tagsHTML(p)}<h2 style="margin:8px 0">${esc(p.title)}</h2><small>${fmt(p.ts)}</small>${dlLine(p)}${p.cover&&ok(p.cover.url)?`<img class="big" src="${esc(p.cover.url)}" alt="">`:""}<p class="body">${esc(p.body)}</p>${pend?'<p><small>'+SVG("hourglass")+' Attachment লোড হচ্ছে…</small></p>':lite&&FAIL[id]?'<p><small>'+SVG("alert")+' Attachment load hoyni, page refresh korun.</small></p>':""}${a.length?`<h4 style="margin:18px 0 6px">${SVG("clip")} Attachments</h4>`+a.map(attHTML).join(""):""}${actBar(p)}${shareBar(p)}</div>`}
+ return `<div class="panel post-page">${back}${isExp(p)?`<div class="exb">${SVG("hourglass")}<div><b>Ei post-er meyad shesh hoyeche</b><small>Deadline chhilo: ${dDate(p.dl)}</small></div></div>`:""}${tagsHTML(p)}<h2 style="margin:8px 0">${esc(p.title)}</h2><small>${fmt(p.ts)}</small>${byHTML(p)}${dlLine(p)}${p.cover&&ok(p.cover.url)?`<img class="big" src="${esc(p.cover.url)}" alt="">`:""}<p class="body">${esc(p.body)}</p>${pend?'<p><small>'+SVG("hourglass")+' Attachment লোড হচ্ছে…</small></p>':lite&&FAIL[id]?'<p><small>'+SVG("alert")+' Attachment load hoyni, page refresh korun.</small></p>':""}${a.length?`<h4 style="margin:18px 0 6px">${SVG("clip")} Attachments</h4>`+a.map(attHTML).join(""):""}${actBar(p)}${shareBar(p)}</div>`}
 async function loadPost(id){const p=S.posts.find(x=>x.id==id);
  if(!p&&!FULL[id]&&!TRY[id]){TRY[id]=1;try{await getFull(id)}catch(e){}TRY[id]=2;if(location.hash.includes(id))route();return}
  if(!p||S.sdk||FULL[id]||FAIL[id])return;if(!(p.nf==null||p.nf>0||p.hc!==false))return;
