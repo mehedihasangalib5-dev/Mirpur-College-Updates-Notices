@@ -94,4 +94,24 @@ function toRow(uid, p, rec) {
   };
 }
 
-module.exports = { toRow, init, TOPIC, sameOrigin, body, bearerUser, isAdminUser, hashCode, safeEq, callSheet };
+// ---- Scope (Year + Department) ----
+const YEARS = ["HSC 1st Year", "HSC 2nd Year"], DEPTS = ["Science", "Arts", "Commerce"];
+const PAGES = YEARS.flatMap((y) => DEPTS.map((d) => y + " \u00b7 " + d));
+const pageKey = (p) => (p && p.year && p.dept ? p.year + " \u00b7 " + p.dept : "");
+
+// config/admins theke role + scope (rules-er sathe ek-i logic). scope [] = sob page.
+async function staffInfo(adm, user) {
+  const s = await adm.firestore().doc("config/admins").get();
+  const c = s.exists ? s.data() : {};
+  const lc = (a) => (a || []).map((x) => String(x).toLowerCase());
+  const ids = c.ids || [], emails = lc(c.emails), eds = lc(c.editors);
+  const em = user.email_verified === true && user.email ? String(user.email).toLowerCase() : "";
+  const owner = ids[0] === user.uid || (!!em && emails[0] === em);
+  const admin = owner || ids.includes(user.uid) || (!!em && emails.includes(em));
+  const editor = !admin && !!em && eds.includes(em);
+  const sc = !owner && em && c.scope && Array.isArray(c.scope[em]) ? c.scope[em].map(String) : [];
+  return { role: owner ? "owner" : admin ? "admin" : editor ? "editor" : "", owner, admin, editor, scope: sc };
+}
+const inScope = (scope, p) => !scope.length || scope.includes(pageKey(p));
+
+module.exports = { staffInfo, inScope, pageKey, PAGES, YEARS, DEPTS, toRow, init, TOPIC, sameOrigin, body, bearerUser, isAdminUser, hashCode, safeEq, callSheet };

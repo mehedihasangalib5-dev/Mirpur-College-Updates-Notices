@@ -1,7 +1,7 @@
 // POST /api/sheet-sync  {}            -> login kora (verified) user-er nijer row Google Sheet-e add/update
 // POST /api/sheet-sync  { all:true }  -> shudhu Owner/Admin: sob registered student ekshathe Sheet-e (backfill)
 // Data Firestore (users/{uid}) + Firebase Auth theke server nijei pore -- client-er pathano data bishshash kora hoy na.
-const { init, sameOrigin, body, bearerUser, isAdminUser, callSheet, toRow } = require("./_lib");
+const { init, sameOrigin, body, bearerUser, staffInfo, callSheet, toRow } = require("./_lib");
 
 module.exports = async (req, res) => {
   if (req.method !== "POST") return res.status(405).json({ ok: false });
@@ -14,7 +14,8 @@ module.exports = async (req, res) => {
     const db = adm.firestore();
 
     if (body(req).all === true) {
-      if (!(await isAdminUser(adm, tok))) return res.status(403).json({ ok: false, error: "admin na" });
+      const st = await staffInfo(adm, tok);
+      if (!st.admin || st.scope.length) return res.status(403).json({ ok: false, error: "shudhu Owner / scope chhara Admin" });
       const snap = await db.collection("users").get();
       const profiles = {}; snap.forEach((d) => { profiles[d.id] = d.data(); });
       const uids = Object.keys(profiles);

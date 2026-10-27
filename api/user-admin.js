@@ -3,7 +3,7 @@
 //  block   -> Firebase Auth user disabled + session revoke + users/{uid}.blocked = true
 //  unblock -> abar chalu
 //  remove  -> Auth account + profile + Sheet row sob muche jay
-const { init, TOPIC, sameOrigin, body, bearerUser, isAdminUser, callSheet, toRow } = require("./_lib");
+const { init, TOPIC, sameOrigin, body, bearerUser, staffInfo, inScope, callSheet, toRow } = require("./_lib");
 
 module.exports = async (req, res) => {
   if (req.method !== "POST") return res.status(405).json({ ok: false });
@@ -13,7 +13,8 @@ module.exports = async (req, res) => {
     const adm = init();
     const tok = await bearerUser(adm, req);
     if (!tok) return res.status(401).json({ ok: false, error: "login" });
-    if (!(await isAdminUser(adm, tok))) return res.status(403).json({ ok: false, error: "admin na" });
+    const st = await staffInfo(adm, tok);
+    if (!st.admin) return res.status(403).json({ ok: false, error: "admin na" });
 
     const { action, uid } = body(req);
     if (!["block", "unblock", "remove"].includes(action) || typeof uid !== "string" || !uid || uid.length > 128)
@@ -32,6 +33,12 @@ module.exports = async (req, res) => {
       return res.status(403).json({ ok: false, error: "admin account-e eta kora jay na" });
 
     const ref = db.doc("users/" + uid);
+    // scope-wala Admin shudhu nijer Year/Dept-er student-er upor kaj korte pare
+    if (st.scope.length) {
+      const ps = await ref.get();
+      if (!ps.exists || !inScope(st.scope, ps.data()))
+        return res.status(403).json({ ok: false, error: "Ei student apnar Year/Department scope-er baire" });
+    }
     let sheet = true;
     const toSheet = async (payload) => {
       try { const r = await callSheet(payload); if (!r || !r.ok) sheet = false; } catch (e) { sheet = false; }

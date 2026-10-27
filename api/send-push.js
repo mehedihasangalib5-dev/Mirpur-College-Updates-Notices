@@ -2,7 +2,7 @@
 //   { action: "count" | "test" | "send" | "history", audience, title, body, urgent, link, postId, url }
 //   audience: { type: "all" } | { type: "filter", years:[], depts:[] } | { type: "users", uids:[] } | { type: "me" }
 // Block kora student-ke kokhono pathay na. Invalid device token auto muche dey. Prottek send notifLogs-e jomaye.
-const { init, sameOrigin, body, bearerUser, isAdminUser } = require("./_lib");
+const { init, sameOrigin, body, bearerUser, staffInfo, inScope } = require("./_lib");
 
 const MAX_PER_HOUR = 30, TTL = 86400;
 const chunks = (a, n) => { const o = []; for (let i = 0; i < a.length; i += n) o.push(a.slice(i, i + n)); return o; };
@@ -27,14 +27,17 @@ module.exports = async (req, res) => {
     const adm = init();
     const tok = await bearerUser(adm, req, true);
     if (!tok) return res.status(401).json({ ok: false, error: "login" });
-    if (!(await isAdminUser(adm, tok))) return res.status(403).json({ ok: false, error: "admin na" });
+    const st = await staffInfo(adm, tok);
+    if (!st.admin) return res.status(403).json({ ok: false, error: "admin na" });
 
     const db = adm.firestore(), FV = adm.firestore.FieldValue;
     const b = body(req), action = b.action;
 
     if (action === "history") {
       const s = await db.collection("notifLogs").orderBy("ts", "desc").limit(20).get();
-      return res.status(200).json({ ok: true, items: s.docs.map((d) => d.data()) });
+      // scope-wala Admin shudhu nijer pathano history dekhbe
+      const items = s.docs.map((d) => d.data()).filter((x) => !st.scope.length || x.by === tok.uid);
+      return res.status(200).json({ ok: true, items });
     }
     if (!["count", "test", "send"].includes(action)) return res.status(400).json({ ok: false, error: "bad request" });
 
@@ -51,6 +54,7 @@ module.exports = async (req, res) => {
       snap.forEach((d) => {
         const p = d.data();
         if (p.blocked) return;
+        if (!inScope(st.scope, p)) return;                 // scope-er baire student-ke pathano jabe na
         if (a.type === "all") uids.push(d.id);
         else if (a.type === "filter") {
           if (!years.length && !depts.length) return;
