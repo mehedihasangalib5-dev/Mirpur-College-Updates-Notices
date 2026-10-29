@@ -246,3 +246,17 @@ Note:
    Naam: profile-er naam, na thakle Google naam, na thakle email-er shuru ongsho.
  DEPLOY: (1) firestore.rules Publish  (2) Vercel deploy (notun api/students.js; env-check.js soriye fela hoyeche -- ekhon 10 ta function)
  Rules test (Firebase Console > Rules > Rules Playground): scope-wala Editor -> posts create grp=[oi page] = allow; grp=[onno page] = deny; grp=[] = deny.
+
+=== V) TARGETED NOTIFICATION + OWNER REVIEW + MOBILE INBOX ICON ===
+ 1. Publish-er notification SHUDHU post-e select kora Year/Department-er student-der kache jay (grp khali = sobar kache):
+      - bell-er list (in-app): sobar jonno -> notifAll; select kora Page hole -> shudhu oi student-der inbox
+      - phone push: shudhu oi student-der device-e. Block kora student-ke jay na.
+      - Scope-wala Admin/Editor shudhu nijer scope-er post-er notification pathate pare (server-e check).
+      - Post-er bell button (Posts list) ekoi API use kore -> ekoi target. Admin-e toast-e dekhay koto jon/koto device-e gelo.
+ 2. Admin-er student Block / Unblock / Remove ekhon Owner review kore approve korle tobei hoy:
+      - Admin button chaple "request" jay (studentRequests). Owner-er Students tab-e "Review lagbe" panel (Approve / Reject),
+        Dashboard-e "Review lagbe" card, Students menu-te badge, phone-e rotate button-e lal dot; Owner-er device-e push-o jay.
+      - Admin nijer request-er status (Pending/Approved/Rejected) dekhe, Pending-ta Cancel korte pare.
+      - Owner nijer action sathe sathe kore (approve lage na). Admin/Editor account-e kono action cholbe na.
+      - Rules: users doc delete shudhu nijer ba Owner; studentRequests shudhu server.  -> firestore.rules abar PUBLISH korte hobe.
+ 3. Phone-er header-e ekhon Inbox (ghonta) icon ache, unread number-shoho; tap korle Inbox page.

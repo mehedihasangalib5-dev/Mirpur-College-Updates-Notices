@@ -97,7 +97,8 @@ service cloud.firestore {
         && request.resource.data.dept in ['Science', 'Arts', 'Commerce']
         && request.resource.data.get('photo', '') is string && request.resource.data.get('photo', '').size() <= 100000
         && request.resource.data.get('updated', 0) is number;
-      allow delete: if request.auth != null && (request.auth.uid == uid || isWide());
+      // student remove: nijer account ba Owner. Admin-er remove/block Owner-er approval-er por API diye hoy (studentRequests)
+      allow delete: if request.auth != null && (request.auth.uid == uid || isOwner());
     }
     // emailCodes/{uid} = verification code hash (shudhu server/Admin SDK likhe-pore; client kokhono na)
     match /emailCodes/{id} { allow read, write: if false; }
@@ -105,6 +106,8 @@ service cloud.firestore {
     match /pushTokens/{id} { allow read, write: if false; }
     // notifLogs = Admin panel-e pathano notification-er history (shudhu server likhe-pore)
     match /notifLogs/{id} { allow read, write: if false; }
+    // studentRequests = Admin-er Block/Remove request (Owner review kore approve/reject). Shudhu server likhe-pore.
+    match /studentRequests/{id} { allow read, write: if false; }
     // notifAll = sobar jonno notification (bell-er list). Shudhu verified login kora user pore; server likhe.
     match /notifAll/{id} { allow read: if request.auth != null && request.auth.token.email_verified == true; allow write: if false; }
     // users/{uid}/inbox = shudhu oi student-er jonno pathano notification (bell-er list)

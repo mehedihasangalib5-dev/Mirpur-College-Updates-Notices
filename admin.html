@@ -315,6 +315,9 @@ h3 .ico,.ic-h .ico{vertical-align:-.2em;color:var(--pri)}.ic-h{display:flex;alig
 .scchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .scchip{font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:99px;background:color-mix(in srgb,var(--pri) 12%,transparent);color:var(--pri)}
 .scchip.all{background:color-mix(in srgb,var(--mute) 14%,transparent);color:var(--mute)}
+.reqp{border-left:4px solid #d97706}
+.rq{align-items:flex-start;gap:12px;flex-wrap:wrap}.rq-i{flex:1;min-width:200px}.rq-i small{display:block;color:var(--mute);margin-top:3px}.rq-a{display:flex;gap:8px;flex-wrap:wrap}
+.fdot{position:absolute;top:-30px;left:50%;margin-left:14px;width:12px;height:12px;border-radius:50%;background:#e5484d;border:2px solid var(--card);z-index:2}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="admin.html"><img src="/logo.png" onerror="this.onerror=null;this.src=LOGO_FB" alt="Logo">Admin Panel</a><div class="sp"></div>
 <div class="hdr-r"><span id="who"></span><a class="btn ghost sm" href="/" aria-label="Back to main website"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></svg><span class="hd"> Main site</span></a><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="btn ghost sm" id="outBtn" style="display:none" onclick="logout()" aria-label="Logout"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/></svg><span class="hd"> Logout</span></button></div></div></header>
@@ -395,6 +398,35 @@ const isOwner=()=>!!S.uid&&(S.ids[0]===S.uid||(S.verified&&S.emails[0]===me()));
 const isEditor=()=>!!S.uid&&S.verified&&S.editors.includes(me())&&!isAdmin();
 const isStaff=()=>isAdmin()||isEditor();
 const roleOf=()=>isOwner()?"Owner":isAdmin()?"Admin":isEditor()?"Editor":"";
+/* ---- Student request review: Admin-er Block/Remove age Owner review kore ---- */
+S.reqs=null;
+const pendN=()=>isOwner()?(S.reqs||[]).filter(r=>r.status=="pending").length:0;
+const pendingFor=id=>(S.reqs||[]).find(r=>r.uid==id&&r.status=="pending");
+const RQ_L={block:"Block",unblock:"Unblock",remove:"Remove"},RQ_C={block:"#e5484d",unblock:"#16a34a",remove:"#e5484d"};
+const RQ_S={pending:["Pending","#d97706"],approved:["Approved","#16a34a"],rejected:["Rejected","#e5484d"],cancelled:["Cancelled","#6b7280"]};
+async function loadReqs(silent){try{const j=await admApi("/api/user-admin",{action:"requests"});if(!j.ok)throw new Error(j.error||j.status);
+ const sig=JSON.stringify((j.items||[]).map(x=>[x.id,x.status]));if(silent&&S._rsig===sig&&S.reqs!==null)return;S._rsig=sig;S.reqs=j.items||[];render(true)}
+ catch(e){if(!silent)toast("Request load hoyni: "+(e.message||e));if(S.reqs===null)S.reqs=[]}}
+const reqRow=(r,own)=>{const L=RQ_L[r.action]||r.action,st=RQ_S[r.status]||["",""],nm=r.name||r.email||"Student";
+ return `<div class="li rq"><div class="rq-i"><b>${esc(nm)}</b> <span class="chip" style="--c:${RQ_C[r.action]||"#7c5cff"}">${L}</span>${own||r.status!="pending"?` <span class="chip" style="--c:${st[1]}">${st[0]}</span>`:""}<small>${esc(short((r.year||"")+DOTP+(r.dept||"")))} \u00b7 ${esc(r.byEmail||"")} \u00b7 ${ago(r.ts)}${r.reason?" \u00b7 Reason: "+esc(r.reason):""}</small></div>
+ <div class="rq-a">${r.status=="pending"?(isOwner()?`<button class="btn sm" onclick="reqAct('approve','${esc(r.id)}')">${IC("check")} Approve</button><button class="btn ghost sm" onclick="reqAct('reject','${esc(r.id)}')">${IC("x")} Reject</button>`:`<button class="btn ghost sm" onclick="reqAct('cancel','${esc(r.id)}')">Cancel</button>`):""}</div></div>`};
+function reqPanel(){const l=S.reqs||[];if(!l.length)return"";
+ if(isOwner()){const pend=l.filter(r=>r.status=="pending"),done=l.filter(r=>r.status!="pending").slice(0,5);
+  return `<div class="panel reqp"><h3>${IC("alert")} Review lagbe <small>\u00b7 ${pend.length} pending</small></h3>${pend.map(r=>reqRow(r)).join("")||`<small class="mut2">Kono pending request nei</small>`}${done.length?`<div class="sub2">Recent</div>${done.map(r=>reqRow(r)).join("")}`:""}</div>`}
+ return `<div class="panel reqp"><h3>${IC("history")} Apnar request <small>\u00b7 Owner review korbe</small></h3>${l.slice(0,8).map(r=>reqRow(r,1)).join("")}</div>`}
+async function reqAct(op,id){const r=(S.reqs||[]).find(x=>x.id==id);if(!r)return;const nm=r.name||r.email||"Student",L=RQ_L[r.action]||r.action;
+ const T={approve:["Approve korben?",nm+"-ke "+L+" kora hobe"+(r.action=="remove"?" (account muche jabe, ferano jabe na)":"")+".","Approve",r.action=="unblock"?false:undefined],
+  reject:["Reject korben?",nm+"-er "+L+" request bad hobe, kono kaj hobe na.","Reject",false],
+  cancel:["Request cancel korben?","Owner-er kache pathano request ti bad hobe.","Cancel request",false]}[op];
+ if(!await confirmBox(T[0],T[1],T[2],T[3]))return;toast("Kaj hocche\u2026");
+ try{const j=await admApi("/api/user-admin",{action:op,requestId:id});if(!j.ok){toast("Hoyni: "+(j.error||j.status));loadReqs(true);return}
+  if(op=="approve"){S.users=r.action=="remove"?(S.users||[]).filter(u=>u.id!=r.uid):(S.users||[]).map(u=>u.id==r.uid?{...u,blocked:r.action=="block"}:u);logAct("uapprove",{id:r.uid,title:L+": "+nm})}
+  else if(op=="reject")logAct("ureject",{id:r.uid,title:L+": "+nm});
+  S._rsig="";await loadReqs(true);
+  toast((op=="approve"?"Approve hoyeche \u2014 "+L+" hoyeche":op=="reject"?"Reject hoyeche":"Cancel hoyeche")+(j.sheet===false?" (Google Sheet update hoyni)":""))}
+ catch(e){toast("Hoyni: "+(e.message||e))}}
+const pendCard=card=>pendN()?card("alert","#e5484d",pendN(),"Review lagbe","Student request approve/reject korun",""):"";
+setInterval(()=>{if(S.ready&&S.uid&&isOwner())loadReqs(true)},60000);
 /* ---- Scope: Owner jar jonno Year + Department thik kore dey, se shudhu oi Page-er moddhe kaj korte pare ---- */
 const DOTP=" \u00b7 ";
 const ROLE_L={owner:"Owner",admin:"Admin",editor:"Editor"};
@@ -461,7 +493,7 @@ function loginV(){let saved="";try{saved=localStorage.getItem("mcn_admin_email")
 function bucket(a,k,days){const now=Date.now(),r=Array(days).fill(0);a.forEach(x=>{const i=days-1-Math.floor((now-(typeof k=="function"?k(x):x[k]))/DAY);if(i>=0&&i<days)r[i]++});return r}
 function spark(a,col){const w=100,h=30,m=Math.max(1,...a),pts=a.map((v,i)=>[+(i*(w/(a.length-1||1))).toFixed(1),+(h-3-(v/m)*(h-8)).toFixed(1)]),d=pts.map(p=>p.join(",")).join(" ");
  return `<svg class="spk" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,${h} ${d} ${w},${h}" fill="${col}" opacity=".15"/><polyline points="${d}" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>`}
-const ACT={create:["notun post করেছে","plus"],edit:["post edit করেছে","edit"],delete:["post delete করেছে","trash"],restore:["restore করেছে","undo"],bulk:["bulk action চালিয়েছে","list"],import:["backup import করেছে","upload"],role:["access/role বদলেছে","shield"],notify:["push notification পাঠিয়েছে","bell"],push:["custom notification পাঠিয়েছে","bell"],ublock:["student block করেছে","lock"],uunblock:["student unblock করেছে","check"],uremove:["student remove করেছে","trash"]};
+const ACT={create:["notun post করেছে","plus"],edit:["post edit করেছে","edit"],delete:["post delete করেছে","trash"],restore:["restore করেছে","undo"],bulk:["bulk action চালিয়েছে","list"],import:["backup import করেছে","upload"],role:["access/role বদলেছে","shield"],notify:["push notification পাঠিয়েছে","bell"],push:["custom notification পাঠিয়েছে","bell"],ureq:["student request Owner-er kache pathiyeche","alert"],uapprove:["student request approve korechhe","check"],ureject:["student request reject korechhe","x"],ublock:["student block করেছে","lock"],uunblock:["student unblock করেছে","check"],uremove:["student remove করেছে","trash"]};
 const nameOf=e=>String(e||"").split("@")[0]||"admin";
 function dashV(){
  const now=Date.now(),P=S.posts,L=P.filter(live),wk=L.filter(p=>now-p.ts<7*DAY).length,hid=P.length-L.length,
@@ -478,7 +510,7 @@ function dashV(){
  <div class="scs">${card("file","#2850e8",P.length,"মোট Post",`${L.length} live · ${hid} draft/scheduled`,spark(bucket(P,"ts",14),"#2850e8"))}
  ${card("zap","#16a34a",wk,"এই সপ্তাহে নতুন","গত ৭ দিনে",spark(bucket(L,"ts",7),"#16a34a"))}
  ${card("hourglass","#e08a00",dls.length,"Active Deadline",dls[0]?"পরেরটা: "+hrs(dls[0].dl-now):"কোনো deadline নেই","")}
- ${isAdmin()?card("mail","#d6409f",unread,"Unread Message",`মোট ${S.msgs.length}টি`,spark(bucket(S.msgs,"ts",14),"#d6409f")):card("eye","#d6409f",views,"মোট View","public site-এ","")}${SU.c}</div>
+ ${isAdmin()?card("mail","#d6409f",unread,"Unread Message",`মোট ${S.msgs.length}টি`,spark(bucket(S.msgs,"ts",14),"#d6409f")):card("eye","#d6409f",views,"মোট View","public site-এ","")}${SU.c}${pendCard(card)}</div>
  <div class="g2"><div class="panel"><h3>${IC("chart")} Analytics <small>· মোট ${views} view${P.length?" · গড় "+Math.round(views/P.length)+"/post":""}</small></h3>
   <div class="sub2">সবচেয়ে বেশি দেখা Post</div>${top.map(p=>`<div class="bar"><div class="bar-l"><span>${esc(p.title)}</span><b>${p.views}</b></div><i style="width:${Math.max(4,p.views/mx*100)}%;background:${(CATS[p.cat]||CATS.notice).c}"></i></div>`).join("")||"<small>এখনো কোনো view নেই</small>"}
   <div class="sub2" style="margin-top:16px">Category অনুযায়ী View</div>${cv.map(([k,v])=>`<div class="bar"><div class="bar-l"><span>${IC(k)} ${CATS[k].n}</span><b>${v}</b></div><i style="width:${Math.max(v?4:0,v/cm*100)}%;background:${CATS[k].c}"></i></div>`).join("")}</div>
@@ -525,7 +557,7 @@ function composeV(){
  <label>Extra Link (optional)</label><input id="f_link" value="${esc(e.link||"")}" placeholder="https://…">
  <div class="chks"><label class="gchk"><input type="checkbox" id="f_pin" ${e.pinned?"checked":""}> ${IC("pin")} Pin to top</label>
  <label class="gchk"><input type="checkbox" id="f_draft" ${e.draft?"checked":""}> ${IC("file")} Draft</label>
- <label class="gchk tgl"><input type="checkbox" id="f_push" ${!S.edit&&!e.draft?"checked":""}> ${IC("bell")} Publish korar sathe sathe sob student-er phone-e notification pathan</label></div>
+ <label class="gchk tgl"><input type="checkbox" id="f_push" ${!S.edit&&!e.draft?"checked":""}> ${IC("bell")} Publish korar sathe sathe notification pathan <small>(shudhu select kora Year/Department-er student-ra pabe)</small></label></div>
  <div class="row"><button class="btn" id="pubBtn" onclick="submitPost()">${IC("send")} ${S.edit?"Update":"Publish"}</button>${S.edit?`<button class="btn ghost" onclick="cancelEdit()">Cancel</button>`:`<button class="btn ghost" onclick="saveTpl()">${IC("tpl")} Template hishebe save</button>`}</div>
  ${mt.length&&!S.edit?`<div class="mytpl"><small>Tomar template:</small> ${mt.map((t,i)=>`<span class="chip">${esc(t.n)} <button type="button" class="lnk" title="Delete" onclick="delTpl(${i})">${IC("x")}</button></span>`).join(" ")}</div>`:""}
  </div>
@@ -589,8 +621,8 @@ function peopleV(){const own=isOwner(),row=(u,role,i)=>`<div class="li"><div><co
 const MAINT=["dash","new","posts","msgs"];
 const MORE_SVG='<svg class="g" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="2"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="2"/></svg><svg class="c" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
 function navBar(un){const al=TABS.filter(allowed),main=al.filter(t=>MAINT.includes(t[0])),xt=al.filter(t=>!MAINT.includes(t[0])),h=Math.ceil(main.length/2);
- const b=(t,x)=>{const[k,i,n,a,sh]=t;return `<button class="nv${S.tab==k?" on":""}${x?" xtra":""}" onclick="go('${k}')">${IC(i)}<span class="l">${n}</span><span class="s">${sh}</span>${k=="msgs"&&un?`<em class="bd">${un}</em>`:""}</button>`};
- const mid=xt.length?`<button class="nv fabx${xt.some(t=>t[0]==S.tab)?" on":""}" id="moreBtn" type="button" aria-label="Aro feature" aria-expanded="false" onclick="toggleMore()"><span class="fx">${MORE_SVG}</span></button>`:"";
+ const b=(t,x)=>{const[k,i,n,a,sh]=t;return `<button class="nv${S.tab==k?" on":""}${x?" xtra":""}" onclick="go('${k}')">${IC(i)}<span class="l">${n}</span><span class="s">${sh}</span>${k=="msgs"&&un?`<em class="bd">${un}</em>`:k=="students"&&pendN()?`<em class="bd">${pendN()}</em>`:""}</button>`};
+ const mid=xt.length?`<button class="nv fabx${xt.some(t=>t[0]==S.tab)?" on":""}" id="moreBtn" type="button" aria-label="Aro feature" aria-expanded="false" onclick="toggleMore()"><span class="fx">${MORE_SVG}</span>${pendN()?'<i class="fdot"></i>':""}</button>`:"";
  return main.slice(0,h).map(t=>b(t)).join("")+mid+main.slice(h).map(t=>b(t)).join("")+xt.map(t=>b(t,1)).join("")}
 function morePop(){const xt=TABS.filter(allowed).filter(t=>!MAINT.includes(t[0]));if(!xt.length)return"";
  return `<div class="morewrap" id="morewrap" onclick="if(event.target===this)toggleMore(false)"><div class="more" role="menu">${xt.map(([k,i,n],j)=>`<button class="mi${S.tab==k?" on":""}" role="menuitem" style="--d:${j*50}ms" onclick="go('${k}')"><span class="mi-i">${IC(i)}</span><span>${n}</span></button>`).join("")}<a class="mi" href="/"><span class="mi-i"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></span><span>Website</span></a></div></div>`}
@@ -607,11 +639,11 @@ function stuRow(x){const nm=x.name||"(নাম নেই)",bl=!!x.blocked,id=es
  return `<div class="su ${bl?"bl":""}"><span class="su-av">${esc(nm.trim().charAt(0).toUpperCase()||"?")}</span>
  <div class="su-i"><b>${esc(nm)}</b><small>${esc(x.email||"email nei")}</small></div>
  <div class="su-m"><span class="chip">${esc(short(x.year||""))}</span><span class="chip" style="--c:${DCOL[x.dept]||"#7c5cff"}">${esc(x.dept||"-")}</span>${bl?`<span class="chip" style="--c:#e5484d">${IC("lock")} Blocked</span>`:`<span class="chip" style="--c:#16a34a">${IC("check")} Active</span>`}</div>
- <div class="su-a">${isProt(x)?`<small class="mut2">Admin / আপনি</small>`:`${bl?"":`<button class="btn ghost sm" onclick="nfTo('${id}')">${IC("bell")} Notify</button>`}<button class="btn ghost sm" onclick="stuAct('${bl?"unblock":"block"}','${id}')">${IC(bl?"undo":"alert")} ${bl?"Unblock":"Block"}</button><button class="btn danger sm" onclick="stuAct('remove','${id}')">${IC("trash")} Remove</button>`}</div></div>`}
+ <div class="su-a">${isProt(x)?`<small class="mut2">Admin / আপনি</small>`:`${bl?"":`<button class="btn ghost sm" onclick="nfTo('${id}')">${IC("bell")} Notify</button>`}${!isOwner()&&pendingFor(x.id)?`<span class="chip" style="--c:#d97706">${IC("history")} Owner review-e ache</span>`:`<button class="btn ghost sm" onclick="stuAct('${bl?"unblock":"block"}','${id}')">${IC(bl?"undo":"alert")} ${bl?"Unblock":"Block"}</button><button class="btn danger sm" onclick="stuAct('remove','${id}')">${IC("trash")} Remove</button>`}`}</div></div>`}
 function studentsV(){
  if(!S.users)return `<h1 class="pt">Students</h1><div class="panel"><p class="mut2">Student list load hocche…</p><button class="btn" onclick="loadUsers()">${IC("users")} Load korun</button></div>`;
  const u=S.users,bl=u.filter(x=>x.blocked).length,all=stuList(),lim=S.ulim||50,list=all.slice(0,lim);
- return `<h1 class="pt">Students</h1><p class="sub">Registered student-der Name, Year, Department — Block ba Remove korte paren.</p>${scopeNote()}
+ return `<h1 class="pt">Students</h1><p class="sub">Registered student-der Name, Year, Department — Block ba Remove korte paren.</p>${scopeNote()}${reqPanel()}
  <div class="sts"><div><b>${u.length}</b><small>মোট</small></div><div><b>${u.length-bl}</b><small>Active</small></div><div><b style="color:#e5484d">${bl}</b><small>Blocked</small></div></div>
  <div class="panel"><div class="tbar"><input id="uq" type="search" placeholder="Name ba email khujun…" value="${esc(S.uq||"")}" oninput="S.uq=this.value;S.ulim=50;render(true)" style="flex:1;min-width:160px">
  <select id="uy" onchange="S.uy=this.value;S.ulim=50;render(true)"><option value="">সব Year</option>${YEARS.map(y=>`<option value="${esc(y)}" ${S.uy==y?"selected":""}>${esc(y)}</option>`).join("")}</select>
@@ -622,13 +654,15 @@ function studentsV(){
  ${list.map(stuRow).join("")||`<p class="mut2">কাউকে পাওয়া যায়নি</p>`}
  ${all.length>lim?`<div class="row" style="justify-content:center"><button class="btn ghost" onclick="S.ulim=(S.ulim||50)+50;render(true)">আরও দেখুন (${all.length-lim})</button></div>`:""}</div>`}
 async function stuAct(act,id){const x=(S.users||[]).find(u=>u.id==id);if(!x)return;const nm=x.name||x.email||"Student";
- const T={block:["Block korben?",nm+" ar login korte parbe na (cholte thaka session-o bondho hobe). Pore Unblock kora jabe.","Block korun"],
+ let T={block:["Block korben?",nm+" ar login korte parbe na (cholte thaka session-o bondho hobe). Pore Unblock kora jabe.","Block korun"],
   unblock:["Unblock korben?",nm+" abar login korte parbe.","Unblock korun",false],
   remove:["Permanently remove korben?",nm+"-er account, profile ar Google Sheet row muche jabe. Eta ferano jabe na.","Remove korun"]}[act];
+ if(!isOwner())T=[T[0].replace("korben?","request pathabo?"),"Eta Owner-er review-e jabe. Owner approve korle tobei "+nm+"-er upor kaj hobe.","Request pathan",false];
  if(!await confirmBox(T[0],T[1],T[2],T[3]))return;
  const cu=FB.auth.currentUser;if(!cu){toast("Login lagbe");return}toast("Kaj hocche…");
  try{const tk=await cu.getIdToken(),r=await fetch("/api/user-admin",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+tk},body:JSON.stringify({action:act,uid:id})}),j=await r.json().catch(()=>({}));
   if(!j.ok){toast("Hoyni: "+(j.error||r.status));return}
+  if(j.pending){logAct("ureq",{id,title:({block:"Block",unblock:"Unblock",remove:"Remove"})[act]+": "+nm});S._rsig="";await loadReqs(true);toast(j.existing?"Ei request age-i Owner-er review-e ache":"Request Owner-er kache gechhe — approve korle kaj hobe");return}
   S.users=act=="remove"?S.users.filter(u=>u.id!=id):S.users.map(u=>u.id==id?{...u,blocked:act=="block"}:u);
   logAct("u"+act,{id,title:nm});render(true);
   toast((act=="block"?"Block hoyeche":act=="unblock"?"Unblock hoyeche":"Remove hoyeche")+(j.sheet===false?" (Google Sheet update hoyni)":""))}
@@ -740,6 +774,7 @@ function render(keep){
  $("#who").innerHTML=S.uid&&isStaff()?`<span class="role r-${roleOf().toLowerCase()}">${roleOf()}</span>`:"";
  $("#yr").textContent=new Date().getFullYear();
  if(S.ready&&S.uid&&S.cfg&&isAdmin()&&S.users===null&&!S._ul&&(S.tab=="students"||S.tab=="dash"||S.tab=="notify")){S._ul=1;loadUsers()}
+ if(S.ready&&S.uid&&S.cfg&&isAdmin()&&S.reqs===null&&!S._rql&&(S.tab=="students"||S.tab=="dash")){S._rql=1;loadReqs()}
  if(S.ready&&S.uid&&S.cfg&&isAdmin()&&S.tab=="notify"){if(S.nh===null&&!S._nhl){S._nhl=1;nfHistLoad()}if(S.nf.cnt===null)nfCount()}}
 $("#app").addEventListener("input",e=>{if(e.target.closest&&e.target.closest("#cform"))livePrev()});
 $("#app").addEventListener("change",e=>{if(e.target.closest&&e.target.closest("#cform"))livePrev()});
@@ -754,12 +789,13 @@ function waText(p,id){const c=CATS[p.cat]||CATS.notice,b=(p.body||"").replace(/\
 function showShare(id,p){$("#sheet").innerHTML=`<h2 style="margin-top:0" class="ic-h">${IC("check")} Post হয়েছে!</h2><p><small>এখন WhatsApp group-এ পাঠান: নিচের button চাপলে WhatsApp খুলবে, সেখানে group select করে Send দিন। চাইলে message বদলে নিতে পারেন।</small></p><textarea id="wa_t" style="min-height:190px">${esc(waText(p,id))}</textarea><div class="row"><button class="btn" onclick="openWA()">${IC("msg")} WhatsApp-এ পাঠান</button><button class="btn ghost" onclick="copy($('#wa_t').value)">${IC("copy")} Copy</button><button class="btn ghost" onclick="closeM()">Close</button></div>`;$("#modal").classList.add("open")}
 const openWA=()=>window.open("https://api.whatsapp.com/send?text="+encodeURIComponent($("#wa_t").value),"_blank");
 function waShare(id){const p=S.posts.find(x=>x.id==id);if(p)showShare(id,p)}
+const nfTail=j=>j&&j.students!=null?" — "+j.students+" jon student-er bell-e, "+j.devices+" device-e phone alert":"";
 async function notifyPush(id){const u=FB.auth.currentUser;if(!u)throw new Error("login lagbe");const tk=await u.getIdToken();
  const r=await fetch("/api/notify",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+tk},body:JSON.stringify({id})});
  const j=await r.json().catch(()=>({}));if(!r.ok||!j.ok)throw new Error(j.error||("HTTP "+r.status));return j}
 async function notifyBtn(id){const p=S.posts.find(x=>x.id==id);if(!p)return;if(!live(p))return toast("Draft/Scheduled post-er notification pathano jabe na");
- if(!await confirmBox("Push notification pathabo?",p.title,"Pathan",false))return;
- try{await notifyPush(id);logAct("notify",p);toast("Notification pathano hoyeche")}catch(e){toast("Push jayni: "+(e.message||e))}}
+ if(!await confirmBox("Push notification pathabo?",p.title+" — "+pgText(p),"Pathan",false))return;
+ try{const j=await notifyPush(id);logAct("notify",p);toast("Notification pathano hoyeche"+nfTail(j))}catch(e){toast("Push jayni: "+(e.message||e))}}
 
 /* ---- post actions ---- */
 function startEdit(id){const p=S.posts.find(x=>x.id==id);if(!p)return;S.edit=id;S.prefill=null;S.form=null;S.pending={cover:p.cover||null,files:(p.files||[]).filter(f=>f.type!="link")};go("new")}
@@ -782,7 +818,7 @@ async function submitPost(){if(scoped()&&!document.querySelectorAll(".gcb:checke
  try{let id=S.edit;const was=!!id;if(id)await FB.setDoc(FB.doc(FB.db,"posts",id),clean);else id=(await FB.addDoc(FB.collection(FB.db,"posts"),clean)).id;
   S.edit=null;S.prefill=null;S.form=null;S.pending={cover:null,files:[]};logAct(was?"edit":"create",{id,title});
   go("posts");toast(was?"Updated":"Published");if(!was)showShare(id,clean);
-  if(push&&!dr&&!(atv&&atv>now))notifyPush(id).then(()=>{logAct("notify",{id,title});toast("Published · notification gelo")}).catch(e=>toast("Post hoyeche, kintu push jayni: "+(e.message||e)))}
+  if(push&&!dr&&!(atv&&atv>now))notifyPush(id).then(j=>{logAct("notify",{id,title});toast("Published · notification gelo"+nfTail(j))}).catch(e=>toast("Post hoyeche, kintu push jayni: "+(e.message||e)))}
  catch(e){toast("Save hoyni: "+(e.code||e.message));b.disabled=false}}
 async function del(id){const p=S.posts.find(x=>x.id==id);if(!p||!isAdmin())return;if(!await confirmBox("Post delete করবেন?",p.title,"Delete"))return;
  const d={...p};delete d.id;
@@ -882,7 +918,7 @@ function logout(){FB&&FB.signOut(FB.auth);toast("Logged out")}
 window.initBackend=f=>{FB=f;let uCfg=null,uMsg=null,uLog=null;
  FB.onSnapshot(FB.collection(FB.db,"posts"),sn=>{S.rawPosts=sn.docs.map(d=>({id:d.id,...d.data()}));applyScope();[...S.sel].forEach(id=>{if(!S.posts.some(p=>p.id==id))S.sel.delete(id)});render(true)},e=>toast("Posts load hoyni: "+e.code));
  FB.onAuthStateChanged(FB.auth,u=>{S.ready=true;S.uid=u?u.uid:null;S.email=u?u.email:null;S.verified=!!(u&&u.emailVerified);if(u){S.sent=null;try{FB.getDoc(FB.doc(FB.db,"users",u.uid)).then(s=>{if(s.exists()&&s.data().name)S.myName=s.data().name}).catch(()=>{})}catch(e){}}
-  uCfg&&uCfg();uMsg&&uMsg();uLog&&uLog();uCfg=uMsg=uLog=null;S.emails=[];S.ids=[];S.editors=[];S.scope={};S.msgs=[];S.logs=[];S.users=null;S._ul=0;S.nh=null;S._nhl=0;S.cfg=!u;
+  uCfg&&uCfg();uMsg&&uMsg();uLog&&uLog();uCfg=uMsg=uLog=null;S.emails=[];S.ids=[];S.editors=[];S.scope={};S.msgs=[];S.logs=[];S.users=null;S._ul=0;S.reqs=null;S._rql=0;S.nh=null;S._nhl=0;S.cfg=!u;
   if(u){uCfg=FB.onSnapshot(FB.doc(FB.db,"config","admins"),d=>{const x=d.exists()?d.data():{};S.emails=(x.emails||[]).map(v=>String(v).toLowerCase());S.editors=(x.editors||[]).map(v=>String(v).toLowerCase());S.ids=x.ids||[];S.scope=(x.scope&&typeof x.scope=="object")?x.scope:{};applyScope();S.cfg=true;render(true)},()=>{S.cfg=true;render(true)});
    uMsg=FB.onSnapshot(FB.collection(FB.db,"messages"),sn=>{S.msgs=sn.docs.map(d=>({id:d.id,...d.data()}));render(true)},()=>{});
    uLog=FB.onSnapshot(FB.query(FB.collection(FB.db,"logs"),FB.orderBy("ts","desc"),FB.limit(100)),sn=>{S.logs=sn.docs.map(d=>({id:d.id,...d.data()}));render(true)},()=>{})}
