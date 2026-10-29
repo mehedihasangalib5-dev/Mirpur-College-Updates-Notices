@@ -114,4 +114,14 @@ async function staffInfo(adm, user) {
 }
 const inScope = (scope, p) => !scope.length || scope.includes(pageKey(p));
 
-module.exports = { staffInfo, inScope, pageKey, PAGES, YEARS, DEPTS, toRow, init, TOPIC, sameOrigin, body, bearerUser, isAdminUser, hashCode, safeEq, callSheet };
+// Post kon kon Year+Department Page-e dekhabe (site-er pagesOf-er sathe ek-i logic). grp khali = sob Page.
+function pagesOf(grp) {
+  const g = Array.isArray(grp) ? grp : [];
+  if (!g.length) return PAGES.slice();
+  const out = new Set(g.filter((x) => PAGES.includes(x)));
+  const ly = g.filter((x) => YEARS.includes(x)), ld = g.filter((x) => DEPTS.includes(x));
+  if (ly.length || ld.length) (ly.length ? ly : YEARS).forEach((y) => (ld.length ? ld : DEPTS).forEach((d) => out.add(y + " \u00b7 " + d)));
+  return out.size ? [...out] : PAGES.slice();
+}
+
+module.exports = { staffInfo, inScope, pageKey, pagesOf, PAGES, YEARS, DEPTS, toRow, init, TOPIC, sameOrigin, body, bearerUser, isAdminUser, hashCode, safeEq, callSheet };
