@@ -306,3 +306,11 @@ Admin:
  - Quiz form: "প্রতিবার কতটি প্রশ্ন" + "প্রশ্নের ক্রম ঠিক রাখো".
  - firestore.rules BODLAY NI (notun field allow-ei ache).
  - HSC_SUBJ list index.html ar admin.html du jayga-te ache, bodlale duto-ei bodlate hobe.
+
+
+=== AA) BANGLA অংশ + CHORCHA-STYLE PRACTICE (index.html, admin.html, sw.js v31) ===
+ - Board > Bangla: ১ম পত্র = সাহিত্যপাঠ + সহপাঠ, ২য় পত্র = ব্যাকরণ ও নির্মিতি. Notun "অংশ" chip row (paper tab-er niche); card/reader-e অংশ-er naam.
+   Admin Board form-e notun "অংশ (বাংলা)" dropdown (field `pt`: sp | sh | bn). Purono ২য় পত্র Bangla question auto "ব্যাকরণ ও নির্মিতি" hishebe dhore.
+ - Board hub: দিনের Streak, "কাস্টম মক টেস্ট" (#/board/mock: bishoy + অংশ + 10/20/30/50 prosno + Exam/Practice, Board MCQ pool theke random),
+   "ভুল রিভিউ" (#/board/mistakes: Quiz/Board MCQ/Mock-e bhul hoya prosno jome, sathe ব্যাখ্যা + oigulo diye Practice). Shob data phone-er localStorage-e.
+ - Mock quizAttempts-e save hoy na. Firestore rules BODLAY NI. Deploy-er por student-er app-e "Update" banner ashbe.
