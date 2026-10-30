@@ -276,3 +276,33 @@ Note:
  - Publish-er sathe tick thakle auto ekta Post ("Notun Quiz: ...") toiri hoy + push notification (age-r notify API, notun function lagbe na).
  - Notun tab "Q&B Dashboard": SHUDHU OWNER (UI tab lukano + firestore.rules-e quizAttempts read shudhu Owner). KPI, 7 dine attempt, Quiz/Page/Board onujayi report, Result CSV.
  - DEPLOY: firestore.rules abar Publish + Vercel deploy. Ager moto Student-er "Update" banner-er jonno sw.js V ar ekbar bariye nao (v28) jodi index.html-o bodlay.
+
+
+=== Y) STUDENT QUIZ UI v2 (index.html + sw.js v29) ===
+ - Quiz list: stats strip (মোট/সম্পন্ন/গড়), search, filter chip (সব/Exam/Practice/বাকি আছে), status badge (নতুন/চলছে/সম্পন্ন/সময় শেষ), score bar, skeleton loading, "চলছে" resume banner.
+ - Intro screen (#/quiz/<id>): rules + stat tile + শুরু করো. Exam ekbar-i, deadline-er por start hoy na.
+ - Runner: sticky header (timer + progress), boro option card (letter badge, ✓/✕ icon), Flag, bottom action bar (আগের | প্রশ্ন তালিকা | পরের/Submit),
+   palette bottom-sheet (answered/flagged/current), custom Submit dialog (ক-ta baki), Exam-e answer abar tap korle muche jay, Practice-e sathe sathe ঠিক/ভুল + ব্যাখ্যা.
+ - Autosave: answer/flag/timer sessionStorage-e. Refresh korle ba tab ghure abar khulle resume. Exam-er somoy shesh hoye gele save kora answer auto Submit.
+ - Keyboard (desktop): 1-4 option, ←/→ prosno, F flag, Esc dialog bondho. Quiz cholar somoy phone-er bottom nav lukano thake.
+ - Result: score ring (%), ঠিক/ভুল/বাকি/সময় tile, review tab (সব/ভুল/বাকি/Flagged), "তোমার উত্তর"/"সঠিক" badge.
+ - Data/Firestore rules BODLAY NI -- quizAttempts-er field ager moto. Shudhu deploy + sw.js v29 (Student-er app-e "Update" banner ashbe).
+ - Note: Exam attempt-e answer save hoy na, tai Exam-er review shudhu submit-er por result page-e dekha jay. Pore review chaile quizAttempts-e `ans` field + rules update lagbe.
+
+
+=== Z) BOARD READER v2 + QUIZ RANDOM POOL (index.html, admin.html, sw.js v30) ===
+Board Question (HSC-only):
+ - Hub: bishoy grid (tomar dept onujayi: সাধারণ + Science/Arts/Commerce), "সব বিষয় দেখো" e baki gulo. Pora/Saved counter.
+ - Bishoy page (#/board/<key>): ১ম পত্র / ২য় পত্র alada tab (ICT-r moto 1-patro bishoy-e tab nei), type (CQ/MCQ), odhyay chip, porikkha/board/saal filter.
+ - Reader (#/board/q/<id>): উদ্দীপক box, proti part-er নম্বর (১/২/৩/৪), part-wise "উত্তর দেখো" + "সব উত্তর দেখাও", MCQ-te option tap korle ঠিক/ভুল + ব্যাখ্যা,
+   Save, A−/A+ lekha-r size (mone thake), আগের/পরের, "পড়া" tick. #/board/saved = Saved prosno.
+ - Purono board question (sk/pp nei) -> `sub` text theke auto bishoy dhora hoy; patro na thakle shudhu "সব" tab-e dekhay. Admin Edit korle patro bachai kore ঠিক kore nao.
+Quiz random pool:
+ - Quiz-e notun field `cnt` (protibar kota prosno; ফাঁকা = shob) ar `fx` (krom thik rakho). Default-e protibar prosno-r krom shuffle hoy.
+ - cnt < pool hole: protibar alada prosno; age na-dekha prosno age ashe (localStorage mcn_qseen_<quizId>), pool shesh hole notun round.
+ - Refresh/resume-e same drawn prosno thake (sessionStorage `ix`).
+Admin:
+ - Board form: পরীক্ষা (বোর্ড/নির্বাচনী/মডেল টেস্ট/কলেজ), বিষয় (HSC bishoy dropdown), পত্র, odhyay (age-r odhyay suggest hoy). Board list-e patro + porikkha dekhay.
+ - Quiz form: "প্রতিবার কতটি প্রশ্ন" + "প্রশ্নের ক্রম ঠিক রাখো".
+ - firestore.rules BODLAY NI (notun field allow-ei ache).
+ - HSC_SUBJ list index.html ar admin.html du jayga-te ache, bodlale duto-ei bodlate hobe.

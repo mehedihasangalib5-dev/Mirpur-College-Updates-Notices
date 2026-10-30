@@ -1,6 +1,6 @@
 // Service worker: app-er moto install + offline shell. Admin ar API kokhono cache hoy na.
 // Notun release dile ei V ta bodlan: tahole user-der app-e "Update" notice jabe.
-const V = "mcn-v28";
+const V = "mcn-v30";
 const SHELL = ["/", "/logo.png", "/icon-192.png", "/manifest.webmanifest"];
 
 self.addEventListener("install", (e) => {

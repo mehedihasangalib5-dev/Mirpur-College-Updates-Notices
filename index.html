@@ -478,6 +478,58 @@ a.btn#adminBtn{text-decoration:none}
 .qb-pal{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}.qb-pal button{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-weight:600}.qb-pal .d{background:color-mix(in srgb,var(--pri) 18%,var(--card));border-color:var(--pri)}.qb-pal .c{outline:2px solid var(--pri2)}
 .qb-bar{height:6px;border-radius:9px;background:var(--line);overflow:hidden;margin-top:10px}.qb-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--pri),var(--pri2))}.qb-t{font-weight:700;font-variant-numeric:tabular-nums;padding:4px 12px;border-radius:99px;background:color-mix(in srgb,#e08a00 15%,transparent);color:#e08a00}.qb-t.low{background:color-mix(in srgb,#e5484d 15%,transparent);color:#e5484d}
 .qb-cq{border-left:3px solid var(--pri2);padding:2px 0 2px 12px;margin:8px 0;font-size:14.5px}
+/* ---- quiz UI v2 ---- */
+@property --p{syntax:'<number>';inherits:false;initial-value:0}
+.qb-sk{height:128px;border-radius:20px;margin:0 0 12px;background:linear-gradient(100deg,var(--line) 30%,color-mix(in srgb,var(--line) 40%,var(--card)) 50%,var(--line) 70%);background-size:300% 100%;animation:qsk 1.3s linear infinite}@keyframes qsk{from{background-position:100% 0}to{background-position:0 0}}
+.qr-st{display:grid;grid-template-columns:repeat(auto-fit,minmax(88px,1fr));gap:10px;margin:14px 0}.qr-st>div{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:10px 8px;text-align:center;font-size:12px;color:var(--mute)}.qr-st>div b{display:block;font-size:20px;line-height:1.3;color:var(--ink)}.qr-st>div.w b{color:#e5484d}.qr-st.four{grid-template-columns:repeat(4,1fr)}
+.qb-sr input{width:100%}.qb-chs{display:flex;gap:8px;overflow-x:auto;margin:12px 0;padding-bottom:2px;scrollbar-width:none}.qb-chs::-webkit-scrollbar{display:none}
+.qb-ch{flex:none;padding:7px 14px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:13px;font-weight:600;white-space:nowrap}.qb-ch.on{background:var(--pri);border-color:var(--pri);color:#fff}
+.qb-resume{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-radius:16px;margin:12px 0 0;background:color-mix(in srgb,var(--pri) 10%,var(--card));border:1px solid color-mix(in srgb,var(--pri) 35%,var(--line));color:var(--ink);text-decoration:none;font-size:14px}.qb-resume u{color:var(--pri);font-weight:700;text-decoration:none;white-space:nowrap}
+.qb-st{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;background:var(--bg);color:var(--mute)}.qb-st .ico{width:13px;height:13px}
+.qb-st.ok{background:color-mix(in srgb,#16a34a 14%,transparent);color:color-mix(in srgb,#16a34a 78%,var(--ink))}.qb-st.bad{background:color-mix(in srgb,#e5484d 14%,transparent);color:color-mix(in srgb,#e5484d 78%,var(--ink))}.qb-st.go{background:color-mix(in srgb,var(--pri) 14%,transparent);color:var(--pri)}.qb-st.nw{background:color-mix(in srgb,var(--acc) 18%,transparent);color:color-mix(in srgb,var(--acc) 65%,var(--ink))}
+.qz{border-left:4px solid var(--c);transition:transform .15s,box-shadow .15s}.qz:hover{transform:translateY(-2px);box-shadow:var(--sh)}.qz-top{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.qz h3{margin:10px 0 2px;font-size:17px}.qz-meta{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:13px;color:var(--mute)}.qz-meta .ico,.qb-resume .ico{width:14px;height:14px;vertical-align:-2px}.qz-ft{display:flex;align-items:center;gap:12px;margin-top:14px}.qz-sc{flex:1;min-width:0}.qz-sc small{display:block;margin-top:6px;color:var(--mute);font-size:12.5px}
+.qb-em{display:grid;gap:6px;justify-items:center;text-align:center;padding:28px 12px;color:var(--mute)}.qb-em .ico{width:34px;height:34px}.qb-em b{color:var(--ink)}
+.qi-t{font-size:clamp(22px,4vw,28px);line-height:1.3;margin:10px 0 4px}.qi-l{margin:12px 0;padding-left:20px;line-height:1.9;font-size:14.5px}
+/* runner */
+.qr{padding-bottom:96px}.qr-top{position:sticky;top:calc(var(--hh) + env(safe-area-inset-top,0px));z-index:5;background:color-mix(in srgb,var(--bg) 90%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);padding:10px 0 8px;margin-bottom:10px}.qr-th{display:flex;align-items:center;gap:10px}.qr-ti{flex:1;min-width:0}.qr-ti b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:15px}.qr-ti span{font-size:12px;color:var(--mute)}
+.qr-ib{flex:none;width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);display:grid;place-items:center}.qb-t.low{animation:qpulse 1s infinite}@keyframes qpulse{50%{opacity:.55}}
+.qr-q{padding:18px}.qr-q.in{animation:qin .22s ease-out}@keyframes qin{from{opacity:0;transform:translateX(14px)}}
+.qr-qh{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}.qr-no{flex:1;font-size:13px;font-weight:700;color:var(--pri)}
+.qr-fl{display:inline-flex;gap:5px;align-items:center;padding:6px 12px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--mute);font-size:13px;font-weight:600}.qr-fl .ico{width:15px;height:15px}.qr-fl.on{background:color-mix(in srgb,var(--acc) 18%,var(--card));border-color:var(--acc);color:color-mix(in srgb,var(--acc) 65%,var(--ink))}
+.qr-qt{font-size:clamp(17px,2.6vw,20px);line-height:1.6;margin:0 0 16px;white-space:pre-wrap;word-break:break-word}
+.qb-o{align-items:center;gap:12px;min-height:54px;border-radius:16px;margin:0 0 10px;padding:10px 14px;transition:border-color .15s,background .15s,transform .12s}.qb-o:active:not(:disabled){transform:scale(.985)}.qb-o:disabled{opacity:1;cursor:default;color:var(--ink)}
+.qo-l{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--bg);border:1px solid var(--line);font-size:14px}.qo-t{flex:1;line-height:1.5;word-break:break-word;white-space:pre-wrap}.qo-m{flex:none;display:flex;align-items:center;font-size:12px;font-weight:700}.qo-m .ico{width:20px;height:20px}.qo-m em{font-style:normal}
+.qb-o.sel .qo-l{background:var(--pri);border-color:var(--pri);color:#fff}.qb-o.ok .qo-l{background:#16a34a;border-color:#16a34a;color:#fff}.qb-o.ok .qo-m{color:#16a34a}.qb-o.bad .qo-l{background:#e5484d;border-color:#e5484d;color:#fff}.qb-o.bad .qo-m{color:#e5484d}.qb-o.dim{opacity:.72}
+.qr-ex{border-radius:14px;padding:12px 14px;margin:6px 0 0;background:var(--bg);border:1px solid var(--line);font-size:14px;line-height:1.7}.qr-ex b{display:flex;gap:6px;align-items:center}.qr-ex .ico{width:18px;height:18px}.qr-ex p{margin:6px 0 0;white-space:pre-wrap}.qr-ex.ok{border-color:#16a34a;background:color-mix(in srgb,#16a34a 9%,var(--card))}.qr-ex.ok b{color:#16a34a}.qr-ex.bad{border-color:#e5484d;background:color-mix(in srgb,#e5484d 8%,var(--card))}.qr-ex.bad b{color:#e5484d}
+.qr-lk{background:none;color:var(--pri);font-weight:600;font-size:13px;padding:6px 0;text-decoration:underline}
+.qr-bar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:color-mix(in srgb,var(--card) 92%,transparent);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px))}.qr-bi{max-width:760px;margin:auto;display:flex;gap:10px;align-items:center}
+.qr-nb{flex:none;width:48px;height:48px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);display:grid;place-items:center}.qr-nb:disabled{opacity:.4}
+.qr-pal{flex:1;height:48px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);display:flex;align-items:center;justify-content:center;gap:8px;font-weight:700}.qr-pal small{display:inline-flex;align-items:center;gap:3px;color:var(--acc);font-size:13px}.qr-pal .ico,.qr-pal small .ico{width:16px;height:16px}
+.qr-go{height:48px;padding:0 22px;border-radius:14px;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 8px 20px -8px color-mix(in srgb,var(--pri) 70%,transparent)}.qr-go .ico{width:16px;height:16px}.qr-go.wide{width:100%;margin-top:14px}
+.qs{position:fixed;inset:0;z-index:30;background:rgba(8,12,26,.55);display:flex;align-items:flex-end;justify-content:center;animation:qfd .18s}.qs.mid{align-items:center;padding:16px}.qs-c{background:var(--card);width:100%;max-width:520px;border-radius:24px 24px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px));max-height:82vh;overflow:auto;animation:qup .22s ease-out}.qs.mid .qs-c{border-radius:24px}@keyframes qfd{from{opacity:0}}@keyframes qup{from{transform:translateY(24px);opacity:0}}
+.qs-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.qs-lg{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mute)}.qs-lg i{display:inline-block;width:10px;height:10px;border-radius:3px;border:1px solid var(--line);margin-right:5px;background:var(--card)}.qs-lg i.d{background:var(--pri);border-color:var(--pri)}.qs-lg i.f{background:var(--acc);border-color:var(--acc)}
+.qb-pal{gap:8px}.qb-pal button{position:relative;width:44px;height:44px;font-size:15px}.qb-pal .d{background:var(--pri);border-color:var(--pri);color:#fff}.qb-pal .f::after{content:"";position:absolute;top:3px;right:3px;width:9px;height:9px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 2px var(--card)}.qb-pal .c{outline:2px solid var(--pri2);outline-offset:2px}
+.qr-r2{display:flex;gap:10px;margin-top:14px}.qr-r2>*{flex:1}.qr-r2 .btn{height:48px;justify-content:center}
+/* result */
+.qres-h{display:flex;gap:20px;align-items:center;flex-wrap:wrap}.qres-m{flex:1;min-width:200px}.qres-m h2{margin:0 0 4px;font-size:20px}
+.qr-ring{--p:0;flex:none;width:128px;height:128px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--rc) calc(var(--p)*1%),var(--line) 0);animation:qring 1s ease-out}@keyframes qring{from{--p:0}}
+.qr-ri{width:calc(100% - 20px);height:calc(100% - 20px);border-radius:50%;background:var(--card);display:grid;place-content:center;text-align:center}.qr-ri b{font-size:28px;line-height:1.1}.qr-ri small{color:var(--mute);font-size:13px}
+.qrv-q{font-weight:700;line-height:1.6;margin:4px 0 12px;white-space:pre-wrap}.qrv .qb-o{min-height:44px;margin-bottom:8px}.qrv .qo-l{width:28px;height:28px;font-size:13px}.qrv .qb-o.dim:hover{border-color:var(--line)}
+body.qrun .bnav,body.qrun .fab{display:none!important}
+/* ---- board v2 ---- */
+.bs-h{margin:18px 0 8px;font-size:15px}.bs-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:12px}
+.bs-t{display:flex;flex-direction:column;gap:2px;padding:14px;border-radius:18px;background:var(--card);border:1px solid var(--line);color:var(--ink);text-decoration:none;transition:transform .15s,box-shadow .15s}.bs-t:hover{transform:translateY(-2px);box-shadow:var(--sh)}
+.bs-t i{font-style:normal;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:18px;color:#fff;background:linear-gradient(135deg,var(--c),color-mix(in srgb,var(--c) 60%,#000));margin-bottom:8px}.bs-t b{font-size:14.5px;line-height:1.35}.bs-t small{color:var(--mute);font-size:12px}.bs-t em{font-style:normal;font-size:12px;font-weight:700;color:var(--c);margin-top:6px}.bs-t.e{opacity:.62}.bs-t.e em{color:var(--mute)}
+.bq-c{display:block;color:var(--ink);text-decoration:none}.bq-c:hover{border-color:var(--pri)}.bq-c.rd{opacity:.82}.bq-pv{margin:8px 0 0;color:var(--mute);font-size:13.5px;line-height:1.6}.bq-s{color:var(--acc);font-size:16px}
+.br-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;position:sticky;top:calc(var(--hh) + env(safe-area-inset-top,0px));z-index:5;background:var(--card);padding:6px 0}.br-pos{font-weight:700;color:var(--mute);font-size:13px}.br-top .qr-fl .ico{width:15px;height:15px}
+.br-h{margin:6px 0 2px;font-size:clamp(20px,3.4vw,26px);line-height:1.3}.br-b{font-size:var(--bfs,16px);line-height:1.9;margin-top:14px}
+.br-st{background:color-mix(in srgb,var(--pri2) 9%,var(--card));border:1px solid color-mix(in srgb,var(--pri2) 30%,var(--line));border-left:4px solid var(--pri2);border-radius:16px;padding:14px 16px;margin-bottom:14px}.br-st span,.br-a span{display:block;font-size:12px;font-weight:700;color:var(--pri2);margin-bottom:4px}.br-st p,.br-a p,.br-p>p{margin:0;white-space:pre-wrap;word-break:break-word}
+.br-p{border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-bottom:12px}.br-ph{display:flex;align-items:center;gap:10px;margin-bottom:6px}.br-mk{margin-left:auto;font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;background:var(--bg);color:var(--mute)}.br-p .qb-ch{margin-top:10px}
+.br-a{margin-top:10px;background:color-mix(in srgb,#16a34a 8%,var(--card));border:1px solid color-mix(in srgb,#16a34a 35%,var(--line));border-radius:14px;padding:10px 14px}.br-a span{color:#16a34a}
+.br-m{padding:14px}.br-m .qb-o{font-size:inherit}.br-nv{margin-top:18px}.br-nv a.btn{height:48px;justify-content:center}.qb-f select{max-width:100%}
+
+@media(max-width:600px){.qr-st.four{gap:6px}.qr-st.four>div{padding:8px 2px}.qr-st.four>div b{font-size:17px}}
+@media(prefers-reduced-motion:reduce){.qr-q.in,.qs,.qs-c,.qr-ring,.qb-sk,.qb-t.low{animation:none}.qb-o,.qz{transition:none}}
 .prot{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}@media print{.prot #app{display:none}}#qbwm{position:fixed;inset:0;pointer-events:none;z-index:4;display:none}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
@@ -630,51 +682,190 @@ async function loadPost(id){const p=S.posts.find(x=>x.id==id);
  try{await getFull(id)}catch(e){FAIL[id]=1}if(location.hash.includes(id))route()}
 /* ---------- QUIZ + BOARD QUESTION (student side) ---------- */
 Object.assign(IP,{quiz:'<path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',board:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>'});
-const QB={qz:null,bq:null,at:{},ld:{},err:"",run:null,res:null,f:{b:"",y:"",sub:"",ty:""},op:null,sol:null,tm:0};
-const qn=n=>String(n).replace(/\d/g,d=>"০১২৩৪৫৬৭৮৯"[d]),OPL="কখগঘ",qLive=z=>!z.draft&&(!z.at||z.at<=Date.now()),qSk=()=>'<div class="qb-c qb-m">লোড হচ্ছে…</div>';
+const QB={qz:null,bq:null,at:{},ld:{},err:"",run:null,res:null,qf:{s:"",m:""},bf:{k:""},rv:{},all:0,rl:null,rctx:"",chs:[],cur:null,rt:"all",anim:0,f:{b:"",y:"",sub:"",ty:""},op:null,sol:null,tm:0};
+const qn=n=>String(n).replace(/\d/g,d=>"০১২৩৪৫৬৭৮৯"[d]),OPL="কখগঘ",qLive=z=>!z.draft&&(!z.at||z.at<=Date.now()),qSk=()=>'<div class="qb-sk"></div>'.repeat(3);
 async function qbLoad(k){const key=k=="quiz"?"qz":"bq";if(!U.prof||QB[key]||QB.ld[k])return;QB.ld[k]=1;
  try{const{db,f}=await getSDK();const sn=await f.getDocs(f.query(f.collection(db,k=="quiz"?"quizzes":"boardQ"),f.where("pages","array-contains",myPage())));QB[key]=sn.docs.map(d=>({id:d.id,...d.data()}));
   if(k=="quiz"){const a=await f.getDocs(f.query(f.collection(db,"quizAttempts"),f.where("uid","==",U.prof.uid)));a.docs.forEach(d=>{const x=d.data();QB.at[x.quizId]=x})}}
  catch(e){QB[key]=QB[key]||[];QB.err=e.code||"error"}
  QB.ld[k]=0;if(/^#\/(quiz|board)/.test(location.hash)&&!QB.run)route()}
+/* ===== Quiz UI v2: list + intro + runner (sticky timer, bottom bar, palette sheet, flag, autosave) + result ===== */
+Object.assign(IP,{qck:'<path d="M20 6 9 17l-5-5"/>',qx:'<path d="M18 6 6 18M6 6l12 12"/>',qfl:'<path d="M4 22V4h13l-2.5 4.5L17 13H4"/>',qgr:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',qpv:'<path d="m15 18-6-6 6-6"/>',qnx:'<path d="m9 18 6-6-6-6"/>'});
+const QSS="mcn_qrun",qSv=()=>QB.qz.filter(qLive).sort((a,b)=>(b.ts||0)-(a.ts||0));
+/* --- progress autosave (refresh / accidental close-e answer hariye jabe na) --- */
+function qSave(){const r=QB.run;try{if(!r)sessionStorage.removeItem(QSS);else sessionStorage.setItem(QSS,JSON.stringify({id:r.z.id,i:r.i,ans:r.ans,fl:r.fl,t0:r.t0,end:r.end,ix:r.z.ix}))}catch(e){}}
+/* --- random pool: protibar alada prosno, age na-dekha gulo age --- */
+const qCnt=z=>z.cnt>0&&z.cnt<z.q.length?z.cnt:z.q.length,qShuf=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a},
+ qExtra=z=>{const N=z.q.length,c=qCnt(z);return c<N?[`প্রতিবার ${qn(c)}টি করে আলাদা প্রশ্ন আসবে (মোট ${qn(N)}টির মধ্য থেকে)।`]:z.fx?[]:["প্রশ্নের ক্রম প্রতিবার বদলে যাবে।"]};
+function qDraw(z){const N=z.q.length,c=qCnt(z);let ix=z.q.map((_,i)=>i);
+ if(c<N){const key="mcn_qseen_"+z.id;let seen=[];try{seen=(JSON.parse(localStorage.getItem(key)||"[]")||[]).filter(i=>i<N)}catch(e){}
+  const un=qShuf(ix.filter(i=>!seen.includes(i)));let pick,ns;
+  if(un.length>=c){pick=un.slice(0,c);ns=seen.concat(pick)}else{const old=qShuf(ix.filter(i=>seen.includes(i))).slice(0,c-un.length);pick=un.concat(old);ns=old} /* pool shesh -> notun round */
+  try{localStorage.setItem(key,JSON.stringify(ns))}catch(e){}ix=pick}
+ if(z.fx)ix.sort((a,b)=>a-b);else qShuf(ix);return ix}
+const qWith=(z,ix)=>Object.assign({},z,{q:ix.map(i=>z.q[i]),ix});
+function qRestore(id){if(QB.run||QB.res)return false;let s=null;try{s=JSON.parse(sessionStorage.getItem(QSS)||"null")}catch(e){}
+ if(!s||s.id!=id)return false;const z0=(QB.qz||[]).find(x=>x.id==id),ix=z0&&(Array.isArray(s.ix)&&s.ix.every(i=>Number.isInteger(i)&&i>=0&&i<z0.q.length)?s.ix:z0.q.map((_,i)=>i)),n=ix?ix.length:0;
+ if(!z0||!Array.isArray(s.ans)||s.ans.length!=n||(z0.mode=="Exam"&&QB.at[z0.id])){try{sessionStorage.removeItem(QSS)}catch(e){}return false}
+ const z=qWith(z0,ix);QB.run={z,i:Math.max(0,Math.min(s.i|0,n-1)),ans:s.ans,fl:Array.isArray(s.fl)&&s.fl.length==n?s.fl:Array(n).fill(0),t0:s.t0,end:s.end};
+ if(Date.now()>=s.end){if(z.mode=="Exam"){toast("সময় শেষ হয়ে গেছে, আগের উত্তর Submit হয়েছে");setTimeout(qSubmit,0);return true}QB.run=null;qSave();return false}
+ clearInterval(QB.tm);QB.tm=setInterval(qTick,1000);return true}
+/* --- list --- */
+function qOpen(id){if(QB.res&&QB.res.z.id==id)QB.res=null;if(location.hash=="#/quiz/"+id)route();else location.hash="#/quiz/"+id}
+function qCard(z){const at=QB.at[z.id],cl=z.dl&&Date.now()>z.dl,ex=z.mode=="Exam",c=ex?"#e5484d":"#16a34a",pc=at&&at.total?Math.round(at.score/at.total*100):0,run=QB.run&&QB.run.z.id==z.id,locked=ex&&(at||cl);
+ const st=run?'<span class="qb-st go">চলছে</span>':at?`<span class="qb-st ok">${SVG("qck")} সম্পন্ন</span>`:cl&&ex?'<span class="qb-st off">সময় শেষ</span>':'<span class="qb-st nw">নতুন</span>';
+ const act=run?["চালিয়ে যাও",`qOpen('${z.id}')`]:locked?(at?["বিস্তারিত",`qOpen('${z.id}')`]:null):at?["আবার দাও",`qStart('${z.id}')`]:["শুরু করো",`qOpen('${z.id}')`];
+ return `<article class="qb-c qz" style="--c:${c}"><div class="qz-top"><span class="tag cat">${esc(z.mode)}</span>${st}<span class="sp"></span>${z.dl?dlBadge(z):""}</div><h3>${esc(z.t)}</h3>${z.sub?`<div class="qb-m">${esc(z.sub)}</div>`:""}<div class="qz-meta"><span>${SVG("quiz")} ${qn(qCnt(z))}টি প্রশ্ন</span><span>${SVG("clock")} ${qn(z.min)} মিনিট</span>${z.neg?`<span>${SVG("alert")} ভুলে −${qn(z.neg)}</span>`:""}</div>
+<div class="qz-ft">${at?`<div class="qz-sc"><div class="qb-bar"><i style="width:${pc}%"></i></div><small>${ex?"তুমি দিয়েছ":"শেষবার"}: <b>${qn(+(+at.score).toFixed(2))}/${qn(at.total)}</b> · ${qn(pc)}%</small></div>`:'<span class="sp"></span>'}${act?`<button class="btn sm" onclick="${act[1]}">${act[0]}</button>`:""}</div></article>`}
+function qCards(){const F=QB.qf,s=(F.s||"").trim().toLowerCase(),A=qSv(),L=A.filter(z=>(!F.m||(F.m=="todo"?!QB.at[z.id]:z.mode==F.m))&&(!s||((z.t||"")+" "+(z.sub||"")).toLowerCase().includes(s)));
+ return L.length?L.map(qCard).join(""):`<div class="qb-em">${SVG("quiz")}<b>${QB.err?"Load হয়নি":A.length?"কিছু পাওয়া যায়নি":"এখন কোনো Quiz নেই"}</b><span>${QB.err?esc(QB.err)+" — Admin-কে জানাও।":A.length?"অন্য filter বা শব্দ দিয়ে চেষ্টা করো।":"নতুন Quiz এলে এখানে দেখাবে।"}</span></div>`}
+function qListFill(){const e=$("#qlist");if(e)e.innerHTML=qCards()}
+function qList(){const F=QB.qf||(QB.qf={s:"",m:""}),A=qSv(),ats=A.map(z=>QB.at[z.id]).filter(Boolean),av=ats.length?Math.round(ats.reduce((s,a)=>s+(a.total?a.score/a.total:0),0)/ats.length*100):0;
+ const chips=[["","সব"],["Exam","Exam"],["Practice","Practice"],["todo","বাকি আছে"]].map(([v,l])=>`<button class="qb-ch ${F.m==v?"on":""}" onclick="QB.qf.m='${v}';route()">${l}</button>`).join("");
+ const rn=QB.run?`<a class="qb-resume" href="#/quiz/${QB.run.z.id}"><span>${SVG("clock")} চলছে: <b>${esc(QB.run.z.t)}</b></span><u>চালিয়ে যাও →</u></a>`:"";
+ return `<div class="panel"><h2 style="margin:0 0 4px">${SVG("quiz")} Quiz</h2><p class="qb-m" style="margin:0">${esc(myPage())} Page-এর Quiz</p>${rn}<div class="qr-st"><div><b>${qn(A.length)}</b>মোট Quiz</div><div><b>${qn(ats.length)}</b>সম্পন্ন</div><div><b>${ats.length?qn(av)+"%":"—"}</b>গড় স্কোর</div></div><div class="qb-sr"><input type="search" id="qsq" placeholder="Quiz বা বিষয় খোঁজো" value="${esc(F.s)}" oninput="QB.qf.s=this.value;qListFill()" aria-label="Quiz খোঁজো"></div><div class="qb-chs">${chips}</div><div id="qlist">${qCards()}</div></div>`}
+/* --- intro (rules) --- */
+function qIntro(z){const at=QB.at[z.id],ex=z.mode=="Exam",cl=z.dl&&Date.now()>z.dl,can=!(ex&&(at||cl)),neg=z.neg?`প্রতিটি ভুল উত্তরে ${qn(z.neg)} নম্বর কাটা যাবে।`:"ভুল উত্তরে নম্বর কাটা যাবে না।";
+ const R=ex?["Exam একবারই দেওয়া যাবে।","সময় শেষ হলে নিজে থেকেই Submit হয়ে যাবে।","Submit-এর আগে যেকোনো প্রশ্নে ফিরে গিয়ে উত্তর বদলাতে পারবে।","কঠিন প্রশ্নে Flag দিয়ে পরে ফিরে আসতে পারবে।",neg]:["উত্তর দিলেই ঠিক/ভুল ও ব্যাখ্যা দেখতে পাবে।","একবার উত্তর দিলে সেই প্রশ্নের উত্তর বদলানো যাবে না।","যতবার খুশি আবার দিতে পারবে।",neg];
+ return `<div class="panel qi"><a class="lnk" style="text-decoration:none;display:inline-block;margin-bottom:12px" href="#/quiz">← সব Quiz</a><div class="qb-r"><span class="tag cat" style="--c:${ex?"#e5484d":"#16a34a"}">${esc(z.mode)}</span>${z.dl?dlBadge(z):""}</div><h2 class="qi-t">${esc(z.t)}</h2><div class="qb-m">${esc(z.sub||"")}</div>
+<div class="qr-st"><div><b>${qn(qCnt(z))}</b>প্রশ্ন</div><div><b>${qn(z.min)}</b>মিনিট</div><div><b>${z.neg?"−"+qn(z.neg):qn(0)}</b>নেগেটিভ</div></div><ul class="qi-l">${qExtra(z).concat(R).map(x=>`<li>${x}</li>`).join("")}</ul>`
+ +(at?`<div class="qb-n">${ex?"তুমি দিয়েছ":"শেষবার"}: <b>${qn(+(+at.score).toFixed(2))}/${qn(at.total)}</b></div>`:"")
+ +(can?`<button class="qr-go wide" onclick="qStart('${z.id}')">${at?"আবার শুরু করো":"শুরু করো"}</button>`:`<div class="qb-n">${at?"এই Exam একবারই দেওয়া যায়।":"এই Exam-এর সময় শেষ।"}</div>`)+"</div>"}
+/* --- runner --- */
+function qStart(id){const z=(QB.qz||[]).find(x=>x.id==id);if(!z)return;
+ if(z.mode=="Exam"&&QB.at[z.id])return toast("এই Exam তুমি আগেই দিয়েছ");
+ if(z.mode=="Exam"&&z.dl&&Date.now()>z.dl)return toast("এই Exam-এর সময় শেষ");
+ const ix=qDraw(z),zz=qWith(z,ix),n=ix.length;QB.res=null;QB.anim=1;QB.run={z:zz,i:0,ans:Array(n).fill(-1),fl:Array(n).fill(0),t0:Date.now(),end:Date.now()+z.min*60000};clearInterval(QB.tm);QB.tm=setInterval(qTick,1000);qSave();
+ if(location.hash=="#/quiz/"+id)route();else location.hash="#/quiz/"+id;scrollTo(0,0)}
+function qTick(){const r=QB.run;if(!r){clearInterval(QB.tm);return}const s=Math.max(0,Math.round((r.end-Date.now())/1000));if(s<=0){qSubmit();return}
+ const t=$("#qtm");if(t){t.textContent=qn(String(Math.floor(s/60)).padStart(2,"0"))+":"+qn(String(s%60).padStart(2,"0"));t.classList.toggle("low",s<60)}
+ if(s<=60&&!r.w){r.w=1;toast("আর ১ মিনিট বাকি!")}}
+function qPaint(){const e=$("#qr");if(!e||!QB.run){route();return}e.innerHTML=qrIn();qTick();const r=QB.run;document.body.style.overflow=r&&(r.sheet||r.sub)?"hidden":"";const f=$("#qr [data-f]");if(f)f.focus()}
+function qPick(k){const r=QB.run;if(!r||r.sub||r.sheet)return;const pr=r.z.mode=="Practice";if(pr&&r.ans[r.i]>=0)return;r.ans[r.i]=(!pr&&r.ans[r.i]==k)?-1:k;QB.anim=0;qSave();qPaint()}
+function qClr(){const r=QB.run;if(!r)return;r.ans[r.i]=-1;QB.anim=0;qSave();qPaint()}
+function qGo(i){const r=QB.run;if(!r||i<0||i>=r.ans.length)return;r.i=i;r.sheet=0;QB.anim=1;qSave();qPaint();scrollTo(0,0)}
+function qFlag(){const r=QB.run;if(!r)return;r.fl[r.i]=r.fl[r.i]?0:1;QB.anim=0;qSave();qPaint()}
+function qSheet(v){const r=QB.run;if(!r)return;r.sheet=v;QB.anim=0;qPaint()}
+function qSub(v){const r=QB.run;if(!r)return;r.sub=v;QB.anim=0;qPaint()}
+function qDo(){if(QB.run)QB.run.sub=0;qSubmit()}
+function qExit(){location.hash="#/quiz"}
+function qrIn(){const r=QB.run,z=r.z,n=r.ans.length,q=z.q[r.i],pr=z.mode=="Practice",ch=r.ans[r.i],sh=pr&&ch>=0,done=r.ans.filter(x=>x>=0).length,un=n-done,flg=r.fl.reduce((a,b)=>a+b,0),last=r.i==n-1;
+ const top=`<div class="qr-top"><div class="qr-th"><button class="qr-ib" onclick="qExit()" aria-label="Quiz list-এ ফিরে যাও">${SVG("qpv")}</button><div class="qr-ti"><b>${esc(z.t)}</b><span>${esc(z.sub||"")}${z.sub?" · ":""}${esc(z.mode)}</span></div><span class="qb-t" id="qtm" role="timer">…</span></div><div class="qb-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${done}"><i style="width:${done/n*100}%"></i></div></div>`;
+ const opts=q.o.map((o,k)=>{const c=sh?(k==q.a?"ok":k==ch?"bad":"dim"):ch==k?"sel":"";return `<button type="button" role="radio" aria-checked="${ch==k}" class="qb-o ${c}" onclick="qPick(${k})" ${sh?"disabled":""}><b class="qo-l">${OPL[k]}</b><span class="qo-t">${esc(o)}</span><span class="qo-m">${c=="ok"?SVG("qck"):c=="bad"?SVG("qx"):""}</span></button>`}).join("");
+ const ex=sh?`<div class="qr-ex ${ch==q.a?"ok":"bad"}"><b>${SVG(ch==q.a?"qck":"qx")} ${ch==q.a?"সঠিক!":"ভুল হয়েছে — সঠিক উত্তর: "+OPL[q.a]}</b>${q.e?`<p>${esc(q.e)}</p>`:""}</div>`:pr?'<div class="qb-m" style="margin-top:4px">উত্তর দিলেই ঠিক/ভুল ও ব্যাখ্যা দেখাবে।</div>':ch>=0?'<button class="qr-lk" onclick="qClr()">উত্তর মুছে ফেলো</button>':"";
+ const body=`<div class="qb-c qr-q ${QB.anim?"in":""}"><div class="qr-qh"><span class="qr-no">প্রশ্ন ${qn(r.i+1)} / ${qn(n)}</span><button class="qr-fl ${r.fl[r.i]?"on":""}" onclick="qFlag()" aria-pressed="${!!r.fl[r.i]}">${SVG("qfl",r.fl[r.i])} ${r.fl[r.i]?"Flagged":"Flag"}</button></div><h3 class="qr-qt">${esc(q.q)}</h3><div role="radiogroup" aria-label="অপশন">${opts}</div>${ex}</div>`;
+ const bar=`<div class="qr-bar"><div class="qr-bi"><button class="qr-nb" onclick="qGo(${r.i-1})" ${r.i?"":"disabled"} aria-label="আগের প্রশ্ন">${SVG("qpv")}</button><button class="qr-pal" onclick="qSheet(1)" aria-haspopup="dialog" aria-label="প্রশ্ন তালিকা">${SVG("qgr")} <b>${qn(done)}/${qn(n)}</b>${flg?`<small>${SVG("qfl",1)}${qn(flg)}</small>`:""}</button>${last?'<button class="qr-go" onclick="qSub(1)">Submit</button>':`<button class="qr-go" onclick="qGo(${r.i+1})">পরের ${SVG("qnx")}</button>`}</div></div>`;
+ const sheet=r.sheet?`<div class="qs" onclick="if(event.target===this)qSheet(0)"><div class="qs-c" role="dialog" aria-modal="true" aria-label="প্রশ্ন তালিকা"><div class="qs-h"><b>প্রশ্ন তালিকা</b><button class="qr-ib" data-f onclick="qSheet(0)" aria-label="বন্ধ করো">${SVG("qx")}</button></div><div class="qs-lg"><span><i class="d"></i>উত্তর দেওয়া</span><span><i class="f"></i>Flag</span><span><i></i>বাকি</span></div><div class="qb-pal">${r.ans.map((a,k)=>`<button class="${a>=0?"d":""} ${r.fl[k]?"f":""} ${k==r.i?"c":""}" onclick="qGo(${k})" aria-label="প্রশ্ন ${k+1}${a>=0?", উত্তর দেওয়া":""}${r.fl[k]?", flagged":""}">${qn(k+1)}</button>`).join("")}</div><button class="qr-go wide" onclick="qSheet(0);qSub(1)">Submit করো</button></div></div>`:"";
+ const sub=r.sub?`<div class="qs mid" onclick="if(event.target===this)qSub(0)"><div class="qs-c" role="alertdialog" aria-modal="true" aria-label="Submit নিশ্চিত করো"><h3 style="margin:0 0 4px">Submit করবে?</h3><p class="qb-m" style="margin:0 0 12px">Submit করার পর উত্তর বদলানো যাবে না।</p><div class="qr-st"><div><b>${qn(done)}</b>উত্তর দেওয়া</div><div class="${un?"w":""}"><b>${qn(un)}</b>বাকি</div><div><b>${qn(flg)}</b>Flagged</div></div>${un?`<button class="qr-lk" onclick="qSub(0);qGo(${r.ans.indexOf(-1)})">প্রথম বাকি প্রশ্নে যাও</button>`:""}<div class="qr-r2"><button class="btn ghost" data-f onclick="qSub(0)">ফিরে যাও</button><button class="qr-go" onclick="qDo()">Submit</button></div></div></div>`:"";
+ return top+body+bar+sheet+sub}
+function qRunV(){setTimeout(qTick,0);return `<div id="qr" class="qr">${qrIn()}</div>`}
 function pQuiz(id){qbLoad("quiz");
- if(QB.res&&id==QB.res.z.id)return qRes();if(QB.run&&id==QB.run.z.id)return qRun();
- if(QB.qz==null)return '<div class="panel"><h2>Quiz</h2>'+qSk()+'</div>';
- const L=QB.qz.filter(qLive).sort((a,b)=>(b.ts||0)-(a.ts||0));
- return `<div class="panel"><h2 style="margin:0 0 4px">${SVG("quiz")} Quiz</h2><p class="qb-m" style="margin:0 0 12px">${esc(myPage())} Page-এর Quiz</p>`+(L.length?L.map(z=>{const at=QB.at[z.id],cl=z.dl&&Date.now()>z.dl,ex=z.mode=="Exam";
-  return `<div class="qb-c"><div class="qb-r"><span class="tag cat" style="--c:${ex?"#e5484d":"#16a34a"}">${esc(z.mode)}</span>${z.dl?dlBadge(z):""}</div><h3>${esc(z.t)}</h3><div class="qb-m">${esc(z.sub||"")} · ${qn(z.q.length)}টি প্রশ্ন · ${qn(z.min)} মিনিট${z.neg?" · ভুল উত্তরে −"+qn(z.neg):""}</div><div class="qb-r" style="margin-top:12px">${at?`<span class="qb-m sp">${ex?"তুমি দিয়েছ":"শেষবার"}: ${qn(+(+at.score).toFixed(2))}/${qn(at.total)}</span>`:'<span class="sp"></span>'}${ex&&at?"":cl&&ex?'<span class="qb-m">সময় শেষ</span>':`<button class="btn sm" onclick="qStart('${z.id}')">${at?"আবার দাও":"শুরু করো"}</button>`}</div></div>`}).join(""):`<div class="qb-c qb-m">${QB.err?"Load হয়নি ("+esc(QB.err)+"). Admin-কে জানাও।":"এখন কোনো Quiz নেই।"}</div>`)+"</div>"}
-function qStart(id){const z=(QB.qz||[]).find(x=>x.id==id);if(!z)return;QB.res=null;QB.run={z,i:0,ans:Array(z.q.length).fill(-1),t0:Date.now(),end:Date.now()+z.min*60000};clearInterval(QB.tm);QB.tm=setInterval(qTick,1000);if(location.hash=="#/quiz/"+id)route();else location.hash="#/quiz/"+id}
-function qTick(){const r=QB.run;if(!r){clearInterval(QB.tm);return}const s=Math.max(0,Math.round((r.end-Date.now())/1000));if(s<=0){qSubmit();return}const t=$("#qtm");if(t){t.textContent=qn(String(Math.floor(s/60)).padStart(2,"0"))+":"+qn(String(s%60).padStart(2,"0"));t.classList.toggle("low",s<30)}}
-function qPick(k){const r=QB.run;if(r.z.mode=="Practice"&&r.ans[r.i]>=0)return;r.ans[r.i]=k;route()}
-function qRun(){const r=QB.run,q=r.z.q[r.i],pr=r.z.mode=="Practice",ch=r.ans[r.i],sh=pr&&ch>=0,n=r.ans.length;setTimeout(qTick,0);
- return `<div class="panel"><div class="qb-r"><b class="sp">${esc(r.z.t)}</b><span class="qb-t" id="qtm">…</span></div><div class="qb-bar"><i style="width:${r.ans.filter(x=>x>=0).length/n*100}%"></i></div>
-<p class="qb-m" style="margin:12px 0 2px">প্রশ্ন ${qn(r.i+1)} / ${qn(n)}</p><h3 style="font-size:18px;margin:0 0 12px">${esc(q.q)}</h3>`+q.o.map((o,k)=>`<button class="qb-o ${sh?(k==q.a?"ok":k==ch?"bad":""):ch==k?"sel":""}" onclick="qPick(${k})" ${sh?"disabled":""}><b>${OPL[k]}.</b> ${esc(o)}</button>`).join("")+(sh?`<div class="qb-n"><b>ব্যাখ্যা:</b> ${esc(q.e||"")}</div>`:`<div class="qb-n">${pr?"উত্তর দিলেই ঠিক/ভুল দেখাবে।":"Exam: Submit করার পর ফলাফল দেখাবে।"}</div>`)+`<div class="qb-pal">${r.ans.map((a,k)=>`<button class="${a>=0?"d":""} ${k==r.i?"c":""}" onclick="QB.run.i=${k};route()" aria-label="প্রশ্ন ${k+1}">${qn(k+1)}</button>`).join("")}</div><div class="qb-r"><button class="btn ghost sm" onclick="QB.run.i--;route()" ${r.i?"":"disabled"}>আগের</button><span class="sp"></span>${r.i<n-1?'<button class="btn sm" onclick="QB.run.i++;route()">পরের</button>':'<button class="btn sm" onclick="if(confirm(\'Submit করবে?\'))qSubmit()">Submit</button>'}</div></div>`}
+ if(QB.res&&id==QB.res.z.id)return qRes();if(QB.run&&id==QB.run.z.id)return qRunV();
+ if(QB.qz==null)return '<div class="panel"><h2 style="margin:0 0 12px">Quiz</h2>'+qSk()+'</div>';
+ if(id){if(qRestore(id))return qRunV();const z=QB.qz.find(x=>x.id==id&&qLive(x));if(z)return qIntro(z)}
+ return qList()}
+/* --- submit + result --- */
 async function qSubmit(){const r=QB.run;if(!r)return;clearInterval(QB.tm);let c=0,w=0;r.ans.forEach((a,i)=>{if(a>=0)a==r.z.q[i].a?c++:w++});const sc=Math.max(0,c-w*(r.z.neg||0));
- QB.res={z:r.z,ans:r.ans,c,w,sc,used:Math.round((Date.now()-r.t0)/1000)};QB.run=null;route();scrollTo(0,0);
+ QB.res={z:r.z,ans:r.ans,fl:r.fl||[],c,w,sc,used:Math.min(Math.round((Date.now()-r.t0)/1000),r.z.min*60)};QB.run=null;QB.rt="all";qSave();document.body.style.overflow="";route();scrollTo(0,0);
  try{const{db,f}=await getSDK(),d={uid:U.prof.uid,quizId:r.z.id,score:sc,correct:c,wrong:w,total:r.z.q.length,used:QB.res.used,ts:Date.now()};await f.setDoc(f.doc(db,"quizAttempts",U.prof.uid+"_"+r.z.id),d);QB.at[r.z.id]=d}catch(e){}}
-function qRes(){const x=QB.res,n=x.z.q.length;return `<div class="panel"><a class="lnk" style="text-decoration:none;display:inline-block;margin-bottom:12px" href="#/quiz">← সব Quiz</a><div class="qb-c" style="text-align:center"><div class="qb-m">তোমার স্কোর</div><div style="font-size:42px;font-weight:800;line-height:1.15">${qn(+x.sc.toFixed(2))} / ${qn(n)}</div><div class="qb-m">সময় লেগেছে ${qn(Math.floor(x.used/60))} মি ${qn(x.used%60)} সে</div><div class="qb-r" style="justify-content:center;margin-top:10px"><span class="tag" style="--c:#16a34a">ঠিক ${qn(x.c)}</span><span class="tag" style="--c:#e5484d">ভুল ${qn(x.w)}</span><span class="tag" style="--c:#64748b">বাকি ${qn(n-x.c-x.w)}</span></div>${x.z.mode=="Practice"?`<div style="margin-top:12px"><button class="btn sm" onclick="qStart('${x.z.id}')">আবার দাও</button></div>`:""}</div><h3>উত্তর পর্যালোচনা</h3>`+x.z.q.map((q,i)=>`<div class="qb-c"><b>${qn(i+1)}. ${esc(q.q)}</b>${q.o.map((o,k)=>`<div class="qb-o ${k==q.a?"ok":k==x.ans[i]?"bad":""}" style="margin:6px 0 0;padding:6px 12px"><b>${OPL[k]}.</b> ${esc(o)}</div>`).join("")}<div class="qb-n">${x.ans[i]<0?"উত্তর দাওনি। ":""}${esc(q.e||"")}</div></div>`).join("")+"</div>"}
+function qResList(){const x=QB.res,t=QB.rt||"all";
+ return x.z.q.map((q,i)=>{const a=x.ans[i],st=a<0?"skip":a==q.a?"ok":"wrong";if((t=="wrong"&&st!="wrong")||(t=="skip"&&st!="skip")||(t=="fl"&&!x.fl[i]))return"";
+  const lab=st=="ok"?`<span class="qb-st ok">${SVG("qck")} ঠিক</span>`:st=="wrong"?`<span class="qb-st bad">${SVG("qx")} ভুল</span>`:'<span class="qb-st off">বাকি</span>';
+  return `<div class="qb-c qrv"><div class="qr-qh"><b>${qn(i+1)}.</b>${lab}${x.fl[i]?`<span class="qb-st go">${SVG("qfl",1)} Flagged</span>`:""}</div><div class="qrv-q">${esc(q.q)}</div>${q.o.map((o,k)=>`<div class="qb-o ${k==q.a?"ok":k==a?"bad":"dim"}"><b class="qo-l">${OPL[k]}</b><span class="qo-t">${esc(o)}</span><span class="qo-m">${k==q.a?"<em>সঠিক</em>":k==a?"<em>তোমার উত্তর</em>":""}</span></div>`).join("")}${q.e?`<div class="qr-ex"><b>ব্যাখ্যা</b><p>${esc(q.e)}</p></div>`:""}</div>`}).join("")||'<div class="qb-em"><span>এই filter-এ কিছু নেই।</span></div>'}
+function qResTab(t){QB.rt=t;const e=$("#qrv");if(e)e.innerHTML=qResList();document.querySelectorAll("#qrt .qb-ch").forEach(b=>b.classList.toggle("on",b.dataset.t==t))}
+function qRes(){const x=QB.res,z=x.z,n=z.q.length,sk=n-x.c-x.w,fl=(x.fl||[]).reduce((a,b)=>a+b,0),pc=Math.max(0,Math.min(100,Math.round(x.sc/n*100))),col=pc>=60?"#16a34a":pc>=40?"#e08a00":"#e5484d",
+ msg=pc>=80?"দারুণ করেছ!":pc>=60?"ভালো করেছ, আরেকটু হলেই সেরা!":pc>=40?"মন্দ না, ভুলগুলো দেখে নাও":"চিন্তা নেই, রিভিউ দেখে আবার চেষ্টা করো",
+ T=[["all","সব",n],["wrong","ভুল",x.w],["skip","বাকি",sk],["fl","Flagged",fl]].filter(t=>t[0]=="all"||t[2]>0);
+ return `<div class="panel qres"><a class="lnk" style="text-decoration:none;display:inline-block;margin-bottom:12px" href="#/quiz">← সব Quiz</a><div class="qres-h"><div class="qr-ring" style="--p:${pc};--rc:${col}"><div class="qr-ri"><b>${qn(pc)}%</b><small>${qn(+x.sc.toFixed(2))} / ${qn(n)}</small></div></div><div class="qres-m"><h2>${msg}</h2><p class="qb-m" style="margin:0">${esc(z.t)}</p>${x.w&&z.neg?`<p class="qb-m" style="margin:6px 0 0">ভুল উত্তরের জন্য −${qn(+(x.w*z.neg).toFixed(2))} কাটা গেছে</p>`:""}</div></div>
+<div class="qr-st four"><div><b style="color:#16a34a">${qn(x.c)}</b>ঠিক</div><div><b style="color:#e5484d">${qn(x.w)}</b>ভুল</div><div><b>${qn(sk)}</b>বাকি</div><div><b>${qn(Math.floor(x.used/60))}:${qn(String(x.used%60).padStart(2,"0"))}</b>সময়</div></div>
+<div class="qr-r2">${z.mode=="Practice"?`<button class="qr-go" onclick="qStart('${z.id}')">আবার দাও</button>`:""}<a class="btn ghost" style="height:48px;justify-content:center" href="#/quiz">সব Quiz</a></div>
+<h3 style="margin:20px 0 4px">উত্তর পর্যালোচনা</h3><div class="qb-chs" id="qrt">${T.map(t=>`<button class="qb-ch ${t[0]=="all"?"on":""}" data-t="${t[0]}" onclick="qResTab('${t[0]}')">${t[1]} (${qn(t[2])})</button>`).join("")}</div><div id="qrv">${qResList()}</div></div>`}
+/* --- keyboard (desktop): 1-4 option, ←/→ navigate, F flag, Esc close --- */
+addEventListener("keydown",e=>{const r=QB.run;if(!r||e.ctrlKey||e.metaKey||e.altKey||location.hash!="#/quiz/"+r.z.id||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName||""))return;const k=e.key;
+ if(k=="Escape"){if(r.sub)qSub(0);else if(r.sheet)qSheet(0);return}if(r.sub||r.sheet)return;
+ if(k.length==1&&"1234".includes(k))qPick(+k-1);else if(k=="ArrowRight")qGo(r.i+1);else if(k=="ArrowLeft")qGo(r.i-1);else if(k=="f"||k=="F")qFlag()});
 const qbSaved=()=>{try{return JSON.parse(localStorage.getItem("mcn_bsaved")||"[]")}catch(e){return[]}};
 function qbSave(id){const a=qbSaved(),i=a.indexOf(id);i<0?a.push(id):a.splice(i,1);try{localStorage.setItem("mcn_bsaved",JSON.stringify(a))}catch(e){}route()}
-function pBoard(){qbLoad("boardQ");qbLoad("quiz");if(QB.bq==null)return '<div class="panel"><h2>Board Question</h2>'+qSk()+'</div>';
- const F=QB.f,all=QB.bq.filter(qLive),u=k=>[...new Set(all.map(x=>x[k]))].sort(),sv=qbSaved(),
- sel=(k,l,a)=>`<select aria-label="${l}" onchange="QB.f.${k}=this.value;route()"><option value="">${l}</option>${a.map(v=>`<option ${F[k]==v?"selected":""}>${esc(v)}</option>`).join("")}</select>`,
- L=all.filter(x=>(!F.b||x.b==F.b)&&(!F.y||x.y==F.y)&&(!F.sub||x.sub==F.sub)&&(!F.ty||x.ty==F.ty)).sort((a,b)=>b.y-a.y);
- return `<div class="panel"><h2 style="margin:0 0 4px">${SVG("board")} Board Question</h2><div class="qb-n">${SVG("lock")} প্রশ্ন ও সমাধান শুধু এই সাইটেই পড়া যাবে। Download, Copy ও Print বন্ধ, আর পাতায় তোমার নাম-ID-র watermark থাকবে।</div><div class="qb-f">${sel("b","সব Board",u("b"))}${sel("y","সব সাল",u("y").reverse())}${sel("sub","সব বিষয়",u("sub"))}${sel("ty","CQ / MCQ",["CQ","MCQ"])}</div>`+(L.length?L.map(x=>{const o=QB.op==x.id,sl=QB.sol==x.id,has=!!(x.s||x.qz);
-  return `<div class="qb-c"><div class="qb-r"><span class="tag">${esc(x.b)} বোর্ড · ${qn(x.y)}</span><span class="tag" style="--c:${x.ty=="CQ"?"#7c5cff":"#16a34a"}">${x.ty=="CQ"?"সৃজনশীল (CQ)":"বহুনির্বাচনি (MCQ)"}</span><span class="sp"></span><button class="btn ghost sm" onclick="qbSave('${x.id}')">${sv.includes(x.id)?"★ Saved":"☆ Save"}</button></div><h3>${esc(x.sub)} – ${esc(x.ch||"")}</h3><div class="qb-m">পূর্ণমান ${qn(x.m||"")}</div><div class="qb-r" style="margin-top:10px"><button class="btn ghost sm" onclick="QB.op=${o}?null:'${x.id}';QB.sol=null;route()">${o?"বন্ধ করো":"প্রশ্ন পড়ো"}</button>${has?`<button class="btn ghost sm" onclick="QB.sol=${sl}?null:'${x.id}';QB.op='${x.id}';route()">সমাধান</button>`:'<span class="qb-m">সমাধান শীঘ্রই</span>'}${x.qz?`<button class="btn sm" onclick="qStart('${x.qz}')">Quiz হিসেবে দাও</button>`:""}</div>${o?qbView(x,sl):""}</div>`}).join(""):'<div class="qb-c qb-m">'+(QB.err?"Load হয়নি ("+esc(QB.err)+").":"এই filter-এ কোনো প্রশ্ন নেই।")+'</div>')+"</div>"}
-function qbView(x,sl){const an=(t,s)=>`<div class="qb-n" style="margin:6px 0 0"><b>${t}</b> ${esc(s||"")}</div>`;
- if(x.ty=="CQ")return `<div class="qb-cq" style="margin-top:12px"><b>উদ্দীপক:</b> ${esc(x.st||"")}</div>`+(x.p||[]).map((p,k)=>`<div class="qb-cq"><b>${OPL[k]} (${qn(k+1)}):</b> ${esc(p)}${sl&&x.s?an("উত্তর:",x.s[k]):""}</div>`).join("");
- const z=(QB.qz||[]).find(q=>q.id==x.qz);return z?z.q.map((q,n)=>`<div class="qb-cq"><b>${qn(n+1)}. ${esc(q.q)}</b><br>${q.o.map((o,k)=>OPL[k]+". "+esc(o)).join(" &nbsp; ")}${sl?an("উত্তর "+OPL[q.a]+":",q.e):""}</div>`).join(""):qSk()}
+/* ===== Board Question v2: HSC subject -> paper -> chapter -> reader ===== */
+const HSC_SUBJ=[["ban","বাংলা",2,"c"],["eng","ইংরেজি",2,"c"],["ict","তথ্য ও যোগাযোগ প্রযুক্তি (ICT)",1,"c"],
+["phy","পদার্থবিজ্ঞান",2,"s"],["chem","রসায়ন",2,"s"],["hm","উচ্চতর গণিত",2,"s"],["bio","জীববিজ্ঞান",2,"s"],
+["acc","হিসাববিজ্ঞান",2,"b"],["bom","ব্যবসায় সংগঠন ও ব্যবস্থাপনা",2,"b"],["fbi","ফিন্যান্স, ব্যাংকিং ও বিমা",2,"b"],["pmm","উৎপাদন ব্যবস্থাপনা ও বিপণন",2,"b"],
+["eco","অর্থনীতি",2,"a"],["civ","পৌরনীতি ও সুশাসন",2,"a"],["soc","সমাজবিজ্ঞান",2,"a"],["socw","সমাজকর্ম",2,"a"],["his","ইতিহাস",2,"a"],["ihc","ইসলামের ইতিহাস ও সংস্কৃতি",2,"a"],["geo","ভূগোল ও পরিবেশ",2,"a"],["logic","যুক্তিবিদ্যা",2,"a"],["psy","মনোবিজ্ঞান",2,"a"],
+["isl","ইসলাম শিক্ষা",2,"o"],["stat","পরিসংখ্যান",2,"o"],["agri","কৃষিশিক্ষা",2,"o"],["home","গার্হস্থ্য বিজ্ঞান",2,"o"],["oth","অন্যান্য",2,"o"]]; // admin.html-er sathe mil rakhte hobe
+const EXAMS=["বোর্ড পরীক্ষা","নির্বাচনী (Test)","মডেল টেস্ট","কলেজ পরীক্ষা"],BSK=Object.fromEntries(HSC_SUBJ.map(s=>[s[0],s])),
+ GC={c:"#2850e8",s:"#0d9488",a:"#d6409f",b:"#e08a00",o:"#64748b"},GT={c:"সাধারণ বিষয়",s:"বিজ্ঞান",a:"মানবিক",b:"ব্যবসায় শিক্ষা",o:"অন্যান্য ঐচ্ছিক"},
+ BALI={physics:"phy",chemistry:"chem",biology:"bio",math:"hm",highermath:"hm",ict:"ict",bangla:"ban",english:"eng"},bn_=s=>String(s||"").replace(/[\s()]/g,"").toLowerCase();
+/* purono doc-e sk nei -> sub (text) theke subject khuje ber kora */
+function bqSk(x){if(x.sk&&BSK[x.sk])return x.sk;const n=bn_(x.sub);if(!n)return"oth";if(BALI[n])return BALI[n];
+ const f=HSC_SUBJ.find(s=>bn_(s[1])==n)||(n.length>2&&HSC_SUBJ.find(s=>s[0]!="oth"&&(bn_(s[1]).includes(n)||n.includes(bn_(s[1])))));return f?f[0]:"oth"}
+const bqAll=()=>QB.bq.filter(qLive).map(x=>Object.assign({},x,{_k:bqSk(x)})),bqSort=(a,b)=>b.y-a.y||(b.ts||0)-(a.ts||0),
+ bqLbl=x=>(x.b=="অন্যান্য"?"অন্যান্য":esc(x.b)+" বোর্ড")+" · "+qn(x.y),bqPp=x=>x.pp==1?"১ম পত্র":x.pp==2?"২য় পত্র":"";
+const bqRd=()=>{try{return JSON.parse(localStorage.getItem("mcn_bread")||"[]")}catch(e){return[]}};
+function bqRead(id){const a=bqRd();if(a.includes(id))return;a.push(id);try{localStorage.setItem("mcn_bread",JSON.stringify(a.slice(-600)))}catch(e){}}
+const bqFs=()=>Math.min(24,Math.max(14,+localStorage.getItem("mcn_bfs")||16));
+function bqFont(d){const v=Math.min(24,Math.max(14,bqFs()+d));try{localStorage.setItem("mcn_bfs",v)}catch(e){}const e=$(".br");if(e)e.style.setProperty("--bfs",v+"px")}
+/* --- hub: subject grid --- */
+function bqHub(A){const dg={Science:"s",Arts:"a",Commerce:"b"}[(U.prof&&U.prof.dept)||""],cnt={};A.forEach(x=>cnt[x._k]=(cnt[x._k]||0)+1);
+ const rd=bqRd(),done=A.filter(x=>rd.includes(x.id)).length,sv=qbSaved().filter(id=>A.some(x=>x.id==id)).length,
+ mine=HSC_SUBJ.filter(s=>s[3]=="c"||s[3]==dg),rest=HSC_SUBJ.filter(s=>!mine.includes(s)&&(s[0]!="oth"||cnt.oth)),
+ tile=s=>{const n=cnt[s[0]]||0;return `<a class="bs-t${n?"":" e"}" href="#/board/${s[0]}" style="--c:${GC[s[3]]}"><i>${esc([...s[1]][0])}</i><b>${esc(s[1])}</b><small>${s[2]==2?"১ম ও ২য় পত্র":"একটি পত্র"}</small><em>${n?qn(n)+"টি প্রশ্ন":"শীঘ্রই আসছে"}</em></a>`};
+ return `<div class="panel"><h2 style="margin:0 0 4px">${SVG("board")} Board Question</h2><p class="qb-m" style="margin:0">HSC · বিষয় ও পত্র অনুযায়ী প্রশ্ন ও সমাধান</p>
+<div class="qb-n">${SVG("lock")} প্রশ্ন ও সমাধান শুধু এই সাইটেই পড়া যাবে। Download, Copy ও Print বন্ধ, পাতায় তোমার নাম-ID-র watermark থাকবে।</div>
+<div class="qr-st"><div><b>${qn(A.length)}</b>মোট প্রশ্ন</div><div><b>${qn(done)}</b>পড়া হয়েছে</div><div onclick="location.hash='#/board/saved'" style="cursor:pointer"><b>★ ${qn(sv)}</b>Saved</div></div>
+${QB.err?`<div class="qb-n">Load সমস্যা (${esc(QB.err)}). Admin-কে জানাও।</div>`:""}<h3 class="bs-h">${dg?"তোমার বিষয়":"সাধারণ বিষয়"}</h3><div class="bs-g">${mine.map(tile).join("")}</div>
+<button class="qb-ch" onclick="QB.all=!QB.all;route()">${QB.all?"অন্য বিষয় লুকাও":"সব বিষয় দেখো ("+qn(rest.length)+")"}</button>
+${QB.all?["s","a","b","o"].filter(g=>rest.some(s=>s[3]==g)).map(g=>`<h3 class="bs-h">${GT[g]}</h3><div class="bs-g">${rest.filter(s=>s[3]==g).map(tile).join("")}</div>`).join(""):""}</div>`}
+/* --- subject page (paper tabs + chapter chips + filters) --- */
+function bqList(key,A){const F=QB.bf,isSv=key=="saved",s=BSK[key],sv=qbSaved(),rds=bqRd();
+ if(F.k!=key)Object.assign(F,{k:key,pp:0,ty:"",ch:"",b:"",y:"",ex:""});
+ const base=isSv?A.filter(x=>sv.includes(x.id)):A.filter(x=>x._k==key),two=!isSv&&s[2]==2,
+ P=two?base.filter(x=>!F.pp||(x.pp||0)==F.pp):base,T=P.filter(x=>!F.ty||x.ty==F.ty),chs=[...new Set(T.map(x=>x.ch).filter(Boolean))];
+ if(F.ch&&!chs.includes(F.ch))F.ch="";QB.chs=chs;
+ const L=T.filter(x=>(!F.ch||x.ch==F.ch)&&(!F.b||x.b==F.b)&&(!F.y||x.y==F.y)&&(!F.ex||(x.ex||EXAMS[0])==F.ex)).sort(bqSort);QB.rl=L.map(x=>x.id);QB.rctx=key;
+ const u=f=>[...new Set(T.map(f))].filter(v=>v!==""&&v!=null),
+ sel=(k,l,a)=>a.length>1?`<select aria-label="${l}" onchange="QB.bf.${k}=this.value;route()"><option value="">${l}</option>${a.map(v=>`<option value="${esc(v)}" ${F[k]==v?"selected":""}>${esc(v)}</option>`).join("")}</select>`:"",
+ tab=(p,l)=>`<button class="qb-ch ${F.pp==p?"on":""}" onclick="QB.bf.pp=${p};route()">${l} (${qn(p?base.filter(x=>(x.pp||0)==p).length:base.length)})</button>`,
+ ty=(v,l)=>`<button class="qb-ch ${F.ty==v?"on":""}" onclick="QB.bf.ty='${v}';route()">${l}</button>`,
+ card=x=>{const rd=rds.includes(x.id),cq=x.ty=="CQ",pv=cq?(x.st||""):"",k=BSK[x._k];
+  return `<a class="qb-c bq-c${rd?" rd":""}" href="#/board/q/${x.id}"><div class="qb-r"><span class="tag cat" style="--c:#64748b">${bqLbl(x)}</span><span class="tag cat" style="--c:${cq?"#7c5cff":"#16a34a"}">${cq?"CQ":"MCQ"}</span><span class="sp"></span>${sv.includes(x.id)?'<span class="bq-s">★</span>':""}${rd?`<span class="qb-st ok">${SVG("qck")} পড়া</span>`:""}</div><h3>${esc(x.ch||k[1])}</h3><div class="qb-m">${isSv?esc(k[1])+" · ":""}${bqPp(x)?bqPp(x)+" · ":""}${esc(x.ex||EXAMS[0])} · পূর্ণমান ${qn(x.m||"")}${x.s||x.qz?"":" · সমাধান শীঘ্রই"}</div>${pv?`<p class="bq-pv">${esc(pv.slice(0,110))}${pv.length>110?"…":""}</p>`:""}</a>`};
+ return `<div class="panel"><a class="lnk" style="text-decoration:none;display:inline-block;margin-bottom:10px" href="#/board">← সব বিষয়</a><h2 style="margin:0 0 2px">${isSv?"★ Saved প্রশ্ন":esc(s[1])}</h2><p class="qb-m" style="margin:0 0 4px">${isSv?"তোমার save করা প্রশ্ন":s[2]==2?"১ম ও ২য় পত্র আলাদা":"একটি পত্র"}</p>
+${two?`<div class="qb-chs">${tab(0,"সব")}${tab(1,"১ম পত্র")}${tab(2,"২য় পত্র")}</div>`:""}
+<div class="qb-chs">${ty("","সব ধরন")}${ty("CQ","সৃজনশীল (CQ)")}${ty("MCQ","বহুনির্বাচনি (MCQ)")}</div>
+${chs.length?`<div class="qb-chs"><button class="qb-ch ${F.ch?"":"on"}" onclick="QB.bf.ch='';route()">সব অধ্যায়</button>${chs.map((c,i)=>`<button class="qb-ch ${F.ch==c?"on":""}" onclick="QB.bf.ch=QB.chs[${i}];route()">${esc(c)}</button>`).join("")}</div>`:""}
+<div class="qb-f">${sel("ex","পরীক্ষা",u(x=>x.ex||EXAMS[0]))}${sel("b","বোর্ড",u(x=>x.b))}${sel("y","সাল",u(x=>x.y).sort((a,b)=>b-a))}</div>
+<div class="qb-m" style="margin:2px 0 10px">${qn(L.length)}টি প্রশ্ন</div>`+(L.length?L.map(card).join(""):`<div class="qb-em">${SVG("board")}<b>কোনো প্রশ্ন নেই</b><span>${base.length?"অন্য পত্র বা অধ্যায় বাছাই করো।":isSv?"প্রশ্ন পড়ার সময় ☆ Save চাপলে এখানে জমা হবে।":"এই বিষয়ের প্রশ্ন শীঘ্রই আসছে।"}</span></div>`)+"</div>"}
+/* --- reader --- */
+function bqBody(x){const rv=QB.rv[x.id]||(QB.rv[x.id]={});
+ if(x.ty=="CQ"){const mk=x.pm||[1,2,3,4],has=!!x.s,all=has&&[0,1,2,3].every(k=>rv[k]);
+  return `<div class="br-b"><div class="br-st"><span>উদ্দীপক</span><p>${esc(x.st||"")}</p></div>${has?`<div style="text-align:right"><button class="qr-lk" onclick="bqRv('${x.id}',-1)">${all?"সব উত্তর লুকাও":"সব উত্তর দেখাও"}</button></div>`:""}`
+  +(x.p||[]).map((p,k)=>`<div class="br-p"><div class="br-ph"><b class="qo-l">${OPL[k]}</b><span class="br-mk">${qn(mk[k]||k+1)} নম্বর</span></div><p>${esc(p)}</p>${has?`<button class="qb-ch${rv[k]?" on":""}" onclick="bqRv('${x.id}',${k})">${rv[k]?"উত্তর লুকাও":"উত্তর দেখো"}</button>${rv[k]?`<div class="br-a"><span>উত্তর</span><p>${esc(x.s[k])}</p></div>`:""}`:""}</div>`).join("")
+  +(has?"":'<div class="qb-n">সমাধান শীঘ্রই যোগ হবে।</div>')+"</div>"}
+ const z=(QB.qz||[]).find(q=>q.id==x.qz);if(!z)return `<div class="br-b">${qSk()}</div>`;
+ return `<div class="br-b"><div class="qb-r" style="margin:6px 0 12px"><span class="qb-m sp">${qn(z.q.length)}টি প্রশ্ন · অপশনে ট্যাপ করলে উত্তর দেখাবে</span><button class="btn sm" onclick="qStart('${z.id}')">Quiz হিসেবে দাও</button></div>`
+ +z.q.map((q,n)=>{const c=rv[n];return `<div class="qb-c br-m"><div class="qrv-q">${qn(n+1)}. ${esc(q.q)}</div>${q.o.map((o,k)=>{const cl=c==null?"":k==q.a?"ok":k==c?"bad":"dim";return `<button class="qb-o ${cl}" ${c!=null?"disabled":""} onclick="bqMc('${x.id}',${n},${k})"><b class="qo-l">${OPL[k]}</b><span class="qo-t">${esc(o)}</span><span class="qo-m">${cl=="ok"?SVG("qck"):cl=="bad"?SVG("qx"):""}</span></button>`}).join("")}${c==null?`<button class="qr-lk" onclick="bqMc('${x.id}',${n},9)">উত্তর দেখো</button>`:q.e?`<div class="qr-ex"><b>ব্যাখ্যা</b><p>${esc(q.e)}</p></div>`:""}</div>`}).join("")+"</div>"}
+function bqPaint(){const x=QB.cur,e=$("#brb");if(x&&e)e.innerHTML=bqBody(x)}
+function bqRv(id,k){const rv=QB.rv[id]||(QB.rv[id]={});if(k<0){const all=[0,1,2,3].every(i=>rv[i]);[0,1,2,3].forEach(i=>rv[i]=!all)}else rv[k]=!rv[k];bqPaint()}
+function bqMc(id,n,k){(QB.rv[id]||(QB.rv[id]={}))[n]=k;bqPaint()}
+function bqReader(id,A){const x=A.find(z=>z.id==id);
+ if(!x)return `<div class="panel"><a class="lnk" style="text-decoration:none" href="#/board">← সব বিষয়</a><div class="qb-em"><b>প্রশ্নটি পাওয়া যায়নি</b><span>এটি সরানো হয়েছে বা তোমার Page-এর নয়।</span></div></div>`;
+ QB.cur=x;bqRead(id);const k=x._k,s=BSK[k],rl=QB.rl&&QB.rl.includes(id)?QB.rl:A.filter(z=>z._k==k).sort(bqSort).map(z=>z.id),i=rl.indexOf(id),sv=qbSaved().includes(id),
+ nav=(j,l)=>j<0||j>=rl.length?"<span></span>":`<a class="btn ghost" href="#/board/q/${rl[j]}">${l}</a>`;
+ return `<div class="panel br" style="--bfs:${bqFs()}px"><div class="br-top"><a class="qr-ib" href="#/board/${QB.rl&&QB.rl.includes(id)&&QB.rctx?QB.rctx:k}" aria-label="তালিকায় ফিরে যাও">${SVG("qpv")}</a><span class="br-pos">${qn(i+1)} / ${qn(rl.length)}</span><span class="sp"></span><button class="qr-fl" onclick="bqFont(-2)" aria-label="লেখা ছোট করো">A−</button><button class="qr-fl" onclick="bqFont(2)" aria-label="লেখা বড় করো">A+</button><button class="qr-fl ${sv?"on":""}" onclick="qbSave('${id}')">${SVG("star",sv)} ${sv?"Saved":"Save"}</button></div>
+<div class="qb-r" style="margin:10px 0 6px"><span class="tag cat" style="--c:#64748b">${bqLbl(x)}</span><span class="tag cat" style="--c:${x.ty=="CQ"?"#7c5cff":"#16a34a"}">${x.ty=="CQ"?"সৃজনশীল (CQ)":"বহুনির্বাচনি (MCQ)"}</span><span class="tag cat" style="--c:${GC[s[3]]}">${esc(x.ex||EXAMS[0])}</span></div>
+<h2 class="br-h">${esc(s[1])}${bqPp(x)?" · "+bqPp(x):""}</h2><div class="qb-m">${esc(x.ch||"")}${x.ch?" · ":""}পূর্ণমান ${qn(x.m||"")}</div><div id="brb">${bqBody(x)}</div><div class="qr-r2 br-nv">${nav(i-1,"← আগের")}${nav(i+1,"পরের →")}</div></div>`}
+function pBoard(a,b){qbLoad("boardQ");qbLoad("quiz");if(QB.bq==null)return '<div class="panel"><h2 style="margin:0 0 12px">Board Question</h2>'+qSk()+'</div>';
+ const A=bqAll();if(a=="q")return bqReader(b,A);if(a=="saved"||BSK[a])return bqList(a,A);return bqHub(A)}
 function qbProt(pg){let d=$("#qbwm");if(!d){d=document.createElement("div");d.id="qbwm";document.body.appendChild(d)}
  const on=pg=="board"||(pg=="quiz"&&!!QB.run);
  if(on&&U.prof){const t=((U.prof.name||"")+" · "+(U.prof.email||"")).slice(0,40);if(d.dataset.t!=t){d.dataset.t=t;d.style.backgroundImage='url("data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="300" height="160"><text x="20" y="90" transform="rotate(-20 150 80)" font-size="14" fill="gray" fill-opacity=".18" font-family="sans-serif">'+esc(t)+'</text></svg>')+'")'}}
- d.style.display=on?"block":"none";document.body.classList.toggle("prot",on)}
+ d.style.display=on?"block":"none";document.body.classList.toggle("prot",on);document.body.classList.toggle("qrun",!!QB.run&&location.hash=="#/quiz/"+QB.run.z.id);if(!(QB.run&&(QB.run.sheet||QB.run.sub)))document.body.style.overflow=""}
 ["copy","cut","contextmenu","dragstart"].forEach(ev=>document.addEventListener(ev,e=>{if(document.body.classList.contains("prot"))e.preventDefault()}));
 addEventListener("keydown",e=>{if(document.body.classList.contains("prot")&&(e.ctrlKey||e.metaKey)&&["p","s","c","a","u"].includes((e.key||"").toLowerCase()))e.preventDefault()});
 function route(){const h=location.hash.replace(/^#\/?/,"").split("/"),pg=h[0]||"home";
- $("#links").innerHTML=`<a href="#/" class="${pg=="home"?"on":""}">Home</a><a href="#/saved" class="${pg=="saved"?"on":""}">${SVG("star")} Saved${savedN()?" ("+savedN()+")":""}</a><a href="#/quiz" class="${pg=="quiz"?"on":""}">Quiz</a><a href="#/board" class="${pg=="board"?"on":""}">Board</a><a href="#/contact" class="${pg=="contact"?"on":""}">Contact</a>`;
+ $("#links").innerHTML=`<a href="#/" class="${pg=="home"?"on":""}">Home</a><a href="#/saved" class="${pg=="saved"?"on":""}">${SVG("star")} Saved${savedN()?" ("+savedN()+")":""}</a><a href="#/contact" class="${pg=="contact"?"on":""}">Contact</a><a href="#/quiz" class="${pg=="quiz"?"on":""}">Quiz</a><a href="#/board" class="${pg=="board"?"on":""}">Board</a>`;
  $("#yr").textContent=new Date().getFullYear();paintBnav(pg);{const f=$("#fab"),c=pg=="contact";f.href=c?"#/":"#/contact";f.innerHTML=c?"<span>"+SVG("home")+"</span>Home":"<span>"+SVG("msg")+"</span>Contact";f.setAttribute("aria-label",c?"Home":"Contact")}const k=document.activeElement&&document.activeElement.id;
  if(pg=="inbox"&&S.pg!="inbox"){try{N.hl=N.seen;nMarkSeen()}catch(e){}}if(pg!="profile")S.pfd=null;if(S.pg!=pg&&(pg=="profile"||pg=="inbox"))scrollTo(0,0);S.pg=pg;
- $("#app").innerHTML=pg=="quiz"?pQuiz(h[1]):pg=="board"?pBoard():pg=="contact"?pContact():pg=="saved"?pSaved():pg=="p"?pPost(h[1]):pg=="profile"?pProfile():pg=="inbox"?pInbox():pHome();observeCovers();qbProt(pg);if(pg=="p"){markRead(h[1]);loadPost(h[1])}
+ $("#app").innerHTML=pg=="quiz"?pQuiz(h[1]):pg=="board"?pBoard(h[1],h[2]):pg=="contact"?pContact():pg=="saved"?pSaved():pg=="p"?pPost(h[1]):pg=="profile"?pProfile():pg=="inbox"?pInbox():pHome();observeCovers();qbProt(pg);if(pg=="p"){markRead(h[1]);loadPost(h[1])}
  const q=$("#q");if(q){q.addEventListener("keydown",e=>{if(e.key=="Enter")doSearch()});q.addEventListener("input",onSearchInput);if(k=="q")q.focus()}}
 /* ---- live search: input-ta na bhenge shudhu niche-r result bodle ---- */
 let sT;
