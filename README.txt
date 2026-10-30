@@ -260,3 +260,19 @@ Note:
       - Owner nijer action sathe sathe kore (approve lage na). Admin/Editor account-e kono action cholbe na.
       - Rules: users doc delete shudhu nijer ba Owner; studentRequests shudhu server.  -> firestore.rules abar PUBLISH korte hobe.
  3. Phone-er header-e ekhon Inbox (ghonta) icon ache, unread number-shoho; tap korle Inbox page.
+
+
+=== W) QUIZ + BOARD QUESTION (STUDENT SIDE) ===
+ Site: #/quiz (list, timer, Practice/Exam, result + review) ar #/board (Board/Sal/Subject/CQ-MCQ filter, prosno + somadhan text, Save).
+ Header link + phone-e rotate menu-te Quiz ar Board tile. Board page-e Copy/Cut/Right-click/Print bondho + naam-email watermark.
+ Data: collection quizzes {t,sub,mode:"Exam"|"Practice",min,neg,pages:[..],q:[{q,o:[4],a,e}],dl,at,draft,ts}
+       collection boardQ {b,y,sub,ch,ty:"CQ"|"MCQ",m,pages:[..], CQ: st,p:[4],s:[4](optional) | MCQ: qz:<quizId>, ts}
+       collection quizAttempts/{uid_quizId} (server rules-e Exam ekbar-i)
+ DEPLOY: (1) firestore.rules Publish (2) Vercel deploy (sw.js v27 -> Student-er app-e "Update" banner ashbe).
+ Note: Admin side ekhono baki; ekhon data Firebase Console theke dite hobe. Exam-er answer client-e thake (server grading pore).
+
+=== X) ADMIN SIDE: QUIZ + BOARD (admin.html) ===
+ - Notun tab "Quiz & Board" (Owner + Admin; scope-wala Admin shudhu nijer Page): Quiz form (prosno, uttor, byakkha, Mode, time, negative, deadline, schedule, Page), Board Question form (CQ text + solution, MCQ -> Quiz link), list + Edit/Delete.
+ - Publish-er sathe tick thakle auto ekta Post ("Notun Quiz: ...") toiri hoy + push notification (age-r notify API, notun function lagbe na).
+ - Notun tab "Q&B Dashboard": SHUDHU OWNER (UI tab lukano + firestore.rules-e quizAttempts read shudhu Owner). KPI, 7 dine attempt, Quiz/Page/Board onujayi report, Result CSV.
+ - DEPLOY: firestore.rules abar Publish + Vercel deploy. Ager moto Student-er "Update" banner-er jonno sw.js V ar ekbar bariye nao (v28) jodi index.html-o bodlay.

@@ -112,6 +112,39 @@ service cloud.firestore {
     match /notifAll/{id} { allow read: if request.auth != null && request.auth.token.email_verified == true; allow write: if false; }
     // users/{uid}/inbox = shudhu oi student-er jonno pathano notification (bell-er list)
     match /users/{uid}/inbox/{id} { allow read: if request.auth != null && request.auth.uid == uid; allow write: if false; }
+    // ---- Quiz + Board Question (student side) ----
+    // quizzes/boardQ doc-e pages = ["HSC 1st Year · Science", ...] thakte hobe (sob page hole 6 ta-i). Student shudhu nijer Page-er doc pore.
+    // Notun doc lekha: Owner/Admin (scope-wala Admin shudhu nijer Page). quizAttempts-er sob result shudhu Owner pore.
+    function myPageIn(pages) {
+      return request.auth != null && request.auth.token.email_verified == true
+        && exists(/databases/$(db)/documents/users/$(request.auth.uid))
+        && (get(/databases/$(db)/documents/users/$(request.auth.uid)).data.year + ' · '
+            + get(/databases/$(db)/documents/users/$(request.auth.uid)).data.dept) in pages;
+    }
+    match /quizzes/{id} {
+      allow read: if myPageIn(resource.data.get('pages', [])) || isAdmin();
+      allow create, update: if isAdmin() && pagesOk(request.resource.data.get('pages', []));
+      allow delete: if isAdmin() && pagesOk(resource.data.get('pages', []));
+    }
+    match /boardQ/{id} {
+      allow read: if myPageIn(resource.data.get('pages', [])) || isAdmin();
+      allow create, update: if isAdmin() && pagesOk(request.resource.data.get('pages', []));
+      allow delete: if isAdmin() && pagesOk(resource.data.get('pages', []));
+    }
+    // quizAttempts/{uid_quizId}: Exam ekbar-i (create only), Practice-e update chole
+    match /quizAttempts/{id} {
+      allow read: if request.auth != null && (resource.data.uid == request.auth.uid || isOwner());
+      allow create: if request.auth != null && request.auth.token.email_verified == true
+        && request.resource.data.uid == request.auth.uid
+        && id == request.auth.uid + '_' + request.resource.data.quizId
+        && request.resource.data.keys().hasOnly(['uid','quizId','score','correct','wrong','total','used','ts'])
+        && request.resource.data.score is number && request.resource.data.total is number;
+      allow update: if request.auth != null && resource.data.uid == request.auth.uid
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.quizId == resource.data.quizId
+        && request.resource.data.keys().hasOnly(['uid','quizId','score','correct','wrong','total','used','ts'])
+        && get(/databases/$(db)/documents/quizzes/$(resource.data.quizId)).data.get('mode', '') == 'Practice';
+    }
     match /config/admins {
       allow read: if isStaff();           // Admin o Editor nijeder role jante read korte pare
       // shudhu Owner (emails[0] ba purono ids[0]) list bodlate pare
