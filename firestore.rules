@@ -43,6 +43,10 @@ service cloud.firestore {
       return !isScoped() || (grp is list && grp.size() > 0 && grp.hasOnly(scopeOf()));
     }
     function isWide() { return isAdmin() && !isScoped(); }
+    function publishedQuiz(quizId) {
+      return exists(/databases/$(db)/documents/quizSets/$(quizId))
+        && get(/databases/$(db)/documents/quizSets/$(quizId)).data.get('status', '') == 'published';
+    }
 
     match /posts/{id} {
       allow read: if true;              // public site
@@ -112,84 +116,69 @@ service cloud.firestore {
     match /notifAll/{id} { allow read: if request.auth != null && request.auth.token.email_verified == true; allow write: if false; }
     // users/{uid}/inbox = shudhu oi student-er jonno pathano notification (bell-er list)
     match /users/{uid}/inbox/{id} { allow read: if request.auth != null && request.auth.uid == uid; allow write: if false; }
-    // users/{uid}/history/{id} = Quiz attempt history (proti attempt alada). Shudhu oi student pore.
-    // Practice-e client likhe (append-only); Exam-er history shudhu /api/grade (server) likhe.
-    match /users/{uid}/history/{id} {
-      allow read: if request.auth != null && request.auth.uid == uid;
-      allow create: if request.auth != null && request.auth.uid == uid && request.auth.token.email_verified == true
-        && request.resource.data.keys().hasOnly(['uid','quizId','score','correct','wrong','total','used','ts','mode'])
-        && request.resource.data.uid == uid
-        && request.resource.data.mode == 'Practice'
-        && request.resource.data.quizId is string && request.resource.data.quizId.size() <= 40
-        && request.resource.data.score is number && request.resource.data.correct is number
-        && request.resource.data.wrong is number && request.resource.data.total is number
-        && request.resource.data.total <= 300 && request.resource.data.ts is number
-        && get(/databases/$(db)/documents/quizzes/$(request.resource.data.quizId)).data.get('mode', '') == 'Practice';
-      allow update, delete: if false;
-    }
-    // ---- Quiz + Board Question (student side) ----
-    // quizzes/boardQ doc-e pages = ["HSC 1st Year · Science", ...] thakte hobe (sob page hole 6 ta-i). Student shudhu nijer Page-er doc pore.
-    // Notun doc lekha: Owner/Admin (scope-wala Admin shudhu nijer Page). quizAttempts-er sob result shudhu Owner pore.
-    function myPageIn(pages) {
-      return request.auth != null && request.auth.token.email_verified == true
-        && exists(/databases/$(db)/documents/users/$(request.auth.uid))
-        && (get(/databases/$(db)/documents/users/$(request.auth.uid)).data.year + ' · '
-            + get(/databases/$(db)/documents/users/$(request.auth.uid)).data.dept) in pages;
-    }
-    // ---- Reported Questions: Student nijer report create korte pare (1 prosno = 1 report). Admin porbe, resolve/delete korbe ----
-    match /qReports/{id} {
-      allow create: if request.auth != null && request.auth.token.email_verified == true
-        && request.resource.data.keys().hasOnly(['uid','name','qid','kind','title','reason','note','st','ts'])
-        && request.resource.data.uid == request.auth.uid
-        && id == request.auth.uid + '_' + request.resource.data.qid
-        && request.resource.data.st == 'open'
-        && request.resource.data.reason is string && request.resource.data.reason.size() <= 60
-        && request.resource.data.note is string && request.resource.data.note.size() <= 300
-        && request.resource.data.title is string && request.resource.data.title.size() <= 120
-        && request.resource.data.name is string && request.resource.data.name.size() <= 80;
-      allow read: if isAdmin() || (request.auth != null && resource.data.uid == request.auth.uid);
-      allow update, delete: if isAdmin();
-    }
-    match /quizzes/{id} {
-      allow read: if myPageIn(resource.data.get('pages', [])) || isAdmin();
-      allow create, update: if isAdmin() && pagesOk(request.resource.data.get('pages', []));
-      allow delete: if isAdmin() && pagesOk(resource.data.get('pages', []));
-    }
-    match /boardQ/{id} {
-      allow read: if myPageIn(resource.data.get('pages', [])) || isAdmin();
-      allow create, update: if isAdmin() && pagesOk(request.resource.data.get('pages', []));
-      allow delete: if isAdmin() && pagesOk(resource.data.get('pages', []));
-    }
-    // examStarts/{uid_quizId} = secured Exam-er shuru-r somoy (server-e likha; time-limit server check kore). Client kokhono pore/likhe na.
-    match /examStarts/{id} { allow read, write: if false; }
-    // quizKeys/{quizId} = secured Exam-er answer key { k:[{q,a,e}] }. Student kokhono pore na; Admin (scope-er moddhe) likhe; /api/grade (Admin SDK) pore.
-    match /quizKeys/{id} {
-      allow read, create, update: if isAdmin() && exists(/databases/$(db)/documents/quizzes/$(id))
-        && pagesOk(get(/databases/$(db)/documents/quizzes/$(id)).data.get('pages', []));
+    // ---- Academic Hub: Board Question Bank ----
+    // Published board questions are public/read-only; only authorized staff can manage them.
+    match /boardQuestions/{id} {
+      allow read: if isStaff() || resource.data.get('status', '') == 'published';
+      allow create: if isStaff()
+        && request.resource.data.get('title', '') is string
+        && request.resource.data.get('question', '') is string
+        && request.resource.data.get('subject', '') is string
+        && request.resource.data.get('type', '') in ['MCQ', 'CQ'];
+      allow update: if isStaff();
       allow delete: if isAdmin();
     }
-    // quizAttempts/{uid_quizId}: Exam ekbar-i (create only), Practice-e update chole
+
+    // ---- Academic Hub: Quiz metadata and public question text/options ----
+    match /quizSets/{id} {
+      allow read: if isStaff() || resource.data.get('status', '') == 'published';
+      allow create: if isStaff()
+        && request.resource.data.get('title', '') is string
+        && request.resource.data.get('questionCount', 0) is number;
+      allow update: if isStaff();
+      allow delete: if isAdmin();
+    }
+    match /quizQuestions/{id} {
+      allow read: if isStaff() || publishedQuiz(resource.data.get('quizId', ''));
+      allow create: if isStaff()
+        && request.resource.data.get('quizId', '') is string
+        && request.resource.data.get('question', '') is string
+        && request.resource.data.get('options', []) is list;
+      allow update: if isStaff();
+      allow delete: if isAdmin();
+    }
+
+    // Answer keys are private to staff. Student grading is performed by api/academic.js.
+    match /quizAnswerKeys/{id} {
+      allow read: if isStaff();
+      allow create, update: if isStaff();
+      allow delete: if isAdmin();
+    }
+
+    // Quiz attempts are written only by the trusted server endpoint.
+    // A student can read only their own attempts; staff can review all attempts.
     match /quizAttempts/{id} {
-      allow read: if request.auth != null && (resource.data.uid == request.auth.uid || isOwner());
-      allow create: if request.auth != null && request.auth.token.email_verified == true
-        && request.resource.data.uid == request.auth.uid
-        && id == request.auth.uid + '_' + request.resource.data.quizId
-        // secured Exam (sec=true) attempt shudhu /api/grade (server) likhe; client shudhu Practice ba purono (unsecured) Exam likhte pare
-        && (get(/databases/$(db)/documents/quizzes/$(request.resource.data.quizId)).data.get('mode', '') == 'Practice'
-            || get(/databases/$(db)/documents/quizzes/$(request.resource.data.quizId)).data.get('sec', 0) != 1)
-        && request.resource.data.keys().hasOnly(['uid','quizId','score','correct','wrong','total','used','ts'])
-        && request.resource.data.score is number && request.resource.data.total is number;
-      allow update: if request.auth != null && resource.data.uid == request.auth.uid
-        && request.resource.data.uid == request.auth.uid
-        && request.resource.data.quizId == resource.data.quizId
-        && request.resource.data.keys().hasOnly(['uid','quizId','score','correct','wrong','total','used','ts'])
-        && get(/databases/$(db)/documents/quizzes/$(resource.data.quizId)).data.get('mode', '') == 'Practice';
+      allow read: if request.auth != null && (resource.data.uid == request.auth.uid || isAdmin());
+      allow create, update, delete: if false;
     }
-    // ---- Website settings: sobai pore (public), shudhu Owner likhte pare ----
-    match /config/site {
-      allow read: if true;
-      allow write: if isOwner();
+
+    // Quiz sessions are server-managed to prevent client-side score or timer manipulation.
+    match /quizSessions/{id} {
+      allow read, write: if false;
     }
+
+    // Student's private saved question library.
+    match /users/{uid}/savedQuestions/{id} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow create, update: if request.auth != null && request.auth.uid == uid
+        && request.resource.data.get('questionId', '') is string
+        && request.resource.data.get('title', '') is string;
+      allow delete: if request.auth != null && request.auth.uid == uid;
+    }
+    match /users/{uid}/collections/{id} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+
     match /config/admins {
       allow read: if isStaff();           // Admin o Editor nijeder role jante read korte pare
       // shudhu Owner (emails[0] ba purono ids[0]) list bodlate pare
