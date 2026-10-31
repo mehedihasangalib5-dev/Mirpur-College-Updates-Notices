@@ -46,7 +46,7 @@ function side(){let s=$('#mcSide');
   s.innerHTML=`<a class="mc-brand" href="#/"><img src="logo.png" alt="MCUN"><b>MCUN</b><small>Mirpur College<br>Updates &amp; Notices</small></a><nav>`
   +PT.map(g=>PLAIN[g[0]]?`<a class="mc-i" data-g="${g[0]}" title="${E(g[2])}" href="${PLAIN[g[0]]}">${P(IC[SIC[g[0]]||g[0]])}<span>${E(g[2])}</span></a>`
    :`<div class="mc-g" data-g="${g[0]}"><button type="button" class="mc-i mc-h" title="${E(g[2])}" data-t="${g[0]}">${P(IC[SIC[g[0]]||g[0]]||'')}<span>${E(LBL[g[0]]||g[2])}</span><b class="mc-bd" hidden></b>${P(IC.chev,'mc-chev')}</button><div class="mc-sub">${sub(g)}</div></div>`).join('')
-  +`</nav><div class="mc-promo"><img src="logo.png" alt=""><b>Mirpur College</b><span>Stay Connected,</span><em>Stay Informed!</em></div><div class="mc-out"><button class="mc-i" type="button" title="Logout" onclick="try{logout()}catch(e){}">${P(IC.out)}<span>Logout</span></button></div>`;
+  +`</nav><div class="mc-out"><button class="mc-i" type="button" title="Logout" onclick="try{logout()}catch(e){}">${P(IC.out)}<span>Logout</span></button></div>`;
   s.addEventListener('click',e=>{
    const h=e.target.closest('.mc-h');
    if(h){const id=h.dataset.t;if(!full()){location.hash=id==='acc'?'#/profile':'#/'+id;return}const was=OPENS.has(id);was?OPENS.delete(id):OPENS.add(id);mark();if((id==='hub'||id==='com')&&!was&&hp()[0]!==(id==='com'?'inbox':id))location.hash=id==='com'?'#/inbox':'#/'+id;return}
@@ -63,8 +63,7 @@ function mark(){const s=$('#mcSide');if(!s)return;const g=grp();if(!mark.i){mark
  const cur=location.hash||'#/',nt=hp()[0]==='notices';
  s.querySelectorAll('.mc-s').forEach(a=>{const c=a.dataset.cat;
   const hr=a.getAttribute('href');if(a.dataset.com!==undefined){a.classList.toggle('on',hp()[0]==='inbox'&&COM.tab===a.dataset.com);return}if(a.dataset.dl!==undefined){a.classList.toggle('on',hp()[0]==='dl'&&DL.cat===a.dataset.dl);return}if(a.dataset.lib!==undefined){a.classList.toggle('on',hp()[0]==='lib'&&LB.tab===a.dataset.lib);return}a.classList.toggle('on',c!==undefined?(nt&&(T(()=>S.cat,'')||'')===c):(a.dataset.ex!==undefined?cur===hr:(cur===hr||cur.startsWith(hr+'/'))))});
- const pr=s.querySelector('.mc-promo');if(pr&&pr.dataset.k!==(['upd','dash','com'].includes(g)?'n':'h')){pr.dataset.k=['upd','dash','com'].includes(g)?'n':'h';pr.innerHTML=!['upd','dash','com'].includes(g)?`${P(IC.trophy)}<span>Keep Learning,<br>Achieve More!</span><em>&mdash; MCUN</em>`:`<img src="logo.png" alt=""><b>Mirpur College</b><span>Stay Connected,</span><em>Stay Informed!</em>`}
- const b=s.querySelector('[data-t="com"] .mc-bd'),n=T(()=>nUnread(),0);if(b){b.textContent=n>9?'9+':n;b.hidden=!n}}
+  const b=s.querySelector('[data-t="com"] .mc-bd'),n=T(()=>nUnread(),0);if(b){b.textContent=n>9?'9+':n;b.hidden=!n}}
 /* ---------- top bar ---------- */
 function top(){const n=$('header .nav');if(!n)return;
  if(!n.querySelector('.mc-search')){const f=document.createElement('form');f.className='mc-search';
@@ -77,11 +76,17 @@ function top(){const n=$('header .nav');if(!n)return;
  const p=T(()=>U.prof,null);w.innerHTML=p?`<b>${E(p.name)}</b><small>${E(p.dept||'')}${p.year?'-'+E(p.year):''}</small>`:''}
 addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){const i=$('.mc-search input');if(i){e.preventDefault();i.focus()}}});
 /* ---------- new dashboard ---------- */
-const ART=`<svg viewBox="0 0 420 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="mcs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8ec5ff"/><stop offset="1" stop-color="#dbeafe"/></linearGradient></defs><rect width="420" height="220" fill="url(#mcs)"/><circle cx="60" cy="150" r="46" fill="#2f7d3a"/><circle cx="360" cy="140" r="54" fill="#2a6f34"/><circle cx="395" cy="95" r="34" fill="#3a8c46"/><rect x="95" y="52" width="230" height="150" fill="#b4533c"/><rect x="95" y="52" width="230" height="14" fill="#8f3f2d"/><rect x="150" y="30" width="120" height="22" rx="3" fill="#f8fafc"/><rect x="158" y="38" width="104" height="5" rx="2" fill="#1e3a8a"/><rect x="170" y="46" width="80" height="3" rx="1" fill="#1e3a8a" opacity=".5"/>${[0,1,2].map(r=>[0,1,2,3,4,5,6,7].map(c=>`<rect x="${107+c*27}" y="${76+r*38}" width="16" height="22" fill="#dbeafe" stroke="#f1f5f9" stroke-width="2"/>`).join('')).join('')}<rect x="190" y="164" width="40" height="38" fill="#7c2d1c"/><rect x="0" y="200" width="420" height="20" fill="#475569"/></svg>`;
 let pl=0;
 function ensure(){if(!T(()=>U.prof,null))return;T(()=>{qbLoad('boardQ');qbLoad('quiz')});
  if((QB.bq==null||QB.qz==null)&&!pl){pl=1;let k=0;const t=setInterval(()=>{if((QB.bq!=null&&QB.qz!=null)||++k>24){clearInterval(t);pl=0;if(['','home','hub','lib'].includes(hp()[0])||(hp()[0]==='profile'&&!PF.ed))T(()=>route())}},500)}}
 const fd=ts=>new Date(ts).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+/* ---------- hero cards: pure CSS / typography, no images. Each page has its own theme (hx-<name>) ---------- */
+const HX=(k,o)=>`<section class="hx hx-${k}"><div class="hx-deco" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="hx-main">${o.eye?`<span class="hx-eye">${P(o.ic)}${o.eye}</span>`:''}<h1>${o.t}</h1><p>${o.p}</p>${o.cta||''}</div>${o.side?`<div class="hx-side">${o.side}</div>`:''}</section>`;
+
+const hxDate=(n,nx)=>{const d=new Date();return `<div class="hx-date"><small>${d.toLocaleDateString('en-GB',{weekday:'long'})}</small><b>${d.getDate()}</b><span>${d.toLocaleDateString('en-GB',{month:'long',year:'numeric'})}</span></div><div class="hx-pills"><span>${P(IC.bell)}${n} active notice${n===1?'':'s'}</span>${nx?`<span>${P(IC.cal)}Next: ${E(String(nx.t).slice(0,22))}${String(nx.t).length>22?'&hellip;':''}</span>`:''}</div>`};
+const hxLegend=()=>{const L=T(()=>Object.keys(CATS).map(k=>[CATS[k],S.posts.filter(x=>x.cat===k&&vis(x)&&!isExp(x)).length]),[]);return `<div class="hx-legend">${L.map(c=>`<span style="--c:${c[0].c}"><i></i>${E(c[0].n)}<b>${c[1]}</b></span>`).join('')}</div>`};
+const hxUnread=()=>{const n=T(()=>nUnread(),0);return `<div class="hx-unread"><b>${n}</b><span>unread</span></div><div class="hx-pills"><span>${P(IC.bell)}Notifications</span><span>${P(IC.com)}Messages</span><span>${P(IC.upd)}Announcements</span></div>`};
+
 function ring(pc){const r=52,c=2*Math.PI*r;return `<svg viewBox="0 0 130 130" class="mcd-ring"><circle cx="65" cy="65" r="${r}" fill="none" stroke="color-mix(in srgb,#16a34a 16%,transparent)" stroke-width="14"/><circle cx="65" cy="65" r="${r}" fill="none" stroke="#16a34a" stroke-width="14" stroke-linecap="round" stroke-dasharray="${(c*pc/100).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 65 65)"/><text x="65" y="74" text-anchor="middle" font-size="28" font-weight="800" fill="currentColor">${pc}%</text></svg>`}
 function dashHTML(){ensure();
  const p=T(()=>U.prof,{})||{},now=Date.now(),R=T(()=>plData(),[]),posts=T(()=>S.posts.filter(x=>vis(x)&&!isExp(x)),[]);
@@ -103,7 +108,7 @@ function dashHTML(){ensure();
  const r0=R[0],rec=r0?`<div class="mcd-rq">${P(IC.clip)}<div><div class="mcd-ok">${P(IC.chk)}Quiz Completed Successfully!</div><p><b>${E(r0.t)}</b></p><p>Score: ${r0.c} / ${r0.tot} (${r0.pc}%)</p><p>Date: ${fd(r0.ts)}</p></div></div><a class="mcd-btn" href="#/quiz">Try Another Quiz ${P(IC.arr)}</a>`:`<p class="mcd-em">No quiz attempted yet.</p><a class="mcd-btn" href="#/quiz">Start a Quiz ${P(IC.arr)}</a>`;
  const need=low.length?`<ul class="mcd-lw">${low.map(s=>`<li><span>${E(s.n)}</span><i><u style="width:${s.pc}%"></u></i><b>${s.pc}%</b></li>`).join('')}</ul><a class="mcd-btn" href="#/feat/wrong">Revise Wrong Answers ${P(IC.arr)}</a>`:'<p class="mcd-em">Subject-wise results will appear after your quizzes.</p>';
  const box=(ic,t,l,body,cls)=>`<section class="mcd-box ${cls||''}"><h3><span>${P(ic)}${t}</span>${l?`<a href="${l}">View All ${P(IC.arr)}</a>`:''}</h3>${body}</section>`;
- return `<div class="mcd"><section class="mcd-hero"><div class="mcd-ht"><h1>Welcome Back, <em>${E(p.name||'Student')}!</em> 👋</h1><p>Keep learning, keep growing. Your academic journey with MCUN is always here to support you.</p><a class="mcd-cta" href="#/notices">Explore Now ${P(IC.arr)}</a></div><div class="mcd-art">${ART}</div></section>
+ return `<div class="mcd">${HX('dash',{eye:'Dashboard',ic:IC.dash,t:`Welcome Back, <em>${E(p.name||'Student')}!</em>`,p:'Keep learning, keep growing. Your academic journey with MCUN is always here to support you.',cta:`<a class="mcd-cta" href="#/notices">Explore Now ${P(IC.arr)}</a>`,side:hxDate(posts.length,nx)})}
  <div class="mcd-stats">${stats}</div>
  <div class="mcd-g mcd-g1">${box(IC.upd,'Latest Notices','#/notices',lat)}${box(IC.bolt,'Quick Access','',`<div class="mcd-qa">${qa}</div>`)}${box(IC.cal,'Upcoming Exams','#/quiz',exh)}</div>
  <div class="mcd-g mcd-g2">${box(IC.chart,'Your Learning Progress','#/feat/progress',prog)}${box(IC.trophy,'Recent Quiz Result','#/feat/history',rec)}${box(IC.users,'Needs Practice','#/feat/subjprog',need)}</div></div>`}
@@ -118,7 +123,6 @@ window.mcSort=v=>{NS.sort=v;NS.page=1;T(()=>route())};
 window.mcPage=n=>{NS.page=n;T(()=>route());const l=document.getElementById('mcnList');l&&l.scrollIntoView({behavior:'smooth',block:'start'})};
 window.mcExp=()=>{S.st=S.st==='expired'?'active':'expired';NS.page=1;T(()=>route())};
 window.mcClr=()=>{S.q='';NS.page=1;T(()=>route())};
-const MEGA='<svg viewBox="0 0 140 120" aria-hidden="true"><g fill="#fff"><path d="M20 52 88 22v72L20 68z"/><rect x="10" y="48" width="16" height="24" rx="5" fill="#cbd5e1"/><path d="M34 72h18l6 26a5 5 0 0 1-10 2z" fill="#e2e8f0"/><rect x="88" y="18" width="10" height="80" rx="5" fill="#e2e8f0"/></g><g stroke="#fbbf24" stroke-width="5" stroke-linecap="round"><path d="m108 28 12-10M112 52h18M108 76l12 10"/></g></svg>';
 function noticesHTML(){
  const now=Date.now(),exp=S.st==='expired',cat=S.cat||null,DAYMS=864e5;
  const all=T(()=>S.posts.filter(p=>match(p)&&vis(p)),[]);
@@ -147,7 +151,7 @@ function noticesHTML(){
  const evs=act.filter(p=>p.cat==='event'),ev=evs.filter(p=>p.dl&&p.dl>now).sort((x,y)=>x.dl-y.dl)[0]||[...evs].sort((x,y)=>(y.ts||0)-(x.ts||0))[0];
  const evh=ev?(()=>{const d=new Date(ev.dl||ev.ts);return `<a class="mcn-ev" onclick="openPost('${E(ev.id)}')"><div class="mcn-dt"><small>${d.toLocaleString('en-GB',{month:'short'}).toUpperCase()}</small><b>${d.getDate()}</b></div><div><b>${E(ev.title)}</b><span>${P(IC.clock)}${ev.dl?d.toLocaleTimeString('en-GB',{hour:'numeric',minute:'2-digit',hour12:true}):fd(ev.ts)}</span></div></a>`})():'<p class="mcd-em">No upcoming events.</p>';
  const box=(ic,t,fn,body)=>`<section class="mcd-box"><h3><span>${P(ic)}${t}</span>${fn?`<a href="#/notices" onclick="${fn};return false">View All ${P(IC.arr)}</a>`:''}</h3>${body}</section>`;
- return `<div class="mcn"><section class="mcd-hero mcn-hero"><div class="mcn-mega">${MEGA}</div><div class="mcd-ht"><h1>College <em>Updates</em></h1><p>Stay updated with the latest notices, routines, and announcements of Mirpur College.</p><a class="mcd-cta" href="#/notices" onclick="document.getElementById('mcnList').scrollIntoView({behavior:'smooth'});return false">Explore All Updates ${P(IC.arr)}</a></div><div class="mcd-art">${ART}</div></section>
+ return `<div class="mcn">${HX('notices',{eye:'Latest updates',ic:IC.upd,t:'College <em>Updates</em>',p:'Stay updated with the latest notices, routines, and announcements of Mirpur College.',cta:`<a class="mcd-cta" href="#/notices" onclick="document.getElementById('mcnList').scrollIntoView({behavior:'smooth'});return false">Explore All Updates ${P(IC.arr)}</a>`,side:hxLegend()})}
  <div class="mcn-ctl"><div class="mcn-tabs">${tabs}</div><div class="mcn-sort"><button type="button" class="${exp?'on':''}" onclick="mcExp()">${P(IC.clock)}Expired</button><select onchange="mcSort(this.value)" aria-label="Sort"><option value="latest"${NS.sort==='latest'?' selected':''}>Latest First</option><option value="oldest"${NS.sort==='oldest'?' selected':''}>Oldest First</option><option value="deadline"${NS.sort==='deadline'?' selected':''}>Deadline Soon</option></select></div></div>
  ${S.q?`<div class="mcn-q">Results for <b>&ldquo;${E(S.q)}&rdquo;</b><button type="button" onclick="mcClr()">Clear &times;</button></div>`:''}
  <div class="mcn-grid"><section class="mcd-box mcn-list" id="mcnList">${rows}<div class="mcn-pg"><div>${pb}</div><span>${tot?`Showing ${(pg-1)*per+1}&ndash;${Math.min(pg*per,tot)} of ${tot} updates`:''}</span></div></section>
@@ -158,7 +162,6 @@ const HS={bt:'mcq'};
 window.mcBt=v=>{HS.bt=v;T(()=>route())};
 const PAL=['#2563eb','#7c3aed','#16a34a','#f59e0b','#0d9488','#e5484d','#db2777'];
 const TIPS=['Small steps every day lead to big success.','Consistency beats intensity. Practice a little every day.','Mistakes are proof you are trying. Revise them!','Understand the concept first, memorize later.','A focused 25 minutes beats a distracted hour.'];
-const CAP='<svg viewBox="0 0 140 120" aria-hidden="true"><g fill="#fff"><path d="M70 14 8 44l62 30 62-30z"/><path d="M30 62v26c0 8 18 16 40 16s40-8 40-16V62L70 80z" fill="#e2e8f0"/></g><path d="M126 48v34" stroke="#fbbf24" stroke-width="5" stroke-linecap="round"/><circle cx="126" cy="88" r="6" fill="#fbbf24"/></svg>';
 function hubHTML(){ensure();
  const R=T(()=>plData(),[]),tt=R.reduce((a,r)=>a+r.tot,0),tc=R.reduce((a,r)=>a+r.c,0),ov=tt?Math.round(tc*100/tt):0,best=R.length?Math.max(...R.map(r=>r.pc)):0;
  const loaded=T(()=>QB.bq!=null,false),A=T(()=>bqAll(),[]);
@@ -176,7 +179,7 @@ function hubHTML(){ensure();
   return `<a class="mcd-nr mch-nr" style="--c:${c.c}" onclick="openPost('${E(p.id)}')"><em>${E(c.n)}</em><span>${E(p.title)}</span><small>${p.ts?fd(p.ts):''}</small></a>`}).join('')||'<p class="mcd-em">No updates yet.</p>';
  const box=(ic,t,l,body,cls)=>`<section class="mcd-box ${cls||''}"><h3><span>${P(ic)}${t}</span>${l?`<a href="${l}">View All ${P(IC.arr)}</a>`:''}</h3>${body}</section>`;
  const tip=TIPS[Math.floor(Date.now()/864e5)%TIPS.length];
- return `<div class="mcn"><section class="mcd-hero mcn-hero"><div class="mcn-mega">${CAP}</div><div class="mcd-ht"><h1>Academic <em>Hub</em></h1><p>Explore Board Questions, Practice Quiz, and enhance your learning journey!</p><a class="mcd-cta" href="#/board">Start Learning ${P(IC.arr)}</a></div><div class="mcd-art">${ART}</div></section>
+ return `<div class="mcn">${HX('hub',{eye:'Learn &middot; Practice &middot; Improve',ic:IC.cap,t:'Academic <em>Hub</em>',p:'Explore Board Questions, Practice Quiz, and enhance your learning journey!',cta:`<a class="mcd-cta" href="#/board">Start Learning ${P(IC.arr)}</a>`,side:'<ol class="hx-steps"><li><b>01</b><span>Board Questions</span></li><li><b>02</b><span>Practice Quiz</span></li><li><b>03</b><span>Model Test</span></li></ol>'})}
  <div class="mch-acts">${acts}</div>
  <div class="mch-g"><div class="mch-col2">
   <div class="mch-row">${box(IC.hub,'Board Questions','#/board',`<div class="mch-tabs">${bts}</div><div class="mch-ql">${bqr}</div>`)}
@@ -189,7 +192,6 @@ function hubHTML(){ensure();
 const LB={tab:'saved',page:1,q:''};
 window.mcLb=t=>{LB.tab=t;LB.page=1;LB.q='';T(()=>route());setTimeout(mark,30)};
 window.mcLbPg=n=>{LB.page=n;T(()=>route())};
-const LIBART='<svg viewBox="0 0 140 120" aria-hidden="true"><g fill="none" stroke="#fff" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"><path d="M70 34c-12-10-30-12-52-8v70c22-4 40-2 52 8 12-10 30-12 52-8V26c-22-4-40-2-52 8z"/><path d="M70 34v70"/></g></svg>';
 function qrow(x,saved){const sn=T(()=>BSK[x._k][1],x.sub||'Other'),cq=x.ty==='CQ',c=cq?'#7c3aed':'#2563eb';
  const t=cq&&x.st?String(x.st).slice(0,110):(x.ch||sn)+(x.ty?' ('+x.ty+')':''),ch=x.chn?'Ch. '+x.chn:(x.ch||'');
  return `<div class="mcl-r"><div class="mcl-tg" style="--c:${c}"><b>${cq?'CQ':'MCQ'}</b><span>${E(sn)}</span></div><div class="mcl-t"><h4>${E(t)}</h4><div class="mcl-m">${x.b?`<span>${P(IC.cal)}${E(x.b)}</span>`:''}${x.y?`<span>${P(IC.cal)}${E(x.y)}</span>`:''}${ch?`<span>${P(IC.book)}${E(ch)}</span>`:''}</div></div>
@@ -215,7 +217,7 @@ function libHTML(){ensure();
  const qa=[['Find Questions',IC.srch,'#2563eb',"location.hash='#/board'"],['Manage Bookmarks',IC.mark,'#16a34a',"mcLb('bookmarked')"],['View Collections',IC.folder,'#7c3aed',"mcLb('collections')"],['View History',IC.hist,'#f59e0b',"mcLb('history')"]]
   .map(q=>`<a style="--c:${q[2]}" onclick="${q[3]}">${P(q[1])}${q[0]}</a>`).join('');
  const cl=posts.slice(0,3).map(p=>{const c=T(()=>CATS[p.cat],{n:'Notice',c:'#2563eb'});return `<a class="mcl-cl" style="--c:${c.c}" onclick="openPost('${E(p.id)}')"><i>${P(CI[p.cat]||IC.upd)}</i><div><b>${E(p.title)}</b><small>${E(c.n)}</small></div></a>`}).join('')||'<p class="mcd-em">No collections yet. Star a notice to save it here.</p>';
- return `<div class="mcn"><section class="mcd-hero mcn-hero"><div class="mcn-mega mcl-bk">${LIBART}</div><div class="mcd-ht"><h1>My <em>Library</em></h1><p>Save, organize and easily access your important questions and study materials.</p></div><div class="mcl-sl">Study Smart,<br>Score High!</div><div class="mcd-art">${ART}</div></section>
+ return `<div class="mcn">${HX('lib',{eye:'Saved for you',ic:IC.lib,t:'My <em>Library</em>',p:'Save, organize and easily access your important questions and study materials.',side:'<div class="hx-note"><span>Study Smart,</span><b>Score High!</b></div>'})}
  <div class="mcl-tabs">${tabs}</div>
  <div class="mch-g"><div class="mch-col2">${main}${second}</div>
  <aside class="mch-side"><section class="mcd-box"><h3><span>${P(IC.bolt)}Quick Access</span></h3><div class="mcl-qa">${qa}</div></section>
@@ -228,7 +230,6 @@ const DLC=[['all','All Resources',IC.hub],['notes','Study Notes',IC.file],['syll
 const DLSUB=DLC.concat([['history','Download History',IC.hist]]);
 const SUBJ=[['Physics',/physics|পদার্থ/],['Chemistry',/chemistry|রসায়ন/],['Biology',/biology|জীব/],['Higher Math',/higher\s*math|h\.?\s*math|উচ্চতর/],['Math',/math|গণিত/],['ICT',/\bict\b|তথ্য ও যোগাযোগ/],['English',/english|ইংরেজি/],['Bangla',/bangla|বাংলা/],['Accounting',/accounting|হিসাব/],['Economics',/econom|অর্থনীতি/],['Statistics',/statistic|পরিসংখ্যান/],['Geography',/geograph|ভূগোল/],['History',/history|ইতিহাস/]];
 const DLK={pdf:['PDF','#e5484d'],doc:['DOC','#2563eb'],ppt:['PPT','#7c3aed'],xls:['XLS','#16a34a'],img:['IMG','#0d9488'],link:['LINK','#0891b2'],file:['FILE','#64748b']};
-const CLOUD='<svg viewBox="0 0 140 120" aria-hidden="true"><g fill="#fff"><circle cx="48" cy="72" r="20"/><circle cx="72" cy="54" r="26"/><circle cx="100" cy="72" r="18"/><rect x="48" y="70" width="52" height="20"/></g><g fill="none" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"><path d="M72 42v32M58 62l14 14 14-14"/></g></svg>';
 const DOTS='<circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/>';
 window.mdlSet=c=>{DL.cat=c;DL.page=1;DL.q='';DL.sub='';DL.open=null};
 const dlAll=()=>T(()=>S.posts.filter(p=>vis(p)&&!isExp(p)&&ptHasF(p)),[]);
@@ -301,7 +302,7 @@ function dlParts(){
  return {tabs,main,side,ids:sl.map(p=>p.id),subOpts:`<option value="">All Subjects</option>${so}`}}
 function dlPaint(){if(!$('#mdlMain'))return;const d=dlParts();$('#mdlTabs').innerHTML=d.tabs;$('#mdlMain').innerHTML=d.main;$('#mdlSide').innerHTML=d.side;const s=$('#mdlSub');if(s)s.innerHTML=d.subOpts;const i=$('#mdlQ');if(i&&document.activeElement!==i&&i.value!==DL.q)i.value=DL.q;setTimeout(()=>dlWarm(d.ids),0)}
 function dlHTML(){const d=dlParts();setTimeout(()=>dlWarm(d.ids),0);
- return `<div class="mcn mdl"><section class="mcd-hero mcn-hero"><div class="mcn-mega mcl-bk">${CLOUD}</div><div class="mcd-ht"><h1>Down<em>loads</em></h1><p>Get study materials, resources and useful files for your better preparation.</p><a class="mcd-cta" href="#/dl" onclick="document.getElementById('mdlList').scrollIntoView({behavior:'smooth'});return false">Explore Resources ${P(IC.arr)}</a></div><div class="mcl-sl">Study Smart,<br>Download Smart!</div><div class="mcd-art">${ART}</div></section>
+ return `<div class="mcn mdl">${HX('dl',{eye:'Resources',ic:IC.dl,t:'Down<em>loads</em>',p:'Get study materials, resources and useful files for your better preparation.',cta:`<a class="mcd-cta" href="#/dl" onclick="document.getElementById('mdlList').scrollIntoView({behavior:'smooth'});return false">Explore Resources ${P(IC.arr)}</a>`,side:'<div class="hx-types"><span>PDF</span><span>DOC</span><span>IMG</span><span>LINK</span></div><div class="hx-note"><span>Study Smart,</span><b>Download Smart!</b></div>'})}
  <div class="mdl-tabs" id="mdlTabs">${d.tabs}</div>
  <div class="mdl-bar"><label class="mdl-q">${P(IC.srch)}<input id="mdlQ" type="search" placeholder="Search resources..." value="${E(DL.q)}" oninput="mdlQ(this.value)" aria-label="Search resources"></label>
  <select id="mdlSub" onchange="mdlSub(this.value)" aria-label="Filter by subject">${d.subOpts}</select>
@@ -313,7 +314,6 @@ const COM={tab:'notif',page:1,q:''};
 const MAIL='<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>';
 const COMSUB=[['notif','Notifications',IC.bell],['inbox','Inbox / Messages',MAIL],['ann','Announcements',IC.upd]];
 const CHEVR='<svg viewBox="0 0 24 24" aria-hidden="true" class="mcm-go"><path d="m9 6 6 6-6 6"/></svg>';
-const BUBBLES='<svg viewBox="0 0 140 120" aria-hidden="true"><path d="M20 24h62a12 12 0 0 1 12 12v28a12 12 0 0 1-12 12H52L34 92V76h-14a12 12 0 0 1-12-12V36a12 12 0 0 1 12-12z" fill="#fff"/><path d="M100 48h20a12 12 0 0 1 12 12v24a12 12 0 0 1-12 12h-4v14l-14-14H84a12 12 0 0 1-12-12v-6h22a12 12 0 0 0 6-1.600z" fill="#bfdbfe"/><g fill="#1d4ed8"><circle cx="30" cy="50" r="5.500"/><circle cx="51" cy="50" r="5.500"/><circle cx="72" cy="50" r="5.500"/></g></svg>';
 const cmN=()=>T(()=>nList(),[]);
 const cmI=()=>T(()=>[...N.inbox].sort((a,b)=>(b.ts||0)-(a.ts||0)),[]);
 const cmA=()=>T(()=>S.posts.filter(p=>p.cat==='notice'&&vis(p)&&!isExp(p)).sort((a,b)=>(b.pinned?1:0)-(a.pinned?1:0)||(b.ts||0)-(a.ts||0)),[]);
@@ -340,7 +340,7 @@ function cmBody(){
  const nN=cmN().length,nI=cmI().length,nA=cmA().length,unread=cmN().filter(cmNew).length,tabs=[['notif','Notifications',IC.bell,nN],['inbox','Inbox',MAIL,nI],['ann','Announcements',IC.upd,nA]].map(t=>`<button type="button" class="mcn-tab${COM.tab===t[0]?' on':''}" onclick="mcmTab('${t[0]}')">${P(t[2])}${t[1]} (${t[3]})</button>`).join('');
  const others=['notif','inbox','ann'].filter(k=>k!==COM.tab),on=T(()=>pushOK()&&pIsOn(),false);
  const qa=[[IC.bell,'#2563eb','Notifications',"mcmTab('notif')"],[MAIL,'#16a34a','Inbox',"mcmTab('inbox')"],[IC.upd,'#f59e0b','Announcements',"mcmTab('ann')"],[IC.users,'#7c3aed','Contact Admin',"location.hash='#/contact'"]].map(q=>`<a style="--c:${q[1]}" onclick="${q[3]}">${P(q[0])}${q[2]}</a>`).join('');
- return `<section class="mcd-hero mcn-hero"><div class="mcn-mega mcl-bk">${BUBBLES}</div><div class="mcd-ht"><h1>Communi<em>cation</em></h1><p>Stay connected with MCUN. Get the latest notifications, messages and announcements.</p></div><div class="mcl-sl">Stay Informed,<br>Stay Ahead!</div><div class="mcd-art">${ART}</div></section>
+ return `${HX('com',{eye:'Inbox',ic:IC.com,t:'Communi<em>cation</em>',p:'Stay connected with MCUN. Get the latest notifications, messages and announcements.',side:hxUnread()})}
  <div class="mcn-ctl"><div class="mcn-tabs">${tabs}</div><div class="mcn-sort"><button type="button" onclick="mcmRead()"${unread?'':' disabled'}>${P(IC.chk)}Mark All as Read</button></div></div>
  ${COM.q?`<div class="mcn-q">Results for <b>&ldquo;${E(COM.q)}&rdquo;</b><button type="button" onclick="mcmClr()">Clear &times;</button></div>`:''}
  <div class="mcm-grid">${cmBox(COM.tab,true)}<div class="mcm-side">${others.map(k=>cmBox(k,false)).join('')}</div></div>
@@ -372,10 +372,7 @@ const BLOODS=['A+','A-','B+','B-','AB+','AB-','O+','O-'],GENS=['Male','Female','
 const PTABS=[['ov','Profile Overview','#/profile',IC.acc],['ac','Academic Info','#/profile/academic',IC.cap],['st','Account Settings','#/feat/settings',IC.gear],['pw','Change Password','#/feat/password',IC.lock],['hp','Help & Support','#/contact',IC.headset]];
 const pfTab=()=>{const h=hp();if(h[0]==='profile')return h[1]==='academic'?'ac':'ov';if(h[0]==='feat')return h[1]==='settings'?'st':h[1]==='password'?'pw':'ov';return 'ov'};
 const pfTabs=a=>`<nav class="mcp-tabs" aria-label="Profile sections">${PTABS.map(t=>`<a class="${t[0]===a?'on':''}" href="${t[2]}"${t[0]===a?' aria-current="page"':''}>${P(t[3])}<span>${t[1]}</span></a>`).join('')}</nav>`;
-const pfHero=()=>`<section class="mcp-hero"><div class="mcp-hav"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="60" fill="#f1f5ff"/><circle cx="60" cy="46" r="20" fill="#1d3fa8"/><path d="M22 104c4-20 20-30 38-30s34 10 38 30a58 58 0 0 1-76 0z" fill="#1d3fa8"/></svg></div>
- <div class="mcp-ht"><h1>My <em>Profile</em></h1><p>Manage your personal information<br>and account settings.</p></div>
- <div class="mcp-hq"><span>Dream Big,<br>Achieve Bigger!</span><svg viewBox="0 0 120 14" aria-hidden="true"><path d="M2 11C30 3 70 2 118 4" fill="none" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/></svg></div>
- <div class="mcp-hart">${ART}</div></section>`;
+const pfHero=()=>{const p=T(()=>U.prof,{})||{},nm=String(p.name||'S').trim(),yd=[p.year,p.dept].filter(Boolean).join(' · ');return HX('pf',{eye:'My account',ic:IC.acc,t:'My <em>Profile</em>',p:'Manage your personal information and account settings.',side:`<div class="hx-id"><i>${E(nm.charAt(0).toUpperCase())}</i><div><b>${E(nm)}</b><span>${E(yd||'Student')}</span><code>${E(T(()=>mcId(),''))}</code></div></div>`})};
 const mcId=()=>{const p=T(()=>U.prof,{})||{};let h=0;for(const c of String(p.uid||'x'))h=(h*31+c.charCodeAt(0))>>>0;const y=new Date(T(()=>U.user.metadata.creationTime,Date.now())).getFullYear();return 'MCUN-'+y+'-'+h.toString(36).toUpperCase().padStart(4,'0').slice(-4)};
 const pfDob=v=>{if(!v)return '';const d=new Date(v+'T00:00:00');return isNaN(d)?v:d.toLocaleDateString('en-GB',{day:'2-digit',month:'long',year:'numeric'})};
 const pfAgo=ts=>{const s=Math.max(0,(Date.now()-ts)/1000);if(s<90)return 'Just now';if(s<3600)return Math.round(s/60)+' min ago';if(s<86400){const h=Math.round(s/3600);return h+(h===1?' hour ago':' hours ago')}if(s<2592000){const d=Math.round(s/86400);return d+(d===1?' day ago':' days ago')}return fd(ts)};

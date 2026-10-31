@@ -405,7 +405,7 @@ footer a{color:#ffd9f0}
 @media(max-width:899px){.nv.on{box-shadow:none}}
 @media(min-width:1100px){.side-f .cats::before{color:var(--pri)}}
 /* ===================== /COLORFUL ===================== */
-</style></head><body>
+</style><link rel="stylesheet" href="admin-redesign.css"></head><body>
 <header><div class="wrap nav"><a class="logo" href="admin.html"><img src="/logo.png" onerror="this.onerror=null;this.src=LOGO_FB" alt="Logo">Admin Panel</a><div class="sp"></div>
 <div class="hdr-r"><span id="who"></span><a class="btn ghost sm" href="/" aria-label="Back to main website"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></svg><span class="hd"> Main site</span></a><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="btn ghost sm" id="outBtn" style="display:none" onclick="logout()" aria-label="Logout"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/></svg><span class="hd"> Logout</span></button></div></div></header>
 <main class="wrap" id="app"></main>
@@ -1011,10 +1011,15 @@ function qbdV(){if(S.qzs===null||S.bqs===null||S.qas===null||S.users===null)retu
 function qbCsv(){const Z=Object.fromEntries((S.qzs||[]).map(z=>[z.id,z])),U=Object.fromEntries((S.users||[]).map(u=>[u.id,u])),rows=[["Quiz","Mode","Name","Email","Year","Department","Score","Total","Correct","Wrong","Seconds","Time"]];
  (S.qas||[]).slice().sort((a,b)=>b.ts-a.ts).forEach(a=>{const u=U[a.uid]||{},z=Z[a.quizId]||{};rows.push([z.t||a.quizId,z.mode||"",u.name||"",u.email||"",u.year||"",u.dept||"",a.score,a.total,a.correct,a.wrong,a.used,new Date(a.ts).toLocaleString("en-GB")])});
  saveFile("quiz-results.csv",csv(rows),"text/csv")}
-function view(){const it=NAVK[S.tab]||NAVK.dash;if(S._pk!==S.tab){S._pk=S.tab;if(it.p)it.p()}return subBar(it)+it.v()}
+function view(){const it=NAVK[S.tab]||NAVK.dash;if(S._pk!==S.tab){S._pk=S.tab;if(it.p)it.p()}
+ const v=it.v(),m=v.match(/^\s*(<h1 class="pt">[\s\S]*?<\/h1>)(\s*<p class="sub">[\s\S]*?<\/p>)?/);
+ const g=it.g||"g_dash",d=new Date(),gn=(GROUPS.find(x=>x[0]==g)||[])[2]||"";
+ if(!m)return `<section class="ahero ah-${g}"><div class="ahd" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="ahm"><h1 class="pt">${gn}</h1></div></section>`+subBar(it)+v;
+ const d0=0,side=g=="g_dash"?`<div class="ahs"><small>${d.toLocaleDateString("en-GB",{weekday:"long"})}</small><b>${d.getDate()}</b><span>${d.toLocaleDateString("en-GB",{month:"long",year:"numeric"})}</span></div>`:"";
+ return `<section class="ahero ah-${g}"><div class="ahd" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="ahm">${m[1]}${m[2]||""}</div>${side}</section>`+subBar(it)+v.slice(m[0].length)}
 function panelV(){const un=S.msgs.filter(m=>!m.read&&!m.arch).length;
  {const it=NAVK[S.tab]||NAVK.dash;if(!allowed([0,0,0,it.a]))setTab("dash")}
- return `<div class="shell"><nav class="side" aria-label="Admin menu">${navBar(un)}</nav>${morePop()}<section class="mainc">${view()}</section></div>`}
+ return `<div class="shell"><nav class="side" aria-label="Admin menu"><a class="sb-brand" href="admin.html"><img src="/logo.png" onerror="this.onerror=null;this.src=LOGO_FB" alt=""><b>MCUN</b><small>Admin Panel</small></a>${navBar(un)}</nav>${morePop()}<section class="mainc">${view()}</section></div>`}
 function render(keep){
  if($("#qbf"))qbSnap();if($("#cform"))S.form=snap();
  const em=$("#em")?$("#em").value:null,ae=document.activeElement,fa=ae&&ae.id,cs=ae&&ae.selectionStart;
