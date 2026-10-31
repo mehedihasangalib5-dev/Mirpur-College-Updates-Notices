@@ -262,43 +262,144 @@ Note:
  3. Phone-er header-e ekhon Inbox (ghonta) icon ache, unread number-shoho; tap korle Inbox page.
 
 
-=== W) STUDENT PORTAL + ACADEMIC HUB (new) ===
-New pages:
-  - /student.html          Student Portal (same Firebase Auth session as the main site)
-  - /academic-admin.html   Academic content manager (Owner/Admin/Editor access)
-  - /api/academic          Secure quiz start + server-side score submission
+=== W) QUIZ + BOARD QUESTION (STUDENT SIDE) ===
+ Site: #/quiz (list, timer, Practice/Exam, result + review) ar #/board (Board/Sal/Subject/CQ-MCQ filter, prosno + somadhan text, Save).
+ Header link + phone-e rotate menu-te Quiz ar Board tile. Board page-e Copy/Cut/Right-click/Print bondho + naam-email watermark.
+ Data: collection quizzes {t,sub,mode:"Exam"|"Practice",min,neg,pages:[..],q:[{q,o:[4],a,e}],dl,at,draft,ts}
+       collection boardQ {b,y,sub,ch,ty:"CQ"|"MCQ",m,pages:[..], CQ: st,p:[4],s:[4](optional) | MCQ: qz:<quizId>, ts}
+       collection quizAttempts/{uid_quizId} (server rules-e Exam ekbar-i)
+ DEPLOY: (1) firestore.rules Publish (2) Vercel deploy (sw.js v27 -> Student-er app-e "Update" banner ashbe).
+ Note: Admin side ekhono baki; ekhon data Firebase Console theke dite hobe. Exam-er answer client-e thake (server grading pore).
 
-Student Portal includes:
-  - Dashboard, College Updates, Academic Hub, Board Questions, Quiz & Exam
-  - My Learning, My Results, My Library (saved questions), Downloads, Communication, My Profile
-  - Board questions are rendered as website content; there is no Board Question PDF uploader/viewer.
-  - Student login/profile is reused from the existing main site. If not logged in, use the main site's Login flow first.
+=== X) ADMIN SIDE: QUIZ + BOARD (admin.html) ===
+ - Notun tab "Quiz & Board" (Owner + Admin; scope-wala Admin shudhu nijer Page): Quiz form (prosno, uttor, byakkha, Mode, time, negative, deadline, schedule, Page), Board Question form (CQ text + solution, MCQ -> Quiz link), list + Edit/Delete.
+ - Publish-er sathe tick thakle auto ekta Post ("Notun Quiz: ...") toiri hoy + push notification (age-r notify API, notun function lagbe na).
+ - Notun tab "Q&B Dashboard": SHUDHU OWNER (UI tab lukano + firestore.rules-e quizAttempts read shudhu Owner). KPI, 7 dine attempt, Quiz/Page/Board onujayi report, Result CSV.
+ - DEPLOY: firestore.rules abar Publish + Vercel deploy. Ager moto Student-er "Update" banner-er jonno sw.js V ar ekbar bariye nao (v28) jodi index.html-o bodlay.
 
-Academic Manager includes:
-  - Board Question create/edit/publish/draft; MCQ and CQ content; board/subject/year/chapter metadata
-  - Quiz builder (single-answer MCQ in this first release), practice/exam mode, duration, schedule, attempt limit
-  - Quiz results overview and basic analytics
-  - Answer keys are stored separately from student-visible quiz question documents.
 
-REQUIRED SETUP BEFORE DEPLOY:
-  1. Publish the updated firestore.rules from this project in Firebase Console > Firestore > Rules.
-  2. Confirm Vercel has FIREBASE_SERVICE_ACCOUNT (same service-account environment variable already used by push/student-admin APIs).
-  3. Deploy the project to Vercel. The new /api/academic endpoint uses the existing firebase-admin dependency.
-  4. Admins open /admin first, sign in with an approved Owner/Admin/Editor account, then open Academic Manager.
-  5. Students sign in on the main site, then open /student.html.
+=== Y) STUDENT QUIZ UI v2 (index.html + sw.js v29) ===
+ - Quiz list: stats strip (মোট/সম্পন্ন/গড়), search, filter chip (সব/Exam/Practice/বাকি আছে), status badge (নতুন/চলছে/সম্পন্ন/সময় শেষ), score bar, skeleton loading, "চলছে" resume banner.
+ - Intro screen (#/quiz/<id>): rules + stat tile + শুরু করো. Exam ekbar-i, deadline-er por start hoy na.
+ - Runner: sticky header (timer + progress), boro option card (letter badge, ✓/✕ icon), Flag, bottom action bar (আগের | প্রশ্ন তালিকা | পরের/Submit),
+   palette bottom-sheet (answered/flagged/current), custom Submit dialog (ক-ta baki), Exam-e answer abar tap korle muche jay, Practice-e sathe sathe ঠিক/ভুল + ব্যাখ্যা.
+ - Autosave: answer/flag/timer sessionStorage-e. Refresh korle ba tab ghure abar khulle resume. Exam-er somoy shesh hoye gele save kora answer auto Submit.
+ - Keyboard (desktop): 1-4 option, ←/→ prosno, F flag, Esc dialog bondho. Quiz cholar somoy phone-er bottom nav lukano thake.
+ - Result: score ring (%), ঠিক/ভুল/বাকি/সময় tile, review tab (সব/ভুল/বাকি/Flagged), "তোমার উত্তর"/"সঠিক" badge.
+ - Data/Firestore rules BODLAY NI -- quizAttempts-er field ager moto. Shudhu deploy + sw.js v29 (Student-er app-e "Update" banner ashbe).
+ - Note: Exam attempt-e answer save hoy na, tai Exam-er review shudhu submit-er por result page-e dekha jay. Pore review chaile quizAttempts-e `ans` field + rules update lagbe.
 
-New Firestore collections:
-  - boardQuestions: published student-facing board question content and verified solutions
-  - quizSets: quiz metadata
-  - quizQuestions: student-facing quiz text/options only (no correct answers)
-  - quizAnswerKeys: staff-only answer keys (never readable by students)
-  - quizAttempts: server-written results; students can read only their own attempts
-  - quizSessions: server-managed sessions (no client read/write)
-  - users/{uid}/savedQuestions: each student's private saved-question library
 
-Notes:
-  - Board questions are shown directly on the website; use the question text/solution fields rather than PDF links.
-  - In this initial implementation, Quiz Builder supports single-correct MCQ. Board Question entries support MCQ and CQ.
-  - The first version's subject/board lists are editable in student.html and academic-admin.html constants.
-  - Sample/empty states are shown until Admin publishes real content. Do not add fake exam results or statistics.
-  - Keep answer keys in quizAnswerKeys. Do not copy correct answers into quizQuestions.
+=== Z) BOARD READER v2 + QUIZ RANDOM POOL (index.html, admin.html, sw.js v30) ===
+Board Question (HSC-only):
+ - Hub: bishoy grid (tomar dept onujayi: সাধারণ + Science/Arts/Commerce), "সব বিষয় দেখো" e baki gulo. Pora/Saved counter.
+ - Bishoy page (#/board/<key>): ১ম পত্র / ২য় পত্র alada tab (ICT-r moto 1-patro bishoy-e tab nei), type (CQ/MCQ), odhyay chip, porikkha/board/saal filter.
+ - Reader (#/board/q/<id>): উদ্দীপক box, proti part-er নম্বর (১/২/৩/৪), part-wise "উত্তর দেখো" + "সব উত্তর দেখাও", MCQ-te option tap korle ঠিক/ভুল + ব্যাখ্যা,
+   Save, A−/A+ lekha-r size (mone thake), আগের/পরের, "পড়া" tick. #/board/saved = Saved prosno.
+ - Purono board question (sk/pp nei) -> `sub` text theke auto bishoy dhora hoy; patro na thakle shudhu "সব" tab-e dekhay. Admin Edit korle patro bachai kore ঠিক kore nao.
+Quiz random pool:
+ - Quiz-e notun field `cnt` (protibar kota prosno; ফাঁকা = shob) ar `fx` (krom thik rakho). Default-e protibar prosno-r krom shuffle hoy.
+ - cnt < pool hole: protibar alada prosno; age na-dekha prosno age ashe (localStorage mcn_qseen_<quizId>), pool shesh hole notun round.
+ - Refresh/resume-e same drawn prosno thake (sessionStorage `ix`).
+Admin:
+ - Board form: পরীক্ষা (বোর্ড/নির্বাচনী/মডেল টেস্ট/কলেজ), বিষয় (HSC bishoy dropdown), পত্র, odhyay (age-r odhyay suggest hoy). Board list-e patro + porikkha dekhay.
+ - Quiz form: "প্রতিবার কতটি প্রশ্ন" + "প্রশ্নের ক্রম ঠিক রাখো".
+ - firestore.rules BODLAY NI (notun field allow-ei ache).
+ - HSC_SUBJ list index.html ar admin.html du jayga-te ache, bodlale duto-ei bodlate hobe.
+
+
+=== AA) BANGLA অংশ + CHORCHA-STYLE PRACTICE (index.html, admin.html, sw.js v31) ===
+ - Board > Bangla: ১ম পত্র = সাহিত্যপাঠ + সহপাঠ, ২য় পত্র = ব্যাকরণ ও নির্মিতি. Notun "অংশ" chip row (paper tab-er niche); card/reader-e অংশ-er naam.
+   Admin Board form-e notun "অংশ (বাংলা)" dropdown (field `pt`: sp | sh | bn). Purono ২য় পত্র Bangla question auto "ব্যাকরণ ও নির্মিতি" hishebe dhore.
+ - Board hub: দিনের Streak, "কাস্টম মক টেস্ট" (#/board/mock: bishoy + অংশ + 10/20/30/50 prosno + Exam/Practice, Board MCQ pool theke random),
+   "ভুল রিভিউ" (#/board/mistakes: Quiz/Board MCQ/Mock-e bhul hoya prosno jome, sathe ব্যাখ্যা + oigulo diye Practice). Shob data phone-er localStorage-e.
+ - Mock quizAttempts-e save hoy na. Firestore rules BODLAY NI. Deploy-er por student-er app-e "Update" banner ashbe.
+
+=== AB) QUIZ/BOARD ADMIN SIMPLIFY + STUDENT-CHOSEN EXAM (index.html, admin.html, sw.js v32) ===
+ - Admin Quiz form: shudhu বিষয়, পত্র, অংশ (Bangla), অধ্যায় ১–২০ + অধ্যায়ের নাম, Mode. Title auto = বিষয় · পত্র · অংশ · অধ্যায়.
+   Removed: শিরোনাম, সময়, ভুল কাটা, শেষ তারিখ, Schedule, প্রতিবার কতটি, Page checkbox (ekhon admin-er shob scope Page-e jay).
+ - Admin Board form: অধ্যায় text -> অধ্যায় select (১–২০) + নাম; Page checkbox remove. Fields: chn, cn, ch ("অধ্যায় ৩: নাম").
+ - Student Exam intro: prosno-songkha, somoy, negative nijei select. Practice: sobsomoy ২০টি prosno (pool-e kom thakle jotota ache).
+
+=== AC) ADMIN PANEL: 7-GROUP STRUCTURE (admin.html, sw.js v33) ===
+ Sidebar = 7 group (Dashboard, Content, Academic Hub, Students, Communication, Website, Administration). Group click -> prothom item; upore chip bar-e sub-menu.
+ Academic Hub-e 3 ti pill: Dashboard | Board Question Mgmt (12) | Quiz Mgmt (11). Hash = item key (#bq-mcq, #qz-new ...). Purono #qbm, #qbd cholbe.
+ Board status workflow: Draft -> Under Review -> Verified -> Published (field `stt` + `draft`). Shudhu Published student dekhe (qLive draft check).
+ Owner-only: Quiz Participants/Results/Analytics, Student Activities/Learning Progress, Website group.
+ Placeholder (এখনো তৈরি হয়নি): Reported Questions, Homepage Mgmt, Homepage Sections, Navigation, Footer.
+
+=== AD) REPORTED QUESTIONS (index.html, admin.html, firestore.rules, sw.js v34) ===
+ - Student: Board reader-er upore "Report" button -> karon (ভুল উত্তর / বানান / অসম্পূর্ণ / অন্য) + optional note -> qReports/{uid}_{questionId}. 1 prosno-te 1 report.
+ - Admin: Academic Hub > Board Question > Reported Questions. Edit প্রশ্ন / Hide (Review-e pathay) / সমাধান / বাতিল / Delete. Open count badge menu-te.
+ - FIRESTORE RULES UPDATE LAGBE: firestore.rules ta Firebase Console > Firestore > Rules-e paste kore Publish korte hobe (notun match /qReports).
+
+=== AE) WEBSITE MANAGEMENT (index.html, admin.html, firestore.rules, sw.js v35) ===
+ - Owner-only: Website group > Homepage Management (hero শিরোনাম/বিবরণ), Homepage Sections (ticker/strip/stats/category chips on-off), Navigation Management (max 3 extra link: top menu + footer), Footer Management (copyright, iPhone tip on-off).
+ - Data: Firestore config/site. Student site cache kore (localStorage mcn_site), notun value ektu por dekhay.
+ - FIRESTORE RULES UPDATE LAGBE: firestore.rules ta Console-e Publish korte hobe (notun match /config/site: public read, Owner write).
+ - Mobile bottom nav (bnav) bodlay na; extra link shudhu top menu + footer-e.
+
+=== AF) QUIZ PROSNO REPORT (index.html, admin.html, sw.js v36) ===
+ - Quiz result review-te ar Board MCQ-er proti prosno-te "সমস্যা জানাও" button. Report doc: qReports/{uid}_{quizId-index}, kind:"quiz". Rules bodlate hobe na.
+ - Admin Reported Questions-e "[Quiz]" tag + "Edit Quiz" button. Mock/ভুল রিভিউ test-e button nei.
+
+
+=== AG) SERVER-SIDE EXAM GRADING (api/grade.js, admin.html, index.html, firestore.rules, sw.js v42) ===
+ - Exam quiz save korle answer/byakkha quizzes doc theke soriye quizKeys/{id}-te jay (quizzes.sec=1). Student-er browser-e Submit-er age answer key pouchay na.
+ - Student Submit -> POST /api/grade -> server grade kore, quizAttempts ekbar-i likhe, ঠিক uttor + byakkha ferot dey (result/review ager moto).
+ - Practice quiz ager moto (answer sathe sathe dekhay). Mock test ager moto client-e.
+ - Purono Exam: Admin > Academic Hub > Quiz Mgmt > All Quiz-er upore "Secure করো" button (ekbar) -> purono Exam-er answer quizKeys-e jay.
+ - Edit korle admin-er form-e answer quizKeys theke ashe, save-e abar alada hoy.
+ DEPLOY: (1) firestore.rules Publish (2) Vercel deploy (notun api/grade.js; function ekhon 11 ta, limit 12) (3) Admin-e "Secure করো" chapo.
+ Note: Secure korar age rules Publish korle purono (unsecured) Exam kaj korbe; secure-er por notun rules-e client attempt likhte pare na, shudhu server.
+ Note: quizKeys-e doc na thakle (sec=1 kintu key nei) student-er Submit "Submit hoyni" dekhabe.
+
+=== AH) EXAM TIME-LIMIT SERVER-E CHECK (api/grade.js, index.html, firestore.rules, sw.js v43) ===
+ - Secured Exam shuru korar somoy /api/grade {action:"start"} -> server examStarts/{uid_quizId}-te shuru-r somoy ar min likhe. Timer server-er baki somoy theke cholay.
+ - Refresh / tab bondho kore abar shuru korleo timer reset hoy na (server-er original start-i thake). Somoy age-i shesh hole 0 nombor, Exam lock.
+ - Submit-e server somoy check kore: shuru + min + 45 sec (grace) er por hole nombor 0 (late:true) -- uttor review-e dekhay kintu nombor pay na. "used" server nijei hishab kore.
+ - Min-er upper limit server-e: max(60, prosno x 0.75) (client-er option-er sathe mil). Exam deadline (dl) thakle start-o server check kore.
+ - DEPLOY: firestore.rules Publish (notun examStarts) + Vercel deploy. Notun function lagbe na (grade.js-ei).
+ - Note: secured Exam-e start-er jonno internet lagbe. Purono (unsecured) Exam ager moto client timer; Secure kore nao (AG section).
+
+=== AI) QUIZ ATTEMPT HISTORY (index.html, api/grade.js, firestore.rules, sw.js v44) ===
+ - Proti Quiz attempt alada save hoy: users/{uid}/history/{auto} {quizId,score,correct,wrong,total,used,ts,mode}. Practice-e client likhe, Exam-e /api/grade (server).
+ - Portal > My Learning > Learning History: shob attempt (notun age), 100 ta porjonto; tap korle oi Quiz-e. Purono (ei update-er age-r) attempt quizAttempts theke ekta kore dekhay.
+ - Shudhu nijer history pora jay (rules: auth.uid == uid); Owner-er Dashboard quizAttempts-ei thake (ager moto).
+ - Progress/Subject/Chapter page ekhono quizAttempts-er shesh attempt dhore hishab kore.
+ - DEPLOY: firestore.rules Publish + Vercel deploy. Late (0 nombor, somoy-shesh) attempt history-te jay na, shudhu quizAttempts-e thake.
+
+=== AJ) PROGRESS/ANALYTICS = SHOB ATTEMPT (index.html, sw.js v45) ===
+ - My Progress, Performance Analytics, Subject-wise, Chapter-wise ekhon users/{uid}/history-r shob attempt (+ purono quizAttempts) dhore hishab kore.
+   Gor % = sob attempt-er mot thik / mot prosno. Ekta Quiz bar bar dile protibar-i ganona hoy.
+ - My Progress-er "Quiz sompurno" = alada Quiz-er songkha. Analytics trend = shesh 7 ta attempt (bar chart).
+ - Late (0 nombor) Exam-e total=0, tai % hishabe prabhab pore na kintu sera/trend-e 0% dekhay.
+ - Recent Activities-eo ekhon attempt-gulo alada dekhay. Rules/server bodlay ni, shudhu deploy + sw.js v45.
+
+=== AK) WRONG ANSWER REVISION PAGE (index.html, sw.js v46) ===
+ - Portal > Academic Hub > Quiz & Exam > Wrong Answer Revision = #/portal/wrong. Ager "ভুল রিভিউ" (#/board/mistakes) cholbe, ei page-o ekoi data (localStorage mcn_bmis) dhore.
+ - Quiz/Exam Submit-er somoy bhul prosno-r sathe ekhon source jome: {sub, ch, t, z, ts}. Notun bhul gulo bishoy/odhyay onujayi filter kora jay; purono bhul "অন্যান্য"-te.
+ - Page-e: stats (mot bhul, bishoy, sobcheye bhul bishoy), bishoy + odhyay chip, proti prosno-te option tap kore nijei abar try (sathe sathe ঠিক/ভুল + ব্যাখ্যা),
+   "মনে আছে, সরাও", ar filter kora prosno diye "Practice করো" (max 30). Practice-e ঠিক dile ager moto auto list theke soriye jay.
+ - Data shudhu oi device-er localStorage-e (max 150 ta); onno student dekhte pay na. Server/rules bodlay ni -- shudhu Vercel deploy + sw.js v46.
+
+=== AL) WATERMARK UTHANO (index.html, sw.js v47) ===
+ - Board page ar Quiz cholar somoy je naam-email watermark overlay (#qbwm) dekhato ta soriye fela hoyeche.
+ - Copy / Cut / Right-click / Drag / Ctrl+P,S,C,A,U bondho ager moto-i ache (body.prot). Board hub-er notice-eo "watermark" lekha tule deya hoyeche.
+ - Deploy: shudhu Vercel deploy (sw.js v47 -> "Update" banner).
+
+
+=== PORTAL REMOVED -> SEPARATE FEATURES (index.html) ===
+ - Portal tab nei. Tar 8 section ekhon alada alada top-level feature, nijer tab/page: #/dash Dashboard, #/upd College Updates, #/hub Academic Hub, #/learn My Learning, #/lib My Library, #/dl Downloads, #/com Communication, #/acc Account.
+ - Header-er niche feature bar (shob page-e), phone-e "Aro feature" menu-te-o protita alada tile.
+ - Sub-page-gulor route #/feat/... (age #/portal/...). Purono #/portal... link auto redirect hoy.
+
+
+=== AM) NOTUN MY PROFILE PAGE + SIDEBAR DROPDOWN (redesign.js, redesign.css, index.html, firestore.rules) ===
+ - Sidebar: Dashboard / My Library / Downloads = sidhe link. College Updates, Academic Hub, My Learning, Communication, My Profile = dropdown (> bondho, ^ khola; ekshathe ekadhik khola thake).
+   My Profile dropdown: Profile Overview | Academic Info | Account Settings | Change Password | Help & Support.
+ - Profile page (#/profile, #/profile/academic): banner + 5 tab, left profile card (photo, MCUN ID, college), Personal Information + Academic Information (alada Edit),
+   Quick Stats (Quiz Done / Avg Score / Achievements), Recent Activities, Need Help. Account Settings / Change Password page-eo ekoi banner + tab.
+ - Notun field: Phone, Date of Birth, Gender, Blood Group, Address, Roll No, Session -> users/{uid}-te (ph, dob, gen, bg, addr, roll, ses).
+ - MCUN ID = uid theke auto toiri (MCUN-<bochhor>-XXXX), kothao save hoy na.
+ - DEPLOY: (1) firestore.rules Publish (na korle shudhu name/photo/year/dept server-e jabe; baki gulo oi device-e thakbe)  (2) Vercel deploy  (3) sw.js V ekta barao (apnar sw.js ei zip-e khali chhilo).
