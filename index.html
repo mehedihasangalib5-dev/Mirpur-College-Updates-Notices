@@ -682,7 +682,7 @@ html.gated .fbar,body.qrun .fbar{display:none!important}
 .tile i{font-style:normal;margin-left:auto;color:var(--c);font-weight:800;font-size:18px}
 .tile:hover{transform:translateY(-2px);box-shadow:var(--sh);border-color:var(--c)}
 /* ===================== /COLORFUL ===================== */
-</style></head><body>
+</style><link rel="stylesheet" href="redesign.css"></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
 <nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="installBtn" style="display:none"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span class="hd"> Install</span></button><a class="btn ghost sm" id="adminBtn" href="/admin" style="display:none" aria-label="Admin Panel"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.4 8.4-8 9-4.6-.6-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg> Admin</a><button class="btn ghost sm" id="bellBtn" type="button" aria-label="Notification" onclick="bellTap()"></button><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="me" id="meBtn" aria-label="Profile" type="button"></button></div></header><nav class="fbar" id="fbar" aria-label="Features"></nav>
 <div id="gate"></div>
@@ -1592,4 +1592,5 @@ if("serviceWorker"in navigator){let rl=false;
  if(c&&c.uid&&YEARS.includes(c.year)&&DEPTS.includes(c.dept)){U.prof=c;enter(false)}else showGate("login");
  authInit()})();
 </script>
+<script src="redesign.js" defer></script>
 </body></html>
