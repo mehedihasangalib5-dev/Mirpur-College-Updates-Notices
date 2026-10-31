@@ -532,13 +532,14 @@ body.qrun .bnav,body.qrun .fab{display:none!important}
 @media(prefers-reduced-motion:reduce){.qr-q.in,.qs,.qs-c,.qr-ring,.qb-sk,.qb-t.low{animation:none}.qb-o,.qz{transition:none}}
 .prot{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}@media print{.prot #app{display:none}}#qbwm{position:fixed;inset:0;pointer-events:none;z-index:4;display:none}
 .bq-act{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.bq-act a{display:block;padding:14px;border-radius:14px;border:1px solid rgba(128,128,128,.25);text-decoration:none;color:inherit}.bq-act a:first-child{background:linear-gradient(135deg,#2850e8,#7c5cff);color:#fff;border:0}.bq-act b{display:flex;gap:6px;align-items:center;font-size:15px;margin-bottom:3px}.bq-act small{display:block;opacity:.8;font-size:12px;line-height:1.4}.bq-act svg{width:18px;height:18px}@media(max-width:380px){.bq-act{grid-template-columns:1fr}}
+[data-hide~=tick] .tick,[data-hide~=strip] .hstrip,[data-hide~=stats] .stats,[data-hide~=cats] .cats,[data-hide~=cats] .mcat{display:none!important}
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
 <nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="installBtn" style="display:none"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span class="hd"> Install</span></button><a class="btn ghost sm" id="adminBtn" href="/admin" style="display:none" aria-label="Admin Panel"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.4 8.4-8 9-4.6-.6-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg> Admin</a><button class="btn ghost sm" id="bellBtn" type="button" aria-label="Notification" onclick="bellTap()"></button><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="me" id="meBtn" aria-label="Profile" type="button"></button></div></header>
 <div id="gate"></div>
 <main class="wrap" id="app"></main>
-<footer><div>© <span id="yr"></span> Mirpur College Updates &amp; Notices. All rights reserved.</div>
-<div>Developed by <a href="https://www.facebook.com/share/1F83w5QvQ2/" target="_blank" rel="noopener" aria-label="Md Mehedi Hassan - Facebook" style="display:inline-flex;align-items:center;gap:5px;vertical-align:middle"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true" style="flex:none"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H8v3h2.4V21h3.1z"/></svg> Md Mehedi Hassan</a></div><div style="margin-top:6px"><a href="#/">Home</a> · <a href="#/contact">Contact</a></div><div style="margin-top:8px;font-size:12px"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg> iPhone: Safari → Share → "Add to Home Screen"</div></footer><nav class="bnav" id="bnav" aria-label="Main"></nav><div class="mm" id="mmore" onclick="if(event.target===this)toggleMore(false)"><div class="mm-c" id="mmc" role="menu"></div></div><a class="fab" id="fab" href="#/contact" aria-label="Contact"><span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Contact</a>
+<footer><div>© <span id="yr"></span> <span id="fcp">Mirpur College Updates &amp; Notices. All rights reserved.</span></div><div id="fx" style="margin-top:6px"></div>
+<div>Developed by <a href="https://www.facebook.com/share/1F83w5QvQ2/" target="_blank" rel="noopener" aria-label="Md Mehedi Hassan - Facebook" style="display:inline-flex;align-items:center;gap:5px;vertical-align:middle"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true" style="flex:none"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H8v3h2.4V21h3.1z"/></svg> Md Mehedi Hassan</a></div><div style="margin-top:6px"><a href="#/">Home</a> · <a href="#/contact">Contact</a></div><div id="ftip" style="margin-top:8px;font-size:12px"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg> iPhone: Safari → Share → "Add to Home Screen"</div></footer><nav class="bnav" id="bnav" aria-label="Main"></nav><div class="mm" id="mmore" onclick="if(event.target===this)toggleMore(false)"><div class="mm-c" id="mmc" role="menu"></div></div><a class="fab" id="fab" href="#/contact" aria-label="Contact"><span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Contact</a>
 <div class="modal" id="modal"><div class="sheet" id="sheet"></div></div><div class="toast" id="toast"></div>
 <script>
 const CATS={notice:{n:"Notice",c:"#e5484d"},syllabus:{n:"Syllabus",c:"#5b4bff"},suggestion:{n:"Suggestion",c:"#e08a00"},routine:{n:"Routine",c:"#0d9488"},result:{n:"Result",c:"#16a34a"},event:{n:"Event",c:"#d6409f"}};
@@ -618,10 +619,23 @@ function tickHTML(b){if(!S.loaded)return"";const u=urgentOf(b);if(!u.length)retu
  const m=u.length>1;return `<div class="tick" role="region" aria-label="Urgent notice"><span class="tk-l">${SVG("bell")}<b>Urgent</b></span><div class="tk-m"><div class="tk-t ${m?"mv":""}" style="--d:${Math.max(16,u.length*9)}s">${u.map(p=>it(p)).join("")}${m?u.map(p=>it(p,1)).join(""):""}</div></div></div>`}
 function stripHTML(b){if(!S.loaded)return"";const n=b.filter(p=>Date.now()-p.ts<7*DAY).length,d=b.filter(p=>p.dl&&!isExp(p)&&p.dl-Date.now()<=7*DAY).length;if(!n&&!d)return"";
  return `<div class="hstrip">${n?`<span>${SVG("zap")}নতুন <b>${n}</b> টি notice</span>`:""}${n&&d?'<i aria-hidden="true"></i>':""}${d?`<span>${SVG("clock")}<b>${d}</b> টি deadline এই সপ্তাহে</span>`:""}</div>`}
+/* ===== Website settings (config/site, Owner admin panel theke) ===== */
+const siteGet=()=>{try{return JSON.parse(localStorage.getItem("mcn_site")||"{}")||{}}catch(e){return{}}};
+let SITE=siteGet();
+const siteOk=l=>l&&l.t&&/^(https?:\/\/|#\/)/.test(l.u||""),siteLk=l=>`<a href="${esc(l.u)}" ${/^https?:/.test(l.u)?'target="_blank" rel="noopener"':""}>${esc(l.t)}</a>`,
+ siteNav=()=>(SITE.nav||[]).filter(siteOk).slice(0,3).map(siteLk).join(""),
+ siteH1=()=>`<h1>${esc((SITE.hero&&SITE.hero.t)||"সব *Notice, Syllabus*\nও Suggestion এক জায়গায়").replace(/\*(.+?)\*/g,"<span>$1</span>").replace(/\n/g,"<br>")}</h1>`,
+ siteSub=()=>{const s=SITE.hero&&SITE.hero.s;return s?`<p>${esc(s)}</p>`:"<p>Mirpur College Updates &amp; Notices-এর সর্বশেষ আপডেট, category অনুযায়ী সাজানো।</p>"};
+function siteApply(){const sec=SITE.sec||{},f=SITE.foot||{};document.body.setAttribute("data-hide",["tick","strip","stats","cats"].filter(k=>sec[k]===false).join(" "));
+ const cp=document.getElementById("fcp");if(cp)cp.textContent=f.cp||"Mirpur College Updates & Notices. All rights reserved.";
+ const t=document.getElementById("ftip");if(t)t.style.display=f.tip===false?"none":"";
+ const x=document.getElementById("fx");if(x)x.innerHTML=(SITE.nav||[]).filter(siteOk).slice(0,3).map(siteLk).join(" · ")}
+async function siteLoad(){try{const{db,f}=await getSDK(),sn=await f.getDoc(f.doc(db,"config","site")),d=sn.exists()?sn.data():{},j=JSON.stringify(d);if(j!=JSON.stringify(SITE)){SITE=d;try{localStorage.setItem("mcn_site",j)}catch(e){}route()}}catch(e){}}
+setTimeout(siteLoad,400);
 function pHome(){const all=S.posts.filter(p=>match(p)&&vis(p)),exAll=all.filter(p=>isExp(p)),base=all.filter(p=>!isExp(p)),pool=S.st=="expired"?exAll:base,c=CATS[S.cat];
  const fs=(!S.cat&&!S.q&&S.loaded&&S.st!="expired")?sorted(base.filter(p=>p.pinned||(p.dl&&p.dl-Date.now()<=3*DAY))).slice(0,6):[],fid=new Set(fs.map(p=>p.id));
  const l=sorted(pool.filter(p=>(!S.cat||p.cat==S.cat)&&!fid.has(p.id)&&(!S.unread||!isRd(p.id))&&(!S.dlo||(p.dl&&!isExp(p))))),cc=k=>pool.filter(p=>p.cat==k).length,ex=exAll.filter(p=>!S.cat||p.cat==S.cat).length,ac=base.filter(p=>!S.cat||p.cat==S.cat).length;
- return `<section class="hero">${tickHTML(base)}<img class="hero-logo" src="logo.png" alt=""><h1>সব <span>Notice, Syllabus</span><br>ও Suggestion এক জায়গায়</h1>${whoHTML()}<p>Mirpur College Updates &amp; Notices-এর সর্বশেষ আপডেট, category অনুযায়ী সাজানো।</p>${stripHTML(base)}
+ return `<section class="hero">${tickHTML(base)}<img class="hero-logo" src="logo.png" alt="">${siteH1()}${whoHTML()}${siteSub()}${stripHTML(base)}
  <div class="sbar"><div class="search"><span class="si">${SVG("search")}</span><input id="q" type="text" enterkeyhint="search" autocomplete="off" placeholder="Notice, routine, result খুঁজুন…" value="${esc(S.q)}"><button type="button" class="sclr" aria-label="Search মুছুন" onclick="clearSearch()" ${S.q?"":"hidden"}>×</button><button class="btn sm" onclick="doSearch()">Search</button></div></div></section>
  <div class="cats"><button class="chip ${S.cat?"":"on"}" onclick="setCat('')">সব (${pool.length})</button>${Object.entries(CATS).map(([k,x])=>`<button class="chip ${S.cat==k?"on":""}" style="--c:${x.c}" onclick="setCat('${k}')">${SVG(k)} ${x.n} (${cc(k)})</button>`).join("")}</div>
  <div class="filter mcat"><select aria-label="Category" onchange="setCat(this.value)"><option value="" ${S.cat?"":"selected"}>সব Category (${pool.length})</option>${Object.entries(CATS).map(([k,x])=>`<option value="${k}" ${S.cat==k?"selected":""}>${x.n} (${cc(k)})</option>`).join("")}</select></div>
@@ -694,7 +708,7 @@ async function qbLoad(k){const key=k=="quiz"?"qz":"bq";if(!U.prof||QB[key]||QB.l
 Object.assign(IP,{qck:'<path d="M20 6 9 17l-5-5"/>',qx:'<path d="M18 6 6 18M6 6l12 12"/>',qfl:'<path d="M4 22V4h13l-2.5 4.5L17 13H4"/>',qgr:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',qpv:'<path d="m15 18-6-6 6-6"/>',qnx:'<path d="m9 18 6-6-6-6"/>'});
 const QSS="mcn_qrun",qSv=()=>QB.qz.filter(qLive).sort((a,b)=>(b.ts||0)-(a.ts||0));
 /* --- progress autosave (refresh / accidental close-e answer hariye jabe na) --- */
-function qSave(){const r=QB.run;try{if(!r)sessionStorage.removeItem(QSS);else sessionStorage.setItem(QSS,JSON.stringify({id:r.z.id,i:r.i,ans:r.ans,fl:r.fl,t0:r.t0,end:r.end,ix:r.z.ix}))}catch(e){}}
+function qSave(){const r=QB.run;try{if(!r)sessionStorage.removeItem(QSS);else sessionStorage.setItem(QSS,JSON.stringify({id:r.z.id,i:r.i,ans:r.ans,fl:r.fl,t0:r.t0,end:r.end,ix:r.z.ix,eff:{min:r.z.min,neg:r.z.neg}}))}catch(e){}}
 /* --- random pool: protibar alada prosno, age na-dekha gulo age --- */
 const qCnt=z=>z.cnt>0&&z.cnt<z.q.length?z.cnt:z.q.length,qShuf=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a},
  qExtra=z=>{const N=z.q.length,c=qCnt(z);return c<N?[`প্রতিবার ${qn(c)}টি করে আলাদা প্রশ্ন আসবে (মোট ${qn(N)}টির মধ্য থেকে)।`]:z.fx?[]:["প্রশ্নের ক্রম প্রতিবার বদলে যাবে।"]};
@@ -706,7 +720,7 @@ function qDraw(z){const N=z.q.length,c=qCnt(z);let ix=z.q.map((_,i)=>i);
  if(z.fx)ix.sort((a,b)=>a-b);else qShuf(ix);return ix}
 const qWith=(z,ix)=>Object.assign({},z,{q:ix.map(i=>z.q[i]),ix});
 function qRestore(id){if(QB.run||QB.res)return false;let s=null;try{s=JSON.parse(sessionStorage.getItem(QSS)||"null")}catch(e){}
- if(!s||s.id!=id)return false;const z0=(QB.qz||[]).find(x=>x.id==id),ix=z0&&(Array.isArray(s.ix)&&s.ix.every(i=>Number.isInteger(i)&&i>=0&&i<z0.q.length)?s.ix:z0.q.map((_,i)=>i)),n=ix?ix.length:0;
+ if(!s||s.id!=id)return false;const z0=(f=>f&&Object.assign({},f,s.eff||{}))((QB.qz||[]).find(x=>x.id==id)),ix=z0&&(Array.isArray(s.ix)&&s.ix.every(i=>Number.isInteger(i)&&i>=0&&i<z0.q.length)?s.ix:z0.q.map((_,i)=>i)),n=ix?ix.length:0;
  if(!z0||!Array.isArray(s.ans)||s.ans.length!=n||(z0.mode=="Exam"&&QB.at[z0.id])){try{sessionStorage.removeItem(QSS)}catch(e){}return false}
  const z=qWith(z0,ix);QB.run={z,i:Math.max(0,Math.min(s.i|0,n-1)),ans:s.ans,fl:Array.isArray(s.fl)&&s.fl.length==n?s.fl:Array(n).fill(0),t0:s.t0,end:s.end};
  if(Date.now()>=s.end){if(z.mode=="Exam"){toast("সময় শেষ হয়ে গেছে, আগের উত্তর Submit হয়েছে");setTimeout(qSubmit,0);return true}QB.run=null;qSave();return false}
@@ -716,7 +730,7 @@ function qOpen(id){if(QB.res&&QB.res.z.id==id)QB.res=null;if(location.hash=="#/q
 function qCard(z){const at=QB.at[z.id],cl=z.dl&&Date.now()>z.dl,ex=z.mode=="Exam",c=ex?"#e5484d":"#16a34a",pc=at&&at.total?Math.round(at.score/at.total*100):0,run=QB.run&&QB.run.z.id==z.id,locked=ex&&(at||cl);
  const st=run?'<span class="qb-st go">চলছে</span>':at?`<span class="qb-st ok">${SVG("qck")} সম্পন্ন</span>`:cl&&ex?'<span class="qb-st off">সময় শেষ</span>':'<span class="qb-st nw">নতুন</span>';
  const act=run?["চালিয়ে যাও",`qOpen('${z.id}')`]:locked?(at?["বিস্তারিত",`qOpen('${z.id}')`]:null):at?["আবার দাও",`qStart('${z.id}')`]:["শুরু করো",`qOpen('${z.id}')`];
- return `<article class="qb-c qz" style="--c:${c}"><div class="qz-top"><span class="tag cat">${esc(z.mode)}</span>${st}<span class="sp"></span>${z.dl?dlBadge(z):""}</div><h3>${esc(z.t)}</h3>${z.sub?`<div class="qb-m">${esc(z.sub)}</div>`:""}<div class="qz-meta"><span>${SVG("quiz")} ${qn(qCnt(z))}টি প্রশ্ন</span><span>${SVG("clock")} ${qn(z.min)} মিনিট</span>${z.neg?`<span>${SVG("alert")} ভুলে −${qn(z.neg)}</span>`:""}</div>
+ return `<article class="qb-c qz" style="--c:${c}"><div class="qz-top"><span class="tag cat">${esc(z.mode)}</span>${st}<span class="sp"></span>${z.dl?dlBadge(z):""}</div><h3>${esc(z.t)}</h3>${z.sub?`<div class="qb-m">${esc(z.sub)}</div>`:""}<div class="qz-meta"><span>${SVG("quiz")} ${z.mode=="Exam"&&!z.mk?"নিজের মতো সাজাও":qn(qCnt(qEff(z)))+"টি প্রশ্ন"}</span>${z.mk?`<span>${SVG("clock")} ${qn(z.min)} মিনিট</span>`:""}${z.neg&&z.mk?`<span>${SVG("alert")} ভুলে −${qn(z.neg)}</span>`:""}</div>
 <div class="qz-ft">${at?`<div class="qz-sc"><div class="qb-bar"><i style="width:${pc}%"></i></div><small>${ex?"তুমি দিয়েছ":"শেষবার"}: <b>${qn(+(+at.score).toFixed(2))}/${qn(at.total)}</b> · ${qn(pc)}%</small></div>`:'<span class="sp"></span>'}${act?`<button class="btn sm" onclick="${act[1]}">${act[0]}</button>`:""}</div></article>`}
 function qCards(){const F=QB.qf,s=(F.s||"").trim().toLowerCase(),A=qSv(),L=A.filter(z=>(!F.m||(F.m=="todo"?!QB.at[z.id]:z.mode==F.m))&&(!s||((z.t||"")+" "+(z.sub||"")).toLowerCase().includes(s)));
  return L.length?L.map(qCard).join(""):`<div class="qb-em">${SVG("quiz")}<b>${QB.err?"Load হয়নি":A.length?"কিছু পাওয়া যায়নি":"এখন কোনো Quiz নেই"}</b><span>${QB.err?esc(QB.err)+" — Admin-কে জানাও।":A.length?"অন্য filter বা শব্দ দিয়ে চেষ্টা করো।":"নতুন Quiz এলে এখানে দেখাবে।"}</span></div>`}
@@ -725,15 +739,30 @@ function qList(){const F=QB.qf||(QB.qf={s:"",m:""}),A=qSv(),ats=A.map(z=>QB.at[z
  const chips=[["","সব"],["Exam","Exam"],["Practice","Practice"],["todo","বাকি আছে"]].map(([v,l])=>`<button class="qb-ch ${F.m==v?"on":""}" onclick="QB.qf.m='${v}';route()">${l}</button>`).join("");
  const rn=QB.run?`<a class="qb-resume" href="#/quiz/${QB.run.z.id}"><span>${SVG("clock")} চলছে: <b>${esc(QB.run.z.t)}</b></span><u>চালিয়ে যাও →</u></a>`:"";
  return `<div class="panel"><h2 style="margin:0 0 4px">${SVG("quiz")} Quiz</h2><p class="qb-m" style="margin:0">${esc(myPage())} Page-এর Quiz</p>${rn}<div class="qr-st"><div><b>${qn(A.length)}</b>মোট Quiz</div><div><b>${qn(ats.length)}</b>সম্পন্ন</div><div><b>${ats.length?qn(av)+"%":"—"}</b>গড় স্কোর</div></div><div class="qb-sr"><input type="search" id="qsq" placeholder="Quiz বা বিষয় খোঁজো" value="${esc(F.s)}" oninput="QB.qf.s=this.value;qListFill()" aria-label="Quiz খোঁজো"></div><div class="qb-chs">${chips}</div><div id="qlist">${qCards()}</div></div>`}
+/* --- Exam: student nijei prosno/somoy/negative bachbe; Practice: sobsomoy ২০টি --- */
+const qOpt=z=>{const s=(QB.so||(QB.so={}))[z.id]||{},N=z.q.length,n=Math.min(N,s.n||Math.min(20,N));return{n,min:s.min||Math.max(1,Math.round(n*.75)),neg:s.neg||0}},
+ qEff=z=>{if(z.mk)return z;if(z.mode!="Exam")return Object.assign({},z,{cnt:20,neg:0});const o=qOpt(z);return Object.assign({},z,{cnt:o.n,min:o.min,neg:o.neg})};
+function qSo(id,k,v){(QB.so||(QB.so={}));(QB.so[id]||(QB.so[id]={}))[k]=v;route()}
+function qPick(z0,z){const N=z0.q.length,o=qOpt(z0),sel=QB.so&&QB.so[z0.id]||{},ns=[...new Set([10,20,30,40,50].filter(x=>x<N).concat([N]))],ms=[...new Set([5,10,15,20,30,45,60,o.min])].sort((x,y)=>x-y),row=(l,k,L,cur,f)=>`<div class="qb-m" style="margin:10px 0 4px">${l}</div><div class="qb-chs">${L.map(v=>`<button class="qb-ch ${v==cur?"on":""}" onclick="qSo('${z0.id}','${k}',${v})">${f(v)}</button>`).join("")}</div>`;
+ return `<div class="qb-n" style="text-align:left"><b>তোমার Exam নিজে সাজাও</b>${row("প্রশ্ন সংখ্যা","n",ns,o.n,v=>qn(v)+"টি")}${row("সময় (মিনিট)","min",ms,o.min,v=>qn(v)+" মি.")}${row("ভুল উত্তরে কাটা","neg",[0,.25,.5],o.neg,v=>v?"−"+qn(v):"নেই")}</div>`}
 /* --- intro (rules) --- */
-function qIntro(z){const at=QB.at[z.id],ex=z.mode=="Exam",cl=z.dl&&Date.now()>z.dl,can=!(ex&&(at||cl)),neg=z.neg?`প্রতিটি ভুল উত্তরে ${qn(z.neg)} নম্বর কাটা যাবে।`:"ভুল উত্তরে নম্বর কাটা যাবে না।";
+function qIntro(z0){const z=qEff(z0),at=QB.at[z.id],ex=z.mode=="Exam",cl=z.dl&&Date.now()>z.dl,can=!(ex&&(at||cl)),neg=z.neg?`প্রতিটি ভুল উত্তরে ${qn(z.neg)} নম্বর কাটা যাবে।`:"ভুল উত্তরে নম্বর কাটা যাবে না।";
  const R=ex?["Exam একবারই দেওয়া যাবে।","সময় শেষ হলে নিজে থেকেই Submit হয়ে যাবে।","Submit-এর আগে যেকোনো প্রশ্নে ফিরে গিয়ে উত্তর বদলাতে পারবে।","কঠিন প্রশ্নে Flag দিয়ে পরে ফিরে আসতে পারবে।",neg]:["উত্তর দিলেই ঠিক/ভুল ও ব্যাখ্যা দেখতে পাবে।","একবার উত্তর দিলে সেই প্রশ্নের উত্তর বদলানো যাবে না।","যতবার খুশি আবার দিতে পারবে।",neg];
  return `<div class="panel qi"><a class="lnk" style="text-decoration:none;display:inline-block;margin-bottom:12px" href="#/quiz">← সব Quiz</a><div class="qb-r"><span class="tag cat" style="--c:${ex?"#e5484d":"#16a34a"}">${esc(z.mode)}</span>${z.dl?dlBadge(z):""}</div><h2 class="qi-t">${esc(z.t)}</h2><div class="qb-m">${esc(z.sub||"")}</div>
-<div class="qr-st"><div><b>${qn(qCnt(z))}</b>প্রশ্ন</div><div><b>${qn(z.min)}</b>মিনিট</div><div><b>${z.neg?"−"+qn(z.neg):qn(0)}</b>নেগেটিভ</div></div><ul class="qi-l">${qExtra(z).concat(R).map(x=>`<li>${x}</li>`).join("")}</ul>`
+<div class="qr-st"><div><b>${qn(qCnt(z))}</b>প্রশ্ন</div><div><b>${qn(z.min)}</b>মিনিট</div><div><b>${z.neg?"−"+qn(z.neg):qn(0)}</b>নেগেটিভ</div></div>${ex&&can?qPick(z0,z):""}<ul class="qi-l">${qExtra(z).concat(R).map(x=>`<li>${x}</li>`).join("")}</ul>`
  +(at?`<div class="qb-n">${ex?"তুমি দিয়েছ":"শেষবার"}: <b>${qn(+(+at.score).toFixed(2))}/${qn(at.total)}</b></div>`:"")
  +(can?`<button class="qr-go wide" onclick="qStart('${z.id}')">${at?"আবার শুরু করো":"শুরু করো"}</button>`:`<div class="qb-n">${at?"এই Exam একবারই দেওয়া যায়।":"এই Exam-এর সময় শেষ।"}</div>`)+"</div>"}
 /* --- runner --- */
-function qStart(id){const z=(QB.qz||[]).find(x=>x.id==id);if(!z)return;
+async function qStart(id){const z0=(QB.qz||[]).find(x=>x.id==id);if(!z0)return;
+ if(z0.sec&&z0.mode=="Exam"&&!z0.mk){if(QB.at[id])return toast("এই Exam তুমি আগেই দিয়েছ");if(QB.stb)return;QB.stb=1;
+  try{const {auth}=await getSDK(),tk=await auth.currentUser.getIdToken(),rs=await fetch("/api/grade",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+tk},body:JSON.stringify({action:"start",quizId:id,min:qEff(z0).min})}),g=await rs.json().catch(()=>({}));
+   if(rs.status==409){QB.at[id]=QB.at[id]||{quizId:id,score:0,correct:0,wrong:0,total:0};toast("এই Exam তুমি আগেই দিয়েছ");route();QB.stb=0;return}
+   if(rs.status==410){QB.at[id]={quizId:id,score:0,correct:0,wrong:0,total:0,late:true};toast(g.error=="closed"?"এই Exam-এর সময় শেষ":"তোমার Exam-এর সময় আগেই শেষ হয়ে গেছে");route();QB.stb=0;return}
+   if(!g.ok)throw 0;QB.so=QB.so||{};(QB.so[id]||(QB.so[id]={})).min=g.min;qStart0(id);const r=QB.run;if(r){r.end=Date.now()+g.rem;r.z={...r.z,min:g.min};qSave()}}
+  catch(e){toast("Exam শুরু করা যায়নি — internet দেখে আবার চেষ্টা করো")}
+  QB.stb=0;return}
+ return qStart0(id)}
+function qStart0(id){const z0=(QB.qz||[]).find(x=>x.id==id);if(!z0)return;const z=qEff(z0);
  if(z.mode=="Exam"&&QB.at[z.id])return toast("এই Exam তুমি আগেই দিয়েছ");
  if(z.mode=="Exam"&&z.dl&&Date.now()>z.dl)return toast("এই Exam-এর সময় শেষ");
  const ix=qDraw(z),zz=qWith(z,ix),n=ix.length;QB.res=null;QB.anim=1;QB.run={z:zz,i:0,ans:Array(n).fill(-1),fl:Array(n).fill(0),t0:Date.now(),end:Date.now()+z.min*60000};clearInterval(QB.tm);QB.tm=setInterval(qTick,1000);qSave();
@@ -766,13 +795,21 @@ function pQuiz(id){qbLoad("quiz");
  if(id){if(qRestore(id))return qRunV();const z=QB.qz.find(x=>x.id==id&&qLive(x));if(z)return qIntro(z)}
  return qList()}
 /* --- submit + result --- */
-async function qSubmit(){const r=QB.run;if(!r)return;clearInterval(QB.tm);let c=0,w=0;r.ans.forEach((a,i)=>{if(a>=0)a==r.z.q[i].a?c++:w++});const sc=Math.max(0,c-w*(r.z.neg||0));r.ans.forEach((a,i)=>{if(a>=0)bqMis(r.z.q[i],a==r.z.q[i].a)});bqAct(c,w);
+async function qSubmit(){const r=QB.run;if(!r)return;
+ if(r.z.sec&&!r.z.mk){if(r.gb||Date.now()<(r.rt||0))return;r.gb=1;clearInterval(QB.tm);
+  try{const {auth}=await getSDK(),tk=await auth.currentUser.getIdToken(),used=Math.min(Math.round((Date.now()-r.t0)/1000),r.z.min*60);
+   const rs=await fetch("/api/grade",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+tk},body:JSON.stringify({quizId:r.z.id,neg:r.z.neg||0,used,items:r.z.q.map((q,i)=>({q:q.q,c:r.ans[i]}))})}),g=await rs.json().catch(()=>({}));
+   if(rs.status==409){r.gb=0;QB.run=null;try{sessionStorage.clear()}catch(e){}toast("এই Exam আগেই জমা হয়ে গেছে");location.hash="#/quiz";return}
+   if(g.error=="nostart"||g.error=="question"){throw 0}if(!g.ok||!g.k)throw 0;if(g.late){r.ans=r.ans.map(()=>-1);toast("সময় শেষের পরে জমা হয়েছে — নম্বর ০ ধরা হয়েছে")}r.z={...r.z,srv:1,q:r.z.q.map((q,i)=>({...q,a:g.k[i].a,e:g.k[i].e}))}}
+  catch(e){r.gb=0;r.rt=Date.now()+3000;QB.tm=setInterval(qTick,1000);toast("Submit হয়নি — internet দেখে আবার Submit চাপো (উত্তর সংরক্ষিত আছে)");return}}
+ return qSubmit0()}
+async function qSubmit0(){const r=QB.run;if(!r)return;clearInterval(QB.tm);let c=0,w=0;r.ans.forEach((a,i)=>{if(a>=0)a==r.z.q[i].a?c++:w++});const sc=Math.max(0,c-w*(r.z.neg||0));r.ans.forEach((a,i)=>{if(a>=0)bqMis(r.z.q[i],a==r.z.q[i].a,{sub:r.z.sub||"",ch:r.z.ch||"",t:r.z.t||"",z:r.z.id,ts:Date.now()})});bqAct(c,w);
  QB.res={z:r.z,ans:r.ans,fl:r.fl||[],c,w,sc,used:Math.min(Math.round((Date.now()-r.t0)/1000),r.z.min*60)};QB.run=null;QB.rt="all";qSave();document.body.style.overflow="";route();scrollTo(0,0);
- if(!(QB.res&&QB.res.z.mk))try{const{db,f}=await getSDK(),d={uid:U.prof.uid,quizId:r.z.id,score:sc,correct:c,wrong:w,total:r.z.q.length,used:QB.res.used,ts:Date.now()};await f.setDoc(f.doc(db,"quizAttempts",U.prof.uid+"_"+r.z.id),d);QB.at[r.z.id]=d}catch(e){}}
+ if(!(QB.res&&QB.res.z.mk))try{const{db,f}=await getSDK(),d={uid:U.prof.uid,quizId:r.z.id,score:sc,correct:c,wrong:w,total:r.z.q.length,used:QB.res.used,ts:Date.now()};if(!r.z.srv)await f.setDoc(f.doc(db,"quizAttempts",U.prof.uid+"_"+r.z.id),d);QB.at[r.z.id]=d;if(r.z.mode=="Practice")f.addDoc(f.collection(db,"users",U.prof.uid,"history"),{...d,mode:"Practice"}).then(()=>{QB.hs=undefined}).catch(()=>{})}catch(e){}}
 function qResList(){const x=QB.res,t=QB.rt||"all";
  return x.z.q.map((q,i)=>{const a=x.ans[i],st=a<0?"skip":a==q.a?"ok":"wrong";if((t=="wrong"&&st!="wrong")||(t=="skip"&&st!="skip")||(t=="fl"&&!x.fl[i]))return"";
   const lab=st=="ok"?`<span class="qb-st ok">${SVG("qck")} ঠিক</span>`:st=="wrong"?`<span class="qb-st bad">${SVG("qx")} ভুল</span>`:'<span class="qb-st off">বাকি</span>';
-  return `<div class="qb-c qrv"><div class="qr-qh"><b>${qn(i+1)}.</b>${lab}${x.fl[i]?`<span class="qb-st go">${SVG("qfl",1)} Flagged</span>`:""}</div><div class="qrv-q">${esc(q.q)}</div>${q.o.map((o,k)=>`<div class="qb-o ${k==q.a?"ok":k==a?"bad":"dim"}"><b class="qo-l">${OPL[k]}</b><span class="qo-t">${esc(o)}</span><span class="qo-m">${k==q.a?"<em>সঠিক</em>":k==a?"<em>তোমার উত্তর</em>":""}</span></div>`).join("")}${q.e?`<div class="qr-ex"><b>ব্যাখ্যা</b><p>${esc(q.e)}</p></div>`:""}</div>`}).join("")||'<div class="qb-em"><span>এই filter-এ কিছু নেই।</span></div>'}
+  return `<div class="qb-c qrv"><div class="qr-qh"><b>${qn(i+1)}.</b>${lab}${x.fl[i]?`<span class="qb-st go">${SVG("qfl",1)} Flagged</span>`:""}</div><div class="qrv-q">${esc(q.q)}</div>${q.o.map((o,k)=>`<div class="qb-o ${k==q.a?"ok":k==a?"bad":"dim"}"><b class="qo-l">${OPL[k]}</b><span class="qo-t">${esc(o)}</span><span class="qo-m">${k==q.a?"<em>সঠিক</em>":k==a?"<em>তোমার উত্তর</em>":""}</span></div>`).join("")}${q.e?`<div class="qr-ex"><b>ব্যাখ্যা</b><p>${esc(q.e)}</p></div>`:""}${x.z.mk?"":`<button class="qr-lk" onclick="qzRep('${x.z.id}',${(x.z.ix||[])[i]??i})">সমস্যা জানাও</button>`}</div>`}).join("")||'<div class="qb-em"><span>এই filter-এ কিছু নেই।</span></div>'}
 function qResTab(t){QB.rt=t;const e=$("#qrv");if(e)e.innerHTML=qResList();document.querySelectorAll("#qrt .qb-ch").forEach(b=>b.classList.toggle("on",b.dataset.t==t))}
 function qRes(){const x=QB.res,z=x.z,n=z.q.length,sk=n-x.c-x.w,fl=(x.fl||[]).reduce((a,b)=>a+b,0),pc=Math.max(0,Math.min(100,Math.round(x.sc/n*100))),col=pc>=60?"#16a34a":pc>=40?"#e08a00":"#e5484d",
  msg=pc>=80?"দারুণ করেছ!":pc>=60?"ভালো করেছ, আরেকটু হলেই সেরা!":pc>=40?"মন্দ না, ভুলগুলো দেখে নাও":"চিন্তা নেই, রিভিউ দেখে আবার চেষ্টা করো",
@@ -814,7 +851,7 @@ const BPT={ban:[["sp","সাহিত্যপাঠ",1],["sh","সহপাঠ
 const bqPtRow=F=>`<div class="qb-chs"><button class="qb-ch ${F.pt?"":"on"}" onclick="QB.bf.pt='';route()">সব অংশ</button>${BPT.ban.filter(p=>!F.pp||p[2]==F.pp).map(p=>`<button class="qb-ch ${F.pt==p[0]?"on":""}" onclick="QB.bf.pt='${p[0]}';route()">${p[1]}</button>`).join("")}</div>`;
 function bqAct(c,w){const s=bqJ("mcn_bst",{d:[],c:0,w:0}),t=bqDay(Date.now());if(!s.d.includes(t))s.d.push(t);s.d=s.d.slice(-60);s.c+=c||0;s.w+=w||0;bqW("mcn_bst",s)}
 function bqStreak(){const d=bqJ("mcn_bst",{d:[]}).d;let n=0,t=Date.now();if(!d.includes(bqDay(t)))t-=864e5;while(d.includes(bqDay(t))){n++;t-=864e5}return n}
-function bqMis(q,ok){const a=bqMs(),i=a.findIndex(x=>x.q==q.q);if(ok){if(i>=0)a.splice(i,1)}else if(i<0)a.unshift({q:q.q,o:q.o,a:q.a,e:q.e||""});bqW("mcn_bmis",a.slice(0,150))}
+function bqMis(q,ok,m){const a=bqMs(),i=a.findIndex(x=>x.q==q.q);if(ok){if(i>=0)a.splice(i,1)}else if(i<0)a.unshift({q:q.q,o:q.o,a:q.a,e:q.e||"",...(m?{m}:{})});bqW("mcn_bmis",a.slice(0,150))}
 function bqAction(){const s=bqJ("mcn_bst",{c:0,w:0}),t=s.c+s.w,m=bqMs().length;
  return `<div class="bq-act"><a href="#/board/mock"><b>${SVG("quiz")} কাস্টম মক টেস্ট</b><small>বিষয়, অংশ, প্রশ্ন-সংখ্যা ঠিক করে নিজের পরীক্ষা</small></a><a href="#/board/mistakes"><b>${SVG("qck")} ভুল রিভিউ (${qn(m)})</b><small>${t?"সঠিকতা "+qn(Math.round(s.c/t*100))+"% · ":""}আগের ভুল আবার দেখো</small></a></div>`}
 const bqPool=(A,sk,pt)=>{const r=[];A.filter(x=>x.ty=="MCQ"&&x._k==sk&&(!pt||x._pt==pt)).forEach(x=>{const z=(QB.qz||[]).find(q=>q.id==x.qz);if(z)z.q.forEach(q=>r.push(q))});return r};
@@ -838,7 +875,7 @@ function bqHub(A){const dg={Science:"s",Arts:"a",Commerce:"b"}[(U.prof&&U.prof.d
  mine=HSC_SUBJ.filter(s=>s[3]=="c"||s[3]==dg),rest=HSC_SUBJ.filter(s=>!mine.includes(s)&&(s[0]!="oth"||cnt.oth)),
  tile=s=>{const n=cnt[s[0]]||0;return `<a class="bs-t${n?"":" e"}" href="#/board/${s[0]}" style="--c:${GC[s[3]]}"><i>${esc([...s[1]][0])}</i><b>${esc(s[1])}</b><small>${s[2]==2?"১ম ও ২য় পত্র":"একটি পত্র"}</small><em>${n?qn(n)+"টি প্রশ্ন":"শীঘ্রই আসছে"}</em></a>`};
  return `<div class="panel"><h2 style="margin:0 0 4px">${SVG("board")} Board Question</h2><p class="qb-m" style="margin:0">HSC · বিষয় ও পত্র অনুযায়ী প্রশ্ন ও সমাধান</p>
-<div class="qb-n">${SVG("lock")} প্রশ্ন ও সমাধান শুধু এই সাইটেই পড়া যাবে। Download, Copy ও Print বন্ধ, পাতায় তোমার নাম-ID-র watermark থাকবে।</div>
+<div class="qb-n">${SVG("lock")} প্রশ্ন ও সমাধান শুধু এই সাইটেই পড়া যাবে। Download, Copy ও Print বন্ধ।</div>
 <div class="qr-st"><div><b>${qn(bqStreak())}</b>দিনের Streak</div><div><b>${qn(done)}</b>পড়া হয়েছে</div><div onclick="location.hash='#/board/saved'" style="cursor:pointer"><b>★ ${qn(sv)}</b>Saved</div></div>
 ${bqAction()}${QB.err?`<div class="qb-n">Load সমস্যা (${esc(QB.err)}). Admin-কে জানাও।</div>`:""}<h3 class="bs-h">${dg?"তোমার বিষয়":"সাধারণ বিষয়"}</h3><div class="bs-g">${mine.map(tile).join("")}</div>
 <button class="qb-ch" onclick="QB.all=!QB.all;route()">${QB.all?"অন্য বিষয় লুকাও":"সব বিষয় দেখো ("+qn(rest.length)+")"}</button>
@@ -847,7 +884,7 @@ ${QB.all?["s","a","b","o"].filter(g=>rest.some(s=>s[3]==g)).map(g=>`<h3 class="b
 function bqList(key,A){const F=QB.bf,isSv=key=="saved",s=BSK[key],sv=qbSaved(),rds=bqRd();
  if(F.k!=key)Object.assign(F,{k:key,pt:"",pp:0,ty:"",ch:"",b:"",y:"",ex:""});
  const base=isSv?A.filter(x=>sv.includes(x.id)):A.filter(x=>x._k==key),two=!isSv&&s[2]==2,
- P=two?base.filter(x=>!F.pp||(x.pp||0)==F.pp):base,T=P.filter(x=>(!F.ty||x.ty==F.ty)&&(!F.pt||x._pt==F.pt)),chs=[...new Set(T.map(x=>x.ch).filter(Boolean))];
+ P=two?base.filter(x=>!F.pp||(x.pp||0)==F.pp):base,T=P.filter(x=>(!F.ty||x.ty==F.ty)&&(!F.pt||x._pt==F.pt)),chs=[...new Set(T.slice().sort((p,q)=>(p.chn||99)-(q.chn||99)).map(x=>x.ch).filter(Boolean))];
  if(F.ch&&!chs.includes(F.ch))F.ch="";QB.chs=chs;
  const L=T.filter(x=>(!F.ch||x.ch==F.ch)&&(!F.b||x.b==F.b)&&(!F.y||x.y==F.y)&&(!F.ex||(x.ex||EXAMS[0])==F.ex)).sort(bqSort);QB.rl=L.map(x=>x.id);QB.rctx=key;
  const u=f=>[...new Set(T.map(f))].filter(v=>v!==""&&v!=null),
@@ -870,30 +907,35 @@ function bqBody(x){const rv=QB.rv[x.id]||(QB.rv[x.id]={});
   +(has?"":'<div class="qb-n">সমাধান শীঘ্রই যোগ হবে।</div>')+"</div>"}
  const z=(QB.qz||[]).find(q=>q.id==x.qz);if(!z)return `<div class="br-b">${qSk()}</div>`;
  return `<div class="br-b"><div class="qb-r" style="margin:6px 0 12px"><span class="qb-m sp">${qn(z.q.length)}টি প্রশ্ন · অপশনে ট্যাপ করলে উত্তর দেখাবে</span><button class="btn sm" onclick="qStart('${z.id}')">Quiz হিসেবে দাও</button></div>`
- +z.q.map((q,n)=>{const c=rv[n];return `<div class="qb-c br-m"><div class="qrv-q">${qn(n+1)}. ${esc(q.q)}</div>${q.o.map((o,k)=>{const cl=c==null?"":k==q.a?"ok":k==c?"bad":"dim";return `<button class="qb-o ${cl}" ${c!=null?"disabled":""} onclick="bqMc('${x.id}',${n},${k})"><b class="qo-l">${OPL[k]}</b><span class="qo-t">${esc(o)}</span><span class="qo-m">${cl=="ok"?SVG("qck"):cl=="bad"?SVG("qx"):""}</span></button>`}).join("")}${c==null?`<button class="qr-lk" onclick="bqMc('${x.id}',${n},9)">উত্তর দেখো</button>`:q.e?`<div class="qr-ex"><b>ব্যাখ্যা</b><p>${esc(q.e)}</p></div>`:""}</div>`}).join("")+"</div>"}
+ +z.q.map((q,n)=>{const c=rv[n];return `<div class="qb-c br-m"><div class="qrv-q">${qn(n+1)}. ${esc(q.q)}</div>${q.o.map((o,k)=>{const cl=c==null?"":k==q.a?"ok":k==c?"bad":"dim";return `<button class="qb-o ${cl}" ${c!=null?"disabled":""} onclick="bqMc('${x.id}',${n},${k})"><b class="qo-l">${OPL[k]}</b><span class="qo-t">${esc(o)}</span><span class="qo-m">${cl=="ok"?SVG("qck"):cl=="bad"?SVG("qx"):""}</span></button>`}).join("")}${c==null?`<button class="qr-lk" onclick="bqMc('${x.id}',${n},9)">উত্তর দেখো</button>`:q.e?`<div class="qr-ex"><b>ব্যাখ্যা</b><p>${esc(q.e)}</p></div>`:""}<button class="qr-lk" onclick="qzRep('${z.id}',${n})">সমস্যা জানাও</button></div>`}).join("")+"</div>"}
 function bqPaint(){const x=QB.cur,e=$("#brb");if(x&&e)e.innerHTML=bqBody(x)}
 function bqRv(id,k){const rv=QB.rv[id]||(QB.rv[id]={});if(k<0){const all=[0,1,2,3].every(i=>rv[i]);[0,1,2,3].forEach(i=>rv[i]=!all)}else rv[k]=!rv[k];bqPaint()}
 function bqMc(id,n,k){(QB.rv[id]||(QB.rv[id]={}))[n]=k;{const x=QB.cur,z=x&&(QB.qz||[]).find(q=>q.id==x.qz),q=z&&z.q[n];if(q&&k!=9){bqMis(q,k==q.a);bqAct(k==q.a?1:0,k==q.a?0:1)}}bqPaint()}
+
+/* ===== Report a question ===== */
+function bqRep(id){const x=(QB.bq||[]).find(z=>z.id==id);if(!x)return;QB.rp={kind:"board",qid:id,title:String(bqLbl(x))};rpOpen()}
+function qzRep(zid,n){const z=(QB.qz||[]).find(q=>q.id==zid),q=z&&z.q[n];if(!q)return;QB.rp={kind:"quiz",qid:zid+"-"+n,title:z.t+" · "+qn(n+1)+". "+q.q};rpOpen()}
+function rpOpen(){const R=["ভুল উত্তর/সমাধান","লেখা বা বানানে ভুল","প্রশ্ন অসম্পূর্ণ","অন্য কিছু"];QB.rr=R[0];const d=document.createElement("div");d.id="rpm";d.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;display:flex;align-items:center;justify-content:center;padding:16px";
+ d.innerHTML=`<div class="panel" style="max-width:420px;width:100%;margin:0"><h3 style="margin:0 0 8px">প্রশ্নে সমস্যা জানাও</h3><div class="qb-chs">${R.map((r,i)=>`<button class="qb-ch ${i?"":"on"}" onclick="QB.rr='${r}';this.parentNode.querySelectorAll('button').forEach(b=>b.classList.remove('on'));this.classList.add('on')">${r}</button>`).join("")}</div><textarea id="rpn" rows="3" maxlength="300" placeholder="কী ভুল, সংক্ষেপে লেখো (ঐচ্ছিক)" style="width:100%;margin:8px 0"></textarea><div style="display:flex;gap:8px"><button class="qr-go" onclick="bqRepSend()">পাঠাও</button><button class="qr-fl" onclick="document.getElementById('rpm').remove()">বাতিল</button></div></div>`;document.body.appendChild(d)}
+async function bqRepSend(){const p=QB.rp;if(!p||!U.prof)return;const d={uid:U.prof.uid,name:String(U.prof.name||"").slice(0,80),qid:p.qid,kind:p.kind,title:String(p.title).slice(0,120),reason:QB.rr,note:(document.getElementById("rpn").value||"").trim().slice(0,300),st:"open",ts:Date.now()};
+ try{const{db,f}=await getSDK();await f.setDoc(f.doc(db,"qReports",U.prof.uid+"_"+p.qid),d);document.getElementById("rpm").remove();toast("Report পাঠানো হয়েছে, ধন্যবাদ")}catch(e){toast("Report jayni (hoyto agei kora hoyeche)")}}
 function bqReader(id,A){const x=A.find(z=>z.id==id);
  if(!x)return `<div class="panel"><a class="lnk" style="text-decoration:none" href="#/board">← সব বিষয়</a><div class="qb-em"><b>প্রশ্নটি পাওয়া যায়নি</b><span>এটি সরানো হয়েছে বা তোমার Page-এর নয়।</span></div></div>`;
  QB.cur=x;bqRead(id);const k=x._k,s=BSK[k],rl=QB.rl&&QB.rl.includes(id)?QB.rl:A.filter(z=>z._k==k).sort(bqSort).map(z=>z.id),i=rl.indexOf(id),sv=qbSaved().includes(id),
  nav=(j,l)=>j<0||j>=rl.length?"<span></span>":`<a class="btn ghost" href="#/board/q/${rl[j]}">${l}</a>`;
- return `<div class="panel br" style="--bfs:${bqFs()}px"><div class="br-top"><a class="qr-ib" href="#/board/${QB.rl&&QB.rl.includes(id)&&QB.rctx?QB.rctx:k}" aria-label="তালিকায় ফিরে যাও">${SVG("qpv")}</a><span class="br-pos">${qn(i+1)} / ${qn(rl.length)}</span><span class="sp"></span><button class="qr-fl" onclick="bqFont(-2)" aria-label="লেখা ছোট করো">A−</button><button class="qr-fl" onclick="bqFont(2)" aria-label="লেখা বড় করো">A+</button><button class="qr-fl ${sv?"on":""}" onclick="qbSave('${id}')">${SVG("star",sv)} ${sv?"Saved":"Save"}</button></div>
+ return `<div class="panel br" style="--bfs:${bqFs()}px"><div class="br-top"><a class="qr-ib" href="#/board/${QB.rl&&QB.rl.includes(id)&&QB.rctx?QB.rctx:k}" aria-label="তালিকায় ফিরে যাও">${SVG("qpv")}</a><span class="br-pos">${qn(i+1)} / ${qn(rl.length)}</span><span class="sp"></span><button class="qr-fl" onclick="bqFont(-2)" aria-label="লেখা ছোট করো">A−</button><button class="qr-fl" onclick="bqFont(2)" aria-label="লেখা বড় করো">A+</button><button class="qr-fl ${sv?"on":""}" onclick="qbSave('${id}')">${SVG("star",sv)} ${sv?"Saved":"Save"}</button><button class="qr-fl" onclick="bqRep('${id}')" aria-label="প্রশ্নে সমস্যা জানাও">${SVG("alert")} Report</button></div>
 <div class="qb-r" style="margin:10px 0 6px"><span class="tag cat" style="--c:#64748b">${bqLbl(x)}</span><span class="tag cat" style="--c:${x.ty=="CQ"?"#7c5cff":"#16a34a"}">${x.ty=="CQ"?"সৃজনশীল (CQ)":"বহুনির্বাচনি (MCQ)"}</span><span class="tag cat" style="--c:${GC[s[3]]}">${esc(x.ex||EXAMS[0])}</span></div>
 <h2 class="br-h">${esc(s[1])}${bqPp(x)?" · "+bqPp(x):""}${x._pt?" · "+bqPn(x._pt):""}</h2><div class="qb-m">${esc(x.ch||"")}${x.ch?" · ":""}পূর্ণমান ${qn(x.m||"")}</div><div id="brb">${bqBody(x)}</div><div class="qr-r2 br-nv">${nav(i-1,"← আগের")}${nav(i+1,"পরের →")}</div></div>`}
 function pBoard(a,b){qbLoad("boardQ");qbLoad("quiz");if(QB.bq==null)return '<div class="panel"><h2 style="margin:0 0 12px">Board Question</h2>'+qSk()+'</div>';
  const A=bqAll();if(a=="q")return bqReader(b,A);if(a=="mock")return bqMock(A);if(a=="mistakes")return bqMistakes();if(a=="saved"||BSK[a])return bqList(a,A);return bqHub(A)}
-function qbProt(pg){let d=$("#qbwm");if(!d){d=document.createElement("div");d.id="qbwm";document.body.appendChild(d)}
- const on=pg=="board"||(pg=="quiz"&&!!QB.run);
- if(on&&U.prof){const t=((U.prof.name||"")+" · "+(U.prof.email||"")).slice(0,40);if(d.dataset.t!=t){d.dataset.t=t;d.style.backgroundImage='url("data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="300" height="160"><text x="20" y="90" transform="rotate(-20 150 80)" font-size="14" fill="gray" fill-opacity=".18" font-family="sans-serif">'+esc(t)+'</text></svg>')+'")'}}
- d.style.display=on?"block":"none";document.body.classList.toggle("prot",on);document.body.classList.toggle("qrun",!!QB.run&&location.hash=="#/quiz/"+QB.run.z.id);if(!(QB.run&&(QB.run.sheet||QB.run.sub)))document.body.style.overflow=""}
+function qbProt(pg){const d=$("#qbwm");if(d)d.remove();const on=pg=="board"||(pg=="quiz"&&!!QB.run);  document.body.classList.toggle("prot",on);document.body.classList.toggle("qrun",!!QB.run&&location.hash=="#/quiz/"+QB.run.z.id);if(!(QB.run&&(QB.run.sheet||QB.run.sub)))document.body.style.overflow=""}
 ["copy","cut","contextmenu","dragstart"].forEach(ev=>document.addEventListener(ev,e=>{if(document.body.classList.contains("prot"))e.preventDefault()}));
 addEventListener("keydown",e=>{if(document.body.classList.contains("prot")&&(e.ctrlKey||e.metaKey)&&["p","s","c","a","u"].includes((e.key||"").toLowerCase()))e.preventDefault()});
 function route(){const h=location.hash.replace(/^#\/?/,"").split("/"),pg=h[0]||"home";
- $("#links").innerHTML=`<a href="#/" class="${pg=="home"?"on":""}">Home</a><a href="#/saved" class="${pg=="saved"?"on":""}">${SVG("star")} Saved${savedN()?" ("+savedN()+")":""}</a><a href="#/contact" class="${pg=="contact"?"on":""}">Contact</a><a href="#/quiz" class="${pg=="quiz"?"on":""}">Quiz</a><a href="#/board" class="${pg=="board"?"on":""}">Board</a>`;
- $("#yr").textContent=new Date().getFullYear();paintBnav(pg);{const f=$("#fab"),c=pg=="contact";f.href=c?"#/":"#/contact";f.innerHTML=c?"<span>"+SVG("home")+"</span>Home":"<span>"+SVG("msg")+"</span>Contact";f.setAttribute("aria-label",c?"Home":"Contact")}const k=document.activeElement&&document.activeElement.id;
+ $("#links").innerHTML=`<a href="#/" class="${pg=="home"?"on":""}">Home</a><a href="#/saved" class="${pg=="saved"?"on":""}">${SVG("star")} Saved${savedN()?" ("+savedN()+")":""}</a><a href="#/contact" class="${pg=="contact"?"on":""}">Contact</a><a href="#/portal" class="${pg=="portal"?"on":""}">Portal</a><a href="#/quiz" class="${pg=="quiz"?"on":""}">Quiz</a><a href="#/board" class="${pg=="board"?"on":""}">Board</a>${siteNav()}`;
+ $("#yr").textContent=new Date().getFullYear();siteApply();paintBnav(pg);{const f=$("#fab"),c=pg=="contact";f.href=c?"#/":"#/contact";f.innerHTML=c?"<span>"+SVG("home")+"</span>Home":"<span>"+SVG("msg")+"</span>Contact";f.setAttribute("aria-label",c?"Home":"Contact")}const k=document.activeElement&&document.activeElement.id;
  if(pg=="inbox"&&S.pg!="inbox"){try{N.hl=N.seen;nMarkSeen()}catch(e){}}if(pg!="profile")S.pfd=null;if(S.pg!=pg&&(pg=="profile"||pg=="inbox"))scrollTo(0,0);S.pg=pg;
- $("#app").innerHTML=pg=="quiz"?pQuiz(h[1]):pg=="board"?pBoard(h[1],h[2]):pg=="contact"?pContact():pg=="saved"?pSaved():pg=="p"?pPost(h[1]):pg=="profile"?pProfile():pg=="inbox"?pInbox():pHome();observeCovers();qbProt(pg);if(pg=="p"){markRead(h[1]);loadPost(h[1])}
+ $("#app").innerHTML=pg=="portal"?pPortal(h[1],h[2],h[3]):pg=="quiz"?pQuiz(h[1]):pg=="board"?pBoard(h[1],h[2]):pg=="contact"?pContact():pg=="saved"?pSaved():pg=="p"?pPost(h[1]):pg=="profile"?pProfile():pg=="inbox"?pInbox():pHome();observeCovers();qbProt(pg);if(pg=="p"){markRead(h[1]);loadPost(h[1])}
  const q=$("#q");if(q){q.addEventListener("keydown",e=>{if(e.key=="Enter")doSearch()});q.addEventListener("input",onSearchInput);if(k=="q")q.focus()}}
 /* ---- live search: input-ta na bhenge shudhu niche-r result bodle ---- */
 let sT;
@@ -905,6 +947,146 @@ function onSearchInput(e){const v=e.target.value;S.q=v.trim();const c=$(".sclr")
 function clearSearch(){const q=$("#q");S.q="";if(q){q.value="";q.focus()}const c=$(".sclr");if(c)c.hidden=true;clearTimeout(sT);liveSearch()}
 function doSearch(){const q=$("#q");if(!q)return;S.q=q.value.trim();clearTimeout(sT);liveSearch();q.blur()}
 addEventListener("hashchange",()=>{route();scrollTo(0,0)});
+
+
+
+/* ---------- WRONG ANSWER REVISION (#/portal/wrong): Quiz-e bhul hoya prosno, subject/odhyay onujayi, nijei abar try ---------- */
+const WR=()=>QB.wr||(QB.wr={f:{s:"",c:""},a:{}}),wrS=q=>(q.m&&q.m.sub)||"অন্যান্য",wrC=q=>(q.m&&q.m.ch)||"";
+function wrSet(k,v){const w=WR();w.f[k]=v;if(k=="s")w.f.c="";w.a={};route()}
+function wrPick(i,k){WR().a[i]=k;const q=bqMs()[i];if(q&&k==q.a)try{bqW("mcn_bst",{...bqJ("mcn_bst",{c:0,w:0}),c:bqJ("mcn_bst",{c:0,w:0}).c+1})}catch(e){}route()}
+function wrDel(i){WR().a={};bqMisDel(i)}
+function wrGo(){const w=WR(),L=bqMs().filter(q=>(!w.f.s||wrS(q)==w.f.s)&&(!w.f.c||wrC(q)==w.f.c));if(L.length)bqMkRun(qShuf(L.map(q=>({q:q.q,o:q.o,a:q.a,e:q.e||""}))).slice(0,30),"ভুল রিভিউ","Practice")}
+function pWrong(){
+ const w=WR(),all=bqMs().map((q,i)=>({...q,i})),S0={};all.forEach(q=>{const s=wrS(q);S0[s]=(S0[s]||0)+1});
+ const L=all.filter(q=>(!w.f.s||wrS(q)==w.f.s)&&(!w.f.c||wrC(q)==w.f.c)),C0={};if(w.f.s)all.filter(q=>wrS(q)==w.f.s).forEach(q=>{const c=wrC(q)||"—";C0[c]=(C0[c]||0)+1});
+ const chip=(l,n,on,fn)=>`<button type="button" onclick="${fn}" style="white-space:nowrap;padding:7px 13px;border-radius:99px;border:0;font:inherit;font-weight:700;font-size:13.5px;cursor:pointer;${on?"background:var(--pri);color:#fff":"background:#8882;color:inherit"}">${esc(l)} (${qn(n)})</button>`;
+ const top=Object.entries(S0).sort((a,b)=>b[1]-a[1])[0];
+ const card=(q,n)=>{const ch=w.a[q.i],has=ch!==undefined,ok=has&&ch==q.a;return `<div class="qb-c br-m" style="margin:10px 0"><small style="color:var(--mute)">${esc([wrS(q),wrC(q),q.m&&q.m.t].filter(Boolean).join(" · "))}</small><div class="qrv-q">${qn(n)}. ${esc(q.q)}</div>${q.o.map((o,k)=>`<button type="button" class="qb-o ${has?(k==q.a?"ok":k==ch?"bad":"dim"):""}" ${has?"disabled":""} onclick="wrPick(${q.i},${k})" style="width:100%;text-align:left;font:inherit;color:inherit"><b class="qo-l">${OPL[k]}</b><span class="qo-t">${esc(o)}</span></button>`).join("")}${has?`<div class="qr-ex"><b>${ok?"✓ এবার ঠিক হয়েছে":"✕ আবার ভুল — সঠিক উত্তর "+OPL[q.a]}</b>${q.e?`<p>${esc(q.e)}</p>`:""}</div>`:""}<button class="qr-lk" onclick="wrDel(${q.i})">${ok?"মনে আছে, তালিকা থেকে সরাও":"মনে আছে, সরাও"}</button></div>`};
+ return `<div class="wrap" style="padding:18px 0"><a href="#/portal" class="btn">← Portal</a><h2 style="margin:14px 0 4px">Wrong Answer Revision</h2><p style="margin:0 0 10px;color:var(--mute)">Quiz ও Exam-এ যে প্রশ্নগুলো ভুল হয়েছে। শুধু তুমি এগুলো দেখতে পাও (এই device-এ সংরক্ষিত)।</p>
+ ${all.length?`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px"><div class="card" style="padding:12px;border-radius:14px;text-align:center"><b style="font-size:22px">${qn(all.length)}</b><br><small style="color:var(--mute)">ভুল প্রশ্ন</small></div><div class="card" style="padding:12px;border-radius:14px;text-align:center"><b style="font-size:22px">${qn(Object.keys(S0).length)}</b><br><small style="color:var(--mute)">বিষয়</small></div><div class="card" style="padding:12px;border-radius:14px;text-align:center"><b style="font-size:15px">${esc(top[0])}</b><br><small style="color:var(--mute)">সবচেয়ে বেশি ভুল</small></div></div>
+ <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:8px">${chip("সব",all.length,!w.f.s,"wrSet('s','')")}${Object.entries(S0).map(([s,n])=>chip(s,n,w.f.s==s,"wrSet('s',"+JSON.stringify(s).replace(/"/g,"&quot;")+")")).join("")}</div>
+ ${w.f.s&&Object.keys(C0).length>1?`<div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:8px">${chip("সব অধ্যায়",Object.values(C0).reduce((a,b)=>a+b,0),!w.f.c,"wrSet('c','')")}${Object.entries(C0).map(([c,n])=>chip(c,n,w.f.c==(c=="—"?"":c)&&!!w.f.c,"wrSet('c',"+JSON.stringify(c=="—"?"":c).replace(/"/g,"&quot;")+")")).join("")}</div>`:""}
+ ${L.length?`<button class="qr-go wide" style="margin:6px 0 4px" onclick="wrGo()">এই ${qn(Math.min(L.length,30))}টি দিয়ে Practice করো</button>${L.map((q,n)=>card(q,n+1)).join("")}`:`<p style="text-align:center;color:var(--mute);margin:30px 0">এই filter-এ কিছু নেই।</p>`}`
+ :`<div class="qb-em">${SVG("qck")}<b>কোনো ভুল জমেনি</b><span>Quiz বা Exam-এ ভুল হলে এখানে জমা হবে। <a href="#/quiz">Quiz দাও →</a></span></div>`}</div>`}
+
+/* ---------- QUIZ ATTEMPT HISTORY (users/{uid}/history) ---------- */
+function plHLoad(){if(QB.hs!==undefined||QB.hl)return;QB.hl=1;(async()=>{try{const {db,f}=await getSDK();const sn=await f.getDocs(f.query(f.collection(db,"users",U.prof.uid,"history"),f.orderBy("ts","desc"),f.limit(100)));QB.hs=sn.docs.map(d=>d.data())}catch(e){QB.hs=[]}QB.hl=0;if(/^#\/portal\/(history|progress|analytics|subjprog|chprog|activity)/.test(location.hash))route()})()}
+function plHist(R){plHLoad();if(QB.hs===undefined)return `<p style="text-align:center;color:var(--mute);margin:30px 0">লোড হচ্ছে…</p>`;
+ const m={};(QB.qz||[]).forEach(z=>m[z.id]=z);const key=x=>x.quizId+"_"+x.ts,seen=new Set(QB.hs.map(key));
+ const L=[...QB.hs,...Object.values(QB.at||{}).filter(a=>a.ts&&!seen.has(key(a)))].sort((a,b)=>(b.ts||0)-(a.ts||0));
+ if(!L.length)return `<p style="text-align:center;color:var(--mute);margin:30px 0">এখনো কোনো Quiz দাওনি। <a href="#/quiz">Quiz শুরু করো →</a></p>`;
+ return `<p style="color:var(--mute);margin:0 0 6px">${qn(L.length)}টি attempt</p>`+L.map(x=>{const z=m[x.quizId]||{},tot=x.total||0,pc=tot?Math.round((x.correct||0)*100/tot):0;return `<a href="#/quiz/${esc(x.quizId)}" class="card" style="display:flex;justify-content:space-between;gap:10px;padding:12px 14px;margin:8px 0;border-radius:12px;color:inherit;text-decoration:none"><span><b>${esc(z.t||"Quiz")}</b><br><small style="color:var(--mute)">${x.ts?new Date(x.ts).toLocaleString("bn-BD",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}):""} · ${esc(x.mode||z.mode||"")}${x.late?" · সময় শেষ":""}</small></span><b style="color:${pc>=70?"#16a34a":pc>=40?"#e08a00":"#e5484d"}">${qn(x.correct||0)}/${qn(tot)}</b></a>`}).join("")}
+
+/* ---------- MY LEARNING: data = quizAttempts (shudhu nijer uid) ---------- */
+const PL=["progress","analytics","subjprog","chprog","history"];
+function plData(){const qz=QB.qz||[],m={};qz.forEach(z=>m[z.id]=z);const key=x=>x.quizId+"_"+x.ts,H=QB.hs||[],seen=new Set(H.map(key));
+ return [...H,...Object.values(QB.at||{}).filter(a=>a.ts&&!seen.has(key(a)))].map(a=>{const z=m[a.quizId]||{},tot=a.total||0,c=a.correct||0;return{id:a.quizId,t:z.t||"Quiz",sub:z.sub||"অন্যান্য",ch:z.ch||"—",mode:a.mode||z.mode||"",c,w:a.wrong||0,tot,pc:tot?Math.round(c*100/tot):0,ts:a.ts||0}}).sort((a,b)=>b.ts-a.ts)}
+function plGroup(R,k){const g={};R.forEach(r=>{const n=r[k];(g[n]=g[n]||{n,c:0,t:0,q:0});g[n].c+=r.c;g[n].t+=r.tot;g[n].q++});return Object.values(g).map(x=>({...x,pc:x.t?Math.round(x.c*100/x.t):0})).sort((a,b)=>a.pc-b.pc)}
+const plBar=(l,pc,sub)=>`<div style="margin:10px 0"><div style="display:flex;justify-content:space-between;font-weight:700;font-size:14px"><span>${esc(l)}</span><span>${qn(pc)}%</span></div><div style="height:9px;border-radius:9px;background:#8883;overflow:hidden;margin-top:4px"><i style="display:block;height:100%;width:${pc}%;border-radius:9px;background:${pc>=70?"#16a34a":pc>=40?"#e08a00":"#e5484d"}"></i></div>${sub?`<small style="color:var(--mute)">${sub}</small>`:""}</div>`;
+const plStat=(n,l)=>`<div class="card" style="padding:14px;border-radius:14px;text-align:center"><div style="font-size:24px;font-weight:800">${n}</div><small style="color:var(--mute)">${l}</small></div>`;
+function pLearn(k){
+ qbLoad("quiz");if(!QB.qz||QB.ld.quiz){setTimeout(()=>{if(/^#\/portal\/(progress|analytics|subjprog|chprog|history)/.test(location.hash)&&QB.qz)route();else if(/^#\/portal\//.test(location.hash)&&!QB.qz)setTimeout(()=>QB.qz&&route(),800)},700);return `<div class="wrap" style="padding:40px 0;text-align:center;color:var(--mute)">লোড হচ্ছে…</div>`}
+ plHLoad();if(QB.hs===undefined&&k!="history")return `<div class="wrap" style="padding:40px 0;text-align:center;color:var(--mute)">লোড হচ্ছে…</div>`;
+ const R=plData(),DQ=new Set(R.map(r=>r.id)).size,T=R.reduce((a,r)=>({c:a.c+r.c,t:a.t+r.tot}),{c:0,t:0}),avg=T.t?Math.round(T.c*100/T.t):0,all=(QB.qz||[]).length;
+ const nm={progress:"My Progress",analytics:"Performance Analytics",subjprog:"Subject-wise Progress",chprog:"Chapter-wise Progress",history:"Learning History"}[k];
+ let b;
+ if(k=="history")b=plHist(R);else if(!R.length)b=`<p style="text-align:center;color:var(--mute);margin:30px 0">এখনো কোনো Quiz দাওনি। <a href="#/quiz">Quiz শুরু করো →</a></p>`;
+ else if(k=="progress")b=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">${plStat(qn(DQ)+"/"+qn(all),"Quiz সম্পন্ন")}${plStat(qn(avg)+"%","গড় নম্বর")}${plStat(qn(T.c),"মোট ঠিক")}</div>${plBar("মোট অগ্রগতি",all?Math.round(DQ*100/all):0)}<h3>দুর্বল বিষয়</h3>${plGroup(R,"sub").slice(0,3).map(x=>plBar(x.n,x.pc)).join("")}`;
+ else if(k=="analytics"){const last=R.slice(0,7).reverse(),best=R.reduce((a,r)=>r.pc>a.pc?r:a,R[0]);b=`<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">${plStat(qn(best.pc)+"%","সেরা ফল")}${plStat(qn(T.t-T.c),"মোট ভুল")}</div><h3>শেষ ${qn(last.length)}টি attempt-এর ট্রেন্ড</h3><div style="display:flex;align-items:flex-end;gap:8px;height:130px;margin:10px 0">${last.map(r=>`<div style="flex:1;text-align:center;font-size:11px"><div title="${esc(r.t)}" style="height:${Math.max(r.pc,4)}px;background:var(--pri);border-radius:6px 6px 0 0"></div>${qn(r.pc)}%</div>`).join("")}</div>`}
+ else if(k=="subjprog")b=plGroup(R,"sub").map(x=>plBar(x.n,x.pc,qn(x.q)+"টি attempt · "+qn(x.c)+"/"+qn(x.t)+" ঠিক")).join("");
+ else if(k=="chprog")b=plGroup(R,"ch").map(x=>plBar(x.n,x.pc,qn(x.q)+"টি attempt")).join("");
+ else b=R.map(r=>`<a href="#/quiz/${esc(r.id)}" class="card" style="display:flex;justify-content:space-between;gap:10px;padding:12px 14px;margin:8px 0;border-radius:12px;color:inherit;text-decoration:none"><span><b>${esc(r.t)}</b><br><small style="color:var(--mute)">${r.ts?new Date(r.ts).toLocaleDateString("bn-BD"):""} ${esc(r.mode)}</small></span><b>${qn(r.c)}/${qn(r.tot)}</b></a>`).join("");
+ return `<div class="wrap" style="padding:18px 0"><a href="#/portal" class="btn">← Portal</a><h2 style="margin:14px 0 4px">${nm}</h2><p style="margin:0 0 8px;color:var(--mute)">শুধু তুমি নিজে এটা দেখতে পারো।</p>${b}</div>`}
+
+
+/* ---------- RECENT / DOWNLOADS / QUICK ACCESS ---------- */
+const PX=["activity","quick","recent","materials","dlhist","resources"],ptT=p=>p.title||p.t||"Post",ptD=t=>t?new Date(t).toLocaleDateString("bn-BD"):"";
+function ptTrack(k,id){if(!id)return;const a=lsGet(k).filter(x=>x!=id);lsSet(k,[id,...a].slice(0,50))}
+function ptHash(){const h=location.hash.replace(/^#\/?/,"").split("/");if(h[0]=="p"&&h[1])ptTrack("mcn_recent",h[1])}
+addEventListener("hashchange",ptHash);addEventListener("load",ptHash);
+document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest(".post-page a[href^=http],.post-page a[download]");const h=location.hash.replace(/^#\/?/,"").split("/");if(a&&h[0]=="p")ptTrack("mcn_dl",h[1])},true);
+const ptCard=(p,x)=>`<a href="#/p/${esc(p.id)}" class="card" style="display:block;padding:12px 14px;margin:8px 0;border-radius:12px;color:inherit;text-decoration:none"><b>${esc(ptT(p))}</b><br><small style="color:var(--mute)">${(CATS[p.cat]||CATS.notice).n} · ${ptD(p.ts)}${x||""}</small></a>`;
+const ptOk=()=>S.posts.filter(p=>vis(p)&&!isExp(p));
+const ptIds=k=>lsGet(k).map(i=>S.posts.find(p=>p.id==i)).filter(p=>p&&vis(p));
+const ptHasF=p=>(p.nf>0)||(p.hc===true)||/^https?:\/\//.test(p.link||"");
+function pPx(k){
+ const nm={activity:"Recent Activities",quick:"Quick Access",recent:"Recently Viewed",materials:"Study Materials",dlhist:"Download History",resources:"Available Resources"}[k],em=t=>`<p style="text-align:center;color:var(--mute);margin:30px 0">${t}</p>`;let b="";
+ if(k=="quick")b=`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px">${[["📝","Quiz","#/quiz"],["📖","Board Questions","#/board"],["⏱️","Model Test","#/board/mock"],["🔁","Wrong Answers","#/board/mistakes"],["⭐","Saved","#/saved"],["🔔","Inbox","#/inbox"],["👤","Profile","#/profile"],["✉️","Contact","#/contact"]].map(i=>`<a href="${i[2]}" class="card" style="padding:18px 8px;border-radius:14px;text-align:center;color:inherit;text-decoration:none;font-weight:700"><div style="font-size:26px">${i[0]}</div>${i[1]}</a>`).join("")}</div>`;
+ else if(k=="activity"){qbLoad("quiz");const A=QB.qz?plData().slice(0,5).map(r=>({ts:r.ts,h:`<a href="#/quiz/${esc(r.id)}" class="card" style="display:block;padding:12px 14px;margin:8px 0;border-radius:12px;color:inherit;text-decoration:none">📝 <b>${esc(r.t)}</b><br><small style="color:var(--mute)">${qn(r.c)}/${qn(r.tot)} ঠিক · ${ptD(r.ts)}</small></a>`})):[],P=ptOk().slice(0,8).map(p=>({ts:p.ts,h:ptCard(p)}));b=[...A,...P].sort((a,b)=>(b.ts||0)-(a.ts||0)).map(x=>x.h).join("")||em("কোনো activity নেই।")}
+ else if(k=="recent"){const l=ptIds("mcn_recent");b=l.map(p=>ptCard(p)).join("")||em("এখনো কোনো post খোলোনি।")}
+ else if(k=="dlhist"){const l=ptIds("mcn_dl");b=l.map(p=>ptCard(p)).join("")||em("এখনো কিছু download করোনি।")}
+ else if(k=="materials"){const l=sorted(ptOk().filter(p=>ptHasF(p)&&(p.cat=="syllabus"||p.cat=="suggestion")));b=l.map(p=>ptCard(p," · 📎")).join("")||em("এখনো কোনো Study Material নেই।")}
+ else{const l=sorted(ptOk().filter(ptHasF));b=l.map(p=>ptCard(p," · 📎")).join("")||em("এখনো কোনো Resource নেই।")}
+ if(k=="activity"&&!QB.qz)setTimeout(()=>{if(QB.qz&&location.hash=="#/portal/activity")route()},1200);
+ return `<div class="wrap" style="padding:18px 0"><a href="#/portal" class="btn">← Portal</a><h2 style="margin:14px 0 4px">${nm}</h2>${k=="recent"||k=="dlhist"?`<p style="margin:0 0 8px;color:var(--mute)">এই device-এ সংরক্ষিত, শুধু তোমার জন্য।</p>`:""}${b}</div>`}
+
+
+/* ---------- FILTER PAGES: Board (#/portal/bf/<by>) + Quiz (#/portal/qf/<by>) ---------- */
+const FD={bf:{subject:["Browse by Subject","sub"],board:["Browse by Board","b"],year:["Browse by Year","y"],mcq:["MCQ Questions","sub","ty","MCQ"],cq:["CQ Questions","sub","ty","CQ"],chapter:["Chapter-wise Questions","ch"]},
+ qf:{practice:["Practice Quiz","sub","mode","Practice"],chapter:["Chapter-wise Quiz","ch"],subject:["Subject-wise Quiz","sub"]}};
+function pFl(kd,by,val){
+ const d=(FD[kd]||{})[by];if(!d)return pPortal("x");
+ const bq=kd=="bf";qbLoad(bq?"board":"quiz");const src=bq?QB.bq:QB.qz;
+ if(!src||QB.ld[bq?"board":"quiz"]){let n=0;const iv=setInterval(()=>{n++;if((bq?QB.bq:QB.qz)||n>12||location.hash.indexOf("#/portal/"+kd+"/")!=0){clearInterval(iv);if((bq?QB.bq:QB.qz)&&location.hash.indexOf("#/portal/"+kd+"/")==0)route()}},500);return `<div class="wrap" style="padding:40px 0;text-align:center;color:var(--mute)">লোড হচ্ছে…</div>`}
+ val=val?decodeURIComponent(val):"";
+ const base=src.filter(z=>qLive(z)&&(!d[2]||z[d[2]]==d[3])),key=z=>String(z[d[1]]||"").trim()||"অন্যান্য",G={};
+ base.forEach(z=>{const g=key(z);G[g]=(G[g]||0)+1});
+ const names=Object.keys(G).sort((a,b)=>a.localeCompare(b,"bn")),list=val?base.filter(z=>key(z)==val):base,ch=(n,c,on)=>`<a href="#/portal/${kd}/${by}${n?"/"+encodeURIComponent(n):""}" style="white-space:nowrap;padding:7px 13px;border-radius:99px;font-weight:700;font-size:13.5px;text-decoration:none;${on?"background:var(--pri);color:#fff":"background:#8882;color:inherit"}">${esc(n||"সব")} (${qn(c)})</a>`;
+ const row=z=>bq?`<a href="#/board/q/${esc(z.id)}" class="card" style="display:block;padding:12px 14px;margin:8px 0;border-radius:12px;color:inherit;text-decoration:none"><b>${esc(z.ty||"")} · ${esc(key(z))}</b><br><small style="color:var(--mute)">${esc([z.b,z.y,z.ch].filter(Boolean).join(" · "))}</small>${z.st?`<p style="margin:6px 0 0;font-size:14px">${esc(String(z.st).slice(0,110))}${String(z.st).length>110?"…":""}</p>`:""}</a>`
+  :`<a href="#/quiz/${esc(z.id)}" class="card" style="display:flex;justify-content:space-between;gap:10px;padding:12px 14px;margin:8px 0;border-radius:12px;color:inherit;text-decoration:none"><span><b>${esc(z.t||"Quiz")}</b><br><small style="color:var(--mute)">${esc([z.sub,z.ch,z.mode].filter(Boolean).join(" · "))}</small></span>${QB.at[z.id]?`<b style="color:#16a34a">✓ ${qn(QB.at[z.id].correct||0)}/${qn(QB.at[z.id].total||0)}</b>`:""}</a>`;
+ return `<div class="wrap" style="padding:18px 0"><a href="#/portal" class="btn">← Portal</a><h2 style="margin:14px 0 8px">${d[0]}</h2>
+ <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:8px">${ch("",base.length,!val)}${names.map(n=>ch(n,G[n],n==val)).join("")}</div>
+ <p style="color:var(--mute);margin:6px 0">${qn(list.length)}টি পাওয়া গেছে</p>${list.slice(0,60).map(row).join("")||`<p style="text-align:center;color:var(--mute);margin:30px 0">কিছু পাওয়া যায়নি।</p>`}${list.length>60?`<p style="text-align:center;color:var(--mute)">প্রথম ৬০টি দেখানো হয়েছে — উপরের filter ব্যবহার করো।</p>`:""}</div>`}
+
+
+/* ---------- ACCOUNT: Change Password + Account Settings ---------- */
+const acBox="padding:11px 12px;border-radius:12px;border:1px solid #8885;background:var(--card);color:inherit;font:inherit;width:100%;box-sizing:border-box;margin:6px 0 12px";
+const acMsg=(t,ok)=>{const e=$("#acm");if(e){e.style.color=ok?"#16a34a":"#e5484d";e.textContent=t}};
+async function acPw(){
+ const c=$("#pw0").value,n=$("#pw1").value,r=$("#pw2").value,b=$("#pwb");
+ if(!c||!n)return acMsg("সব ঘর পূরণ করো");if(n.length<6)return acMsg("নতুন Password কমপক্ষে ৬ অক্ষরের হতে হবে");if(n!==r)return acMsg("নতুন Password দুটি মেলেনি");if(n===c)return acMsg("নতুন Password আগেরটির মতো হতে পারবে না");
+ b.disabled=true;acMsg("অপেক্ষা করো…",true);
+ try{const {auth,A}=await getSDK(),u=auth.currentUser;if(!u||!u.email)throw{code:"auth/no-user"};
+  await A.reauthenticateWithCredential(u,A.EmailAuthProvider.credential(u.email,c));await A.updatePassword(u,n);
+  ["pw0","pw1","pw2"].forEach(i=>$("#"+i).value="");acMsg("Password বদলানো হয়েছে ✓",true)}
+ catch(e){const k=e&&e.code||"";acMsg(k=="auth/wrong-password"||k=="auth/invalid-credential"?"বর্তমান Password ঠিক নয়":k=="auth/too-many-requests"?"অনেকবার চেষ্টা হয়েছে, একটু পরে আবার করো":k=="auth/requires-recent-login"?"নিরাপত্তার জন্য Logout করে আবার Login করে চেষ্টা করো":"Password বদলানো যায়নি")}
+ b.disabled=false}
+async function acReset(){try{const {auth,A}=await getSDK(),u=auth.currentUser;await A.sendPasswordResetEmail(auth,u.email);acMsg(u.email+"-এ reset link পাঠানো হয়েছে ✓",true)}catch(e){acMsg("Reset link পাঠানো যায়নি")}}
+function pAcc(k){
+ const u=U.user||{},em=u.email||"",g=!!(u.providerData||[]).length&&(u.providerData||[]).every(x=>x.providerId=="google.com"),p=U.prof||{};
+ const top=`<div class="wrap" style="padding:18px 0;max-width:520px"><a href="#/portal" class="btn">← Portal</a>`;
+ if(k=="password")return top+`<h2 style="margin:14px 0 4px">Change Password</h2><p style="color:var(--mute);margin:0 0 14px">${esc(em)}</p>`+(g?`<p style="padding:14px;border-radius:12px;background:#8882">তুমি Google দিয়ে Login করেছো, তাই Password Google account থেকেই বদলাতে হবে।</p>`:`<label>বর্তমান Password<input id="pw0" type="password" autocomplete="current-password" style="${acBox}"></label><label>নতুন Password<input id="pw1" type="password" autocomplete="new-password" style="${acBox}"></label><label>নতুন Password আবার<input id="pw2" type="password" autocomplete="new-password" style="${acBox}"></label><button id="pwb" class="btn" style="padding:12px 18px;font-weight:800;background:var(--pri);color:#fff;border-radius:12px" onclick="acPw()">Password বদলাও</button> <button class="btn" style="padding:12px 14px;border-radius:12px" onclick="acReset()">Password ভুলে গেছো?</button><p id="acm" style="min-height:22px;font-weight:700"></p>`)+`</div>`;
+ const r=(i,t,sm,a)=>`<${a} class="card" style="display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:13px 14px;margin:8px 0;border-radius:12px;color:inherit;text-decoration:none;font:inherit;cursor:pointer;box-sizing:border-box"><span style="font-size:22px">${i}</span><span style="flex:1"><b>${t}</b><br><small style="color:var(--mute)">${sm}</small></span>›</${a.split(" ")[0]}>`.replace(`<${a.split(" ")[0]} class`,`<${a} class`);
+ return top+`<h2 style="margin:14px 0 4px">Account Settings</h2><p style="color:var(--mute);margin:0 0 10px">${esc(p.name||"")} · ${esc(em)}</p>
+ <div class="card" style="padding:12px 14px;border-radius:12px;margin:8px 0;line-height:1.8">Email: ${u.emailVerified?"✓ Verified":"Verify হয়নি"}<br>Login: ${g?"Google":"Email / Password"}<br>${p.year?esc(p.year)+" · "+esc(p.dept||""):""}</div>
+ ${r("🔔","Notification / Phone alert","Inbox page-এ ON/OFF switch আছে",'a href="#/inbox"')}${r("🌗","Theme","Dark / Light বদলাও",'button type="button" onclick="mmTheme()"')}${r("🔑","Change Password",g?"Google account":"Password বদলাও",'a href="#/portal/password"')}${r("👤","My Profile","নাম, ছবি, Year/Department",'a href="#/profile"')}${r("🚪","Logout","এই device থেকে বের হও",'button type="button" onclick="logout()"')}</div>`}
+
+/* ---------- MCUN STUDENT PORTAL: 9-section structure (#/portal) ---------- */
+const PT=[
+["dash","🏠","Dashboard",[["Overview","#/"],["Recent Activities","#/portal/activity"],["Quick Access","#/portal/quick"],["Upcoming Exams","#/quiz"]]],
+["upd","📢","College Updates",[["All Notices",["cat",null]],["Important Notices",["cat","notice"]],["Exam Routine",["cat","routine"]],["Syllabus",["cat","syllabus"]],["Suggestions",["cat","suggestion"]],["Results",["cat","result"]],["Events",["cat","event"]]]],
+["hub","📚","Academic Hub",[["BOARD QUESTION BANK",0],["All Board Questions","#/board"],["Browse by Subject","#/portal/bf/subject"],["Browse by Board","#/portal/bf/board"],["Browse by Year","#/portal/bf/year"],["MCQ Questions","#/portal/bf/mcq"],["CQ Questions","#/portal/bf/cq"],["Chapter-wise Questions","#/portal/bf/chapter"],["Answer & Solutions","#/board"],["QUIZ & EXAM",0],["Quiz Dashboard","#/quiz"],["Practice Quiz","#/portal/qf/practice"],["Chapter-wise Quiz","#/portal/qf/chapter"],["Subject-wise Quiz","#/portal/qf/subject"],["Model Test","#/board/mock"],["Available Exams","#/quiz"],["My Quiz Attempts","#/quiz"],["Quiz Results","#/quiz"],["Wrong Answer Revision","#/portal/wrong"]]],
+["learn","📈","My Learning",[["My Progress","#/portal/progress"],["Performance Analytics","#/portal/analytics"],["Subject-wise Progress","#/portal/subjprog"],["Chapter-wise Progress","#/portal/chprog"],["Learning History","#/portal/history"]]],
+["lib","⭐","My Library",[["Saved Questions","#/board/saved"],["Bookmarked MCQs","#/board/saved"],["Saved Solutions","#/board/saved"],["Recently Viewed","#/portal/recent"],["My Collections","#/saved"]]],
+["dl","⬇️","Downloads",[["Study Materials","#/portal/materials"],["Download History","#/portal/dlhist"],["Available Resources","#/portal/resources"]]],
+["com","💬","Communication",[["Notifications","#/inbox"],["Inbox","#/inbox"],["Announcements",["cat","notice"]]]],
+["acc","👤","Account",[["My Profile","#/profile"],["Academic Information","#/profile"],["Account Settings","#/portal/settings"],["Change Password","#/portal/password"],["Help & Support","#/contact"]]]];
+const PTX={};PT.forEach(g=>g[3].forEach(i=>{if(typeof i[1]==="string"&&i[1].startsWith("#/portal/")&&!/^#\/portal\/(bf|qf)\//.test(i[1]))PTX[i[1].slice(9)]=[i[0],g[2]]}));
+function ptGo(c){setCat(c);if(location.hash.replace(/^#\/?/,""))location.hash="#/"}
+function pPortal(k,by,val){
+ if(k=="wrong")return pWrong();
+ if(k=="password"||k=="settings")return pAcc(k);
+ if(k=="bf"||k=="qf")return pFl(k,by,val);
+ if(PL.includes(k))return pLearn(k);
+ if(PX.includes(k))return pPx(k);
+ if(k){const x=PTX[k]||[k,"Portal"];return `<div class="wrap" style="padding:18px 0"><a href="#/portal" class="btn">← Portal</a><div style="margin:30px auto;max-width:420px;text-align:center"><div style="font-size:42px">🚧</div><h2>${esc(x[0])}</h2><p style="color:var(--mute)">${esc(x[1])} · এই অংশটি শীঘ্রই আসছে।</p></div></div>`}
+ const p=U.prof||{},row=i=>{if(i[1]===0)return `<div style="padding:10px 14px 4px;font-size:11.5px;font-weight:800;letter-spacing:.06em;color:var(--mute)">${esc(i[0])}</div>`;
+  const a=Array.isArray(i[1])?`href="#/" onclick="event.preventDefault();ptGo(${i[1][1]?`'${i[1][1]}'`:"null"})"`:`href="${i[1]}"`;
+  return `<a ${a} style="display:block;padding:9px 14px 9px 24px;color:inherit;text-decoration:none;border-top:1px solid var(--line,#0001)">${esc(i[0])}</a>`};
+ return `<div class="wrap" style="padding:18px 0"><h1 style="margin:0 0 4px">MCUN Student Portal</h1><p style="margin:0 0 14px;color:var(--mute)">${esc(p.name||"")}${p.year?" · "+esc(p.year)+" · "+esc(p.dept||""):""}</p>
+ <div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">${PT.map((g,n)=>`<details class="card" style="border-radius:14px;overflow:hidden"${n<2?" open":""}><summary style="cursor:pointer;padding:13px 14px;font-weight:800">${g[1]} ${n+1}. ${g[2]}</summary>${g[3].map(row).join("")}</details>`).join("")}
+ <button class="btn" style="border-radius:14px;padding:13px;font-weight:800" onclick="logout()">🚪 9. Logout</button></div></div>`}
+
 /* ---------- LOGIN / PROFILE ---------- */
 const U={user:null,prof:null,busy:false,mode:"login",started:false};
 const PK="mcn_user",root=document.documentElement;
@@ -1067,7 +1249,7 @@ function paintBnav(pg){
  try{paintBell()}catch(e){}}
 function paintMore(){const e=$("#mmc");if(!e)return;const n=nUnread();
  e.innerHTML=`<div class="mm-tg"><button type="button" class="mm-main" onclick="mmList()"><span class="mm-ic">${SVG("bell")}${n?`<em class="mm-bd">${n>9?"9+":n}</em>`:""}</span><span class="mm-tx"><b>Notifications</b><small>${n?n+" new · ":""}${alertSub()}</small></span></button>${swBtn()}</div>
- <div class="mm-g"><button type="button" class="mm-i" onclick="mmTheme()"><span class="mm-ic">${THEME_SVG}</span>Theme</button><a class="mm-i" href="#/quiz"><span class="mm-ic">${SVG("quiz")}</span>Quiz</a><a class="mm-i" href="#/board"><span class="mm-ic">${SVG("board")}</span>Board</a>${U.role?`<a class="mm-i" href="/admin"><span class="mm-ic">${SHIELD_SVG}</span>Admin<small class="mm-role">${ROLE_N[U.role]}</small></a>`:""}
+ <div class="mm-g"><button type="button" class="mm-i" onclick="mmTheme()"><span class="mm-ic">${THEME_SVG}</span>Theme</button><a class="mm-i" href="#/portal"><span class="mm-ic">${SVG("home")}</span>Portal</a><a class="mm-i" href="#/quiz"><span class="mm-ic">${SVG("quiz")}</span>Quiz</a><a class="mm-i" href="#/board"><span class="mm-ic">${SVG("board")}</span>Board</a>${U.role?`<a class="mm-i" href="/admin"><span class="mm-ic">${SHIELD_SVG}</span>Admin<small class="mm-role">${ROLE_N[U.role]}</small></a>`:""}
  ${typeof DP!="undefined"&&DP?`<button type="button" class="mm-i" onclick="mmInstall()"><span class="mm-ic">${SVG("dl")}</span>Install</button>`:""}</div>`}
 function toggleMore(f){const w=$("#mmore"),b=$("#bmid");if(!w||!b)return;const o=typeof f=="boolean"?f:!MMO;MMO=o;if(o)paintMore();w.classList.toggle("open",o);b.classList.toggle("open",o);b.setAttribute("aria-expanded",o?"true":"false")}
 function mmList(){toggleMore(false);openNotifs()}

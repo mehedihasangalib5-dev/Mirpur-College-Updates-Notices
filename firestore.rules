@@ -112,6 +112,21 @@ service cloud.firestore {
     match /notifAll/{id} { allow read: if request.auth != null && request.auth.token.email_verified == true; allow write: if false; }
     // users/{uid}/inbox = shudhu oi student-er jonno pathano notification (bell-er list)
     match /users/{uid}/inbox/{id} { allow read: if request.auth != null && request.auth.uid == uid; allow write: if false; }
+    // users/{uid}/history/{id} = Quiz attempt history (proti attempt alada). Shudhu oi student pore.
+    // Practice-e client likhe (append-only); Exam-er history shudhu /api/grade (server) likhe.
+    match /users/{uid}/history/{id} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow create: if request.auth != null && request.auth.uid == uid && request.auth.token.email_verified == true
+        && request.resource.data.keys().hasOnly(['uid','quizId','score','correct','wrong','total','used','ts','mode'])
+        && request.resource.data.uid == uid
+        && request.resource.data.mode == 'Practice'
+        && request.resource.data.quizId is string && request.resource.data.quizId.size() <= 40
+        && request.resource.data.score is number && request.resource.data.correct is number
+        && request.resource.data.wrong is number && request.resource.data.total is number
+        && request.resource.data.total <= 300 && request.resource.data.ts is number
+        && get(/databases/$(db)/documents/quizzes/$(request.resource.data.quizId)).data.get('mode', '') == 'Practice';
+      allow update, delete: if false;
+    }
     // ---- Quiz + Board Question (student side) ----
     // quizzes/boardQ doc-e pages = ["HSC 1st Year · Science", ...] thakte hobe (sob page hole 6 ta-i). Student shudhu nijer Page-er doc pore.
     // Notun doc lekha: Owner/Admin (scope-wala Admin shudhu nijer Page). quizAttempts-er sob result shudhu Owner pore.
@@ -120,6 +135,20 @@ service cloud.firestore {
         && exists(/databases/$(db)/documents/users/$(request.auth.uid))
         && (get(/databases/$(db)/documents/users/$(request.auth.uid)).data.year + ' · '
             + get(/databases/$(db)/documents/users/$(request.auth.uid)).data.dept) in pages;
+    }
+    // ---- Reported Questions: Student nijer report create korte pare (1 prosno = 1 report). Admin porbe, resolve/delete korbe ----
+    match /qReports/{id} {
+      allow create: if request.auth != null && request.auth.token.email_verified == true
+        && request.resource.data.keys().hasOnly(['uid','name','qid','kind','title','reason','note','st','ts'])
+        && request.resource.data.uid == request.auth.uid
+        && id == request.auth.uid + '_' + request.resource.data.qid
+        && request.resource.data.st == 'open'
+        && request.resource.data.reason is string && request.resource.data.reason.size() <= 60
+        && request.resource.data.note is string && request.resource.data.note.size() <= 300
+        && request.resource.data.title is string && request.resource.data.title.size() <= 120
+        && request.resource.data.name is string && request.resource.data.name.size() <= 80;
+      allow read: if isAdmin() || (request.auth != null && resource.data.uid == request.auth.uid);
+      allow update, delete: if isAdmin();
     }
     match /quizzes/{id} {
       allow read: if myPageIn(resource.data.get('pages', [])) || isAdmin();
@@ -131,12 +160,23 @@ service cloud.firestore {
       allow create, update: if isAdmin() && pagesOk(request.resource.data.get('pages', []));
       allow delete: if isAdmin() && pagesOk(resource.data.get('pages', []));
     }
+    // examStarts/{uid_quizId} = secured Exam-er shuru-r somoy (server-e likha; time-limit server check kore). Client kokhono pore/likhe na.
+    match /examStarts/{id} { allow read, write: if false; }
+    // quizKeys/{quizId} = secured Exam-er answer key { k:[{q,a,e}] }. Student kokhono pore na; Admin (scope-er moddhe) likhe; /api/grade (Admin SDK) pore.
+    match /quizKeys/{id} {
+      allow read, create, update: if isAdmin() && exists(/databases/$(db)/documents/quizzes/$(id))
+        && pagesOk(get(/databases/$(db)/documents/quizzes/$(id)).data.get('pages', []));
+      allow delete: if isAdmin();
+    }
     // quizAttempts/{uid_quizId}: Exam ekbar-i (create only), Practice-e update chole
     match /quizAttempts/{id} {
       allow read: if request.auth != null && (resource.data.uid == request.auth.uid || isOwner());
       allow create: if request.auth != null && request.auth.token.email_verified == true
         && request.resource.data.uid == request.auth.uid
         && id == request.auth.uid + '_' + request.resource.data.quizId
+        // secured Exam (sec=true) attempt shudhu /api/grade (server) likhe; client shudhu Practice ba purono (unsecured) Exam likhte pare
+        && (get(/databases/$(db)/documents/quizzes/$(request.resource.data.quizId)).data.get('mode', '') == 'Practice'
+            || get(/databases/$(db)/documents/quizzes/$(request.resource.data.quizId)).data.get('sec', 0) != 1)
         && request.resource.data.keys().hasOnly(['uid','quizId','score','correct','wrong','total','used','ts'])
         && request.resource.data.score is number && request.resource.data.total is number;
       allow update: if request.auth != null && resource.data.uid == request.auth.uid
@@ -144,6 +184,11 @@ service cloud.firestore {
         && request.resource.data.quizId == resource.data.quizId
         && request.resource.data.keys().hasOnly(['uid','quizId','score','correct','wrong','total','used','ts'])
         && get(/databases/$(db)/documents/quizzes/$(resource.data.quizId)).data.get('mode', '') == 'Practice';
+    }
+    // ---- Website settings: sobai pore (public), shudhu Owner likhte pare ----
+    match /config/site {
+      allow read: if true;
+      allow write: if isOwner();
     }
     match /config/admins {
       allow read: if isStaff();           // Admin o Editor nijeder role jante read korte pare
