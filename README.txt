@@ -387,3 +387,9 @@ Admin:
  - Board page ar Quiz cholar somoy je naam-email watermark overlay (#qbwm) dekhato ta soriye fela hoyeche.
  - Copy / Cut / Right-click / Drag / Ctrl+P,S,C,A,U bondho ager moto-i ache (body.prot). Board hub-er notice-eo "watermark" lekha tule deya hoyeche.
  - Deploy: shudhu Vercel deploy (sw.js v47 -> "Update" banner).
+
+
+=== PORTAL REMOVED -> SEPARATE FEATURES (index.html) ===
+ - Portal tab nei. Tar 8 section ekhon alada alada top-level feature, nijer tab/page: #/dash Dashboard, #/upd College Updates, #/hub Academic Hub, #/learn My Learning, #/lib My Library, #/dl Downloads, #/com Communication, #/acc Account.
+ - Header-er niche feature bar (shob page-e), phone-e "Aro feature" menu-te-o protita alada tile.
+ - Sub-page-gulor route #/feat/... (age #/portal/...). Purono #/portal... link auto redirect hoy.

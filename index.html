@@ -661,10 +661,30 @@ footer a{color:#ffd9f0}
 .nv.on{background:linear-gradient(135deg,color-mix(in srgb,var(--pri) 16%,transparent),color-mix(in srgb,var(--pri2) 12%,transparent));box-shadow:inset 3px 0 0 var(--pri)}
 @media(max-width:899px){.nv.on{box-shadow:none}}
 @media(min-width:1100px){.side-f .cats::before{color:var(--pri)}}
+
+:root{--hh:56px}@media(min-width:601px){:root{--hh:64px}}
+.nav{height:var(--hh)}
+html.gated .fbar,body.qrun .fbar{display:none!important}
+.fbar{position:sticky;top:calc(var(--hh) + 1px + env(safe-area-inset-top,0px));z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.fbar>div{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:8px clamp(14px,3vw,36px);max-width:1560px;margin:auto}
+.fbar>div::-webkit-scrollbar{display:none}
+.fbar a{flex:none;display:inline-flex;gap:6px;align-items:center;padding:7px 13px;border-radius:99px;border:1px solid color-mix(in srgb,var(--c) 38%,var(--line));background:var(--card);color:var(--ink);font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap;transition:.15s}
+.fbar a:hover,.fbar a.on{background:var(--c);border-color:var(--c);color:#fff}
+.mm-c{max-height:78vh;overflow:auto}
+.sec{padding:8px 0 44px}
+.sec-h{display:flex;align-items:center;gap:14px;margin:18px 0 4px}
+.sec-h .em{flex:none;width:58px;height:58px;border-radius:16px;display:grid;place-items:center;font-size:28px;background:color-mix(in srgb,var(--c) 16%,var(--card));border:1px solid color-mix(in srgb,var(--c) 35%,var(--line))}
+.sec-h h1{margin:0;font-size:clamp(22px,4vw,30px);letter-spacing:-.02em}
+.sec-h p{margin:2px 0 0;color:var(--mute)}
+.tg{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));margin-top:16px}
+.tg-h{grid-column:1/-1;font-size:12px;font-weight:800;letter-spacing:.07em;color:var(--mute);margin:12px 0 0}
+.tile{display:flex;align-items:center;gap:10px;padding:17px 16px;border-radius:16px;background:linear-gradient(155deg,color-mix(in srgb,var(--c) 11%,var(--card)),var(--card));border:1px solid color-mix(in srgb,var(--c) 28%,var(--line));border-left:5px solid var(--c);color:var(--ink);text-decoration:none;font:inherit;font-weight:700;cursor:pointer;text-align:left;transition:.15s}
+.tile i{font-style:normal;margin-left:auto;color:var(--c);font-weight:800;font-size:18px}
+.tile:hover{transform:translateY(-2px);box-shadow:var(--sh);border-color:var(--c)}
 /* ===================== /COLORFUL ===================== */
 </style></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
-<nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="installBtn" style="display:none"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span class="hd"> Install</span></button><a class="btn ghost sm" id="adminBtn" href="/admin" style="display:none" aria-label="Admin Panel"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.4 8.4-8 9-4.6-.6-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg> Admin</a><button class="btn ghost sm" id="bellBtn" type="button" aria-label="Notification" onclick="bellTap()"></button><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="me" id="meBtn" aria-label="Profile" type="button"></button></div></header>
+<nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="installBtn" style="display:none"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span class="hd"> Install</span></button><a class="btn ghost sm" id="adminBtn" href="/admin" style="display:none" aria-label="Admin Panel"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.4 8.4-8 9-4.6-.6-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg> Admin</a><button class="btn ghost sm" id="bellBtn" type="button" aria-label="Notification" onclick="bellTap()"></button><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="me" id="meBtn" aria-label="Profile" type="button"></button></div></header><nav class="fbar" id="fbar" aria-label="Features"></nav>
 <div id="gate"></div>
 <main class="wrap" id="app"></main>
 <footer><div>© <span id="yr"></span> <span id="fcp">Mirpur College Updates &amp; Notices. All rights reserved.</span></div><div id="fx" style="margin-top:6px"></div>
@@ -1060,11 +1080,12 @@ function pBoard(a,b){qbLoad("boardQ");qbLoad("quiz");if(QB.bq==null)return '<div
 function qbProt(pg){const d=$("#qbwm");if(d)d.remove();const on=pg=="board"||(pg=="quiz"&&!!QB.run);  document.body.classList.toggle("prot",on);document.body.classList.toggle("qrun",!!QB.run&&location.hash=="#/quiz/"+QB.run.z.id);if(!(QB.run&&(QB.run.sheet||QB.run.sub)))document.body.style.overflow=""}
 ["copy","cut","contextmenu","dragstart"].forEach(ev=>document.addEventListener(ev,e=>{if(document.body.classList.contains("prot"))e.preventDefault()}));
 addEventListener("keydown",e=>{if(document.body.classList.contains("prot")&&(e.ctrlKey||e.metaKey)&&["p","s","c","a","u"].includes((e.key||"").toLowerCase()))e.preventDefault()});
-function route(){const h=location.hash.replace(/^#\/?/,"").split("/"),pg=h[0]||"home";
- $("#links").innerHTML=`<a href="#/" class="${pg=="home"?"on":""}">Home</a><a href="#/saved" class="${pg=="saved"?"on":""}">${SVG("star")} Saved${savedN()?" ("+savedN()+")":""}</a><a href="#/contact" class="${pg=="contact"?"on":""}">Contact</a><a href="#/portal" class="${pg=="portal"?"on":""}">Portal</a><a href="#/quiz" class="${pg=="quiz"?"on":""}">Quiz</a><a href="#/board" class="${pg=="board"?"on":""}">Board</a>${siteNav()}`;
+function route(){const lg=location.hash.match(/^#\/?portal(\/.*)?$/);if(lg){location.replace("#"+(lg[1]?"/feat"+lg[1]:"/"));return}const h=location.hash.replace(/^#\/?/,"").split("/"),pg=h[0]||"home";
+ $("#links").innerHTML=`<a href="#/" class="${pg=="home"?"on":""}">Home</a><a href="#/saved" class="${pg=="saved"?"on":""}">${SVG("star")} Saved${savedN()?" ("+savedN()+")":""}</a><a href="#/contact" class="${pg=="contact"?"on":""}">Contact</a><a href="#/quiz" class="${pg=="quiz"?"on":""}">Quiz</a><a href="#/board" class="${pg=="board"?"on":""}">Board</a>${siteNav()}`;
+ {const fb=$("#fbar");if(fb)fb.innerHTML=fbarHTML(pg)}
  $("#yr").textContent=new Date().getFullYear();siteApply();paintBnav(pg);{const f=$("#fab"),c=pg=="contact";f.href=c?"#/":"#/contact";f.innerHTML=c?"<span>"+SVG("home")+"</span>Home":"<span>"+SVG("msg")+"</span>Contact";f.setAttribute("aria-label",c?"Home":"Contact")}const k=document.activeElement&&document.activeElement.id;
  if(pg=="inbox"&&S.pg!="inbox"){try{N.hl=N.seen;nMarkSeen()}catch(e){}}if(pg!="profile")S.pfd=null;if(S.pg!=pg&&(pg=="profile"||pg=="inbox"))scrollTo(0,0);S.pg=pg;
- $("#app").innerHTML=pg=="portal"?pPortal(h[1],h[2],h[3]):pg=="quiz"?pQuiz(h[1]):pg=="board"?pBoard(h[1],h[2]):pg=="contact"?pContact():pg=="saved"?pSaved():pg=="p"?pPost(h[1]):pg=="profile"?pProfile():pg=="inbox"?pInbox():pHome();observeCovers();qbProt(pg);if(pg=="p"){markRead(h[1]);loadPost(h[1])}
+ $("#app").innerHTML=FSEC[pg]?pSec(pg):pg=="feat"?pPortal(h[1],h[2],h[3]):pg=="quiz"?pQuiz(h[1]):pg=="board"?pBoard(h[1],h[2]):pg=="contact"?pContact():pg=="saved"?pSaved():pg=="p"?pPost(h[1]):pg=="profile"?pProfile():pg=="inbox"?pInbox():pHome();observeCovers();qbProt(pg);if(pg=="p"){markRead(h[1]);loadPost(h[1])}
  const q=$("#q");if(q){q.addEventListener("keydown",e=>{if(e.key=="Enter")doSearch()});q.addEventListener("input",onSearchInput);if(k=="q")q.focus()}}
 /* ---- live search: input-ta na bhenge shudhu niche-r result bodle ---- */
 let sT;
@@ -1079,7 +1100,7 @@ addEventListener("hashchange",()=>{route();scrollTo(0,0)});
 
 
 
-/* ---------- WRONG ANSWER REVISION (#/portal/wrong): Quiz-e bhul hoya prosno, subject/odhyay onujayi, nijei abar try ---------- */
+/* ---------- WRONG ANSWER REVISION (#/feat/wrong): Quiz-e bhul hoya prosno, subject/odhyay onujayi, nijei abar try ---------- */
 const WR=()=>QB.wr||(QB.wr={f:{s:"",c:""},a:{}}),wrS=q=>(q.m&&q.m.sub)||"অন্যান্য",wrC=q=>(q.m&&q.m.ch)||"";
 function wrSet(k,v){const w=WR();w.f[k]=v;if(k=="s")w.f.c="";w.a={};route()}
 function wrPick(i,k){WR().a[i]=k;const q=bqMs()[i];if(q&&k==q.a)try{bqW("mcn_bst",{...bqJ("mcn_bst",{c:0,w:0}),c:bqJ("mcn_bst",{c:0,w:0}).c+1})}catch(e){}route()}
@@ -1091,7 +1112,7 @@ function pWrong(){
  const chip=(l,n,on,fn)=>`<button type="button" onclick="${fn}" style="white-space:nowrap;padding:7px 13px;border-radius:99px;border:0;font:inherit;font-weight:700;font-size:13.5px;cursor:pointer;${on?"background:var(--pri);color:#fff":"background:#8882;color:inherit"}">${esc(l)} (${qn(n)})</button>`;
  const top=Object.entries(S0).sort((a,b)=>b[1]-a[1])[0];
  const card=(q,n)=>{const ch=w.a[q.i],has=ch!==undefined,ok=has&&ch==q.a;return `<div class="qb-c br-m" style="margin:10px 0"><small style="color:var(--mute)">${esc([wrS(q),wrC(q),q.m&&q.m.t].filter(Boolean).join(" · "))}</small><div class="qrv-q">${qn(n)}. ${esc(q.q)}</div>${q.o.map((o,k)=>`<button type="button" class="qb-o ${has?(k==q.a?"ok":k==ch?"bad":"dim"):""}" ${has?"disabled":""} onclick="wrPick(${q.i},${k})" style="width:100%;text-align:left;font:inherit;color:inherit"><b class="qo-l">${OPL[k]}</b><span class="qo-t">${esc(o)}</span></button>`).join("")}${has?`<div class="qr-ex"><b>${ok?"✓ এবার ঠিক হয়েছে":"✕ আবার ভুল — সঠিক উত্তর "+OPL[q.a]}</b>${q.e?`<p>${esc(q.e)}</p>`:""}</div>`:""}<button class="qr-lk" onclick="wrDel(${q.i})">${ok?"মনে আছে, তালিকা থেকে সরাও":"মনে আছে, সরাও"}</button></div>`};
- return `<div class="wrap" style="padding:18px 0"><a href="#/portal" class="btn">← Portal</a><h2 style="margin:14px 0 4px">Wrong Answer Revision</h2><p style="margin:0 0 10px;color:var(--mute)">Quiz ও Exam-এ যে প্রশ্নগুলো ভুল হয়েছে। শুধু তুমি এগুলো দেখতে পাও (এই device-এ সংরক্ষিত)।</p>
+ return `<div class="wrap" style="padding:18px 0"><a href="#/" class="btn" onclick="return pBack()">← Back</a><h2 style="margin:14px 0 4px">Wrong Answer Revision</h2><p style="margin:0 0 10px;color:var(--mute)">Quiz ও Exam-এ যে প্রশ্নগুলো ভুল হয়েছে। শুধু তুমি এগুলো দেখতে পাও (এই device-এ সংরক্ষিত)।</p>
  ${all.length?`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px"><div class="card" style="padding:12px;border-radius:14px;text-align:center"><b style="font-size:22px">${qn(all.length)}</b><br><small style="color:var(--mute)">ভুল প্রশ্ন</small></div><div class="card" style="padding:12px;border-radius:14px;text-align:center"><b style="font-size:22px">${qn(Object.keys(S0).length)}</b><br><small style="color:var(--mute)">বিষয়</small></div><div class="card" style="padding:12px;border-radius:14px;text-align:center"><b style="font-size:15px">${esc(top[0])}</b><br><small style="color:var(--mute)">সবচেয়ে বেশি ভুল</small></div></div>
  <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:8px">${chip("সব",all.length,!w.f.s,"wrSet('s','')")}${Object.entries(S0).map(([s,n])=>chip(s,n,w.f.s==s,"wrSet('s',"+JSON.stringify(s).replace(/"/g,"&quot;")+")")).join("")}</div>
  ${w.f.s&&Object.keys(C0).length>1?`<div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:8px">${chip("সব অধ্যায়",Object.values(C0).reduce((a,b)=>a+b,0),!w.f.c,"wrSet('c','')")}${Object.entries(C0).map(([c,n])=>chip(c,n,w.f.c==(c=="—"?"":c)&&!!w.f.c,"wrSet('c',"+JSON.stringify(c=="—"?"":c).replace(/"/g,"&quot;")+")")).join("")}</div>`:""}
@@ -1099,7 +1120,7 @@ function pWrong(){
  :`<div class="qb-em">${SVG("qck")}<b>কোনো ভুল জমেনি</b><span>Quiz বা Exam-এ ভুল হলে এখানে জমা হবে। <a href="#/quiz">Quiz দাও →</a></span></div>`}</div>`}
 
 /* ---------- QUIZ ATTEMPT HISTORY (users/{uid}/history) ---------- */
-function plHLoad(){if(QB.hs!==undefined||QB.hl)return;QB.hl=1;(async()=>{try{const {db,f}=await getSDK();const sn=await f.getDocs(f.query(f.collection(db,"users",U.prof.uid,"history"),f.orderBy("ts","desc"),f.limit(100)));QB.hs=sn.docs.map(d=>d.data())}catch(e){QB.hs=[]}QB.hl=0;if(/^#\/portal\/(history|progress|analytics|subjprog|chprog|activity)/.test(location.hash))route()})()}
+function plHLoad(){if(QB.hs!==undefined||QB.hl)return;QB.hl=1;(async()=>{try{const {db,f}=await getSDK();const sn=await f.getDocs(f.query(f.collection(db,"users",U.prof.uid,"history"),f.orderBy("ts","desc"),f.limit(100)));QB.hs=sn.docs.map(d=>d.data())}catch(e){QB.hs=[]}QB.hl=0;if(/^#\/feat\/(history|progress|analytics|subjprog|chprog|activity)/.test(location.hash))route()})()}
 function plHist(R){plHLoad();if(QB.hs===undefined)return `<p style="text-align:center;color:var(--mute);margin:30px 0">লোড হচ্ছে…</p>`;
  const m={};(QB.qz||[]).forEach(z=>m[z.id]=z);const key=x=>x.quizId+"_"+x.ts,seen=new Set(QB.hs.map(key));
  const L=[...QB.hs,...Object.values(QB.at||{}).filter(a=>a.ts&&!seen.has(key(a)))].sort((a,b)=>(b.ts||0)-(a.ts||0));
@@ -1114,7 +1135,7 @@ function plGroup(R,k){const g={};R.forEach(r=>{const n=r[k];(g[n]=g[n]||{n,c:0,t
 const plBar=(l,pc,sub)=>`<div style="margin:10px 0"><div style="display:flex;justify-content:space-between;font-weight:700;font-size:14px"><span>${esc(l)}</span><span>${qn(pc)}%</span></div><div style="height:9px;border-radius:9px;background:#8883;overflow:hidden;margin-top:4px"><i style="display:block;height:100%;width:${pc}%;border-radius:9px;background:${pc>=70?"#16a34a":pc>=40?"#e08a00":"#e5484d"}"></i></div>${sub?`<small style="color:var(--mute)">${sub}</small>`:""}</div>`;
 const plStat=(n,l)=>`<div class="card" style="padding:14px;border-radius:14px;text-align:center"><div style="font-size:24px;font-weight:800">${n}</div><small style="color:var(--mute)">${l}</small></div>`;
 function pLearn(k){
- qbLoad("quiz");if(!QB.qz||QB.ld.quiz){setTimeout(()=>{if(/^#\/portal\/(progress|analytics|subjprog|chprog|history)/.test(location.hash)&&QB.qz)route();else if(/^#\/portal\//.test(location.hash)&&!QB.qz)setTimeout(()=>QB.qz&&route(),800)},700);return `<div class="wrap" style="padding:40px 0;text-align:center;color:var(--mute)">লোড হচ্ছে…</div>`}
+ qbLoad("quiz");if(!QB.qz||QB.ld.quiz){setTimeout(()=>{if(/^#\/feat\/(progress|analytics|subjprog|chprog|history)/.test(location.hash)&&QB.qz)route();else if(/^#\/feat\//.test(location.hash)&&!QB.qz)setTimeout(()=>QB.qz&&route(),800)},700);return `<div class="wrap" style="padding:40px 0;text-align:center;color:var(--mute)">লোড হচ্ছে…</div>`}
  plHLoad();if(QB.hs===undefined&&k!="history")return `<div class="wrap" style="padding:40px 0;text-align:center;color:var(--mute)">লোড হচ্ছে…</div>`;
  const R=plData(),DQ=new Set(R.map(r=>r.id)).size,T=R.reduce((a,r)=>({c:a.c+r.c,t:a.t+r.tot}),{c:0,t:0}),avg=T.t?Math.round(T.c*100/T.t):0,all=(QB.qz||[]).length;
  const nm={progress:"My Progress",analytics:"Performance Analytics",subjprog:"Subject-wise Progress",chprog:"Chapter-wise Progress",history:"Learning History"}[k];
@@ -1125,7 +1146,7 @@ function pLearn(k){
  else if(k=="subjprog")b=plGroup(R,"sub").map(x=>plBar(x.n,x.pc,qn(x.q)+"টি attempt · "+qn(x.c)+"/"+qn(x.t)+" ঠিক")).join("");
  else if(k=="chprog")b=plGroup(R,"ch").map(x=>plBar(x.n,x.pc,qn(x.q)+"টি attempt")).join("");
  else b=R.map(r=>`<a href="#/quiz/${esc(r.id)}" class="card" style="display:flex;justify-content:space-between;gap:10px;padding:12px 14px;margin:8px 0;border-radius:12px;color:inherit;text-decoration:none"><span><b>${esc(r.t)}</b><br><small style="color:var(--mute)">${r.ts?new Date(r.ts).toLocaleDateString("bn-BD"):""} ${esc(r.mode)}</small></span><b>${qn(r.c)}/${qn(r.tot)}</b></a>`).join("");
- return `<div class="wrap" style="padding:18px 0"><a href="#/portal" class="btn">← Portal</a><h2 style="margin:14px 0 4px">${nm}</h2><p style="margin:0 0 8px;color:var(--mute)">শুধু তুমি নিজে এটা দেখতে পারো।</p>${b}</div>`}
+ return `<div class="wrap" style="padding:18px 0"><a href="#/" class="btn" onclick="return pBack()">← Back</a><h2 style="margin:14px 0 4px">${nm}</h2><p style="margin:0 0 8px;color:var(--mute)">শুধু তুমি নিজে এটা দেখতে পারো।</p>${b}</div>`}
 
 
 /* ---------- RECENT / DOWNLOADS / QUICK ACCESS ---------- */
@@ -1146,24 +1167,24 @@ function pPx(k){
  else if(k=="dlhist"){const l=ptIds("mcn_dl");b=l.map(p=>ptCard(p)).join("")||em("এখনো কিছু download করোনি।")}
  else if(k=="materials"){const l=sorted(ptOk().filter(p=>ptHasF(p)&&(p.cat=="syllabus"||p.cat=="suggestion")));b=l.map(p=>ptCard(p," · 📎")).join("")||em("এখনো কোনো Study Material নেই।")}
  else{const l=sorted(ptOk().filter(ptHasF));b=l.map(p=>ptCard(p," · 📎")).join("")||em("এখনো কোনো Resource নেই।")}
- if(k=="activity"&&!QB.qz)setTimeout(()=>{if(QB.qz&&location.hash=="#/portal/activity")route()},1200);
- return `<div class="wrap" style="padding:18px 0"><a href="#/portal" class="btn">← Portal</a><h2 style="margin:14px 0 4px">${nm}</h2>${k=="recent"||k=="dlhist"?`<p style="margin:0 0 8px;color:var(--mute)">এই device-এ সংরক্ষিত, শুধু তোমার জন্য।</p>`:""}${b}</div>`}
+ if(k=="activity"&&!QB.qz)setTimeout(()=>{if(QB.qz&&location.hash=="#/feat/activity")route()},1200);
+ return `<div class="wrap" style="padding:18px 0"><a href="#/" class="btn" onclick="return pBack()">← Back</a><h2 style="margin:14px 0 4px">${nm}</h2>${k=="recent"||k=="dlhist"?`<p style="margin:0 0 8px;color:var(--mute)">এই device-এ সংরক্ষিত, শুধু তোমার জন্য।</p>`:""}${b}</div>`}
 
 
-/* ---------- FILTER PAGES: Board (#/portal/bf/<by>) + Quiz (#/portal/qf/<by>) ---------- */
+/* ---------- FILTER PAGES: Board (#/feat/bf/<by>) + Quiz (#/feat/qf/<by>) ---------- */
 const FD={bf:{subject:["Browse by Subject","sub"],board:["Browse by Board","b"],year:["Browse by Year","y"],mcq:["MCQ Questions","sub","ty","MCQ"],cq:["CQ Questions","sub","ty","CQ"],chapter:["Chapter-wise Questions","ch"]},
  qf:{practice:["Practice Quiz","sub","mode","Practice"],chapter:["Chapter-wise Quiz","ch"],subject:["Subject-wise Quiz","sub"]}};
 function pFl(kd,by,val){
  const d=(FD[kd]||{})[by];if(!d)return pPortal("x");
  const bq=kd=="bf";qbLoad(bq?"board":"quiz");const src=bq?QB.bq:QB.qz;
- if(!src||QB.ld[bq?"board":"quiz"]){let n=0;const iv=setInterval(()=>{n++;if((bq?QB.bq:QB.qz)||n>12||location.hash.indexOf("#/portal/"+kd+"/")!=0){clearInterval(iv);if((bq?QB.bq:QB.qz)&&location.hash.indexOf("#/portal/"+kd+"/")==0)route()}},500);return `<div class="wrap" style="padding:40px 0;text-align:center;color:var(--mute)">লোড হচ্ছে…</div>`}
+ if(!src||QB.ld[bq?"board":"quiz"]){let n=0;const iv=setInterval(()=>{n++;if((bq?QB.bq:QB.qz)||n>12||location.hash.indexOf("#/feat/"+kd+"/")!=0){clearInterval(iv);if((bq?QB.bq:QB.qz)&&location.hash.indexOf("#/feat/"+kd+"/")==0)route()}},500);return `<div class="wrap" style="padding:40px 0;text-align:center;color:var(--mute)">লোড হচ্ছে…</div>`}
  val=val?decodeURIComponent(val):"";
  const base=src.filter(z=>qLive(z)&&(!d[2]||z[d[2]]==d[3])),key=z=>String(z[d[1]]||"").trim()||"অন্যান্য",G={};
  base.forEach(z=>{const g=key(z);G[g]=(G[g]||0)+1});
- const names=Object.keys(G).sort((a,b)=>a.localeCompare(b,"bn")),list=val?base.filter(z=>key(z)==val):base,ch=(n,c,on)=>`<a href="#/portal/${kd}/${by}${n?"/"+encodeURIComponent(n):""}" style="white-space:nowrap;padding:7px 13px;border-radius:99px;font-weight:700;font-size:13.5px;text-decoration:none;${on?"background:var(--pri);color:#fff":"background:#8882;color:inherit"}">${esc(n||"সব")} (${qn(c)})</a>`;
+ const names=Object.keys(G).sort((a,b)=>a.localeCompare(b,"bn")),list=val?base.filter(z=>key(z)==val):base,ch=(n,c,on)=>`<a href="#/feat/${kd}/${by}${n?"/"+encodeURIComponent(n):""}" style="white-space:nowrap;padding:7px 13px;border-radius:99px;font-weight:700;font-size:13.5px;text-decoration:none;${on?"background:var(--pri);color:#fff":"background:#8882;color:inherit"}">${esc(n||"সব")} (${qn(c)})</a>`;
  const row=z=>bq?`<a href="#/board/q/${esc(z.id)}" class="card" style="display:block;padding:12px 14px;margin:8px 0;border-radius:12px;color:inherit;text-decoration:none"><b>${esc(z.ty||"")} · ${esc(key(z))}</b><br><small style="color:var(--mute)">${esc([z.b,z.y,z.ch].filter(Boolean).join(" · "))}</small>${z.st?`<p style="margin:6px 0 0;font-size:14px">${esc(String(z.st).slice(0,110))}${String(z.st).length>110?"…":""}</p>`:""}</a>`
   :`<a href="#/quiz/${esc(z.id)}" class="card" style="display:flex;justify-content:space-between;gap:10px;padding:12px 14px;margin:8px 0;border-radius:12px;color:inherit;text-decoration:none"><span><b>${esc(z.t||"Quiz")}</b><br><small style="color:var(--mute)">${esc([z.sub,z.ch,z.mode].filter(Boolean).join(" · "))}</small></span>${QB.at[z.id]?`<b style="color:#16a34a">✓ ${qn(QB.at[z.id].correct||0)}/${qn(QB.at[z.id].total||0)}</b>`:""}</a>`;
- return `<div class="wrap" style="padding:18px 0"><a href="#/portal" class="btn">← Portal</a><h2 style="margin:14px 0 8px">${d[0]}</h2>
+ return `<div class="wrap" style="padding:18px 0"><a href="#/" class="btn" onclick="return pBack()">← Back</a><h2 style="margin:14px 0 8px">${d[0]}</h2>
  <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:8px">${ch("",base.length,!val)}${names.map(n=>ch(n,G[n],n==val)).join("")}</div>
  <p style="color:var(--mute);margin:6px 0">${qn(list.length)}টি পাওয়া গেছে</p>${list.slice(0,60).map(row).join("")||`<p style="text-align:center;color:var(--mute);margin:30px 0">কিছু পাওয়া যায়নি।</p>`}${list.length>60?`<p style="text-align:center;color:var(--mute)">প্রথম ৬০টি দেখানো হয়েছে — উপরের filter ব্যবহার করো।</p>`:""}</div>`}
 
@@ -1183,38 +1204,42 @@ async function acPw(){
 async function acReset(){try{const {auth,A}=await getSDK(),u=auth.currentUser;await A.sendPasswordResetEmail(auth,u.email);acMsg(u.email+"-এ reset link পাঠানো হয়েছে ✓",true)}catch(e){acMsg("Reset link পাঠানো যায়নি")}}
 function pAcc(k){
  const u=U.user||{},em=u.email||"",g=!!(u.providerData||[]).length&&(u.providerData||[]).every(x=>x.providerId=="google.com"),p=U.prof||{};
- const top=`<div class="wrap" style="padding:18px 0;max-width:520px"><a href="#/portal" class="btn">← Portal</a>`;
+ const top=`<div class="wrap" style="padding:18px 0;max-width:520px"><a href="#/" class="btn" onclick="return pBack()">← Back</a>`;
  if(k=="password")return top+`<h2 style="margin:14px 0 4px">Change Password</h2><p style="color:var(--mute);margin:0 0 14px">${esc(em)}</p>`+(g?`<p style="padding:14px;border-radius:12px;background:#8882">তুমি Google দিয়ে Login করেছো, তাই Password Google account থেকেই বদলাতে হবে।</p>`:`<label>বর্তমান Password<input id="pw0" type="password" autocomplete="current-password" style="${acBox}"></label><label>নতুন Password<input id="pw1" type="password" autocomplete="new-password" style="${acBox}"></label><label>নতুন Password আবার<input id="pw2" type="password" autocomplete="new-password" style="${acBox}"></label><button id="pwb" class="btn" style="padding:12px 18px;font-weight:800;background:var(--pri);color:#fff;border-radius:12px" onclick="acPw()">Password বদলাও</button> <button class="btn" style="padding:12px 14px;border-radius:12px" onclick="acReset()">Password ভুলে গেছো?</button><p id="acm" style="min-height:22px;font-weight:700"></p>`)+`</div>`;
  const r=(i,t,sm,a)=>`<${a} class="card" style="display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:13px 14px;margin:8px 0;border-radius:12px;color:inherit;text-decoration:none;font:inherit;cursor:pointer;box-sizing:border-box"><span style="font-size:22px">${i}</span><span style="flex:1"><b>${t}</b><br><small style="color:var(--mute)">${sm}</small></span>›</${a.split(" ")[0]}>`.replace(`<${a.split(" ")[0]} class`,`<${a} class`);
  return top+`<h2 style="margin:14px 0 4px">Account Settings</h2><p style="color:var(--mute);margin:0 0 10px">${esc(p.name||"")} · ${esc(em)}</p>
  <div class="card" style="padding:12px 14px;border-radius:12px;margin:8px 0;line-height:1.8">Email: ${u.emailVerified?"✓ Verified":"Verify হয়নি"}<br>Login: ${g?"Google":"Email / Password"}<br>${p.year?esc(p.year)+" · "+esc(p.dept||""):""}</div>
- ${r("🔔","Notification / Phone alert","Inbox page-এ ON/OFF switch আছে",'a href="#/inbox"')}${r("🌗","Theme","Dark / Light বদলাও",'button type="button" onclick="mmTheme()"')}${r("🔑","Change Password",g?"Google account":"Password বদলাও",'a href="#/portal/password"')}${r("👤","My Profile","নাম, ছবি, Year/Department",'a href="#/profile"')}${r("🚪","Logout","এই device থেকে বের হও",'button type="button" onclick="logout()"')}</div>`}
+ ${r("🔔","Notification / Phone alert","Inbox page-এ ON/OFF switch আছে",'a href="#/inbox"')}${r("🌗","Theme","Dark / Light বদলাও",'button type="button" onclick="mmTheme()"')}${r("🔑","Change Password",g?"Google account":"Password বদলাও",'a href="#/feat/password"')}${r("👤","My Profile","নাম, ছবি, Year/Department",'a href="#/profile"')}${r("🚪","Logout","এই device থেকে বের হও",'button type="button" onclick="logout()"')}</div>`}
 
-/* ---------- MCUN STUDENT PORTAL: 9-section structure (#/portal) ---------- */
+/* ---------- MCUN STUDENT PORTAL: 9-section structure (#/feat) ---------- */
 const PT=[
-["dash","🏠","Dashboard",[["Overview","#/"],["Recent Activities","#/portal/activity"],["Quick Access","#/portal/quick"],["Upcoming Exams","#/quiz"]]],
+["dash","🏠","Dashboard",[["Overview","#/"],["Recent Activities","#/feat/activity"],["Quick Access","#/feat/quick"],["Upcoming Exams","#/quiz"]]],
 ["upd","📢","College Updates",[["All Notices",["cat",null]],["Important Notices",["cat","notice"]],["Exam Routine",["cat","routine"]],["Syllabus",["cat","syllabus"]],["Suggestions",["cat","suggestion"]],["Results",["cat","result"]],["Events",["cat","event"]]]],
-["hub","📚","Academic Hub",[["BOARD QUESTION BANK",0],["All Board Questions","#/board"],["Browse by Subject","#/portal/bf/subject"],["Browse by Board","#/portal/bf/board"],["Browse by Year","#/portal/bf/year"],["MCQ Questions","#/portal/bf/mcq"],["CQ Questions","#/portal/bf/cq"],["Chapter-wise Questions","#/portal/bf/chapter"],["Answer & Solutions","#/board"],["QUIZ & EXAM",0],["Quiz Dashboard","#/quiz"],["Practice Quiz","#/portal/qf/practice"],["Chapter-wise Quiz","#/portal/qf/chapter"],["Subject-wise Quiz","#/portal/qf/subject"],["Model Test","#/board/mock"],["Available Exams","#/quiz"],["My Quiz Attempts","#/quiz"],["Quiz Results","#/quiz"],["Wrong Answer Revision","#/portal/wrong"]]],
-["learn","📈","My Learning",[["My Progress","#/portal/progress"],["Performance Analytics","#/portal/analytics"],["Subject-wise Progress","#/portal/subjprog"],["Chapter-wise Progress","#/portal/chprog"],["Learning History","#/portal/history"]]],
-["lib","⭐","My Library",[["Saved Questions","#/board/saved"],["Bookmarked MCQs","#/board/saved"],["Saved Solutions","#/board/saved"],["Recently Viewed","#/portal/recent"],["My Collections","#/saved"]]],
-["dl","⬇️","Downloads",[["Study Materials","#/portal/materials"],["Download History","#/portal/dlhist"],["Available Resources","#/portal/resources"]]],
+["hub","📚","Academic Hub",[["BOARD QUESTION BANK",0],["All Board Questions","#/board"],["Browse by Subject","#/feat/bf/subject"],["Browse by Board","#/feat/bf/board"],["Browse by Year","#/feat/bf/year"],["MCQ Questions","#/feat/bf/mcq"],["CQ Questions","#/feat/bf/cq"],["Chapter-wise Questions","#/feat/bf/chapter"],["Answer & Solutions","#/board"],["QUIZ & EXAM",0],["Quiz Dashboard","#/quiz"],["Practice Quiz","#/feat/qf/practice"],["Chapter-wise Quiz","#/feat/qf/chapter"],["Subject-wise Quiz","#/feat/qf/subject"],["Model Test","#/board/mock"],["Available Exams","#/quiz"],["My Quiz Attempts","#/quiz"],["Quiz Results","#/quiz"],["Wrong Answer Revision","#/feat/wrong"]]],
+["learn","📈","My Learning",[["My Progress","#/feat/progress"],["Performance Analytics","#/feat/analytics"],["Subject-wise Progress","#/feat/subjprog"],["Chapter-wise Progress","#/feat/chprog"],["Learning History","#/feat/history"]]],
+["lib","⭐","My Library",[["Saved Questions","#/board/saved"],["Bookmarked MCQs","#/board/saved"],["Saved Solutions","#/board/saved"],["Recently Viewed","#/feat/recent"],["My Collections","#/saved"]]],
+["dl","⬇️","Downloads",[["Study Materials","#/feat/materials"],["Download History","#/feat/dlhist"],["Available Resources","#/feat/resources"]]],
 ["com","💬","Communication",[["Notifications","#/inbox"],["Inbox","#/inbox"],["Announcements",["cat","notice"]]]],
-["acc","👤","Account",[["My Profile","#/profile"],["Academic Information","#/profile"],["Account Settings","#/portal/settings"],["Change Password","#/portal/password"],["Help & Support","#/contact"]]]];
-const PTX={};PT.forEach(g=>g[3].forEach(i=>{if(typeof i[1]==="string"&&i[1].startsWith("#/portal/")&&!/^#\/portal\/(bf|qf)\//.test(i[1]))PTX[i[1].slice(9)]=[i[0],g[2]]}));
+["acc","👤","Account",[["My Profile","#/profile"],["Academic Information","#/profile"],["Account Settings","#/feat/settings"],["Change Password","#/feat/password"],["Help & Support","#/contact"]]]];
+const PTX={};PT.forEach(g=>g[3].forEach(i=>{if(typeof i[1]==="string"&&i[1].startsWith("#/feat/")&&!/^#\/feat\/(bf|qf)\//.test(i[1]))PTX[i[1].slice(9)]=[i[0],g[2]]}));
 function ptGo(c){setCat(c);if(location.hash.replace(/^#\/?/,""))location.hash="#/"}
+const FCOL={dash:"#6d4aff",upd:"#e5484d",hub:"#0d9488",learn:"#e8479b",lib:"#f59e0b",dl:"#2563eb",com:"#16a34a",acc:"#8b5cf6"};
+const FDESC={dash:"Overview, recent activity ar quick access",upd:"Notice, routine, syllabus, result — shob update",hub:"Board question bank ar Quiz & Exam",learn:"Tomar progress ar performance",lib:"Saved question, solution ar collection",dl:"Study material ar download history",com:"Notification, inbox ar announcement",acc:"Profile, settings ar help"};
+const FSEC={};PT.forEach(g=>FSEC[g[0]]=g);
+function pBack(){if(history.length>1){history.back();return false}return true}
+function secTile(i,c){const a=Array.isArray(i[1])?`href="#/" onclick="event.preventDefault();ptGo(${i[1][1]?`'${i[1][1]}'`:"null"})"`:`href="${i[1]}"`;return `<a class="tile" style="--c:${c}" ${a}>${esc(i[0])}<i>›</i></a>`}
+function pSec(id){const g=FSEC[id];if(!g)return pHome();const c=FCOL[id];
+ const tiles=g[3].map(i=>i[1]===0?`<div class="tg-h">${esc(i[0])}</div>`:secTile(i,c)).join("")+(id=="acc"?`<button type="button" class="tile" style="--c:#e5484d" onclick="logout()">🚪 Logout<i>›</i></button>`:"");
+ return `<section class="sec"><div class="sec-h" style="--c:${c}"><span class="em">${g[1]}</span><div><h1>${esc(g[2])}</h1><p>${esc(FDESC[id]||"")}</p></div></div><div class="tg" style="--c:${c}">${tiles}</div></section>`}
+function fbarHTML(pg){return `<div>${PT.map(g=>`<a href="#/${g[0]}" style="--c:${FCOL[g[0]]}" class="${pg==g[0]?"on":""}">${g[1]} ${esc(g[2])}</a>`).join("")}</div>`}
 function pPortal(k,by,val){
  if(k=="wrong")return pWrong();
  if(k=="password"||k=="settings")return pAcc(k);
  if(k=="bf"||k=="qf")return pFl(k,by,val);
  if(PL.includes(k))return pLearn(k);
  if(PX.includes(k))return pPx(k);
- if(k){const x=PTX[k]||[k,"Portal"];return `<div class="wrap" style="padding:18px 0"><a href="#/portal" class="btn">← Portal</a><div style="margin:30px auto;max-width:420px;text-align:center"><div style="font-size:42px">🚧</div><h2>${esc(x[0])}</h2><p style="color:var(--mute)">${esc(x[1])} · এই অংশটি শীঘ্রই আসছে।</p></div></div>`}
- const p=U.prof||{},row=i=>{if(i[1]===0)return `<div style="padding:10px 14px 4px;font-size:11.5px;font-weight:800;letter-spacing:.06em;color:var(--mute)">${esc(i[0])}</div>`;
-  const a=Array.isArray(i[1])?`href="#/" onclick="event.preventDefault();ptGo(${i[1][1]?`'${i[1][1]}'`:"null"})"`:`href="${i[1]}"`;
-  return `<a ${a} style="display:block;padding:9px 14px 9px 24px;color:inherit;text-decoration:none;border-top:1px solid var(--line,#0001)">${esc(i[0])}</a>`};
- return `<div class="wrap" style="padding:18px 0"><h1 style="margin:0 0 4px">MCUN Student Portal</h1><p style="margin:0 0 14px;color:var(--mute)">${esc(p.name||"")}${p.year?" · "+esc(p.year)+" · "+esc(p.dept||""):""}</p>
- <div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">${PT.map((g,n)=>`<details class="card" style="border-radius:14px;overflow:hidden"${n<2?" open":""}><summary style="cursor:pointer;padding:13px 14px;font-weight:800">${g[1]} ${n+1}. ${g[2]}</summary>${g[3].map(row).join("")}</details>`).join("")}
- <button class="btn" style="border-radius:14px;padding:13px;font-weight:800" onclick="logout()">🚪 9. Logout</button></div></div>`}
+ if(k){const x=PTX[k]||[k,"Feature"];return `<div class="wrap" style="padding:18px 0"><a href="#/" class="btn" onclick="return pBack()">← Back</a><div style="margin:30px auto;max-width:420px;text-align:center"><div style="font-size:42px">🚧</div><h2>${esc(x[0])}</h2><p style="color:var(--mute)">${esc(x[1])} · এই অংশটি শীঘ্রই আসছে।</p></div></div>`}
+ setTimeout(()=>{location.hash="#/"},0);return ""}
 
 /* ---------- LOGIN / PROFILE ---------- */
 const U={user:null,prof:null,busy:false,mode:"login",started:false};
@@ -1378,7 +1403,7 @@ function paintBnav(pg){
  try{paintBell()}catch(e){}}
 function paintMore(){const e=$("#mmc");if(!e)return;const n=nUnread();
  e.innerHTML=`<div class="mm-tg"><button type="button" class="mm-main" onclick="mmList()"><span class="mm-ic">${SVG("bell")}${n?`<em class="mm-bd">${n>9?"9+":n}</em>`:""}</span><span class="mm-tx"><b>Notifications</b><small>${n?n+" new · ":""}${alertSub()}</small></span></button>${swBtn()}</div>
- <div class="mm-g"><button type="button" class="mm-i" onclick="mmTheme()"><span class="mm-ic">${THEME_SVG}</span>Theme</button><a class="mm-i" href="#/portal"><span class="mm-ic">${SVG("home")}</span>Portal</a><a class="mm-i" href="#/quiz"><span class="mm-ic">${SVG("quiz")}</span>Quiz</a><a class="mm-i" href="#/board"><span class="mm-ic">${SVG("board")}</span>Board</a>${U.role?`<a class="mm-i" href="/admin"><span class="mm-ic">${SHIELD_SVG}</span>Admin<small class="mm-role">${ROLE_N[U.role]}</small></a>`:""}
+ <div class="mm-g"><button type="button" class="mm-i" onclick="mmTheme()"><span class="mm-ic">${THEME_SVG}</span>Theme</button>${PT.map(g=>`<a class="mm-i" href="#/${g[0]}"><span class="mm-ic" style="font-size:22px">${g[1]}</span>${esc(g[2])}</a>`).join("")}<a class="mm-i" href="#/quiz"><span class="mm-ic">${SVG("quiz")}</span>Quiz</a><a class="mm-i" href="#/board"><span class="mm-ic">${SVG("board")}</span>Board</a>${U.role?`<a class="mm-i" href="/admin"><span class="mm-ic">${SHIELD_SVG}</span>Admin<small class="mm-role">${ROLE_N[U.role]}</small></a>`:""}
  ${typeof DP!="undefined"&&DP?`<button type="button" class="mm-i" onclick="mmInstall()"><span class="mm-ic">${SVG("dl")}</span>Install</button>`:""}</div>`}
 function toggleMore(f){const w=$("#mmore"),b=$("#bmid");if(!w||!b)return;const o=typeof f=="boolean"?f:!MMO;MMO=o;if(o)paintMore();w.classList.toggle("open",o);b.classList.toggle("open",o);b.setAttribute("aria-expanded",o?"true":"false")}
 function mmList(){toggleMore(false);openNotifs()}
