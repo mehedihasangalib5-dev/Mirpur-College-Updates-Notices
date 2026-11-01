@@ -8,35 +8,6 @@ body::before,body::after{display:none!important}
 .ch.on,.sg.on,.chip.on{background:var(--pri)!important;border-color:var(--pri)!important;color:#fff!important}
 header{background:var(--card);-webkit-backdrop-filter:none;backdrop-filter:none;border-bottom:1px solid var(--line)}
 
-/* ---------- sidebar (brand block hidden on phones) ---------- */
-.sb-brand{display:none;flex-direction:column;align-items:center;text-align:center;text-decoration:none;color:#fff;margin:0 0 18px}
-.sb-brand img{width:70px;height:70px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.18)}
-.sb-brand b{margin-top:8px;font-size:22px;font-weight:800;letter-spacing:.06em}
-.sb-brand small{margin-top:1px;font-size:11.5px;opacity:.75}
-
-@media(min-width:900px){
- header,main#app{margin-left:var(--sw)}
- header .wrap.nav,main.wrap#app{max-width:none;padding-left:28px;padding-right:28px}
- header .logo img{display:none}
- .shell{display:block;padding-bottom:50px}
- .side{position:fixed;inset:0 auto 0 0;top:0;width:var(--sw);z-index:8;display:flex;flex-direction:column;gap:3px;margin:0;padding:22px 14px 16px;border:0;border-radius:0;background:linear-gradient(180deg,var(--navy1),var(--navy2));box-shadow:none;overflow-y:auto;transform:none}
- .sb-brand{display:flex}
- .nv{width:100%;padding:11px 14px;border-radius:11px;color:#c7d2fe;font-weight:600;font-size:14px}
- .nv:hover{background:rgba(255,255,255,.09);color:#fff}
- .nv.on{background:var(--pri);color:#fff;box-shadow:0 8px 18px -8px rgba(37,99,235,.9)}
- .nv.on::before{display:none}
- .nv .bd{margin-left:auto}
- .mainc{padding-top:6px}
-}
-@media(min-width:900px) and (max-width:1199px){
- :root{--sw:76px}
- .side{padding:16px 10px;align-items:stretch}
- .sb-brand b,.sb-brand small{display:none}.sb-brand img{width:46px;height:46px}.sb-brand{margin-bottom:14px}
- .nv{justify-content:center;padding:13px 0}.nv .l{display:none}
- .nv .bd{position:absolute;top:3px;right:6px;margin:0}
-}
-@media(min-width:1440px){:root{--sw:256px}}
-
 /* ---------- banner (replaces the plain page title) ---------- */
 .ahero{--hxa:#fbbf24;--hxs:rgba(29,78,216,.85);position:relative;display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:150px;margin:18px 0 16px;padding:28px 34px;border-radius:24px;overflow:hidden;isolation:isolate;color:#fff;background:linear-gradient(115deg,#0a1f6e,#1d3fa8 55%,#2f6df0);box-shadow:0 26px 46px -30px var(--hxs)}
 .ahd{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}.ahd i{position:absolute;display:block}
@@ -109,8 +80,6 @@ footer.ft a{color:#fff;font-weight:600;text-decoration:none}
 footer.ft .ft-dev{display:inline-flex;align-items:center;gap:6px}
 @media(max-width:899px){footer.ft{margin-bottom:0;border-radius:20px 20px 0 0;padding-bottom:96px}.ft-bot{flex-direction:column;align-items:flex-start}}
 
-.sb-brand b,.sb-brand small{display:none!important}.sb-brand img{width:72px;height:72px}
-@media(min-width:900px) and (max-width:1199px){.sb-brand img{width:46px;height:46px}}
 
 /* smaller mobile layout */
 @media(max-width:599px){

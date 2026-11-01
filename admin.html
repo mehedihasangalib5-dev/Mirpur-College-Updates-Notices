@@ -405,9 +405,12 @@ footer a{color:#ffd9f0}
 @media(max-width:899px){.nv.on{box-shadow:none}}
 @media(min-width:1100px){.side-f .cats::before{color:var(--pri)}}
 /* ===================== /COLORFUL ===================== */
-</style><script src="rich.js"></script><link rel="stylesheet" href="admin-redesign.css"></head><body>
-<header><div class="wrap nav"><a class="logo" href="admin.html"><img src="/logo.png" onerror="this.onerror=null;this.src=LOGO_FB" alt="Logo">Admin Panel</a><div class="sp"></div>
-<div class="hdr-r"><span id="who"></span><a class="btn ghost sm" href="/" aria-label="Back to main website"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></svg><span class="hd"> Main site</span></a><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="btn ghost sm" id="outBtn" style="display:none" onclick="logout()" aria-label="Logout"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/></svg><span class="hd"> Logout</span></button></div></div></header>
+</style><script src="rich.js"></script><link rel="stylesheet" href="admin-redesign.css"><link rel="stylesheet" href="admin-dash.css"><link rel="stylesheet" href="admin-downloads.css"></head><body>
+<header><div class="wrap nav"><a class="logo" href="admin.html"><img src="/logo.png" onerror="this.onerror=null;this.src=LOGO_FB" alt="Logo">Admin Panel</a>
+<div class="hs"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input id="gs" type="search" placeholder="Search anything…" autocomplete="off" aria-label="Search" oninput="gsIn(this)" onkeydown="gsKey(event)" onblur="setTimeout(function(){var r=document.getElementById('gsr');if(r)r.classList.remove('open')},150)"><div class="gsr" id="gsr"></div></div>
+<div class="sp"></div>
+<div class="hdr-r"><span id="who"></span><a class="btn ghost sm hpub" href="/" aria-label="Back to main website"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></svg><span class="hd"> Main site</span></a><button class="hbell" id="bell" type="button" aria-label="Notifications" onclick="bellGo()"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><em id="bellN" style="display:none">0</em></button><span class="hdiv"></span>
+<div class="prof" id="prof"><button class="pbtn" type="button" onclick="profT(event)" aria-label="Profile menu"><span class="pav" id="pav">A</span><span class="pnm"><b id="pn">Admin</b><small id="pr">Super Admin</small></span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><div class="pm"><a href="/"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></svg> Main site</a><button id="theme" type="button" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg> Theme</button><button id="outBtn" type="button" style="display:none" onclick="logout()"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/></svg> Logout</button></div></div></div></div></header>
 <main class="wrap" id="app"></main>
 <footer class="ft"><div class="ft-in"><div class="ft-bot"><div>&copy; <span id="yr"></span> Mirpur College Updates &amp; Notices. All rights reserved.</div><div>Developed by <a href="https://www.facebook.com/share/1F83w5QvQ2/" target="_blank" rel="noopener" aria-label="Md Mehedi Hassan - Facebook" class="ft-dev"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true" style="flex:none"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H8v3h2.4V21h3.1z"/></svg> Md Mehedi Hassan</a></div></div></div></footer><div class="modal" id="modal"><div class="sheet" id="sheet"></div></div><div class="toast" id="toast"></div>
 <script>
@@ -535,13 +538,12 @@ const ITEMS=[],NAVK={},I=(g,sg,k,n,a,v,p,o)=>ITEMS.push(Object.assign({k,g,sg,n,
  soon=(t,d)=>()=>`<div class="panel"><h3>${t}</h3><p class="qb-mu">${d}</p><span class="st st-mute">এখনো তৈরি হয়নি</span></div>`,
  fc=c=>()=>{S.fc=c},padd=()=>{if(S.keep)S.keep=0;else{S.bd=null;S.qbs={};S.cqx=0}},pnew=()=>{if(S.keep)S.keep=0;else{S.qd=null;S.qbs={}}};
 I("g_dash","","dash","Overview",0,()=>dashV());I("g_dash","","d-rec","Recent Activities",1,()=>logV(30));I("g_dash","","d-quick","Quick Actions",0,()=>quickV());
-I("g_cont","","posts","All Notices",0,()=>postsV(),fc(""));I("g_cont","","new","Add New Notice",0,()=>composeV());
-[["c-syl","Syllabus","syllabus"],["c-sug","Suggestions","suggestion"],["c-rou","Exam Routine","routine"],["c-res","Results","result"],["c-evt","Events","event"]].forEach(([k,n,c])=>I("g_cont","",k,n,0,()=>postsV(),fc(c)));
+I("g_cont","","posts","All Notices",0,()=>postsV(),()=>{if(S.kf)S.kf=0;else S.fc=""});I("g_cont","","new","Add Notice",0,()=>composeV());I("g_cont","","c-cat","Categories",0,()=>catV());
 I("g_cont","","c-dl","Downloads",0,()=>dlV());
 I("g_acad","Dashboard","ac-dash","Academic Dashboard",1,()=>acView());
 [["bq-all","All Questions","all"],["bq-add","Add New Question","add"],["bq-mcq","MCQ Questions","mcq"],["bq-cq","CQ Questions","cq"],["bq-sets","Question Sets","sets"],["bq-ans","Answer & Solutions","ans"],["bq-board","Board Management","board"],["bq-subj","Subject Management","subj"],["bq-chap","Chapter Management","chap"],["bq-rev","Review & Verification","rev"],["bq-rep","Reported Questions","rep"],["bq-an","Question Analytics","an"]].forEach(([k,n,m])=>I("g_acad","Board Question",k,n,1,()=>bqView(m),m=="add"?padd:null));
-I("g_acad","Board Question","qbm","Quiz & Board",1,()=>qbmV(),null,{hide:1});
-I("g_acad","Quiz","qbd","Quiz Dashboard",1,()=>isOwner()?qbdV():qzView("dash"));
+I("g_acad","Board Question","qm-all","Question Manager",1,()=>qmHub());I("g_acad","Board Question","qbm","Quiz & Board",1,()=>qbmV(),null,{hide:1});
+I("g_acad","Quiz","qbd","Quiz Dashboard",1,()=>isOwner()?qbdW():qzHub());
 [["qz-all","All Quizzes","all",1],["qz-new","Create New Quiz","new",1],["qz-bank","Quiz Question Bank","bank",1],["qz-cat","Question Categories","cat",1],["qz-sch","Scheduled Quizzes","sch",1],["qz-act","Active Exams","act",1],["qz-part","Quiz Participants","part",2],["qz-res","Quiz Results","res",2],["qz-an","Quiz Analytics","an",2],["qz-set","Quiz Settings","set",1]].forEach(([k,n,m,p])=>I("g_acad","Quiz",k,n,p,()=>qzView(m),m=="new"?pnew:null,{u:1}));
 I("g_stud","","students","All Students",1,()=>studentsV());
 [["st-prof","Student Profiles","prof",1],["st-act","Student Activities","act",2],["st-prog","Learning Progress","prog",2],["st-rep","Student Reports","rep",1]].forEach(([k,n,m,p])=>I("g_stud","",k,n,p,()=>stView(m),null,{u:1}));
@@ -604,27 +606,113 @@ function spark(a,col){const w=100,h=30,m=Math.max(1,...a),pts=a.map((v,i)=>[+(i*
  return `<svg class="spk" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,${h} ${d} ${w},${h}" fill="${col}" opacity=".15"/><polyline points="${d}" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>`}
 const ACT={create:["notun post করেছে","plus"],edit:["post edit করেছে","edit"],delete:["post delete করেছে","trash"],restore:["restore করেছে","undo"],bulk:["bulk action চালিয়েছে","list"],import:["backup import করেছে","upload"],role:["access/role বদলেছে","shield"],notify:["push notification পাঠিয়েছে","bell"],push:["custom notification পাঠিয়েছে","bell"],ureq:["student request Owner-er kache pathiyeche","alert"],uapprove:["student request approve korechhe","check"],ureject:["student request reject korechhe","x"],ublock:["student block করেছে","lock"],uunblock:["student unblock করেছে","check"],uremove:["student remove করেছে","trash"]};
 const nameOf=e=>String(e||"").split("@")[0]||"admin";
+/* ---- views: dashboard (MCUN redesign) ---- */
+Object.assign(IP,{
+x_home:'<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+x_dl:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/>',
+x_gear:'<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>',
+x_cap:'<path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>',
+x_help:'<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>',
+x_quiz:'<rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>',
+x_down:'<path d="m6 9 6 6 6-6"/>',
+x_right:'<path d="m9 18 6-6-6-6"/>',
+x_arr:'<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
+x_search:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+x_out:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/>',
+x_trophy:'<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>',
+x_star:'<path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/>',
+x_book:'<path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>',
+x_chat:'<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>'
+});
+const dxAgo=t=>{const s=Math.max(0,(Date.now()-t)/1000);return s<60?"now":s<3600?Math.floor(s/60)+"m ago":s<86400?Math.floor(s/3600)+"h ago":s<2592000?Math.floor(s/86400)+"d ago":fmtD(t)};
+const dxN=n=>n>=1e4?(n/1e3).toFixed(1).replace(/\.0$/,"")+"K":String(n).replace(/\B(?=(\d{3})+(?!\d))/g,",");
+const DXA={create:"New Notice Published",edit:"Notice Updated",delete:"Notice Deleted",restore:"Notice Restored",bulk:"Bulk Action",import:"Backup Imported",role:"Access Updated",notify:"Notification Sent",push:"Custom Notification Sent",ureq:"Student Request",uapprove:"Student Request Approved",ureject:"Student Request Rejected",ublock:"Student Blocked",uunblock:"Student Unblocked",uremove:"Student Removed"};
+const DXC=["#1d5cff","#16a34a","#7c3aed","#f97316"];
+function dxChart(sa,sb,days){
+ const W=640,H=270,pl=46,pr=26,pt=20,pb=36,iw=W-pl-pr,ih=H-pt-pb,n=sa.length,mx0=Math.max(...sa,...sb,0),step=Math.max(1,Math.ceil(Math.max(4,mx0)/4)),mx=step*4,
+  x=i=>pl+i*iw/(n-1||1),y=v=>pt+ih-v/mx*ih,
+  sm=a=>{const p=a.map((v,i)=>[x(i),y(v)]),cl=v=>Math.min(pt+ih,Math.max(pt,v)),f=v=>v.toFixed(1);let d="M"+f(p[0][0])+","+f(p[0][1]);
+   for(let i=0;i<p.length-1;i++){const p0=p[i-1]||p[i],p1=p[i],p2=p[i+1],p3=p[i+2]||p2;d+=`C${f(p1[0]+(p2[0]-p0[0])/6)},${f(cl(p1[1]+(p2[1]-p0[1])/6))} ${f(p2[0]-(p3[0]-p1[0])/6)},${f(cl(p2[1]-(p3[1]-p1[1])/6))} ${f(p2[0])},${f(p2[1])}`}return d},
+  area=a=>sm(a)+`L${x(n-1).toFixed(1)},${pt+ih}L${x(0).toFixed(1)},${pt+ih}Z`,
+  grid=[0,1,2,3,4].map(k=>`<line x1="${pl}" x2="${W-pr}" y1="${y(k*step)}" y2="${y(k*step)}" stroke="var(--line)" ${k?'stroke-dasharray="3 5"':""}/><text x="${pl-10}" y="${y(k*step)+4}" text-anchor="end">${dxN(k*step)}</text>`).join(""),
+  xl=[0,1,2,3,4].map(k=>{const i=Math.round(k*(n-1)/4),d=new Date(Date.now()-(n-1-i)*DAY);return `<text x="${x(i)}" y="${H-10}" text-anchor="middle">${d.toLocaleDateString("en-GB",{day:"numeric",month:"short"})}</text>`}).join(""),
+  dots=(a,c)=>a.map((v,i)=>i%Math.max(1,Math.round(n/6))==0||i==n-1?`<circle cx="${x(i)}" cy="${y(v)}" r="4.5" fill="var(--card)" stroke="${c}" stroke-width="2.6"/>`:"").join(""),
+  la=sa[n-1],lb=sb[n-1];let ya=y(la)-34,yb=y(lb)-34;if(Math.abs(ya-yb)<30){if(la>=lb)yb=ya+30;else ya=yb+30}
+  const bd=(v,yy,c)=>`<rect x="${W-pr-48}" y="${Math.max(2,Math.min(H-pb-26,yy))}" width="52" height="26" rx="8" fill="${c}"/><text class="bt" x="${W-pr-22}" y="${Math.max(2,Math.min(H-pb-26,yy))+18}" text-anchor="middle">${dxN(v)}</text>`;
+ return `<svg class="dx-cv" viewBox="0 0 ${W} ${H}" role="img" aria-label="Activity chart"><defs><linearGradient id="dxga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1d5cff" stop-opacity=".22"/><stop offset="1" stop-color="#1d5cff" stop-opacity="0"/></linearGradient><linearGradient id="dxgb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7c3aed" stop-opacity=".2"/><stop offset="1" stop-color="#7c3aed" stop-opacity="0"/></linearGradient></defs>
+ ${grid}${xl}<path d="${area(sa)}" fill="url(#dxga)"/><path d="${area(sb)}" fill="url(#dxgb)"/><path d="${sm(sa)}" fill="none" stroke="#1d5cff" stroke-width="2.6" stroke-linecap="round"/><path d="${sm(sb)}" fill="none" stroke="#7c3aed" stroke-width="2.6" stroke-linecap="round"/>${dots(sa,"#1d5cff")}${dots(sb,"#7c3aed")}${bd(la,ya,"#1d5cff")}${bd(lb,yb,"#7c3aed")}</svg>`}
+function dxDonut(parts,total){const r=64,c=2*Math.PI*r,gap=parts.filter(p=>p.v>0).length>1?3:0;let off=0;
+ return `<svg viewBox="0 0 160 160" aria-hidden="true"><circle cx="80" cy="80" r="${r}" fill="none" stroke="var(--line)" stroke-width="22"/>${parts.map(p=>{const len=total?p.v/total*c:0,s=len>0?`<circle cx="80" cy="80" r="${r}" fill="none" stroke="${p.c}" stroke-width="22" stroke-dasharray="${Math.max(0,len-gap).toFixed(2)} ${(c-Math.max(0,len-gap)).toFixed(2)}" stroke-dashoffset="${(-off).toFixed(2)}" transform="rotate(-90 80 80)"/>`:"";off+=len;return s}).join("")}</svg>`}
+function dxRange(v){S.dxr=+v;render(true)}
+const dxBuild='<svg viewBox="0 0 420 180" preserveAspectRatio="xMaxYMax slice" aria-hidden="true"><defs><linearGradient id="dxbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9e3d8"/><stop offset="1" stop-color="#b9b3a8"/></linearGradient></defs><rect x="170" y="38" width="250" height="142" fill="url(#dxbg)"/><rect x="170" y="38" width="250" height="8" fill="#8f897e"/><rect x="238" y="18" width="110" height="22" fill="#cfc9bd"/><g fill="#5f86b8">'+Array.from({length:4},(_,r)=>Array.from({length:10},(_,c)=>`<rect x="${180+c*23}" y="${56+r*29}" width="13" height="17"/>`).join("")).join("")+'</g><g fill="#6a8f4e"><circle cx="150" cy="130" r="38"/><circle cx="118" cy="150" r="30"/><circle cx="196" cy="160" r="26"/></g><rect x="0" y="168" width="420" height="12" fill="#a8d08d" opacity=".7"/></svg>';
 function dashV(){
- const now=Date.now(),P=S.posts,L=P.filter(live),wk=L.filter(p=>now-p.ts<7*DAY).length,hid=P.length-L.length,
-  dls=L.filter(p=>p.dl&&p.dl>now).sort((a,b)=>a.dl-b.dl),soon=dls.filter(p=>p.dl-now<=2*DAY),
-  unread=S.msgs.filter(m=>!m.read&&!m.arch).length,views=P.reduce((a,p)=>a+(p.views||0),0),
-  top=[...P].filter(p=>p.views).sort((a,b)=>b.views-a.views).slice(0,5),mx=top[0]?top[0].views:1,
-  cv=Object.keys(CATS).map(k=>[k,P.filter(p=>p.cat==k).reduce((a,p)=>a+(p.views||0),0)]),cm=Math.max(1,...cv.map(x=>x[1]));
- const card=(ic,col,val,lab,sub,sp)=>`<div class="sc" style="--c:${col}"><div class="sc-t"><span class="sc-i">${IC(ic)}</span><small>${lab}</small></div><b>${val}</b><small class="sc-s">${sub}</small>${sp||""}</div>`;
- const SU=isAdmin()?stuDash(card):{c:"",p:""};
- const rec=isAdmin()?S.logs.slice(0,6).map(l=>{const a=ACT[l.act]||[l.act,"history"];return `<div class="li rc"><span class="rc-i">${IC(a[1])}</span><div><b>${esc(nameOf(l.email))} <span class="mut">${a[0]}</span></b><small>${l.title?esc(l.title)+" · ":""}${ago(l.ts)}</small></div></div>`}).join(""):
-  [...P].sort((a,b)=>(b.updated||b.ts)-(a.updated||a.ts)).slice(0,6).map(p=>`<div class="li rc"><span class="rc-i">${IC(CATS[p.cat]?p.cat:"notice")}</span><div><b>${esc(p.title)}</b><small>${ago(p.updated||p.ts)}</small></div></div>`).join("");
- return `<h1 class="pt">Dashboard</h1><p class="sub">স্বাগতম, <b>${esc(nameOf(S.email))}</b> <span class="role r-${roleOf().toLowerCase()}">${roleOf()}</span></p>${scopeNote()}
- ${soon.length?`<div class="alertb">${IC("alert")}<div><b>${soon.length}টি post-এর deadline ৪৮ ঘণ্টার মধ্যে শেষ হবে</b>${soon.map(p=>`<div class="al-i"><span>${esc(p.title)} <small>· ${hrs(p.dl-now)}</small></span><button class="btn ghost sm" onclick="startEdit('${p.id}')">${IC("edit")} Edit</button></div>`).join("")}</div></div>`:""}
- <div class="scs">${card("file","#2850e8",P.length,"মোট Post",`${L.length} live · ${hid} draft/scheduled`,spark(bucket(P,"ts",14),"#2850e8"))}
- ${card("zap","#16a34a",wk,"এই সপ্তাহে নতুন","গত ৭ দিনে",spark(bucket(L,"ts",7),"#16a34a"))}
- ${card("hourglass","#e08a00",dls.length,"Active Deadline",dls[0]?"পরেরটা: "+hrs(dls[0].dl-now):"কোনো deadline নেই","")}
- ${isAdmin()?card("mail","#d6409f",unread,"Unread Message",`মোট ${S.msgs.length}টি`,spark(bucket(S.msgs,"ts",14),"#d6409f")):card("eye","#d6409f",views,"মোট View","public site-এ","")}${SU.c}${pendCard(card)}</div>
- <div class="g2"><div class="panel"><h3>${IC("chart")} Analytics <small>· মোট ${views} view${P.length?" · গড় "+Math.round(views/P.length)+"/post":""}</small></h3>
-  <div class="sub2">সবচেয়ে বেশি দেখা Post</div>${top.map(p=>`<div class="bar"><div class="bar-l"><span>${esc(p.title)}</span><b>${p.views}</b></div><i style="width:${Math.max(4,p.views/mx*100)}%;background:${(CATS[p.cat]||CATS.notice).c}"></i></div>`).join("")||"<small>এখনো কোনো view নেই</small>"}
-  <div class="sub2" style="margin-top:16px">Category অনুযায়ী View</div>${cv.map(([k,v])=>`<div class="bar"><div class="bar-l"><span>${IC(k)} ${CATS[k].n}</span><b>${v}</b></div><i style="width:${Math.max(v?4:0,v/cm*100)}%;background:${CATS[k].c}"></i></div>`).join("")}</div>
- <div>${SU.p}<div class="panel"><h3>${IC("history")} ${isAdmin()?"Recent Activity":"Recently Updated"}</h3>${rec||"<small>কিছু নেই</small>"}</div>
- <div class="panel"><h3>Quick Actions</h3><div class="row" style="margin:0"><button class="btn" onclick="go('new')">${IC("plus")} নতুন Post</button><button class="btn ghost" onclick="go('posts')">${IC("list")} সব Post</button>${isAdmin()?`<button class="btn ghost" onclick="go('msgs')">${IC("mail")} Messages${unread?" ("+unread+")":""}</button><button class="btn ghost" onclick="go('students')">${IC("users")} Students</button>`:""}</div></div></div></div>`}
+ if(isAdmin()&&!("qzs" in QSUB))setTimeout(qbSub,0);
+ const now=Date.now(),P=S.posts||[],L=P.filter(live),wk=L.filter(p=>now-p.ts<7*DAY).length,dls=L.filter(p=>p.dl&&p.dl>now).sort((a,b)=>a.dl-b.dl),soon=dls.filter(p=>p.dl-now<=2*DAY),
+  days=S.dxr||30,adm=isAdmin(),U=S.users,act=U?U.filter(x=>!x.blocked).length:0,files=P.reduce((a,p)=>a+((p.files||[]).length),0),fp=P.filter(p=>p.files&&p.files.length).length,
+  Z=S.qzs?qbMine(S.qzs):null,views=P.reduce((a,p)=>a+(p.views||0),0),nm=esc(myName()).replace(/^./,c=>c.toUpperCase()),
+  ok=k=>NAVK[k]&&allowed([0,0,0,NAVK[k].a]),
+  sc=(c,ic,lab,val,chip,up)=>`<div class="dx-sc" style="--c:${c}"><span class="dx-si">${IC(ic)}</span><div><small>${lab}</small><div class="dx-sv"><b>${val}</b>${chip?`<em class="${up?"up":""}">${up?"\u2191":""}${chip}</em>`:""}</div></div></div>`,
+  s1=adm?sc("#2563eb","users","Total Students",U?dxN(U.length):"\u2026",U?act+" active":"",0):sc("#2563eb","eye","Total Views",dxN(views),"",0),
+  s2=sc("#7c3aed","notice","Total Notices",dxN(P.length),wk?"+"+wk+" this week":"",1),
+  s3=sc("#16a34a","x_dl","Download Files",dxN(files),fp?fp+" posts":"",0),
+  s4=sc("#f97316","x_quiz","Total Quizzes",adm?(Z?dxN(Z.length):"\u2026"):"\u2014",Z&&Z.some(z=>z.mode=="Exam")?Z.filter(z=>z.mode=="Exam").length+" exam":"",0),
+  A=bucket(P,"ts",days),B=bucket(adm?S.msgs:[],"ts",days),
+  rec=(adm?(S.logs||[]).slice(0,4).map(l=>{const a=ACT[l.act]||[l.act,"history"];return{ic:a[1],t:DXA[l.act]||a[0],s:l.title||nameOf(l.email),w:dxAgo(l.ts)}}):[...P].sort((a,b)=>(b.updated||b.ts)-(a.updated||a.ts)).slice(0,4).map(p=>({ic:CATS[p.cat]?p.cat:"notice",t:"Notice Updated",s:p.title||"",w:dxAgo(p.updated||p.ts)}))),
+  tiles=[["Add Notice","notice","new","#2563eb"],["Add Question","x_book","bq-add","#1d5cff"],["Add Quiz","x_quiz","qz-new","#16a34a"],["Upload Resource","upload","new","#7c3aed"],["Manage Students","users","students","#f97316"],["View Analytics","chart","qbd","#0ea5b7"]].filter(t=>ok(t[2])),
+  qk=[["Go to Academic Hub","x_book","ac-dash","#1d5cff"],["Manage Quiz","x_trophy","qz-all","#f59e0b"],["Manage Downloads","x_dl","c-dl","#2563eb"],["View All Students","users","students","#2563eb"],["Open Communication","x_chat","notify","#2563eb"]].filter(t=>ok(t[2])),
+  cv=Object.keys(CATS).map(k=>({k,n:CATS[k].n,c:CATS[k].c,v:P.filter(p=>p.cat==k).reduce((a,p)=>a+(p.views||0),0)})).sort((a,b)=>b.v-a.v).slice(0,5),tv=cv.reduce((a,x)=>a+x.v,0);
+ return `<div class="dx">
+ <section class="dx-ban"><div class="dx-bb">${dxBuild}</div><span class="dx-bl"><img src="/logo.png" onerror="this.onerror=null;this.src=LOGO_FB" alt=""></span>
+  <div class="dx-bt"><h1>Welcome Back,<br>${nm}! \ud83d\udc4b</h1><p>Manage Mirpur College Portal with ease.</p></div>
+  <div class="dx-bq">\u201cEducation<br>Builds a Better Future\u201d<svg viewBox="0 0 210 26" fill="none" aria-hidden="true"><path d="M2 22C60 4 140 2 208 8" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/></svg></div></section>
+ ${scopeNote()}
+ ${soon.length?`<div class="alertb">${IC("alert")}<div><b>${soon.length}\u099f\u09bf post-\u098f\u09b0 deadline \u09ea\u09ee \u0998\u09a3\u09cd\u099f\u09be\u09b0 \u09ae\u09a7\u09cd\u09af\u09c7 \u09b6\u09c7\u09b7 \u09b9\u09ac\u09c7</b>${soon.map(p=>`<div class="al-i"><span>${esc(p.title)} <small>\u00b7 ${hrs(p.dl-now)}</small></span><button class="btn ghost sm" onclick="startEdit('${p.id}')">${IC("edit")} Edit</button></div>`).join("")}</div></div>`:""}
+ ${isOwner()&&pendN()?`<div class="alertb">${IC("alert")}<div><b>${pendN()} student request Owner review-\u098f \u0986\u099b\u09c7</b><div class="al-i"><span>Approve ba reject korun</span><button class="btn ghost sm" onclick="go('students')">${IC("users")} Open</button></div></div></div>`:""}
+ <div class="dx-stats">${s1}${s2}${s3}${s4}</div>
+ <div class="dx-r2">
+  <section class="dx-card"><div class="dx-ct"><h3 class="dx-h">${IC("chart")} Website Analytics</h3><select class="dx-sel" aria-label="Range" onchange="dxRange(this.value)">${[[7,"Last 7 Days"],[14,"Last 14 Days"],[30,"Last 30 Days"]].map(r=>`<option value="${r[0]}"${r[0]==days?" selected":""}>${r[1]}</option>`).join("")}</select></div>
+   <div class="dx-lg"><span><i style="background:#1d5cff"></i>Notices</span><span><i style="background:#7c3aed"></i>Messages</span></div>${dxChart(A,B,days)}</section>
+  <section class="dx-card"><h3 class="dx-h">${IC("history")} Recent Activities <span class="dx-sp"></span>${ok("d-rec")?`<button class="dx-lnk" onclick="go('d-rec')">View All ${IC("x_arr")}</button>`:""}</h3>
+   <div class="dx-ra">${rec.map((r,i)=>`<div class="dx-ri" style="--c:${DXC[i%4]}"><span class="dx-ic">${IC(r.ic)}</span><div class="dx-rt"><b>${esc(r.t)}</b><small>${esc(r.s)}</small></div><span class="dx-rw">${r.w}</span></div>`).join("")||'<div class="dx-em">No activity yet</div>'}</div></section>
+ </div>
+ <div class="dx-r3">
+  <section class="dx-card"><h3 class="dx-h">${IC("x_gear")} Manage Sections</h3><div class="dx-tl">${tiles.map(t=>`<button class="dx-t" style="--c:${t[3]}" onclick="go('${t[2]}')">${IC(t[1])}<span>${t[0]}</span></button>`).join("")}</div></section>
+  <section class="dx-card"><h3 class="dx-h">${IC("zap")} Quick Actions</h3><div class="dx-q">${qk.map(t=>`<button class="dx-qi" style="--c:${t[3]}" onclick="go('${t[2]}')">${IC(t[1])}<span>${t[0]}</span>${IC("x_right").replace('class="ico"','class="ico dx-ch"')}</button>`).join("")}</div></section>
+  <section class="dx-card"><h3 class="dx-h">${IC("x_star",1)} Top Categories <span class="dx-sp"></span>${ok("posts")?`<button class="dx-lnk" onclick="go('posts')">View Details ${IC("x_arr")}</button>`:""}</h3>
+   <div class="dx-dw"><div class="dx-dn">${dxDonut(cv,tv)}<div class="dx-dc"><b>${dxN(tv)}</b><small>Total Views</small></div></div>
+   <div class="dx-lk">${cv.map(x=>`<div><i style="background:${x.c}"></i><span>${esc(x.n)}</span><b>${tv?Math.round(x.v/tv*100):0}%</b></div>`).join("")}</div></div></section>
+ </div></div>`}
+
+/* ---- sidebar (desktop) ---- */
+const SXI={new:"x_plus",posts:"list","c-cat":"x_tag"};const SXL={"qm-all":"All Questions","ac-dash":"Question Bank","bq-all":"Board Questions","bq-mcq":"MCQ Practice","bq-cq":"CQ Practice","bq-board":"Boards","bq-subj":"Subjects","bq-chap":"Chapters"};Object.assign(SXI,{"qm-all":"list","ac-dash":"x_book","bq-all":"list","bq-mcq":"x_quiz","bq-cq":"x_help","bq-board":"x_tag","bq-subj":"x_cap","bq-chap":"list"});
+const SBX=[["dash","x_home","Dashboard",["dash"]],["nt","notice","Notice Management",["new","posts","c-cat"]],["ah","x_cap","Academic Hub",["ac-dash","bq-all","bq-mcq","bq-cq","bq-board","bq-subj","bq-chap"]],["qm","x_quiz","Quiz Manager",["qz-all","qz-new","qz-bank","qz-cat","qz-sch","qz-act","qz-part","qz-res","qz-set"]],["qn","x_help","Question Manager",["qm-all","bq-add","bq-sets","bq-ans","bq-rev","bq-rep"]],["sm","users","Student Management",["students","st-prof","st-act","st-prog","st-rep"]],["dl","x_dl","Downloads",["c-dl"]],["cm","bell","Communication",["notify","msgs","cm-ann"]],["an","chart","Analytics",["d-rec","qbd","bq-an","qz-an"]],["st","x_gear","Settings",["web-home","web-sec","web-nav","web-cat","web-foot","people","ad-adm","ad-role","ad-log","tools"]]];
+function sxT(id){S.nvo=S.nvo||{};const el=document.querySelector('.sx-g[data-g="'+id+'"]');if(!el)return;const o=!el.classList.contains("open");el.classList.toggle("open",o);S.nvo[id]=o}
+const SXC=["bq-board","bq-subj","bq-chap"];
+function sxBtn(k){return `<button class="sx-s${k==S.tab?" on":""}" onclick="go('${k}')">${SXI[k]?IC(SXI[k]):""}<span>${SXL[k]||NAVK[k].n}</span></button>`}
+function sxSub(g){if(g.id!="ah")return g.k.map(sxBtn).join("");const c=g.k.filter(k=>SXC.includes(k)),r=g.k.filter(k=>!SXC.includes(k));if(!c.length)return r.map(sxBtn).join("");if(c.includes(S.tab)&&S._sxc!==S.tab){S.nvo.ahc=true}S._sxc=S.tab;const o=S.nvo.ahc;
+return r.map(sxBtn).join("")+`<div class="sx-g sx-n${o?" open":""}" data-g="ahc"><button class="sx-s sx-nh${c.includes(S.tab)?" on":""}" onclick="sxT('ahc')" aria-expanded="${o?"true":"false"}">${IC("x_tag")}<span>Categories</span>${IC("x_down").replace('class="ico"','class="ico sx-c"')}</button><div class="sx-sub"><div class="sx-sw">${c.map(sxBtn).join("")}</div></div></div>`}
+function sbx(){S.nvo=S.nvo||{};const un=isAdmin()?(S.msgs||[]).filter(m=>!m.read&&!m.arch).length:0,
+ ok=k=>NAVK[k]&&!NAVK[k].hide&&allowed([0,0,0,NAVK[k].a]),bd=id=>id=="cm"&&un?`<em class="sx-b">${un}</em>`:id=="sm"&&pendN()?`<em class="sx-b">${pendN()}</em>`:id=="qn"&&openRep()?`<em class="sx-b">${openRep()}</em>`:"";
+ const G=SBX.map(g=>({id:g[0],ic:g[1],n:g[2],k:g[3].filter(ok)})).filter(g=>g.k.length),cur=G.find(g=>g.k.includes(S.tab));
+ if(S._sxt!==S.tab){S._sxt=S.tab;if(cur&&cur.k.length>1)S.nvo[cur.id]=true}
+ const list=G.map(g=>{const a=cur&&cur.id==g.id;
+  if(g.k.length==1)return `<button class="sx-i${a?" on":""}" onclick="go('${g.k[0]}')">${IC(g.ic)}<span class="sx-l">${g.n}</span>${bd(g.id)}</button>`;
+  return `<div class="sx-g${S.nvo[g.id]?" open":""}${a?" act":""}" data-g="${g.id}"><button class="sx-i" onclick="sxT('${g.id}')" aria-expanded="${S.nvo[g.id]?"true":"false"}">${IC(g.ic)}<span class="sx-l">${g.n}</span>${bd(g.id)}${IC("x_down").replace('class="ico"','class="ico sx-c"')}</button><div class="sx-sub"><div class="sx-sw">${sxSub(g)}</div></div></div>`}).join("");
+ return `<a class="sx-brand" href="admin.html"><img src="/logo.png" onerror="this.onerror=null;this.src=LOGO_FB" alt="MCUN"><b>MCUN</b><small>Mirpur College<br>Updates &amp; Notices</small></a><nav class="sx-nav" aria-label="Admin sidebar">${list}</nav><div class="sx-foot"><div class="sx-card">${IC("x_trophy")}<b>MCUN Admin Panel</b><small>Manage \u2022 Organize \u2022 Grow</small></div><button class="sx-out" onclick="logout()">${IC("x_out")} Logout</button></div>`}
+
+/* ---- header: search / bell / profile ---- */
+function gsFind(q){q=q.trim().toLowerCase();if(!q)return[];const o=[];
+ ITEMS.forEach(i=>{if(i.hide||!allowed([0,0,0,i.a]))return;const g=(GROUPS.find(x=>x[0]==i.g)||[])[2]||"";if((i.n+" "+g).toLowerCase().includes(q))o.push({t:i.n,s:g,f:"go('"+i.k+"')"})});
+ (S.posts||[]).filter(p=>(p.title||"").toLowerCase().includes(q)).slice(0,4).forEach(p=>o.push({t:p.title,s:"Notice",f:"startEdit('"+esc(p.id)+"')"}));return o.slice(0,8)}
+function gsIn(el){const r=gsFind(el.value),b=$("#gsr");b.innerHTML=r.map(x=>`<button type="button" onmousedown="event.preventDefault()" onclick="${x.f};gsClr()"><span>${esc(x.t)}</span><small>${esc(x.s)}</small></button>`).join("");b.classList.toggle("open",r.length>0)}
+function gsKey(e){if(e.key=="Enter"){const b=$("#gsr button");if(b)b.click()}else if(e.key=="Escape")gsClr()}
+function gsClr(){const i=$("#gs");if(i)i.value="";const b=$("#gsr");if(b){b.innerHTML="";b.classList.remove("open")}}
+function profT(e){e.stopPropagation();$("#prof").classList.toggle("open")}
+document.addEventListener("click",e=>{const p=$("#prof");if(p&&!p.contains(e.target))p.classList.remove("open")});
+function bellGo(){go(isAdmin()&&NAVK.msgs?"msgs":"posts")}
+function hdrUp(){const ok=!!(S.uid&&S.cfg&&isStaff());document.body.classList.toggle("authed",ok);if(!ok)return;
+ const n=myName()||"admin",rl=roleOf(),c=n.charAt(0).toUpperCase(),bn=(isAdmin()?(S.msgs||[]).filter(m=>!m.read&&!m.arch).length:0)+pendN(),b=$("#bellN");
+ $("#pn").textContent=c+n.slice(1);$("#pr").textContent=rl=="Owner"?"Super Admin":rl;$("#pav").textContent=c;b.textContent=bn;b.style.display=bn?"":"none"}
 
 /* ---- views: compose ---- */
 const TPL=[
@@ -680,29 +768,69 @@ function livePrev(){const el=$("#lp");if(!el||!$("#f_title"))return;
   <div class="pv-m"><span>${IC("clock")} ${fmtD(at?new Date(at).getTime():Date.now())}</span><span>${IC("file")} ${pg&&pg<PAGES.length?pg+"টি Page":"সব Page"}</span>${dr?'<span class="st st-mute">Draft</span>':sch?'<span class="st st-info">Scheduled</span>':""}</div></div></div>`}
 
 /* ---- views: posts (table) ---- */
-function pfList(){let l=S.posts.filter(p=>(!S.fc||p.cat==S.fc)&&(!S.fs||stOf(p)==S.fs)&&pfOk(p)&&(!S.q||((p.title||"")+" "+(p.body||"")+" "+((CATS[p.cat]||{}).n||"")+" "+(p.cat||"")).toLowerCase().includes(S.q.toLowerCase())));
+/* ---- views: Notice Management (MCUN redesign) ---- */
+Object.assign(IP,{
+x_filter:'<polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>',
+x_tag:'<path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/>',
+x_dbl:'<path d="m6 17 5-5-5-5"/><path d="m13 17 5-5-5-5"/>',
+x_plus:'<path d="M5 12h14"/><path d="M12 5v14"/>',
+x_clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+x_cal:'<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/>'
+});
+const NM_KEYS=["posts","new","c-cat"];
+const NMSUB={new:"Create or edit a notice and share it with students.","posts":"Publish and manage important notices for Mirpur College students.","c-cat":"Browse and manage notices by category."};
+const nmMega='<svg class="nm-ic" viewBox="0 0 130 120" aria-hidden="true"><defs><linearGradient id="nmg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4b8bff"/><stop offset="1" stop-color="#1d4ed8"/></linearGradient></defs><path d="M22 50 82 20v74L22 66Z" fill="url(#nmg)"/><rect x="10" y="46" width="18" height="24" rx="7" fill="#e8eefc"/><path d="m36 68 10 30a6 6 0 0 0 6 4h6a4 4 0 0 0 4-5l-8-27Z" fill="#cbd5e1"/><ellipse cx="84" cy="57" rx="10" ry="37" fill="#60a5fa"/><g stroke="#fbbf24" stroke-width="5" stroke-linecap="round"><path d="m102 28 12-8M106 57h16M102 86l12 8"/></g></svg>';
+function nmBan(k){return `<section class="dx-ban nm-ban"><div class="dx-bb">${dxBuild}</div>${nmMega}<div class="dx-bt"><h1>Notice <em>Management</em></h1><p>${NMSUB[k]||NMSUB.posts}</p></div><div class="dx-bq">Stay Informed,<br>Stay Ahead!<svg viewBox="0 0 210 26" fill="none" aria-hidden="true"><path d="M2 22C60 4 140 2 208 8" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/></svg></div></section>`}
+function nmView(it,v){return nmBan(it.k)+v}
+function nmStats(){const P=S.posts||[],now=new Date(),m0=new Date(now.getFullYear(),now.getMonth(),1).getTime(),m1=new Date(now.getFullYear(),now.getMonth()-1,1).getTime(),d0=new Date(now.getFullYear(),now.getMonth(),now.getDate()).getTime(),
+ mo=P.filter(p=>p.ts>=m0).length,lm=P.filter(p=>p.ts>=m1&&p.ts<m0).length,td=P.filter(p=>p.ts>=d0).length,wk=P.filter(p=>Date.now()-p.ts<7*DAY).length,vw=P.reduce((a,p)=>a+(p.views||0),0),
+ gr=lm?Math.round((mo-lm)/lm*100):null,
+ sc=(c,ic,lab,val,chip,up)=>`<div class="dx-sc" style="--c:${c}"><span class="dx-si">${IC(ic)}</span><div><small>${lab}</small><div class="dx-sv"><b>${val}</b>${chip?`<em class="${up?"up":""}">${chip}</em>`:""}</div></div></div>`;
+ return `<div class="dx-stats">${sc("#1d5cff","notice","Total Notices",dxN(P.length),wk?"\u2191+"+wk+" this week":"",1)}${sc("#16a34a","x_cal","This Month",dxN(mo),gr==null?"":(gr>=0?"\u2191+"+gr:"\u2193"+Math.abs(gr))+"%",gr!=null&&gr>=0)}${sc("#7c3aed","eye","Total Views",dxN(vw),P.length?"avg "+Math.round(vw/P.length):"",0)}${sc("#f97316","x_clock","Today's Notices",dxN(td),"",0)}</div>`}
+function nmDept(p){const g=pagesOf(p);if(g.length>=PAGES.length)return"All";const d=[...new Set(g.map(x=>x.slice(x.lastIndexOf(DOTP)+DOTP.length)))];return d.length>=DEPTS.length?"All":d.join(", ")}
+function pdOk(p){return !S.pd||pagesOf(p).some(x=>x.endsWith(DOTP+S.pd))}
+function ptOk(p){if(!S.pt)return true;const n=new Date(),a=S.pt=="today"?new Date(n.getFullYear(),n.getMonth(),n.getDate()).getTime():S.pt=="year"?new Date(n.getFullYear(),0,1).getTime():Date.now()-(+S.pt)*DAY;return p.ts>=a}
+function pfList(){const q=(S.q||"").toLowerCase();let l=S.posts.filter(p=>(!S.fc||p.cat==S.fc)&&(!S.fs||stOf(p)==S.fs)&&pfOk(p)&&pdOk(p)&&ptOk(p)&&(!q||((p.title||"")+" "+(p.body||"")+" "+((CATS[p.cat]||{}).n||"")+" "+(p.cat||"")).toLowerCase().includes(q)));
  if(S.so=="views")l.sort((a,b)=>(b.views||0)-(a.views||0));else if(S.so=="old")l.sort((a,b)=>a.ts-b.ts);else if(S.so=="dl")l.sort((a,b)=>(a.dl||9e15)-(b.dl||9e15));else l=sorted(l);return l}
-function plistHTML(){const l=pfList(),n=[...S.sel].filter(id=>S.posts.some(p=>p.id==id)).length,all=l.length&&l.every(p=>S.sel.has(p.id));
+const PSZ=10;
+function pgo(n){S.pgn=n;refreshPosts()}
+function pfSet(k,v){S[k]=v;S.pgn=1;refreshPosts()}
+function plistHTML(){const l=pfList(),tot=l.length,pn=Math.max(1,Math.ceil(tot/PSZ)),cur=Math.min(Math.max(1,S.pgn||1),pn),a=(cur-1)*PSZ,pg=l.slice(a,a+PSZ),
+ n=[...S.sel].filter(id=>S.posts.some(p=>p.id==id)).length,all=pg.length&&pg.every(p=>S.sel.has(p.id));
  const bulkB=n?`<div class="bulk">${IC("check")}<b>${n} selected</b><button class="btn ghost sm" onclick="bulk('pin')">${IC("pin")} Pin</button><button class="btn ghost sm" onclick="bulk('unpin')">Unpin</button><button class="btn ghost sm" onclick="bulk('pub')">${IC("globe")} Publish</button><button class="btn ghost sm" onclick="bulk('exp')">${IC("clock")} Expire</button>
-  <select onchange="bulk('cat',this.value);this.value=''"><option value="">Category বদলান…</option>${Object.entries(CATS).map(([k,c])=>`<option value="${k}">${c.n}</option>`).join("")}</select>${isAdmin()?`<button class="btn danger sm" onclick="bulk('del')">${IC("trash")} Delete</button>`:""}<button class="lnk" onclick="S.sel.clear();refreshPosts()">${IC("x")}</button></div>`:"";
- return bulkB+`<div class="ptab"><div class="ph"><label class="ck"><input type="checkbox" ${all?"checked":""} onchange="selAll(this.checked)"></label><span></span><span>Post</span><span>Category</span><span>Status</span><span>Views</span><span></span></div>`+
- (l.map(p=>{const k=CATS[p.cat]?p.cat:"notice",s=S.sel.has(p.id);
- return `<div class="pr ${s?"sel":""}"><label class="ck"><input type="checkbox" ${s?"checked":""} onchange="selTog('${p.id}',this.checked)"></label>
- <div class="th">${p.cover&&ok(p.cover.url)?`<img src="${esc(p.cover.url)}" alt="" loading="lazy">`:IC(k)}</div>
- <div class="pm"><b>${p.pinned?`<span class="pn">${IC("pin")}</span>`:""}${esc(p.title)}</b><small>${fmtD(p.ts)} · ${esc(pgText(p))}${p.byName?" · "+esc(p.byName)+" ("+esc(ROLE_L[p.byRole]||"")+")":""}${p.dl?" · "+IC("cal")+" "+fmtD(p.dl):""}${p.hist&&p.hist.length?" · "+p.hist.length+" edit":""}</small></div>
- <div class="pmeta">${catChip(k)}${stChip(p)}<span class="vw">${IC("eye")} ${p.views||0}</span></div>
- <div class="acts"><button class="ib" title="WhatsApp share" onclick="waShare('${p.id}')">${IC("msg")}</button><button class="ib" title="Push notification" onclick="notifyBtn('${p.id}')">${IC("bell")}</button><button class="ib" title="Edit" onclick="startEdit('${p.id}')">${IC("edit")}</button><button class="ib" title="Duplicate" onclick="dupPost('${p.id}')">${IC("copy")}</button>${p.hist&&p.hist.length?`<button class="ib" title="History" onclick="showHist('${p.id}')">${IC("history")}</button>`:""}${isAdmin()?`<button class="ib d" title="Delete" onclick="del('${p.id}')">${IC("trash")}</button>`:""}</div></div>`}).join("")||`<div class="emp">${IC("inbox")}<p>কোনো post পাওয়া যায়নি</p></div>`)+`</div>`}
+  <select onchange="bulk('cat',this.value);this.value=''"><option value="">Change category\u2026</option>${Object.entries(CATS).map(([k,c])=>`<option value="${k}">${c.n}</option>`).join("")}</select>${isAdmin()?`<button class="btn danger sm" onclick="bulk('del')">${IC("trash")} Delete</button>`:""}<button class="lnk" onclick="S.sel.clear();refreshPosts()">${IC("x")}</button></div>`:"";
+ const rows=pg.map((p,i)=>{const k=CATS[p.cat]?p.cat:"notice",c=CATS[k],s=S.sel.has(p.id),st=STL[stOf(p)],isNew=Date.now()-p.ts<2*DAY;
+  return `<div class="nm-row${s?" sel":""}"><div class="c-n"><label class="ck"><input type="checkbox" ${s?"checked":""} onchange="selTog('${p.id}',this.checked)"></label><span>${a+i+1}</span></div>
+  <div class="c-t">${isNew?'<em class="nm-new">NEW</em>':""}<b>${p.pinned?`<span class="pn">${IC("pin")}</span>`:""}${esc(p.title)}</b></div>
+  <div class="c-c"><span class="nm-cat" style="--c:${c.c}">${IC(k)} ${c.n}</span></div><div class="c-d">${esc(nmDept(p))}</div>
+  <div class="c-dt">${IC("x_cal")} ${fmtD(p.ts)}</div><div class="c-v">${IC("eye")} ${dxN(p.views||0)}</div><div class="c-s"><span class="nm-st nm-${st[1]}">${st[0]}</span></div>
+  <div class="c-a"><button class="nm-ab e" title="Edit" onclick="startEdit('${p.id}')">${IC("edit")}</button><button class="nm-ab e" title="Duplicate" onclick="dupPost('${p.id}')">${IC("copy")}</button>${isAdmin()?`<button class="nm-ab d" title="Delete" onclick="del('${p.id}')">${IC("trash")}</button>`:""}<button class="nm-ab nm-x" title="WhatsApp share" onclick="waShare('${p.id}')">${IC("msg")}</button><button class="nm-ab nm-x" title="Push notification" onclick="notifyBtn('${p.id}')">${IC("bell")}</button>${p.hist&&p.hist.length?`<button class="nm-ab nm-x" title="History" onclick="showHist('${p.id}')">${IC("history")}</button>`:""}</div></div>`}).join("");
+ const nums=[];for(let i=Math.max(1,Math.min(cur-2,pn-4));i<=Math.min(pn,Math.max(cur+2,5));i++)nums.push(i);
+ const pb=(lab,to,on,dis)=>`<button class="nm-pb${on?" on":""}" ${dis?"disabled":""} onclick="pgo(${to})">${lab}</button>`;
+ return bulkB+`<div class="nm-tbl"><div class="nm-in"><div class="nm-row nm-hd"><div class="c-n"><label class="ck"><input type="checkbox" ${all?"checked":""} onchange="selAll(this.checked)"></label><span>#</span></div><div class="c-t">Title</div><div class="c-c">Category</div><div class="c-d">Department</div><div class="c-dt">Date</div><div class="c-v">Views</div><div class="c-s">Status</div><div class="c-a">Actions</div></div>`+
+ (rows||`<div class="emp">${IC("inbox")}<p>No notices found</p></div>`)+`</div></div>
+ <div class="nm-ft"><span>${tot?`Showing ${a+1}\u2013${a+pg.length} of ${tot} notices`:"No notices"}</span><div class="nm-pg">${nums.map(i=>pb(i,i,i==cur)).join("")}${pb(IC("x_right"),Math.min(pn,cur+1),0,cur>=pn)}${pb(IC("x_dbl"),pn,0,cur>=pn)}</div></div>`}
 const refreshPosts=()=>{const e=$("#plist");if(e)e.innerHTML=plistHTML()};
 function selTog(id,on){on?S.sel.add(id):S.sel.delete(id);refreshPosts()}
-function selAll(on){pfList().forEach(p=>on?S.sel.add(p.id):S.sel.delete(p.id));refreshPosts()}
-function postsV(){const opt=(v,t,c)=>`<option value="${v}" ${c?"selected":""}>${t}</option>`;
- return `<h1 class="pt">সব Post <small class="cnt">${S.posts.length}</small></h1>
- <div class="tbar"><div class="sb">${IC("search")}<input id="p_q" placeholder="Title, details বা category খুঁজুন…" value="${esc(S.q)}" oninput="S.q=this.value;refreshPosts()"></div>
- <select onchange="S.fc=this.value;refreshPosts()">${opt("","সব Category",!S.fc)}${Object.entries(CATS).map(([k,c])=>opt(k,c.n,S.fc==k)).join("")}</select>
- <select onchange="S.fs=this.value;refreshPosts()">${opt("","সব Status",!S.fs)}${Object.entries(STL).map(([k,v])=>opt(k,v[0],S.fs==k)).join("")}</select>
- <select onchange="S.pf=this.value;refreshPosts()">${opt("","সব Page",!S.pf)}${scopePages().map(l=>opt(esc(l),esc(short(l)),S.pf==l)).join("")}</select>
- <select onchange="S.so=this.value;refreshPosts()">${opt("new","নতুন আগে",S.so=="new")}${opt("old","পুরনো আগে",S.so=="old")}${opt("views","বেশি View",S.so=="views")}${opt("dl","Deadline কাছে",S.so=="dl")}</select>
- <button class="btn sm" onclick="go('new')">${IC("plus")} নতুন</button></div><div id="plist">${plistHTML()}</div>`}
+function selAll(on){const l=pfList(),cur=Math.max(1,S.pgn||1),pg=l.slice((cur-1)*PSZ,cur*PSZ);pg.forEach(p=>on?S.sel.add(p.id):S.sel.delete(p.id));refreshPosts()}
+function postsV(){const opt=(v,t,c)=>`<option value="${v}" ${c?"selected":""}>${t}</option>`,sel=(on,h)=>`<div class="nm-sel"><select onchange="${on}">${h}</select></div>`;
+ return `<div class="dx">${nmStats()}
+ <section class="dx-card"><div class="dx-ct"><h3 class="dx-h">${IC("list")} All Notices</h3><button class="nm-add" onclick="go('new')">${IC("x_plus")} Add Notice</button></div>
+  <div class="nm-fl"><div class="nm-sb">${IC("x_search")}<input id="p_q" placeholder="Search notices\u2026" value="${esc(S.q||"")}" oninput="S.q=this.value;S.pgn=1;refreshPosts()"></div>
+   ${sel("pfSet('fc',this.value)",opt("","All Categories",!S.fc)+Object.entries(CATS).map(([k,c])=>opt(k,c.n,S.fc==k)).join(""))}
+   ${sel("pfSet('pd',this.value)",opt("","All Departments",!S.pd)+DEPTS.map(d=>opt(d,d,S.pd==d)).join(""))}
+   ${sel("pfSet('pt',this.value)",opt("","All Time",!S.pt)+opt("today","Today",S.pt=="today")+opt("7","Last 7 Days",S.pt=="7")+opt("30","Last 30 Days",S.pt=="30")+opt("year","This Year",S.pt=="year"))}
+   <button class="nm-fb" onclick="document.getElementById('nm_adv').classList.toggle('open')">${IC("x_filter")} Filter</button></div>
+  <div class="nm-adv${S.fs||S.pf||(S.so&&S.so!="new")?" open":""}" id="nm_adv">
+   ${sel("pfSet('fs',this.value)",opt("","All Status",!S.fs)+Object.entries(STL).map(([k,v])=>opt(k,v[0],S.fs==k)).join(""))}
+   ${sel("pfSet('pf',this.value)",opt("","All Pages",!S.pf)+scopePages().map(l=>opt(esc(l),esc(short(l)),S.pf==l)).join(""))}
+   ${sel("pfSet('so',this.value)",opt("new","Newest first",S.so!="old"&&S.so!="views"&&S.so!="dl")+opt("old","Oldest first",S.so=="old")+opt("views","Most views",S.so=="views")+opt("dl","Nearest deadline",S.so=="dl"))}
+   <button class="nm-fb ghost" onclick="S.fc=S.fs=S.pf=S.pd=S.pt=S.q='';S.so='new';S.pgn=1;render(true)">Reset</button></div>
+  <div id="plist">${plistHTML()}</div></section></div>`}
+function catV(){const P=S.posts||[];
+ return `<div class="dx"><section class="dx-card"><div class="dx-ct"><h3 class="dx-h">${IC("x_tag")} Categories</h3></div><p class="nm-hint">Pick a category to see only its notices (you can also use the <b>All Categories</b> dropdown in All Notices).</p>
+ <div class="nm-cg">${Object.entries(CATS).map(([k,c])=>{const L=P.filter(p=>(CATS[p.cat]?p.cat:"notice")==k),vw=L.reduce((a,p)=>a+(p.views||0),0);
+  return `<button class="nm-cc" style="--c:${c.c}" onclick="S.fc='${k}';S.kf=1;S.pgn=1;go('posts')"><span class="dx-ic">${IC(k)}</span><b>${c.n}</b><small>${L.length} notices \u00b7 ${dxN(vw)} views</small></button>`}).join("")}</div></section></div>`}
 
 /* ---- views: messages ---- */
 const waNum=p=>{let d=String(p||"").replace(/\D/g,"");if(d.startsWith("00"))d=d.slice(2);if(d.startsWith("0"))d="88"+d;else if(d.length==10&&d.startsWith("1"))d="880"+d;return d.length>=11?d:""};
@@ -753,19 +881,29 @@ function stuRow(x){const nm=x.name||"(নাম নেই)",bl=!!x.blocked,id=es
  <div class="su-i"><b>${esc(nm)}</b><small>${esc(x.email||"email nei")}</small></div>
  <div class="su-m"><span class="chip">${esc(short(x.year||""))}</span><span class="chip" style="--c:${DCOL[x.dept]||"#7c5cff"}">${esc(x.dept||"-")}</span>${bl?`<span class="chip" style="--c:#e5484d">${IC("lock")} Blocked</span>`:`<span class="chip" style="--c:#16a34a">${IC("check")} Active</span>`}</div>
  <div class="su-a">${isProt(x)?`<small class="mut2">Admin / আপনি</small>`:`${bl?"":`<button class="btn ghost sm" onclick="nfTo('${id}')">${IC("bell")} Notify</button>`}${!isOwner()&&pendingFor(x.id)?`<span class="chip" style="--c:#d97706">${IC("history")} Owner review-e ache</span>`:`<button class="btn ghost sm" onclick="stuAct('${bl?"unblock":"block"}','${id}')">${IC(bl?"undo":"alert")} ${bl?"Unblock":"Block"}</button><button class="btn danger sm" onclick="stuAct('remove','${id}')">${IC("trash")} Remove</button>`}`}</div></div>`}
+function uSet(k,v){S[k]=v;S.uP=1;render()}
+function uGo(){S.uq=(document.getElementById("uq")||{}).value||"";S.uP=1;render()}
+function uPg(n){S.uP=n;render()}
 function studentsV(){
- if(!S.users)return `<h1 class="pt">Students</h1><div class="panel"><p class="mut2">Student list load hocche…</p><button class="btn" onclick="loadUsers()">${IC("users")} Load korun</button></div>`;
- const u=S.users,bl=u.filter(x=>x.blocked).length,all=stuList(),lim=S.ulim||50,list=all.slice(0,lim);
- return `<h1 class="pt">Students</h1><p class="sub">Registered student-der Name, Year, Department — Block ba Remove korte paren.</p>${scopeNote()}${reqPanel()}
- <div class="sts"><div><b>${u.length}</b><small>মোট</small></div><div><b>${u.length-bl}</b><small>Active</small></div><div><b style="color:#e5484d">${bl}</b><small>Blocked</small></div></div>
- <div class="panel"><div class="tbar"><input id="uq" type="search" placeholder="Name ba email khujun…" value="${esc(S.uq||"")}" oninput="S.uq=this.value;S.ulim=50;render(true)" style="flex:1;min-width:160px">
- <select id="uy" onchange="S.uy=this.value;S.ulim=50;render(true)"><option value="">সব Year</option>${YEARS.map(y=>`<option value="${esc(y)}" ${S.uy==y?"selected":""}>${esc(y)}</option>`).join("")}</select>
- <select id="ud" onchange="S.ud=this.value;S.ulim=50;render(true)"><option value="">সব Department</option>${DEPTS.map(d=>`<option value="${d}" ${S.ud==d?"selected":""}>${d}</option>`).join("")}</select>
- <select id="us" onchange="S.us=this.value;S.ulim=50;render(true)"><option value="">সব Status</option><option value="active" ${S.us=="active"?"selected":""}>Active</option><option value="blocked" ${S.us=="blocked"?"selected":""}>Blocked</option></select></div>
- <div class="row" style="margin:0 0 6px"><button class="btn ghost sm" onclick="loadUsers()">Refresh</button><button class="btn ghost sm" onclick="exportUsers()">${IC("dl")} CSV</button>${scoped()?"":`<button class="btn ghost sm" onclick="syncSheet()">${IC("upload")} Google Sheet Sync</button>`}</div>
- <small class="mut2">${all.length}জন দেখাচ্ছে</small>
- ${list.map(stuRow).join("")||`<p class="mut2">কাউকে পাওয়া যায়নি</p>`}
- ${all.length>lim?`<div class="row" style="justify-content:center"><button class="btn ghost" onclick="S.ulim=(S.ulim||50)+50;render(true)">আরও দেখুন (${all.length-lim})</button></div>`:""}</div>`}
+ if(!S.users)return `<h1 class="pt">Student Management</h1><p class="sub">Manage and monitor Mirpur College students.</p><div class="panel"><p class="mut2">Student list load hocche?</p><button class="btn" onclick="loadUsers()">${IC("users")} Load korun</button></div>`;
+ const U=S.users,bl=U.filter(x=>x.blocked).length,all=stuList(),PER=8,pages=Math.max(1,Math.ceil(all.length/PER)),p=Math.min(S.uP||1,pages),a=(p-1)*PER,V=all.slice(a,a+PER),
+ y2=U.filter(x=>x.year=="HSC 2nd Year").length,N=bnN,
+ st=(i,c,l,v)=>`<div class="ah-st" style="--c:${c}"><i>${IC(i)}</i><span>${l}<b>${v}</b></span></div>`,
+ sel=(k,all_,L)=>`<select aria-label="${all_}" onchange="uSet('${k}',this.value)"><option value="">${all_}</option>${L.map(o=>`<option value="${esc(o[0])}" ${o[0]==(S[k]||"")?"selected":""}>${esc(o[1])}</option>`).join("")}</select>`,
+ rows=V.map((x,i)=>{const nm=x.name||"(naam nei)",b=!!x.blocked,id=esc(x.id),ini=esc(nm.trim().charAt(0).toUpperCase()||"?");
+  const act=isProt(x)?'<small class="mut2">Admin / Owner</small>':`${b?"":`<button onclick="nfTo('${id}')" aria-label="Notify" title="Notify">${IC("bell")}</button>`}${!isOwner()&&pendingFor(x.id)?'<span class="ah-pl zs Draft">Owner review-e ache</span>':`<button onclick="stuAct('${b?"unblock":"block"}','${id}')" aria-label="${b?"Unblock":"Block"}" title="${b?"Unblock":"Block"}">${IC(b?"undo":"alert")}</button><button class="d" onclick="stuAct('remove','${id}')" aria-label="Remove" title="Remove">${IC("trash")}</button>`}`;
+  return `<tr><td>${N(a+i+1)}</td><td><div class="us-n"><span class="us-av">${ini}${x.photo?`<img src="${esc(x.photo)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`:""}</span><span><b>${esc(nm)}</b><small>${esc(x.email||"email nei")}</small></span></div></td><td>${x.roll?esc(x.roll):"—"}</td><td><span class="ah-pl" style="--pc:${DCOL[x.dept]||"#7c5cff"}">${esc(x.dept||"-")}</span></td><td>${esc(short(x.year||"")||"—")}</td><td><span class="ah-pl zs ${b?"Blocked":"Active"}">${b?"Blocked":"Active"}</span></td><td class="ah-ac">${act}</td></tr>`}).join("");
+ let pb="";const s0=Math.max(1,Math.min(p-2,pages-4));for(let i=s0;i<=Math.min(pages,s0+4);i++)pb+=`<button class="${i==p?"on":""}" onclick="uPg(${i})">${N(i)}</button>`;
+ const CL=["#1d5cff","#16a34a","#7c3aed","#f59e0b","#0ea5b7","#e5384a"],dist=YEARS.flatMap(y=>DEPTS.map(d=>[short(y)+" · "+d,U.filter(x=>x.year==y&&x.dept==d).length])),tot=Math.max(1,U.length),
+ qa=[["Refresh list","x_clock","loadUsers()","#1d5cff"],["Export CSV","x_dl","exportUsers()","#16a34a"]].concat(scoped()?[]:[["Google Sheet Sync","upload","syncSheet()","#7c3aed"]]).concat(NAVK.notify&&allowed([0,0,0,NAVK.notify.a])?[["Send Notification","bell","go('notify')","#f59e0b"]]:[]);
+ return `<h1 class="pt">Student Management</h1><p class="sub">Manage and monitor Mirpur College students.</p>${scopeNote()}${reqPanel()}
+<div class="ah-st-g">${st("users","#1d5cff","Total Students",N(U.length))}${st("check","#16a34a","Active Students",N(U.length-bl))}${st("lock","#e5384a","Blocked",N(bl))}${st("x_cap","#f59e0b","Graduating (HSC 2nd)",N(y2))}</div>
+<div class="ah-cols"><div class="ah-main"><section class="ah-card"><div class="ah-hd"><h3 class="ah-h">${IC("users")} All Students</h3></div>
+<div class="ah-fl"><label class="ah-q">${IC("x_search")}<input id="uq" value="${esc(S.uq||"")}" placeholder="Search by name or email…" onkeydown="if(event.key=='Enter')uGo()"></label>${sel("ud","All Departments",DEPTS.map(d=>[d,d]))}${sel("uy","All Years",YEARS.map(y=>[y,y]))}${sel("us","All Status",[["active","Active"],["blocked","Blocked"]])}<button class="ah-go" onclick="uGo()">Filter</button></div>
+<div class="ah-tw"><table class="ah-t"><thead><tr><th>#</th><th>Name</th><th>Roll</th><th>Department</th><th>Year</th><th>Status</th><th>Actions</th></tr></thead><tbody>${rows||'<tr><td colspan="7" class="ah-em">No students match. Clear a filter or refresh the list.</td></tr>'}</tbody></table></div>
+<div class="ah-pg"><span>${all.length?`Showing ${N(a+1)}–${N(a+V.length)} of ${N(all.length)} students`:"Showing 0 students"}</span><div>${pb}</div></div></section></div>
+<aside class="ah-side"><section class="ah-card ah-pad"><h3 class="ah-h">${IC("chart")} Students by Year &amp; Department</h3>${dist.map(([k,n],i)=>`<div class="ah-bar"><div><span>${esc(k)}</span><b>${N(n)}</b></div><i><u style="width:${n/tot*100}%;background:${CL[i]}"></u></i></div>`).join("")}</section>
+<section class="ah-card ah-pad"><h3 class="ah-h">${IC("zap")} Quick Actions</h3>${qa.map(t=>`<button class="ah-qa" onclick="${t[2]}"><i style="background:${t[3]}">${IC(t[1])}</i>${t[0]}</button>`).join("")}<p class="qb-mu" style="margin:8px 0 0">Students join by signing in on the public site, so there is no Add Student form here.</p></section></aside></div>`}
 async function stuAct(act,id){const x=(S.users||[]).find(u=>u.id==id);if(!x)return;const nm=x.name||x.email||"Student";
  let T={block:["Block korben?",nm+" ar login korte parbe na (cholte thaka session-o bondho hobe). Pore Unblock kora jabe.","Block korun"],
   unblock:["Unblock korben?",nm+" abar login korte parbe.","Unblock korun",false],
@@ -780,14 +918,6 @@ async function stuAct(act,id){const x=(S.users||[]).find(u=>u.id==id);if(!x)retu
   logAct("u"+act,{id,title:nm});render(true);
   toast((act=="block"?"Block hoyeche":act=="unblock"?"Unblock hoyeche":"Remove hoyeche")+(j.sheet===false?" (Google Sheet update hoyni)":""))}
  catch(e){toast("Hoyni: "+(e.message||e))}}
-function stuDash(card){const u=S.users;
- if(!u)return{c:card("users","#7c5cff","…","মোট Student","load hocche…",""),p:""};
- const bl=u.filter(x=>x.blocked).length,cnt=(y,d)=>u.filter(x=>x.year==y&&x.dept==d).length,mx=Math.max(1,...YEARS.flatMap(y=>DEPTS.map(d=>cnt(y,d))));
- return{c:card("users","#7c5cff",u.length,"মোট Student",`${u.length-bl} active · ${bl} blocked`,""),
-  p:`<div class="panel"><h3>${IC("users")} Students <small>· Year × Department</small></h3><div class="sts"><div><b>${u.length}</b><small>মোট</small></div><div><b>${u.length-bl}</b><small>Active</small></div><div><b style="color:#e5484d">${bl}</b><small>Blocked</small></div></div>
-  ${YEARS.map(y=>`<div class="sub2">${esc(short(y))}</div>${DEPTS.map(d=>{const n=cnt(y,d);return `<div class="bar"><div class="bar-l"><span>${d}</span><b>${n}</b></div><i style="width:${Math.max(n?4:0,n/mx*100)}%;background:${DCOL[d]}"></i></div>`}).join("")}`).join("")}
-  <div class="row"><button class="btn ghost sm" onclick="go('students')">${IC("users")} সব Student দেখুন</button></div></div>`}}
-
 /* ---- views: notify (custom push) ---- */
 const NF0=()=>({title:"",body:"",urgent:false,aud:"all",years:[],depts:[],uids:[],link:"none",postId:"",url:"",cnt:null,busy:false});
 S.nf=NF0();S.nh=null;S.nq="";
@@ -901,7 +1031,7 @@ const STT={draft:"Draft",review:"Under Review",verified:"Verified",pub:"Publishe
 function bqList(t,L,h){L=L.slice().sort((a,b)=>(b.y-a.y)||((b.ts||0)-(a.ts||0)));return `<div class="panel"><h3>${t} (${bnN(L.length)})</h3>${h?`<p class="qb-mu">${h}</p>`:""}${L.slice(0,150).map(bqRow).join("")||'<p class="qb-mu">কিছু নেই।</p>'}${L.length>150?'<p class="qb-mu">প্রথম ১৫০টি দেখানো হচ্ছে।</p>':""}</div>`}
 async function bqStt(id,stt){const x=(S.bqs||[]).find(z=>z.id==id);if(!x)return;const o=JSON.parse(JSON.stringify(x));delete o.id;o.stt=stt;o.draft=stt!="pub";o.upd=Date.now();try{await FB.setDoc(FB.doc(FB.db,"boardQ",id),o);logAct("board-edit",{id,title:x.b+" "+x.y+" "+x.sub+" → "+STT[stt]});toast(STT[stt])}catch(e){toast("Save hoyni: "+(e.code||e.message))}}
 function bqView(m){if(ld())return LDV();const B=S.bqs||[];switch(m){
- case"all":return bqList("All Questions",B);case"mcq":return bqList("MCQ Questions",B.filter(x=>x.ty=="MCQ"));case"cq":return bqList("CQ Questions",B.filter(x=>x.ty=="CQ"));
+ case"all":return acView("all");case"mcq":return acView("MCQ");case"cq":return acView("CQ");
  case"add":return '<div class="panel"><p class="qb-mu" style="margin:0">Workflow: Draft → Under Review → Verified → Published। শুধু Published প্রশ্নই Student-রা দেখবে।</p></div>'+bdForm();
  case"sets":{const g={};B.forEach(x=>{const k=x.b+"|"+x.y+"|"+x.sub,r=g[k]||(g[k]={b:x.b,y:x.y,s:x.sub,mc:0,cq:0});x.ty=="MCQ"?r.mc++:r.cq++});return tbl(["বোর্ড","সাল","বিষয়","MCQ","CQ"],Object.values(g).sort((p,q)=>q.y-p.y).map(r=>[esc(r.b),bnN(r.y),esc(r.s),bnN(r.mc),bnN(r.cq)]))}
  case"ans":return bqList("Answer & Solutions বাকি (CQ)",B.filter(x=>x.ty=="CQ"&&!(x.s&&x.s.length)),"যেসব CQ-তে সমাধান দেওয়া হয়নি। Edit করে যোগ করুন।");
@@ -911,9 +1041,9 @@ function bqView(m){if(ld())return LDV();const B=S.bqs||[];switch(m){
  case"rev":return bqList("Review & Verification",B.filter(x=>!isPub(x)),"Draft / Under Review / Verified — Student-দের কাছে দেখা যায় না। Status বদলে Publish করুন।");
  case"rep":return repV();
  case"an":return grid([sCard("মোট",B.length,"bq-all"),sCard("MCQ",B.filter(x=>x.ty=="MCQ").length,"bq-mcq"),sCard("CQ",B.filter(x=>x.ty=="CQ").length,"bq-cq"),sCard("Review বাকি",B.filter(x=>!isPub(x)).length,"bq-rev")])+bars("সাল অনুযায়ী",cntBy(B,x=>bnN(x.y)))+bars("বোর্ড অনুযায়ী",cntBy(B,x=>x.b))+bars("বিষয় অনুযায়ী",cntBy(B,x=>x.sub).slice(0,15))+bars("Status",cntBy(B,x=>STT[x.stt||(x.draft?"draft":"pub")]))}}
-function qzView(m){if(S.qzs===null)return LDV();const Z=qbMine(S.qzs),A=isOwner()?(S.qas||[]):[],U=Object.fromEntries((S.users||[]).map(u=>[u.id,u])),nm=u=>esc(U[u]?(U[u].name||U[u].email||u):u),zt=id=>{const z=S.qzs.find(x=>x.id==id);return z?esc(z.t):"—"};switch(m){
+function qzView0(m){if(S.qzs===null)return LDV();const Z=qbMine(S.qzs),A=isOwner()?(S.qas||[]):[],U=Object.fromEntries((S.users||[]).map(u=>[u.id,u])),nm=u=>esc(U[u]?(U[u].name||U[u].email||u):u),zt=id=>{const z=S.qzs.find(x=>x.id==id);return z?esc(z.t):"—"};switch(m){
  case"dash":return grid([sCard("মোট Quiz",Z.length,"qz-all"),sCard("Exam",Z.filter(z=>z.mode=="Exam").length,"qz-act"),sCard("Practice",Z.filter(z=>z.mode!="Exam").length,"qz-all"),sCard("Draft",Z.filter(z=>z.draft).length,"qz-sch"),sCard("মোট প্রশ্ন",Z.reduce((s,z)=>s+(z.q||[]).length,0),"qz-bank")]);
- case"all":return qzList();case"new":return qzForm();
+ case"all":return qzHub();case"new":return qzForm();
  case"bank":{const r=[];Z.forEach(z=>(z.q||[]).forEach(q=>r.push([esc(z.t),esc(q.q.slice(0,90)),OPL[q.a]])));return tbl(["Quiz","প্রশ্ন","উত্তর"],r.slice(0,300))}
  case"cat":return tbl(["বিষয়","অধ্যায়","Quiz","প্রশ্ন"],cntBy(Z,z=>(z.sub||"—")+"|"+(z.ch||"—")).map(([k,n])=>{const[s,c]=k.split("|");return[esc(s),esc(c),bnN(n),bnN(Z.filter(z=>(z.sub||"—")==s&&(z.ch||"—")==c).reduce((t,z)=>t+(z.q||[]).length,0))]}));
  case"sch":return tbl(["Quiz","অবস্থা"],Z.filter(z=>z.draft||(z.at&&z.at>Date.now())).map(z=>[esc(z.t),z.draft?"Draft":"Scheduled · "+fmtD(z.at)]));
@@ -922,17 +1052,146 @@ function qzView(m){if(S.qzs===null)return LDV();const Z=qbMine(S.qzs),A=isOwner(
  case"res":return tbl(["Student","Quiz","Score","তারিখ"],A.slice().sort((p,q)=>(q.ts||0)-(p.ts||0)).slice(0,100).map(a=>[nm(a.uid),zt(a.quizId),bnN(+(+a.score).toFixed(2))+"/"+bnN(a.total),fmtD(a.ts)]));
  case"an":{const g={};A.forEach(a=>{const r=g[a.quizId]||(g[a.quizId]={n:0,p:0});r.n++;r.p+=a.total?a.score/a.total*100:0});return tbl(["Quiz","Attempt","গড় %"],Object.entries(g).map(([id,r])=>[zt(id),bnN(r.n),bnN(Math.round(r.p/r.n))+"%"]))}
  case"set":return '<div class="panel"><h3>Quiz Settings</h3><ul class="qb-mu"><li>Exam: প্রশ্ন সংখ্যা, সময় ও নেগেটিভ মার্ক Student নিজে বাছাই করে।</li><li>Practice: প্রতিবার ২০টি প্রশ্ন।</li><li>Exam একবারই দেওয়া যায়।</li><li>নতুন Quiz সব Page-এ যায়।</li></ul></div>'}}
+function qzSt(i,c,l,v){return `<div class="ah-st" style="--c:${c}"><i>${IC(i)}</i><span>${l}<b>${v}</b></span></div>`}
+function qzView(m){if(m=="dash"&&S.qzs!==null)return qzHub();const v=qzView0(m);if(S.qzs===null||typeof v!="string")return v;
+ const M={res:["Quiz Results","Scores for every quiz attempt."],cat:["Quiz Categories","Quizzes and questions grouped by subject and chapter."],an:["Quiz Analytics","Attempts and average score for each quiz."],part:["Quiz Participants","Students who joined each quiz."],bank:["Quiz Question Bank","Every question used in your quizzes."],sch:["Scheduled Quizzes","Drafts and quizzes waiting to go live."],act:["Active Exams","Exams students can take right now."],set:["Quiz Settings","How exams and practice quizzes behave."]};
+ if(m=="set")return `<h1 class="pt">${M.set[0]}</h1><p class="sub">${M.set[1]}</p>`+v.replace('class="panel"','class="ah-card ah-pad"');
+ if(!M[m])return v;
+ const Z=qbMine(S.qzs||[]),A=isOwner()?(S.qas||[]):[],now=Date.now(),N=x=>bnN(x),
+ avg=A.length?Math.round(A.reduce((s,x)=>s+(x.total?x.score/x.total*100:0),0)/A.length):null,
+ users=new Set(A.map(a=>a.uid)).size,qn=Z.reduce((s,z)=>s+(z.q||[]).length,0),
+ S_={res:[["chart","#1d5cff","Total Attempts",N(A.length)],["users","#16a34a","Students",N(users)],["x_trophy","#f59e0b","Avg. Score",avg===null?"—":N(avg)+"%"],["list","#7c3aed","Quizzes",N(Z.length)]],
+ cat:[["x_tag","#1d5cff","Categories",N(new Set(Z.map(z=>(z.sub||"—")+"|"+(z.ch||"—"))).size)],["list","#7c3aed","Quizzes",N(Z.length)],["x_help","#16a34a","Questions",N(qn)],["x_book","#f59e0b","Subjects",N(new Set(Z.map(z=>z.sub)).size)]],
+ an:[["chart","#1d5cff","Total Attempts",N(A.length)],["list","#7c3aed","Quizzes Attempted",N(new Set(A.map(a=>a.quizId)).size)],["x_trophy","#f59e0b","Avg. Score",avg===null?"—":N(avg)+"%"],["users","#16a34a","Students",N(users)]],
+ part:[["users","#16a34a","Participants",N(users)],["list","#7c3aed","Quizzes Joined",N(new Set(A.map(a=>a.quizId)).size)],["chart","#1d5cff","Attempts",N(A.length)],["x_quiz","#f59e0b","Total Quizzes",N(Z.length)]],
+ bank:[["x_help","#1d5cff","Questions",N(qn)],["list","#7c3aed","Quizzes",N(Z.length)],["x_quiz","#16a34a","Exam Quizzes",N(Z.filter(z=>z.mode=="Exam").length)],["x_book","#f59e0b","Practice Quizzes",N(Z.filter(z=>z.mode!="Exam").length)]],
+ sch:[["x_clock","#f59e0b","Drafts",N(Z.filter(z=>z.draft).length)],["x_cal","#1d5cff","Scheduled",N(Z.filter(z=>!z.draft&&z.at&&z.at>now).length)],["list","#7c3aed","All Quizzes",N(Z.length)],["x_quiz","#16a34a","Live Now",N(Z.filter(z=>!z.draft&&(!z.at||z.at<=now)).length)]],
+ act:[["x_quiz","#16a34a","Active Exams",N(Z.filter(z=>z.mode=="Exam"&&!z.draft&&(!z.at||z.at<=now)&&(!z.dl||z.dl>now)).length)],["list","#7c3aed","All Exams",N(Z.filter(z=>z.mode=="Exam").length)],["x_help","#1d5cff","Questions",N(qn)],["chart","#f59e0b","Attempts",N(A.length)]]}[m],
+ body=v.replace('<div class="panel" style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:14px">','<section class="ah-card"><div class="ah-tw"><table class="ah-t">').replace(/ style="(text-align:left;)?padding:8px;border-bottom:1px solid var\(--line\)"/g,"").replace("</table></div>","</table></div></section>");
+ return `<h1 class="pt">${M[m][0]}</h1><p class="sub">${M[m][1]}</p><div class="ah-st-g">${S_.map(t=>qzSt(...t)).join("")}</div>${body.includes("ah-card")?body.replace('<div class="ah-tw">','<div class="ah-hd"><h3 class="ah-h">'+IC("list")+" "+M[m][0]+'</h3></div><div class="ah-tw" style="padding-top:12px">'):body}`}
 function stView(m){const U=S.users;if(U===null)return LDV();const A=isOwner()?(S.qas||[]):[],nm=u=>esc(u.name||u.email||u.id),by=Object.fromEntries(U.map(u=>[u.id,u]));switch(m){
  case"prof":return tbl(["Student","Page","Status"],U.slice(0,300).map(u=>[nm(u),esc(short(u.year+" · "+u.dept)),u.blocked?"Blocked":"Active"]));
  case"act":return tbl(["Student","Quiz","Score","তারিখ"],A.slice().sort((p,q)=>(q.ts||0)-(p.ts||0)).slice(0,100).map(a=>[by[a.uid]?nm(by[a.uid]):esc(a.uid),esc(((S.qzs||[]).find(z=>z.id==a.quizId)||{}).t||"—"),bnN(+(+a.score).toFixed(2))+"/"+bnN(a.total),fmtD(a.ts)]));
  case"prog":{const g={};A.forEach(a=>{const r=g[a.uid]||(g[a.uid]={n:0,p:0});r.n++;r.p+=a.total?a.score/a.total*100:0});return tbl(["Student","Attempt","গড় %"],Object.entries(g).sort((p,q)=>q[1].n-p[1].n).map(([id,r])=>[by[id]?nm(by[id]):esc(id),bnN(r.n),bnN(Math.round(r.p/r.n))+"%"]))}
  case"rep":return grid([sCard("মোট Student",U.length,"students"),sCard("Blocked",U.filter(u=>u.blocked).length,"students")])+bars("Page অনুযায়ী",cntBy(U,u=>short(u.year+" · "+u.dept)))}}
-function acView(){if(ld())return LDV();const B=S.bqs||[],Z=S.qzs||[];return grid([sCard("Board প্রশ্ন",B.length,"bq-all"),sCard("Review বাকি",B.filter(x=>!isPub(x)).length,"bq-rev"),sCard("Quiz",Z.length,"qz-all"),sCard("Draft Quiz",Z.filter(z=>z.draft).length,"qz-sch")])+quickV()}
+function ahSet(k,v){S[k]=v;S.ahP=1;render()}
+function ahGo(){S.ahQ=(document.getElementById("ahq")||{}).value||"";S.ahP=1;render()}
+function ahPg(n){S.ahP=n;render()}
+function acView(T){if(ld())return LDV();T=T||"all";
+ const B=S.bqs||[],q=(S.ahQ||"").trim().toLowerCase(),fs=S.ahS||"",fb=S.ahB||"",fy=String(S.ahY||""),PER=8,
+ subN=x=>(HSC_SUBJ.find(s=>s[0]==admSk(x))||[])[1]||x.sub||"—",
+ mc=B.filter(x=>x.ty=="MCQ").length,cq=B.filter(x=>x.ty=="CQ").length,sets=new Set(B.map(x=>x.b+"|"+x.y+"|"+x.sub)).size,
+ R=B.filter(x=>(T=="all"||x.ty==T)&&(!fs||admSk(x)==fs)&&(!fb||x.b==fb)&&(!fy||String(x.y)==fy)&&(!q||(x.b+" "+x.y+" "+subN(x)+" "+(x.ch||"")).toLowerCase().includes(q))).sort((a,b)=>(b.y-a.y)||((b.ts||0)-(a.ts||0))),
+ pages=Math.max(1,Math.ceil(R.length/PER)),p=Math.min(S.ahP||1,pages),a=(p-1)*PER,V=R.slice(a,a+PER),
+ years=[...new Set(B.map(x=>x.y))].sort((m,n)=>n-m),
+ st=(i,c,l,n,k)=>`<button class="ah-st" style="--c:${c}" onclick="go('${k}')"><i>${IC(i)}</i><span>${l}<b>${bnN(n)}</b></span></button>`,
+ tab=(k,l,n)=>`<button class="${T==k?"on":""}" role="tab" aria-selected="${T==k}" onclick="go('${k=="all"?"bq-all":k=="MCQ"?"bq-mcq":"bq-cq"}')">${l} <em>${bnN(n)}</em></button>`,
+ sel=(id,k,all,L)=>`<select aria-label="${all}" onchange="ahSet('${k}',this.value)"><option value="">${all}</option>${L.map(o=>`<option value="${esc(String(o[0]))}" ${String(o[0])==String(S[k]||"")?"selected":""}>${esc(String(o[1]))}</option>`).join("")}</select>`,
+ rows=V.map((x,i)=>`<tr><td>${bnN(a+i+1)}</td><td><b>${esc(x.b)} ${bnN(x.y)}</b><small>${esc(subN(x))}${x.ch?" · "+esc(x.ch):""}${x.pp?" · "+(x.pp==1?"১ম":"২য়")+" পত্র":""}</small></td><td><span class="ah-pl s">${esc(subN(x))}</span></td><td>${esc(x.b)}</td><td>${bnN(x.y)}</td><td><span class="ah-pl ${x.ty=="CQ"?"cq":"mc"}">${x.ty}</span></td><td><select class="ah-ss" aria-label="Status" onchange="bqStt('${x.id}',this.value)">${Object.entries(STT).map(([k,v])=>`<option value="${k}" ${(x.stt||(x.draft?"draft":"pub"))==k?"selected":""}>${v}</option>`).join("")}</select></td><td class="ah-ac"><button onclick="bEdit('${x.id}')">Edit</button><button class="d" aria-label="Delete" onclick="qbDel('boardQ','${x.id}','${esc(x.sub)}')">${IC("trash")}</button></td></tr>`).join("");
+ let pb="";for(let i=Math.max(1,Math.min(p-2,pages-4));i<=Math.min(pages,Math.max(1,Math.min(p-2,pages-4))+4);i++)pb+=`<button class="${i==p?"on":""}" onclick="ahPg(${i})">${bnN(i)}</button>`;
+ const CL=["#1d5cff","#16a34a","#7c3aed","#f59e0b","#0ea5b7"],sm=cntBy(B,x=>subN(x)).slice(0,5),tot=B.length||1,
+ rc=B.filter(x=>x.ts).sort((m,n)=>n.ts-m.ts).slice(0,3),now=Date.now(),DAY=864e5,
+ bins=[0,0,0,0,0].map((_,i)=>B.filter(x=>x.ts&&now-x.ts<(5-i)*6*DAY&&now-x.ts>=(4-i)*6*DAY).length),mx=Math.max(1,...bins),
+ pts=bins.map((v,i)=>[30+i*85,110-v/mx*85]),
+ qa=[["Add Question","x_plus","bq-add","#1d5cff"],["Boards","x_tag","bq-board","#16a34a"],["Subjects","x_book","bq-subj","#7c3aed"],["Review & Verify","x_quiz","bq-rev","#f59e0b"]].filter(t=>NAVK[t[2]]&&allowed([0,0,0,NAVK[t[2]].a]));
+ return `<div class="ah-st-g">${st("x_help","#1d5cff","Total Questions",B.length,"bq-all")}${st("list","#7c3aed","Board Sets",sets,"bq-board")}${st("x_quiz","#16a34a","MCQ Questions",mc,"bq-mcq")}${st("x_book","#f59e0b","CQ Questions",cq,"bq-cq")}</div>
+<div class="ah-cols"><div class="ah-main">
+<section class="ah-card"><div class="ah-tabs" role="tablist">${tab("all","Board Questions",B.length)}${tab("MCQ","MCQ Practice",mc)}${tab("CQ","CQ Practice",cq)}</div>
+<div class="ah-fl"><label class="ah-q">${IC("x_search")}<input id="ahq" value="${esc(S.ahQ||"")}" placeholder="Search board, subject, chapter…" onkeydown="if(event.key=='Enter')ahGo()"></label>${sel("","ahS","All Subject",HSC_SUBJ.map(s=>[s[0],s[1]]))}${sel("","ahB","All Board",BOARDS.map(b=>[b,b]))}${sel("","ahY","All Year",years.map(y=>[y,bnN(y)]))}<button class="ah-go" onclick="ahGo()">Search</button></div>
+<div class="ah-tw"><table class="ah-t"><thead><tr><th>#</th><th>Question set</th><th>Subject</th><th>Board</th><th>Year</th><th>Type</th><th>Status</th><th>Actions</th></tr></thead><tbody>${rows||'<tr><td colspan="8" class="ah-em">No questions match. Clear a filter or add a new question.</td></tr>'}</tbody></table></div>
+<div class="ah-pg"><span>${R.length?`Showing ${bnN(a+1)}–${bnN(a+V.length)} of ${bnN(R.length)} questions`:"Showing 0 questions"}</span><div>${pb}</div></div></section>
+<div class="ah-low"><section class="ah-card ah-pad"><h3 class="ah-h">${IC("x_clock")} Recent Additions <button class="ah-lk" onclick="go('bq-all')">View All</button></h3>${rc.map(x=>`<div class="ah-rc"><i>${IC("x_book")}</i><span><b>${esc(x.b)} ${bnN(x.y)} · ${esc(x.ty)}</b><small>${new Date(x.ts).toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"})} · ${esc(subN(x))}</small></span>${now-x.ts<7*DAY?'<em>New</em>':""}</div>`).join("")||'<p class="qb-mu">No questions added yet.</p>'}</section>
+<section class="ah-card ah-pad"><h3 class="ah-h">${IC("chart")} Added in last 30 days</h3><svg viewBox="0 0 370 140" class="ah-ch" role="img" aria-label="Questions added per 6-day period"><g stroke="var(--line)"><path d="M20 25H360M20 67H360M20 110H360"/></g><path d="M${pts.map(t=>t.join(" ")).join("L")}L${pts[4][0]} 110L${pts[0][0]} 110z" fill="#1d5cff" opacity=".12"/><path d="M${pts.map(t=>t.join(" ")).join("L")}" fill="none" stroke="#1d5cff" stroke-width="2.5" stroke-linejoin="round"/>${pts.map((t,i)=>`<circle cx="${t[0]}" cy="${t[1]}" r="4" fill="#1d5cff"><title>${bins[i]}</title></circle><text x="${t[0]}" y="132" text-anchor="middle" font-size="10" fill="currentColor" opacity=".6">${(4-i)*6}-${(5-i)*6}d</text>`).join("")}</svg></section></div></div>
+<aside class="ah-side"><section class="ah-card ah-pad"><h3 class="ah-h">${IC("chart")} Subject Summary</h3>${sm.map(([k,n],i)=>`<div class="ah-bar"><div><span>${esc(String(k))}</span><b>${bnN(Math.round(n/tot*100))}%</b></div><i><u style="width:${n/tot*100}%;background:${CL[i]}"></u></i></div>`).join("")||'<p class="qb-mu">No data yet.</p>'}</section>
+<section class="ah-card ah-pad"><h3 class="ah-h">${IC("zap")} Quick Actions</h3>${qa.map(t=>`<button class="ah-qa" onclick="go('${t[2]}')"><i style="background:${t[3]}">${IC(t[1])}</i>${t[0]}</button>`).join("")}</section>
+<section class="ah-cta"><b>MCUN Academic Hub</b><small>Your Academic Success<br>Our Priority</small></section></aside></div>`}
 function quickV(){const L=[["নতুন Notice","new"],["নতুন Question","bq-add"],["নতুন Quiz","qz-new"],["Students","students"],["Messages","msgs"],["Notify","notify"]].filter(x=>allowed([0,0,0,NAVK[x[1]].a]));return `<div class="panel"><h3>Quick Actions</h3><div style="display:flex;gap:8px;flex-wrap:wrap">${L.map(x=>`<button class="btn" onclick="go('${x[1]}')">${x[0]}</button>`).join("")}</div></div>`}
 function logV(n){return `<div class="panel"><h3>${IC("history")} Activity Logs</h3>${(S.logs||[]).slice(0,n).map(l=>{const a=ACT[l.act]||[l.act,"history"];return `<div class="li rc"><span class="rc-i">${IC(a[1])}</span><div><b>${esc(a[0])}</b> <small>${esc(l.email||"")} · ${fmtD(l.ts)}</small></div></div>`}).join("")||"<small>কিছু নেই</small>"}</div>`}
-const dlL=()=>(S.posts||[]).filter(p=>p.files&&p.files.length);
-function dlGo(i){const p=dlL()[i];if(p){S.q=p.title||"";go("posts")}}
-function dlV(){return tbl(["Post","Files",""],dlL().map((p,i)=>[esc(p.title||""),bnN(p.files.length),`<button class="btn qb-b2" onclick="dlGo(${i})">খুলুন</button>`]))}
+/* ===== Downloads Manager (redesign) =====
+   Data = posts-er "files" (attachment). Notun collection / rules lagbe na.
+   Upload = chosen category-te ekta post toiri hoy, file/link oi post-e attach thake (Student site-er Downloads-e dekhay). */
+const DLP=8,DLC={pdf:["PDF","#e5484d"],doc:["DOC","#2563eb"],xls:["XLS","#16a34a"],ppt:["PPT","#f97316"],zip:["ZIP","#7c3aed"],img:["IMG","#0d9488"],link:["LINK","#64748b"],other:["FILE","#64748b"]};
+S.dl={q:"",cat:"",type:"",so:"new",pg:1,f:{n:"",l:"",c:"",d:"",p:false},img:[],busy:false};
+function dlKindOf(f){const n=String(f.name||"").toLowerCase(),u=String(f.url||"").toLowerCase().split(/[?#]/)[0],t=String(f.type||"").toLowerCase(),
+ ex=(n.match(/\.([a-z0-9]{2,4})$/)||u.match(/\.([a-z0-9]{2,4})$/)||[])[1]||"";
+ if(/^image\//.test(t)||/^(png|jpe?g|gif|webp|svg)$/.test(ex))return"img";
+ if(ex=="pdf"||t.includes("pdf")||/\bpdf\b/.test(n))return"pdf";
+ if(/^(docx?|rtf|txt)$/.test(ex)||/\b(docx?|word)\b/.test(n))return"doc";
+ if(/^(xlsx?|csv)$/.test(ex))return"xls";if(/^pptx?$/.test(ex))return"ppt";if(/^(zip|rar|7z)$/.test(ex))return"zip";
+ return t=="link"?"link":"other"}
+const dlAgo=t=>{const m=Math.max(0,(Date.now()-t)/6e4);return m<1?"just now":m<60?Math.floor(m)+"m ago":m<1440?Math.floor(m/60)+"h ago":m<43200?Math.floor(m/1440)+"d ago":fmtD(t)};
+const dlSz=b=>!b?"\u2014":b>=1048576?(b/1048576).toFixed(1)+" MB":Math.max(1,Math.round(b/1024))+" KB";
+function dlRows(){const R=[];(S.posts||[]).forEach(p=>(p.files||[]).forEach((f,i)=>{if(!f||!f.url)return;
+ R.push({p,f,i,k:dlKindOf(f),sz:f.type=="link"?0:Math.round(String(f.url).length*.75),nm:f.name||"Attachment",ts:p.ts||0,v:p.views||0,cat:CATS[p.cat]?p.cat:"notice"})}));return R}
+function dlList(){const d=S.dl,q=d.q.trim().toLowerCase(),
+ so={new:(a,b)=>b.ts-a.ts,old:(a,b)=>a.ts-b.ts,views:(a,b)=>b.v-a.v,name:(a,b)=>a.nm.localeCompare(b.nm),size:(a,b)=>b.sz-a.sz}[d.so]||((a,b)=>b.ts-a.ts);
+ return dlRows().filter(r=>(!d.cat||r.cat==d.cat)&&(!d.type||r.k==d.type)&&(!q||(r.nm+" "+(r.p.title||"")).toLowerCase().includes(q))).sort(so)}
+const dlFi=k=>`<span class="dl-fi" style="--c:${DLC[k][1]}"><b>${DLC[k][0]}</b></span>`;
+function dlPager(pg,pages){if(pages<2)return"";const s=new Set([1,pages,pg-1,pg,pg+1].filter(n=>n>=1&&n<=pages)),L=[...s].sort((a,b)=>a-b),o=[];
+ L.forEach((n,i)=>{if(i&&n-L[i-1]>1)o.push('<button type="button" disabled aria-hidden="true">\u2026</button>');o.push(`<button type="button" class="${n==pg?"on":""}" ${n==pg?'aria-current="page"':""} onclick="dlPg(${n})">${n}</button>`)});
+ return `<button type="button" aria-label="Previous page" ${pg<2?"disabled":""} onclick="dlPg(${pg-1})">\u2039</button>${o.join("")}<button type="button" aria-label="Next page" ${pg>=pages?"disabled":""} onclick="dlPg(${pg+1})">\u203a</button>`}
+function dlTbl(){const R=dlList(),n=R.length,pages=Math.max(1,Math.ceil(n/DLP));if(S.dl.pg>pages)S.dl.pg=pages;const a=(S.dl.pg-1)*DLP,V=R.slice(a,a+DLP),filt=S.dl.q||S.dl.cat||S.dl.type;
+ const rows=V.map((r,j)=>{const c=CATS[r.cat],id=esc(r.p.id),act=(ic,lb,fn,cl)=>`<button type="button" class="dl-ab ${cl||""}" title="${lb}" aria-label="${lb}: ${esc(r.nm)}" onclick="${fn}">${IC(ic)}</button>`;
+  return `<tr><td class="dl-n">${a+j+1}</td><td><div class="dl-f">${dlFi(r.k)}<span><b title="${esc(r.nm)}">${esc(r.nm)}</b><small>${esc(r.p.title||"")}${r.p.draft?" \u00b7 Draft":""}</small></span></div></td>
+  <td><span class="dl-cat" style="--c:${c.c}"><i></i>${esc(c.n)}</span></td><td>${DLC[r.k][0]}</td><td ${r.sz?"":'title="Link-er size jana jay na"'}>${dlSz(r.sz)}</td><td>${dxN(r.v)}</td><td>${fmtD(r.ts)}</td>
+  <td><div class="dl-ac">${act("eye","View",`dlFile('${id}',${r.i},0)`)}${act("dl","Download",`dlFile('${id}',${r.i},1)`)}${act("trash","Remove",`dlRm('${id}',${r.i})`,"del")}</div></td></tr>`}).join("");
+ const empty=`<tr><td colspan="8" class="ah-em">${filt?"No files match. Clear a filter or try another keyword.":"No files yet. Add one with the Upload New File panel."}</td></tr>`;
+ return `<div class="ah-tw"><table class="ah-t dl-t"><thead><tr><th>#</th><th>File Name</th><th>Category</th><th>File Type</th><th>Size</th><th>Views</th><th>Upload Date</th><th>Actions</th></tr></thead><tbody>${rows||empty}</tbody></table></div>
+ <div class="ah-pg"><span>${n?`Showing ${a+1}\u2013${a+V.length} of ${n} file${n==1?"":"s"}`:"Showing 0 files"}</span><div>${dlPager(S.dl.pg,pages)}</div></div>`}
+function dlPaint(){const e=$("#dlTbl");if(e)e.innerHTML=dlTbl()}
+function dlSet(k,v){S.dl[k]=v;S.dl.pg=1;dlPaint()}
+function dlPg(n){S.dl.pg=n;dlPaint();const t=$("#dlMain");if(t&&t.getBoundingClientRect().top<0)t.scrollIntoView({block:"start"})}
+function dlReset(){Object.assign(S.dl,{q:"",cat:"",type:"",so:"new",pg:1});render(true)}
+function dlHero(){return `<section class="ahero dl-hero"><div class="ahd" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+ <span class="dl-cloud" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M50 27.5A14 14 0 0 0 22.6 24 11.5 11.5 0 0 0 20 46.8h29a9.7 9.7 0 0 0 1-19.3z" fill="#fff"/><path d="M32 25v15m0 0-6-6m6 6 6-6" fill="none" stroke="#17348f" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+ <div class="ahm"><h1 class="pt">Downloads <span>Manager</span></h1><p class="sub">Manage and share study materials for Mirpur College students.</p></div>
+ <div class="dl-tag" aria-hidden="true"><b>Learn \u00b7 Prepare \u00b7 Excel</b><svg viewBox="0 0 150 12"><path d="M2 10C40 2 100 1 148 6" fill="none" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/></svg></div>
+ <svg class="dl-bld" viewBox="0 0 300 150" aria-hidden="true"><g fill="rgba(255,255,255,.16)"><path d="M40 150V60h220v90z"/><path d="M110 60 150 22l40 38z"/><path d="M130 150V96h40v54z" fill="rgba(255,255,255,.1)"/></g><g fill="rgba(255,255,255,.2)">${[56,84,206,234].map(x=>`<rect x="${x}" y="76" width="14" height="22" rx="2"/><rect x="${x}" y="108" width="14" height="22" rx="2"/>`).join("")}${[112,138,164].map(x=>`<rect x="${x}" y="70" width="10" height="18" rx="2"/>`).join("")}</g></svg></section>`}
+function dlV(){const all=dlRows(),n=all.length,now=new Date(),m0=new Date(now.getFullYear(),now.getMonth(),1).getTime(),p0=new Date(now.getFullYear(),now.getMonth()-1,1).getTime(),
+ tm=all.filter(r=>r.ts>=m0).length,pm=all.filter(r=>r.ts>=p0&&r.ts<m0).length,wk=all.filter(r=>r.ts>=Date.now()-7*864e5).length,gr=pm?Math.round((tm-pm)/pm*100):null,
+ vw=(S.posts||[]).filter(p=>(p.files||[]).length).reduce((s,p)=>s+(p.views||0),0),bytes=all.reduce((s,r)=>s+r.sz,0),lk=all.filter(r=>r.f.type=="link").length,
+ st=(c,ic,l,v,sub,up)=>`<div class="dl-st" style="--c:${c}"><i>${IC(ic)}</i><span><small>${l}</small><b>${v}</b>${sub?`<em class="${up===0?"dn":up===1?"up":""}">${sub}</em>`:""}</span></div>`,
+ recent=all.slice().sort((a,b)=>b.ts-a.ts).slice(0,3),f=S.dl.f,d=S.dl;
+ const sel=(id,ph,cur,opts,fn)=>`<select id="${id}" aria-label="${ph}" onchange="${fn}">${ph?`<option value="">${ph}</option>`:""}${opts.map(o=>`<option value="${o[0]}" ${String(o[0])==String(cur)?"selected":""}>${o[1]}</option>`).join("")}</select>`;
+ return `<div class="dl-sts">${st("#1d5cff","x_dl","Total Files",dxN(n),wk?"\u2191 +"+wk+" this week":"",1)}${st("#7c3aed","users","Total Views",dxN(vw),"on posts with files",null)}${st("#16a34a","file","Total Storage",dlSz(bytes).replace(/^\u2014$/,"0 KB"),lk?lk+" Drive/URL link"+(lk==1?"":"s")+" not counted":"",null)}${st("#f97316","x_cal","This Month",dxN(tm),gr==null?(tm?"\u2191 +"+tm+" new":""):(gr>=0?"\u2191 +"+gr+"%":"\u2193 "+Math.abs(gr)+"%"),gr==null||gr>=0?1:0)}</div>
+<div class="dl-cols"><div class="dl-mainc"><section class="ah-card" id="dlMain"><div class="ah-hd dl-hd"><h3 class="ah-h"><span class="dl-hic">${IC("archive")}</span> All Downloads</h3><button type="button" class="dl-btn" onclick="dlFocusUp()">${IC("plus")} Upload File</button></div>
+<div class="ah-fl dl-fl"><label class="ah-q">${IC("search")}<input id="dlq" type="search" value="${esc(d.q)}" placeholder="Search files\u2026" aria-label="Search files" oninput="dlSet('q',this.value)"></label>
+${sel("dlc","All Categories",d.cat,Object.entries(CATS).map(([k,c])=>[k,esc(c.n)]),"dlSet('cat',this.value)")}${sel("dlt","All Types",d.type,[["pdf","PDF"],["doc","Document"],["xls","Spreadsheet"],["ppt","Presentation"],["zip","Archive"],["img","Image"],["link","Link"],["other","Other"]],"dlSet('type',this.value)")}${sel("dls","",d.so,[["new","Newest First"],["old","Oldest First"],["views","Most Viewed"],["name","Name A\u2013Z"],["size","Largest First"]],"dlSet('so',this.value)")}</div>
+<div id="dlTbl">${dlTbl()}</div></section></div>
+<aside class="dl-side"><section class="dl-up" id="dlUp"><h3>${IC("upload")} Upload New File</h3><div class="dl-ub">
+<label class="dl-dz" id="dlDz" ondragover="event.preventDefault();this.classList.add('on')" ondragleave="this.classList.remove('on')" ondrop="event.preventDefault();this.classList.remove('on');dlPick(event.dataTransfer.files)"><input type="file" accept="image/*,.pdf,.doc,.docx,.zip" multiple onchange="dlPick(this.files,this)"><span class="dl-dzi">${IC("upload")}</span><b>Drag &amp; drop files here</b><span>or click to browse</span><small>Images are compressed automatically. For PDF, DOC or ZIP, paste a Drive link below.</small></label>
+${S.dl.img.length?`<div class="dl-chips">${S.dl.img.map((x,i)=>`<span class="dl-chip"><img src="${x.url}" alt=""><em>${esc(x.name)}</em><button type="button" aria-label="Remove ${esc(x.name)}" onclick="dlUnpick(${i})">${IC("x")}</button></span>`).join("")}</div>`:""}
+<label for="dl_n">File name</label><input id="dl_n" value="${esc(f.n)}" placeholder="e.g. HSC 2026 Suggestion" oninput="S.dl.f.n=this.value">
+<label for="dl_l">Link <small>(Google Drive or URL)</small></label><input id="dl_l" type="url" value="${esc(f.l)}" placeholder="https://drive.google.com/file/d/\u2026" oninput="S.dl.f.l=this.value">
+<label for="dl_c">Category <b class="dl-rq">*</b></label><select id="dl_c" onchange="S.dl.f.c=this.value"><option value="">Select Category</option>${Object.entries(CATS).map(([k,c])=>`<option value="${k}" ${f.c==k?"selected":""}>${esc(c.n)}</option>`).join("")}</select>
+<label for="dl_d">Description <small>(Optional)</small></label><textarea id="dl_d" placeholder="Enter a short description\u2026" oninput="S.dl.f.d=this.value">${esc(f.d)}</textarea>
+<label class="dl-sw"><input type="checkbox" id="dl_p" ${f.p?"checked":""} onchange="S.dl.f.p=this.checked"><i></i><span>Notify students</span></label>
+<button type="button" class="dl-go" id="dlGo" ${d.busy?"disabled":""} onclick="dlUp()">${IC("send")} ${d.busy?"Uploading\u2026":"Upload File"}</button>
+<p class="dl-nt">Adds a post in the chosen category with this file attached.${scoped()?" It goes only to your Year/Department pages.":""}</p></div></section>
+<section class="ah-card ah-pad dl-rc"><h3 class="ah-h">${IC("history")} Recent Uploads <button type="button" class="ah-lk" onclick="dlReset()">View All</button></h3>${recent.map(r=>`<div class="dl-ri">${dlFi(r.k)}<span><b title="${esc(r.nm)}">${esc(r.nm)}</b><small>${dxN(r.v)} view${r.v==1?"":"s"}</small></span><time>${dlAgo(r.ts)}</time></div>`).join("")||'<p class="qb-mu">No files yet.</p>'}</section></aside></div>`}
+function dlFocusUp(){const u=$("#dlUp");if(!u)return;u.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"center"});setTimeout(()=>{const e=$("#dl_n");if(e)e.focus({preventScroll:true})},350)}
+async function dlPick(files,input){try{for(const f of [...files]){if(/^image\//.test(f.type)){toast("Processing\u2026");const r=await upload(f);if(S.dl.img.reduce((a,x)=>a+x.url.length,0)+r.url.length>700000)throw new Error("Ek bare onek beshi chobi (max ~500KB)");S.dl.img.push(r)}
+ else{if(!S.dl.f.n)S.dl.f.n=f.name.replace(/\.[^.]+$/,"");toast("PDF/Doc/ZIP upload hoy na \u2014 file Drive-e rekhe link din")}}render(true);if(S.dl.img.length)toast("Added")}catch(e){toast("Upload hoyni: "+(e.message||e.code))}if(input)input.value=""}
+function dlUnpick(i){S.dl.img.splice(i,1);render(true)}
+async function dlUp(){const d=S.dl,f=d.f,nm=f.n.trim(),lk=f.l.trim(),im=d.img;if(d.busy)return;
+ if(!f.c)return toast("Category select korun");if(!im.length&&!lk)return toast("Drive link din ba chobi drop korun");if(lk&&!/^https?:\/\//.test(lk))return toast("Link https:// diye shuru hote hobe");if(!nm&&!im.length)return toast("File-er nam din");
+ const files=[...im.map(x=>({...x,name:im.length==1&&nm?nm:x.name})),...(lk?[{id:"",name:nm,type:"link",url:lk}]:[])],title=nm||im[0].name,now=Date.now(),
+  data={title,body:f.d.trim(),cat:f.c,link:"",pinned:false,cover:null,files,ts:now,by:S.uid,byName:myName(),byRole:roleKey(),updated:now,nf:files.length,hc:false,grp:scoped()?myScope():[],dl:null,at:null,draft:false,views:0,hist:[]},clean=JSON.parse(JSON.stringify(data));
+ if(JSON.stringify(clean).length>950000)return toast("File ta onek boro \u2013 chobi kombao");
+ d.busy=true;render(true);
+ try{const id=(await FB.addDoc(FB.collection(FB.db,"posts"),clean)).id;logAct("create",{id,title});const push=f.p;d.f={n:"",l:"",c:"",d:"",p:false};d.img=[];d.busy=false;d.pg=1;d.so="new";render(true);toast("Uploaded");
+  if(push)notifyPush(id).then(j=>{logAct("notify",{id,title});toast("Uploaded \u00b7 notification gelo"+nfTail(j))}).catch(e=>toast("Upload hoyeche, kintu push jayni: "+(e.message||e)))}
+ catch(e){d.busy=false;render(true);toast("Upload hoyni: "+(e.code||e.message))}}
+function dlFile(pid,i,dl){const p=(S.posts||[]).find(x=>x.id==pid),f=p&&p.files&&p.files[i];if(!f)return;let u=String(f.url);
+ if(/^data:/.test(u)){const[h,b]=u.split(","),mt=(h.match(/:(.*?);/)||[])[1]||"image/jpeg",bin=atob(b),a=new Uint8Array(bin.length);for(let k=0;k<bin.length;k++)a[k]=bin.charCodeAt(k);
+  const o=URL.createObjectURL(new Blob([a],{type:mt}));if(dl){const l=document.createElement("a");l.href=o;l.download=(f.name||"image")+".jpg";document.body.appendChild(l);l.click();l.remove()}else window.open(o,"_blank");setTimeout(()=>URL.revokeObjectURL(o),60000);return}
+ if(dl){const m=u.match(/drive\.google\.com\/file\/d\/([^/?#]+)/)||(u.includes("drive.google.com")&&u.match(/[?&]id=([^&#]+)/));if(m)u="https://drive.google.com/uc?export=download&id="+m[1]}
+ window.open(u,"_blank","noopener")}
+async function dlRm(pid,i){const p=(S.posts||[]).find(x=>x.id==pid);if(!p||!p.files||!p.files[i]||!isStaff())return;const f=p.files[i];
+ if(!await confirmBox("File remove korben?",(f.name||"File")+" \u2014 \""+(p.title||"")+"\" post theke shoriye deya hobe (post thakbe).","Remove"))return;
+ const old=JSON.parse(JSON.stringify(p));delete old.id;const nw=JSON.parse(JSON.stringify({...old,files:p.files.filter((_,k)=>k!=i),nf:Math.max(0,(old.nf||1)-1),updated:Date.now()})),ref=()=>FB.doc(FB.db,"posts",pid);
+ try{await FB.setDoc(ref(),nw);logAct("edit",{id:pid,title:p.title});toast("File removed",{label:"Undo",fn:()=>FB.setDoc(ref(),old).then(()=>{logAct("restore",{id:pid,title:p.title});toast("Restored")}).catch(e=>toast("Undo hoyni: "+(e.code||e.message)))})}
+ catch(e){toast("Remove hoyni: "+(e.code||e.message))}}
 function roleV(){return '<div class="panel"><h3>Roles & Permissions</h3><ul class="qb-mu"><li><b>Editor:</b> Post/Notice তৈরি ও সম্পাদনা।</li><li><b>Admin:</b> + Students, Messages, Notify, Academic Hub, Tools।</li><li><b>Owner:</b> + Quiz Results/Participants/Analytics, Admin ও Scope পরিচালনা, Website।</li></ul></div>'+peopleV()}
 const openRep=()=>(S.qrs||[]).filter(r=>r.st=="open").length;
 function repV(){if(S.qrs==null)return LDV();const L=S.qrs.slice().sort((p,q)=>(q.ts||0)-(p.ts||0)),open=L.filter(r=>r.st=="open"),done=L.filter(r=>r.st!="open"),
@@ -974,6 +1233,72 @@ async function saveQuiz(draft){const d=S.qd,v=i=>$("#"+i).value.trim(),pages=qbP
  try{let id=d.id;const push=$("#qf_push")&&$("#qf_push").checked&&!draft&&!data.at&&!id;let keys=null;if(data.mode=="Exam"){keys=data.q.map(x=>({q:x.q,a:x.a,e:x.e||""}));data.q=data.q.map(x=>{const y={...x};delete y.a;delete y.e;return y});data.sec=1}else data.sec=0;const ref=id?FB.doc(FB.db,"quizzes",id):FB.doc(FB.collection(FB.db,"quizzes"));id=ref.id;await FB.setDoc(ref,data);if(keys)await FB.setDoc(FB.doc(FB.db,"quizKeys",id),{k:keys,upd:Date.now()});else if(d.id){try{await FB.deleteDoc(FB.doc(FB.db,"quizKeys",id))}catch(e){}}
   logAct(d.id?"quiz-edit":"quiz-new",{id,title:data.t});S.qd=null;S.qbs={};render(true);toast(draft?"Draft save hoyeche":d.id?"Updated":"Quiz Published");if(push)announceQb("quiz",id,data)}catch(e){toast("Save hoyni: "+(e.code||e.message))}}
 async function qEdit(id){const z=S.qzs.find(x=>x.id==id);if(!z)return;const q=JSON.parse(JSON.stringify(z.q||[]));if(z.sec){try{const k=(await FB.getDoc(FB.doc(FB.db,"quizKeys",id))).data().k||[];q.forEach((x,i)=>{if(k[i]){x.a=k[i].a;x.e=k[i].e||""}})}catch(e){return toast("Answer key load hoyni: "+(e.code||e.message))}}S.qd={q,id};S.qbt="quiz";S.qbs={qf_sk:z.sk||"ban",qf_pp:String(z.pp||""),qf_pt:z.pt||"",qf_cn:String(z.chn||""),qf_cname:z.cn||"",qf_mode:z.mode||"Exam",qf_fx:!!z.fx,pg:z.pages||[]};S.keep=1;go("qz-new")}
+function zSet(k,v){S[k]=v;S.zP=1;render()}
+function zGo(){S.zQ=(document.getElementById("zq")||{}).value||"";S.zP=1;render()}
+function zPg(n){S.zP=n;render()}
+function mSet(k,v){S[k]=v;S.mP=1;render()}
+function mGo(){S.mQ=(document.getElementById("mq")||{}).value||"";S.mP=1;render()}
+function mPg(n){S.mP=n;render()}
+function mAdd(){S.keep=1;S.bd=null;S.cqx=0;S.qbs={bf_sk:(document.getElementById("maS")||{}).value||"",bf_ty:(document.querySelector('input[name="maT"]:checked')||{}).value||"MCQ"};go("bq-add")}
+function qmHub(){if(S.bqs===null)return LDV();
+ const B=S.bqs||[],T=S.mT||"all",q=(S.mQ||"").trim().toLowerCase(),fs=S.mS||"",fc=S.mC||"",fst=S.mSt||"",PER=6,now=Date.now(),DAY=864e5,
+ subN=x=>(HSC_SUBJ.find(s=>s[0]==admSk(x))||[])[1]||x.sub||"—",
+ ttl=x=>(x.ty=="CQ"&&x.st?rtPlain(x.st,80):"")||(x.b+" "+bnN(x.y)+" · "+subN(x)),
+ mc=B.filter(x=>x.ty=="MCQ").length,cq=B.filter(x=>x.ty=="CQ").length,rv=B.filter(x=>!isPub(x)).length,
+ chs=[...new Set(B.map(x=>x.ch).filter(Boolean))],
+ R=B.filter(x=>(T=="all"||(T=="rev"?!isPub(x):x.ty==T))&&(!fs||admSk(x)==fs)&&(!fc||x.ch==fc)&&(!fst||(x.stt||(x.draft?"draft":"pub"))==fst)&&(!q||(ttl(x)+" "+subN(x)+" "+(x.ch||"")).toLowerCase().includes(q))).sort((a,b)=>(b.ts||0)-(a.ts||0)),
+ pages=Math.max(1,Math.ceil(R.length/PER)),p=Math.min(S.mP||1,pages),a=(p-1)*PER,V=R.slice(a,a+PER),
+ st=(i,c,l,v)=>`<div class="ah-st" style="--c:${c}"><i>${IC(i)}</i><span>${l}<b>${v}</b></span></div>`,
+ tab=(k,l,n)=>`<button class="${T==k?"on":""}" role="tab" aria-selected="${T==k}" onclick="mSet('mT','${k}')">${l} <em>${bnN(n)}</em></button>`,
+ sel=(k,all,L)=>`<select aria-label="${all}" onchange="mSet('${k}',this.value)"><option value="">${all}</option>${L.map(o=>`<option value="${esc(String(o[0]))}" ${String(o[0])==String(S[k]||"")?"selected":""}>${esc(String(o[1]))}</option>`).join("")}</select>`,
+ CL=["#1d5cff","#f59e0b","#7c3aed","#16a34a","#0ea5b7"],sm=cntBy(B,x=>subN(x)).slice(0,5),tot=Math.max(1,B.length),
+ rows=V.map((x,i)=>{const pu=isPub(x);return `<tr><td>${bnN(a+i+1)}</td><td><b>${esc(ttl(x))}</b>${x.ty=="MCQ"?'<small>Linked to a practice quiz</small>':""}</td><td><span class="ah-pl s">${esc(subN(x))}</span></td><td>${esc(x.ch||"—")}</td><td><span class="ah-pl ${x.ty=="CQ"?"cq":"mc"}">${x.ty}</span></td><td><span class="ah-pl zs ${pu?"Active":"Draft"}">${STT[x.stt||(x.draft?"draft":"pub")]}</span></td><td class="ah-ac"><button onclick="bEdit('${x.id}')">Edit</button><button class="d" aria-label="Delete" onclick="qbDel('boardQ','${x.id}','${esc(x.sub)}')">${IC("trash")}</button></td></tr>`}).join("");
+ let pb="";const s0=Math.max(1,Math.min(p-2,pages-4));for(let i=s0;i<=Math.min(pages,s0+4);i++)pb+=`<button class="${i==p?"on":""}" onclick="mPg(${i})">${bnN(i)}</button>`;
+ const rc=B.filter(x=>x.ts).sort((m,n)=>n.ts-m.ts).slice(0,3),
+ bins=[0,0,0,0,0].map((_,i)=>B.filter(x=>x.ts&&now-x.ts<(5-i)*6*DAY&&now-x.ts>=(4-i)*6*DAY).length),mx=Math.max(1,...bins),pts=bins.map((v,i)=>[30+i*85,110-v/mx*85]),
+ C=2*Math.PI*40;let off=0;const arcs=sm.map(([k,n],i)=>{const l=n/tot*C,r=`<circle cx="60" cy="60" r="40" fill="none" stroke="${CL[i]}" stroke-width="16" stroke-dasharray="${l} ${C-l}" stroke-dashoffset="${-off}" transform="rotate(-90 60 60)"/>`;off+=l;return r}).join("");
+ return `<h1 class="pt">Question Manager</h1><p class="sub">Manage and organize questions for Board, MCQ and CQ.</p>
+<div class="ah-st-g">${st("list","#1d5cff","Total Questions",bnN(B.length))}${st("x_quiz","#16a34a","MCQ Questions",bnN(mc))}${st("x_help","#7c3aed","CQ Questions",bnN(cq))}${st("x_clock","#f59e0b","Awaiting Review",bnN(rv))}</div>
+<div class="ah-cols"><div class="ah-main"><section class="ah-card"><div class="ah-tabs" role="tablist">${tab("all","All Questions",B.length)}${tab("MCQ","MCQ",mc)}${tab("CQ","CQ",cq)}${tab("rev","Review",rv)}</div>
+<div class="ah-fl"><label class="ah-q">${IC("x_search")}<input id="mq" value="${esc(S.mQ||"")}" placeholder="Search questions…" onkeydown="if(event.key=='Enter')mGo()"></label>${sel("mS","All Subjects",HSC_SUBJ.map(s=>[s[0],s[1]]))}${sel("mC","All Chapters",chs.map(c=>[c,c]))}${sel("mSt","All Status",Object.entries(STT))}<button class="ah-go" onclick="mGo()">Filter</button></div>
+<div class="ah-tw"><table class="ah-t"><thead><tr><th>#</th><th>Question</th><th>Subject</th><th>Chapter</th><th>Type</th><th>Status</th><th>Actions</th></tr></thead><tbody>${rows||'<tr><td colspan="7" class="ah-em">No questions match. Clear a filter or add a new question.</td></tr>'}</tbody></table></div>
+<div class="ah-pg"><span>${R.length?`Showing ${bnN(a+1)}–${bnN(a+V.length)} of ${bnN(R.length)} questions`:"Showing 0 questions"}</span><div>${pb}</div></div></section></div>
+<aside class="ah-side"><section class="ah-card ah-add"><h3 class="ah-h">${IC("x_plus")} Add New Question</h3><div class="ah-ab"><label>Subject</label><select id="maS"><option value="">Select Subject</option>${HSC_SUBJ.map(s=>`<option value="${s[0]}">${esc(s[1])}</option>`).join("")}</select><label>Question Type</label><div class="ah-rd"><label><input type="radio" name="maT" value="MCQ" checked> MCQ</label><label><input type="radio" name="maT" value="CQ"> CQ</label></div><p class="qb-mu">Board, year, chapter and the question itself are filled in on the next screen.</p><button class="ah-go" onclick="mAdd()">Continue</button></div></section></aside></div>
+<div class="ah-low3"><section class="ah-card ah-pad"><h3 class="ah-h">${IC("x_clock")} Recent Additions <button class="ah-lk" onclick="mSet('mT','all')">View All</button></h3>${rc.map(x=>`<div class="ah-rc"><i>${IC("x_book")}</i><span><b>${esc(ttl(x))}</b><small>${new Date(x.ts).toLocaleString("en-GB",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"})}</small></span><span class="ah-pl ${x.ty=="CQ"?"cq":"mc"}" style="margin-left:auto">${x.ty}</span></div>`).join("")||'<p class="qb-mu">No questions added yet.</p>'}</section>
+<section class="ah-card ah-pad"><h3 class="ah-h">${IC("chart")} Question Statistics</h3><svg viewBox="0 0 370 140" class="ah-ch" role="img" aria-label="Questions added per 6-day period"><g stroke="var(--line)"><path d="M20 25H360M20 67H360M20 110H360"/></g><path d="M${pts.map(t=>t.join(" ")).join("L")}L${pts[4][0]} 110L${pts[0][0]} 110z" fill="#1d5cff" opacity=".12"/><path d="M${pts.map(t=>t.join(" ")).join("L")}" fill="none" stroke="#1d5cff" stroke-width="2.5" stroke-linejoin="round"/>${pts.map((t,i)=>`<circle cx="${t[0]}" cy="${t[1]}" r="4" fill="#1d5cff"><title>${bins[i]}</title></circle><text x="${t[0]}" y="132" text-anchor="middle" font-size="10" fill="currentColor" opacity=".6">${(4-i)*6}-${(5-i)*6}d</text>`).join("")}</svg></section>
+<section class="ah-card ah-pad"><h3 class="ah-h">${IC("chart")} Subject Distribution</h3><div class="zd"><svg viewBox="0 0 120 120" role="img" aria-label="Questions by subject"><circle cx="60" cy="60" r="40" fill="none" stroke="var(--line)" stroke-width="16"/>${B.length?arcs:""}<text x="60" y="58" text-anchor="middle" font-size="18" font-weight="800" fill="currentColor">${bnN(B.length)}</text><text x="60" y="73" text-anchor="middle" font-size="9" fill="currentColor" opacity=".65">Total</text></svg><div>${sm.map(([k,n],i)=>`<p><i style="background:${CL[i]}"></i>${esc(String(k))}<b>${bnN(Math.round(n/tot*100))}%</b></p>`).join("")||'<p class="qb-mu">No data yet.</p>'}</div></div></section></div>`}
+function qzHub(){if(S.qzs===null)return LDV();
+ const Z=qbMine(S.qzs).slice().sort((a,b)=>(b.ts||0)-(a.ts||0)),own=isOwner(),A=own?(S.qas||[]):[],now=Date.now(),
+ stt=z=>z.draft?"Draft":(z.at&&z.at>now)?"Scheduled":(z.dl&&z.dl<now)?"Ended":"Active",
+ at={};A.forEach(a=>at[a.quizId]=(at[a.quizId]||0)+1);
+ const q=(S.zQ||"").trim().toLowerCase(),fc=S.zC||"",fs=S.zS||"",PER=6,
+ R=Z.filter(z=>(!q||(z.t||"").toLowerCase().includes(q))&&(!fc||z.sub==fc)&&(!fs||stt(z)==fs)),
+ pages=Math.max(1,Math.ceil(R.length/PER)),p=Math.min(S.zP||1,pages),a=(p-1)*PER,V=R.slice(a,a+PER),
+ act=Z.filter(z=>stt(z)=="Active").length,dr=Z.filter(z=>stt(z)=="Draft"||stt(z)=="Scheduled").length,en=Z.filter(z=>stt(z)=="Ended").length,
+ avg=A.length?Math.round(A.reduce((s,x)=>s+(x.total?x.score/x.total*100:0),0)/A.length):null,
+ CL=["#1d5cff","#16a34a","#7c3aed","#f59e0b","#0ea5b7","#e5384a"],cs=[...new Set(Z.map(z=>z.sub||"—"))],
+ cc=s=>CL[Math.max(0,cs.indexOf(s||"—"))%CL.length],
+ st=(i,c,l,v)=>`<div class="ah-st" style="--c:${c}"><i>${IC(i)}</i><span>${l}<b>${v}</b></span></div>`,
+ sp=z=>{const s=stt(z);return `<span class="ah-pl zs ${s}">${s}</span>`},
+ rows=V.map((z,i)=>`<tr><td>${bnN(a+i+1)}</td><td><b>${esc(z.t)}</b><small>Created: ${fmtD(z.ts||Date.now())} · ${esc(z.mode||"")}</small></td><td><span class="ah-pl" style="--pc:${cc(z.sub)}">${esc(z.sub||"—")}</span></td><td>${bnN((z.q||[]).length)}</td><td>${z.mode=="Exam"?bnN(z.min||10)+" min":"—"}</td><td>${own?bnN(at[z.id]||0):"—"}</td><td>${sp(z)}</td><td class="ah-ac"><button onclick="qEdit('${z.id}')">Edit</button><button class="d" aria-label="Delete" onclick="qbDel('quizzes','${z.id}','${esc((z.t||"").replace(/'/g,""))}')">${IC("trash")}</button></td></tr>`).join("");
+ let pb="";const s0=Math.max(1,Math.min(p-2,pages-4));for(let i=s0;i<=Math.min(pages,s0+4);i++)pb+=`<button class="${i==p?"on":""}" onclick="zPg(${i})">${bnN(i)}</button>`;
+ const sec=Z.filter(z=>z.mode=="Exam"&&!z.sec&&(z.q||[]).some(x=>x.a!==undefined)).length,
+ C=2*Math.PI*40,seg=[[act,"#16a34a","Active"],[dr,"#f59e0b","Draft / Scheduled"],[en,"#6b7a99","Ended"]],tt=Math.max(1,Z.length);let off=0;
+ const arcs=seg.map(([n,c])=>{const l=n/tt*C,r=`<circle cx="60" cy="60" r="40" fill="none" stroke="${c}" stroke-width="16" stroke-dasharray="${l} ${C-l}" stroke-dashoffset="${-off}" transform="rotate(-90 60 60)"/>`;off+=l;return r}).join(""),
+ qa=[["Add Quiz","x_plus","qz-new","#1d5cff"],["Manage Questions","list","qz-bank","#16a34a"],["View Results","chart","qz-res","#7c3aed"],["Quiz Categories","x_tag","qz-cat","#f59e0b"]].filter(t=>NAVK[t[2]]&&allowed([0,0,0,NAVK[t[2]].a])),
+ sel=(k,all,L)=>`<select aria-label="${all}" onchange="zSet('${k}',this.value)"><option value="">${all}</option>${L.map(o=>`<option value="${esc(o)}" ${o==(S[k]||"")?"selected":""}>${esc(o)}</option>`).join("")}</select>`;
+ return `<h1 class="pt">Quiz Manager</h1><p class="sub">Create and manage quizzes for Mirpur College students.</p>
+<div class="ah-st-g">${st("list","#1d5cff","Total Quizzes",bnN(Z.length))}${st("chart","#7c3aed","Total Attempts",own?bnN(A.length):"—")}${st("users","#16a34a","Active Quizzes",bnN(act))}${st("x_trophy","#f59e0b","Avg. Score",avg===null?"—":bnN(avg)+"%")}</div>
+${sec?`<section class="ah-card ah-pad zn"><span><b>${bnN(sec)} Exam quiz-er answer ekhono student-er browser-e ache.</b><small>Secure korle answer server-e thake, submit-er por check hoy.</small></span><button class="ah-go" onclick="qzSecure()">Secure</button></section>`:""}
+<div class="ah-cols"><div class="ah-main">
+<section class="ah-card"><div class="ah-hd"><h3 class="ah-h">${IC("list")} All Quizzes</h3>${NAVK["qz-new"]&&allowed([0,0,0,NAVK["qz-new"].a])?`<button class="ah-go" onclick="go('qz-new')">+ Create Quiz</button>`:""}</div>
+<div class="ah-fl"><label class="ah-q">${IC("x_search")}<input id="zq" value="${esc(S.zQ||"")}" placeholder="Search quizzes…" onkeydown="if(event.key=='Enter')zGo()"></label>${sel("zC","All Categories",cs)}${sel("zS","All Status",["Active","Draft","Scheduled","Ended"])}<button class="ah-go" onclick="zGo()">Search</button></div>
+<div class="ah-tw"><table class="ah-t"><thead><tr><th>#</th><th>Quiz Title</th><th>Category</th><th>Questions</th><th>Time</th><th>Attempts</th><th>Status</th><th>Actions</th></tr></thead><tbody>${rows||'<tr><td colspan="8" class="ah-em">No quizzes match. Clear a filter or create a new quiz.</td></tr>'}</tbody></table></div>
+<div class="ah-pg"><span>${R.length?`Showing ${bnN(a+1)}–${bnN(a+V.length)} of ${bnN(R.length)} quizzes`:"Showing 0 quizzes"}</span><div>${pb}</div></div></section>
+<div class="ah-low"><section class="ah-card ah-pad"><h3 class="ah-h">${IC("zap")} Recent Quizzes <button class="ah-lk" onclick="go('qz-all')">View All</button></h3>${Z.slice(0,3).map(z=>`<div class="ah-rc"><i>${IC("x_quiz")}</i><span><b>${esc(z.t)}</b><small>${fmtD(z.ts||now)}${own?" · "+bnN(at[z.id]||0)+" attempts":""}</small></span>${sp(z)}</div>`).join("")||'<p class="qb-mu">No quizzes yet.</p>'}</section>
+<section class="ah-card ah-pad"><h3 class="ah-h">${IC("zap")} Quick Actions</h3>${qa.map(t=>`<button class="ah-qa" onclick="go('${t[2]}')"><i style="background:${t[3]}">${IC(t[1])}</i>${t[0]}</button>`).join("")}</section></div></div>
+<aside class="ah-side"><section class="ah-card ah-create"><h3 class="ah-h">${IC("x_plus")} Create New Quiz</h3><ul><li><b>Exam</b> — timed, answers are checked after submit.</li><li><b>Practice</b> — students see the answer right away.</li><li>Pick subject, paper and chapter, then add questions.</li></ul><button class="ah-go zc-b" onclick="go('qz-new')">Create Quiz</button></section>
+<section class="ah-card ah-pad zq-s"><h3 class="ah-h">${IC("chart")} Quiz Stats</h3><div class="zd"><svg viewBox="0 0 120 120" role="img" aria-label="Quiz status split"><circle cx="60" cy="60" r="40" fill="none" stroke="var(--line)" stroke-width="16"/>${Z.length?arcs:""}<text x="60" y="58" text-anchor="middle" font-size="18" font-weight="800" fill="currentColor">${avg===null?bnN(Z.length):bnN(avg)+"%"}</text><text x="60" y="73" text-anchor="middle" font-size="9" fill="currentColor" opacity=".65">${avg===null?"Quizzes":"Avg. Score"}</text></svg><div>${seg.map(([n,c,l])=>`<p><i style="background:${c}"></i>${l}<b>${bnN(n)}</b></p>`).join("")}</div></div></section></aside></div>`}
 function qzList(){if(S.qzs===null)return '<div class="panel"><h3>সব Quiz</h3><p class="qb-mu">লোড হচ্ছে…</p></div>';const L=qbMine(S.qzs).sort((a,b)=>(b.ts||0)-(a.ts||0));
  return `<div class="panel"><h3>সব Quiz (${bnN(L.length)})</h3>${(()=>{const n=L.filter(z=>z.mode=="Exam"&&!z.sec&&(z.q||[]).some(x=>x.a!==undefined)).length;return n?`<div class="qb-row"><div class="qb-sp"><b>${bnN(n)}টি Exam Quiz-এর answer এখনো student-এর browser-এ পৌঁছায়</b><div class="qb-mu">Secure করলে answer শুধু server-এ থাকবে, Submit-এর পর দেখাবে।</div></div><button class="btn qb-b2" onclick="qzSecure()">Secure করো</button></div>`:""})()}${L.length?L.map(z=>`<div class="qb-row"><div class="qb-sp"><b>${esc(z.t)}</b><div class="qb-mu">${esc(z.mode)} · ${bnN((z.q||[]).length)}টি প্রশ্ন${z.cnt>0&&z.cnt<(z.q||[]).length?" (প্রতিবার "+bnN(z.cnt)+"টি)":""} · ${esc(pgOf(z))}${z.draft?" · Draft":z.at&&z.at>Date.now()?" · Scheduled":""}</div></div><button class="btn qb-b2" onclick="qEdit('${z.id}')">Edit</button><button class="btn qb-b2" onclick="qbDel('quizzes','${z.id}','${esc((z.t||"").replace(/'/g,""))}')">Delete</button></div>`).join(""):'<p class="qb-mu">এখনো কোনো Quiz নেই।</p>'}</div>`}
 async function qzSecure(){const L=qbMine(S.qzs).filter(z=>z.mode=="Exam"&&!z.sec&&(z.q||[]).some(x=>x.a!==undefined));if(!L.length||!confirm(L.length+"টি Exam Quiz secure করবে?"))return;let ok=0;for(const z of L){try{await FB.setDoc(FB.doc(FB.db,"quizzes",z.id),{sec:1},{merge:true});await FB.setDoc(FB.doc(FB.db,"quizKeys",z.id),{k:z.q.map(x=>({q:x.q,a:x.a,e:x.e||""})),upd:Date.now()});await FB.setDoc(FB.doc(FB.db,"quizzes",z.id),{q:z.q.map(x=>{const y={...x};delete y.a;delete y.e;return y})},{merge:true});ok++}catch(e){toast("Secure hoyni: "+(e.code||e.message));break}}if(ok)toast(ok+"টি Quiz secure হয়েছে");render(true)}
@@ -1021,6 +1346,7 @@ function bdList(){if(S.bqs===null)return '<div class="panel"><h3>সব Board Qu
   h+=`<div class="qb-row"><div class="qb-sp"><b>${bnN(i)}. ${x.ty}${x.fm?" · "+(CQF[x.fm]?CQF[x.fm].short:""):""} <span class="qb-mu">${esc(rtPlain(x.st||"",70))}</span></b><div class="qb-mu">${esc(x.ex||EXAMS[0])} · ${esc(x.ch||"")} · ${x.s||x.qz?"সমাধানসহ":"সমাধান নেই"} · ${esc(pgOf(x))}</div></div><button class="btn qb-b2" onclick="bEdit('${x.id}')">Edit</button><button class="btn qb-b2" onclick="qbDel('boardQ','${x.id}','${esc(x.b+" "+x.y)}')">Delete</button></div>`});
  return `<div class="panel"><h3>সব Board Question (${bnN(L.length)})</h3>${L.length?h+"</div>":'<p class="qb-mu">এখনো কোনো Board Question নেই।</p>'}</div>`}
 /* --- Owner-only dashboard --- */
+function qbdW(){return '<h1 class="pt">Quiz Dashboard</h1><p class="sub">Quizzes, attempts and board questions at a glance.</p>'+qbdV()}
 function qbdV(){if(S.qzs===null||S.bqs===null||S.qas===null||S.users===null)return '<div class="panel"><h3>Quiz &amp; Board Dashboard</h3><p class="qb-mu">লোড হচ্ছে…</p></div>';
  const Z=S.qzs,B=S.bqs,A=S.qas,U=Object.fromEntries((S.users||[]).map(u=>[u.id,u])),pc=a=>a.total?a.score/a.total*100:0,avg=l=>l.length?Math.round(l.reduce((s,a)=>s+pc(a),0)/l.length):0,now=Date.now(),DAYMS=864e5;
  const days=[...Array(7)].map((_,i)=>{const t=new Date(now-(6-i)*DAYMS);t.setHours(0,0,0,0);return{l:t.toLocaleDateString("bn-BD",{weekday:"short"}),n:A.filter(a=>a.ts>=t.getTime()&&a.ts<t.getTime()+DAYMS).length}}),mx=Math.max(1,...days.map(d=>d.n));
@@ -1038,23 +1364,26 @@ function qbCsv(){const Z=Object.fromEntries((S.qzs||[]).map(z=>[z.id,z])),U=Obje
  saveFile("quiz-results.csv",csv(rows),"text/csv")}
 function view(){const it=NAVK[S.tab]||NAVK.dash;if(S._pk!==S.tab){S._pk=S.tab;if(it.p)it.p()}
  const v=it.v(),m=v.match(/^\s*(<h1 class="pt">[\s\S]*?<\/h1>)(\s*<p class="sub">[\s\S]*?<\/p>)?/);
+ if(it.k=="dash")return v;
+ if(it.k=="c-dl")return dlHero()+subBar(it)+v;
+ if(NM_KEYS.includes(it.k))return nmView(it,v);
  const g=it.g||"g_dash",d=new Date(),gn=(GROUPS.find(x=>x[0]==g)||[])[2]||"";
  if(!m)return `<section class="ahero ah-${g}"><div class="ahd" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="ahm"><h1 class="pt">${gn}</h1></div></section>`+subBar(it)+v;
  const d0=0,side=g=="g_dash"?`<div class="ahs"><small>${d.toLocaleDateString("en-GB",{weekday:"long"})}</small><b>${d.getDate()}</b><span>${d.toLocaleDateString("en-GB",{month:"long",year:"numeric"})}</span></div>`:"";
  return `<section class="ahero ah-${g}"><div class="ahd" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="ahm">${m[1]}${m[2]||""}</div>${side}</section>`+subBar(it)+v.slice(m[0].length)}
 function panelV(){const un=S.msgs.filter(m=>!m.read&&!m.arch).length;
  {const it=NAVK[S.tab]||NAVK.dash;if(!allowed([0,0,0,it.a]))setTab("dash")}
- return `<div class="shell"><nav class="side" aria-label="Admin menu"><a class="sb-brand" href="admin.html"><img src="/logo.png" onerror="this.onerror=null;this.src=LOGO_FB" alt="Admin Panel" title="Admin Panel"></a>${navBar(un)}</nav>${morePop()}<section class="mainc">${view()}</section></div>`}
+ return `<div class="shell"><aside class="sbx" aria-label="Sidebar">${sbx()}</aside><nav class="side" aria-label="Admin menu">${navBar(un)}</nav>${morePop()}<section class="mainc">${view()}</section></div>`}
 function render(keep){
  if(keep&&document.activeElement&&document.activeElement.classList&&document.activeElement.classList.contains("rte-ed"))return;   /* background refresh editor-er caret na nosto kore */
  if($("#qbf"))qbSnap();if($("#cform"))S.form=snap();
- const em=$("#em")?$("#em").value:null,ae=document.activeElement,fa=ae&&ae.id,cs=ae&&ae.selectionStart;
+ const sxs=($(".sx-nav")||{}).scrollTop||0,em=$("#em")?$("#em").value:null,ae=document.activeElement,fa=ae&&ae.id,cs=ae&&ae.selectionStart;
  $("#app").innerHTML=!S.ready?loadingV():!S.uid?loginV():!S.cfg?loadingV():!isStaff()?deniedV():panelV();
- if(window.rtUp)rtUp($("#app"));
+ if(window.rtUp)rtUp($("#app"));if($(".sx-nav"))$(".sx-nav").scrollTop=sxs;
  if($("#cform")){if(S.form)restore(S.form);livePrev()}if($("#qbf"))qbRestore();
  if(em!=null&&$("#em"))$("#em").value=em;
  if(fa&&fa!="pubBtn"&&$("#"+fa)){const el=$("#"+fa);el.focus();try{if(cs!=null)el.setSelectionRange(cs,cs)}catch(x){}}
- $("#outBtn").style.display=S.uid?"":"none";
+ $("#outBtn").style.display=S.uid?"":"none";hdrUp();
  $("#who").innerHTML=S.uid&&isStaff()?`<span class="role r-${roleOf().toLowerCase()}">${roleOf()}</span>`:"";
  $("#yr").textContent=new Date().getFullYear();
  if(S.ready&&S.uid&&S.cfg&&isAdmin()&&S.users===null&&!S._ul&&(S.tab=="students"||S.tab=="dash"||S.tab=="notify"||S.tab=="qbd"||(NAVK[S.tab]&&NAVK[S.tab].u))){S._ul=1;loadUsers()}
