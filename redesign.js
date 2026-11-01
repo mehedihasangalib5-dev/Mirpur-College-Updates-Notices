@@ -447,6 +447,27 @@ window.pHome=function(){const h=hp()[0];return h==='notices'?noticesHTML():dashH
 setInterval(()=>{document.querySelectorAll('.mcd-cd[data-ts]').forEach(el=>{let d=Math.max(0,el.dataset.ts-Date.now())/1000;const v=[d/86400,d%86400/3600,d%3600/60,d%60].map(x=>String(Math.floor(x)).padStart(2,'0'));el.querySelectorAll('b').forEach((b,i)=>b.textContent=v[i])})},1000);
 function all(){try{side();top()}catch(e){console.warn('redesign',e)}}
 document.body.classList.add('mc');all();
+/* ---------- Account Settings + Change Password: redesigned (cards, rows, switches) ---------- */
+const SVG_THEME='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>';
+const mcsRow=(o)=>{const tag=o.href?'a':'button',at=o.href?` href="${o.href}"`:` type="button"${o.on?` onclick="${o.on}"`:''}`;return `<${tag} class="mcs-row${o.cls?' '+o.cls:''}"${at} style="--c:${o.c||'#2563eb'}"><span class="mcs-ic">${o.ic}</span><span class="mcs-tx"><b>${o.t}</b><small>${o.s||''}</small></span>${o.r||`<span class="mcs-go">${P('<path d="m9 18 6-6-6-6"/>')}</span>`}</${tag}>`};
+const mcsHead=(ic,t)=>`<h3><span>${P(ic)}${t}</span></h3>`;
+window.pAcc=function(k){
+ const u=T(()=>U.user,null)||{},em=u.email||'',pr=T(()=>U.prof,null)||{},g=!!(u.providerData||[]).length&&(u.providerData||[]).every(x=>x.providerId==='google.com'),ver=!!(u.emailVerified||g);
+ if(k==='password'){
+  const fld=(id,l,ac)=>`<label class="mcs-f" for="${id}"><span>${l}</span><div><i>${P(IC.lock)}</i><input id="${id}" type="password" autocomplete="${ac}"></div></label>`;
+  return `<div class="mcs"><section class="mcp-card">${mcsHead(IC.lock,'Change Password')}<p class="mcs-note">${E(em)}</p>`+
+  (g?`<div class="mcs-info">${P(IC.chk)}<span>You signed in with Google, so your password is managed from your Google account.</span></div>`
+   :`${fld('pw0','Current password','current-password')}${fld('pw1','New password','new-password')}${fld('pw2','Confirm new password','new-password')}
+     <div class="mcs-btns"><button id="pwb" class="mcs-pri" type="button" onclick="acPw()">Update password</button><button class="mcs-sec" type="button" onclick="acReset()">Forgot password?</button></div><p id="acm" class="mcs-msg"></p>`)+`</section></div>`}
+ const dark=document.documentElement.dataset.theme==='dark'||(!document.documentElement.dataset.theme&&matchMedia('(prefers-color-scheme: dark)').matches);
+ const alertOn=T(()=>pushOK(),false),alertRow=alertOn?`<div class="mcs-row" style="--c:#2563eb"><span class="mcs-ic">${P(IC.bell)}</span><span class="mcs-tx"><b>Phone alerts</b><small>${E(T(()=>alertSub(),''))}</small></span>${T(()=>swBtn(),'')}</div>`:mcsRow({ic:P(IC.bell),c:'#2563eb',t:'Notifications',s:'Open your inbox',href:'#/inbox'});
+ return `<div class="mcs">
+ <section class="mcp-card">${mcsHead(IC.acc,'Account')}<div class="mcp-rows">${pfRow(IC.com,'Email',E(em))}${pfRow(IC.chk,'Email status',ver?'Verified':'Not verified')}${pfRow(IC.lock,'Sign-in',g?'Google':'Email / Password')}${pfRow(IC.cap,'Class',E([pr.year,pr.dept].filter(Boolean).join(' · ')||'-'))}${pfRow(IC.qr,'MCUN ID',T(()=>mcId(),''))}</div></section>
+ <section class="mcp-card">${mcsHead(IC.gear,'Preferences')}<div class="mcs-list">${alertRow}
+  <div class="mcs-row" style="--c:#7c3aed"><span class="mcs-ic">${SVG_THEME}</span><span class="mcs-tx"><b>Dark mode</b><small>Switch between light and dark theme</small></span><button type="button" class="tsw-b" role="switch" aria-checked="${dark}" aria-label="Dark mode" onclick="try{mmTheme()}catch(e){};setTimeout(()=>route(),60)"><span class="tsw${dark?' on':''}"></span></button></div></div></section>
+ <section class="mcp-card">${mcsHead(IC.lock,'Security')}<div class="mcs-list">${mcsRow({ic:P(IC.lock),c:'#16a34a',t:'Change password',s:g?'Managed by your Google account':'Update your password',href:'#/feat/password'})}</div></section>
+ <section class="mcp-card">${mcsHead(IC.headset,'More')}<div class="mcs-list">${mcsRow({ic:P(IC.acc),c:'#0ea5e9',t:'My profile',s:'Name, photo, class and department',href:'#/profile'})}${mcsRow({ic:P(IC.headset),c:'#f59e0b',t:'Help &amp; support',s:'Contact the MCUN team',href:'#/contact'})}${mcsRow({ic:P(IC.out),c:'#e5484d',cls:'danger',t:'Log out',s:'Sign out from this device',on:'try{logout()}catch(e){}'})}</div></section></div>`};
+
 try{route()}catch(e){}document.documentElement.classList.add("rd-ok");
 new MutationObserver(all).observe($('#app'),{childList:true});
 addEventListener('hashchange',()=>{OPENS.add(grp());all()});setTimeout(all,1200);setInterval(mark,15000);
@@ -454,6 +475,7 @@ addEventListener('hashchange',()=>{OPENS.add(grp());all()});setTimeout(all,1200)
 
 /* College Updates: category list page na dekhiye shorashori notices page */
 (function(){const go=()=>{if(/^#\/?upd\/?$/.test(location.hash))location.replace('#/notices');else if(/^#\/?learn\/?$/.test(location.hash))location.replace('#/feat/progress')};go();addEventListener('hashchange',go)})();
+
 
 /* ---------- collapsible sidebar (desktop): collapsed = logo + icons only ---------- */
 (function(){

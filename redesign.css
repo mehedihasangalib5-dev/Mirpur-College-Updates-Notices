@@ -815,3 +815,108 @@ html.gated #mcTog{display:none!important}
  html.mc-col #mcSide .mc-i svg{width:21px;height:21px}
  html.mc-col #mcSide .mc-bd{position:absolute;top:2px;right:6px}
 }
+
+/* MCQ stimulus / statements */
+.qr-stim{display:block;margin:0 0 10px;padding:12px 14px;border-radius:12px;background:color-mix(in srgb,var(--pri,#2563eb) 8%,var(--card,#fff));border-left:4px solid var(--pri,#2563eb);font-weight:500;font-size:.95em;line-height:1.65;white-space:pre-wrap}
+.qr-sm{display:block;margin-top:8px;font-weight:500}.qr-sm>span{display:block;padding:2px 0}.qr-sm b{display:inline-block;min-width:26px;color:var(--pri,#2563eb)}
+
+
+/* ================= v4: profile cards stacked (one column) ================= */
+.mcp-g{display:flex;flex-direction:column;gap:18px;max-width:900px;margin:0 auto;align-items:stretch}
+.mcp-c1,.mcp-c2,.mcp-c3{display:flex;flex-direction:column;gap:18px;width:100%}
+.mcp-me{display:grid;grid-template-columns:auto 1fr;column-gap:26px;row-gap:6px;align-items:center;text-align:left;padding:24px 28px}
+.mcp-me .mcp-av{grid-row:1/span 5;width:136px;height:136px}
+.mcp-me .mcp-cam{width:36px;height:36px;right:2px;bottom:4px}
+.mcp-me h2{margin:0;font-size:24px}
+.mcp-me .mcp-cls,.mcp-me .mcp-st,.mcp-me .mcp-rm{justify-self:start;margin-top:0}
+.mcp-me hr{grid-column:1/-1;margin:14px 0 6px}
+.mcp-me .mcp-id{grid-column:1;flex-direction:row;align-items:center;gap:12px;margin:0}
+.mcp-me .mcp-id span{display:none}.mcp-me .mcp-id svg{width:28px;height:28px}.mcp-me .mcp-id b{font-size:17px}
+.mcp-me .mcp-col{grid-column:2;margin:0}
+.mcp-me .mcp-adm,.mcp-me .mcp-out{grid-column:1/-1}
+.mcp-qs{grid-template-columns:repeat(3,1fr)}
+.mcp-pane{max-width:900px;margin:0 auto}
+
+/* account settings / password */
+.mcs{display:flex;flex-direction:column;gap:18px;max-width:900px;margin:0 auto}
+.mcs-note{margin:-4px 0 14px;color:var(--mute);font-size:14px}
+.mcs-list{display:flex;flex-direction:column}
+.mcs-row{display:flex;align-items:center;gap:14px;width:100%;padding:14px 2px;border:0;border-top:1px solid var(--line);background:none;color:inherit;font:inherit;text-align:left;text-decoration:none;cursor:pointer;box-sizing:border-box}
+.mcs-row:first-child{border-top:0}
+a.mcs-row:hover,button.mcs-row:hover{background:color-mix(in srgb,var(--c,#2563eb) 6%,transparent)}
+.mcs-ic{flex:none;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:color-mix(in srgb,var(--c,#2563eb) 14%,transparent);color:var(--c,#2563eb)}
+.mcs-ic svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mcs-tx{flex:1;min-width:0}.mcs-tx b{display:block;font-size:15.5px;line-height:1.3}.mcs-tx small{display:block;margin-top:2px;font-size:13px;color:var(--mute);line-height:1.4}
+.mcs-go svg{width:18px;height:18px;fill:none;stroke:var(--mute);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.mcs-row.danger .mcs-tx b{color:#e5484d}
+.mcs-bdg{font-style:normal;margin-left:6px;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:700}
+.mcs-bdg.ok{color:#15803d;background:color-mix(in srgb,#16a34a 14%,transparent)}.mcs-bdg.no{color:#b45309;background:color-mix(in srgb,#f59e0b 16%,transparent)}
+.mcs-info{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:14px;background:color-mix(in srgb,#2563eb 8%,transparent);color:var(--ink,inherit);font-size:14.5px;line-height:1.5}
+.mcs-info svg{flex:none;width:20px;height:20px;fill:none;stroke:#2563eb;stroke-width:2.2;margin-top:2px}
+.mcs-f{display:block;margin:0 0 14px}.mcs-f>span{display:block;margin-bottom:6px;font-weight:700;font-size:14px}
+.mcs-f>div{display:flex;align-items:center;gap:10px;padding:0 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg,#f4f7ff)}
+.mcs-f>div:focus-within{border-color:#2563eb;box-shadow:0 0 0 3px color-mix(in srgb,#2563eb 18%,transparent)}
+.mcs-f i{display:flex}.mcs-f i svg{width:18px;height:18px;fill:none;stroke:var(--mute);stroke-width:2}
+.mcs-f input{flex:1;min-width:0;border:0;outline:0;background:none;padding:13px 0;font:inherit;color:inherit}
+.mcs-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.mcs-pri,.mcs-sec{padding:12px 20px;border-radius:12px;font:inherit;font-weight:800;cursor:pointer}
+.mcs-pri{border:0;color:#fff;background:linear-gradient(135deg,#2563eb,#1d4ed8);box-shadow:0 10px 18px -10px rgba(37,99,235,.9)}
+.mcs-sec{border:1.5px solid var(--line);background:var(--card);color:inherit}
+.mcs-msg{min-height:22px;margin:12px 0 0;font-weight:700}
+
+@media(max-width:699px){
+ .mcp-me{grid-template-columns:1fr;justify-items:center;text-align:center;padding:20px 16px}
+ .mcp-me .mcp-av{grid-row:auto;width:112px;height:112px}
+ .mcp-me .mcp-cls,.mcp-me .mcp-st,.mcp-me .mcp-rm{justify-self:center}
+ .mcp-me .mcp-id,.mcp-me .mcp-col{grid-column:1;width:100%}
+ .mcp-me .mcp-id{justify-content:center}
+ .mcp-qs{grid-template-columns:repeat(3,1fr)}
+}
+.mcp-pane{background:none!important;border:0!important;box-shadow:none!important;padding:0!important}
+.mcs-row .tsw-b{flex:none}
+
+/* ================= v4: smaller, tighter mobile layout ================= */
+@media(max-width:599px){
+ body{font-size:13.5px}
+ header{padding-top:6px;padding-bottom:6px}
+ header img,header .logo img{width:30px;height:30px}
+ main#app{padding:8px 10px 16px}
+ .mcd,.mcn,.mcp,.mcs{gap:12px}
+ .hx{padding:15px 14px 14px;border-radius:16px;gap:10px}
+ .hx h1{font-size:21px;margin-bottom:5px}.hx p{font-size:12.5px;margin-bottom:10px;line-height:1.45}
+ .hx-eye{font-size:10px;padding:4px 9px;margin-bottom:8px}.hx-eye svg{width:12px;height:12px}
+ .hx .mcd-cta{padding:8px 15px;font-size:12.5px}
+ .hx-date b{font-size:26px}.hx-pills span,.hx-legend span,.hx-steps li{font-size:11.5px}
+ .hx-pills span{padding:5px 10px}.hx-unread{width:64px;height:64px}.hx-unread b{font-size:22px}
+ .hx-id i{width:44px;height:44px;font-size:19px}.hx-id b{font-size:14px}
+ .hero{padding:18px 15px}.hero h1{font-size:22px}.sec-h{padding:13px 14px}
+ .mcd-st{padding:11px 12px;gap:9px;border-radius:14px}.mcd-st b{font-size:20px}.mcd-st span{font-size:11.5px}
+ .mcd-st>i,.mcd-st .mcd-si{width:34px;height:34px}
+ .mcd-box,.mc-box,.mcp-card{padding:12px;border-radius:14px}
+ .mcd-box h2,.mcd-box h3,.mcp-card h3{font-size:15px}
+ .qb-c,.card{border-radius:14px}
+ .mcp-tabs a{padding:10px 13px;font-size:12.5px;gap:7px;border-radius:12px}.mcp-tabs a svg{width:16px;height:16px}
+ .mcp-me{padding:16px 14px}.mcp-me .mcp-av{width:92px;height:92px}.mcp-me h2{font-size:19px}
+ .mcs-ic{width:38px;height:38px;border-radius:11px}.mcs-ic svg{width:18px;height:18px}.mcs-tx b{font-size:14px}.mcs-tx small{font-size:12px}
+ .mcs-row{padding:11px 0;gap:11px}
+ .mcs-pri,.mcs-sec{padding:10px 16px;font-size:13.5px}
+ .bnav{left:10px;right:10px;bottom:calc(8px + env(safe-area-inset-bottom,0px));padding:5px 4px}
+ .bnav button,.bnav a{font-size:10px;gap:2px;padding:4px 2px}.bnav svg{width:19px;height:19px}
+ #bmid{width:46px;height:46px;margin-top:-18px}
+ body{padding-bottom:calc(78px + env(safe-area-inset-bottom,0px))}
+ footer.ft .ft-in{padding:20px 14px 14px}.ft-brand img{width:40px;height:40px}.ft-brand b{font-size:17px}
+ footer.ft .ft-links a{padding:6px 12px;font-size:12px}
+ .btn{font-size:13px}
+}
+
+/* board question groups (one board + one year = one group) */
+.bq-gr{margin:14px 0 18px;border:1px solid var(--line,#e1e8f5);border-radius:18px;overflow:hidden;background:var(--card,#fff)}
+.bq-gh{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;color:#fff;background:linear-gradient(115deg,#0b2377,#1d4ed8)}
+.bq-gh b{font-size:15.5px}.bq-gh span{font-size:12.5px;padding:3px 11px;border-radius:99px;background:rgba(255,255,255,.18)}
+.bq-gb{display:flex;flex-direction:column;gap:0}
+.bq-gb .qb-c{margin:0;border:0;border-top:1px solid var(--line,#e1e8f5);border-radius:0;box-shadow:none}
+.bq-gb .qb-c:first-child{border-top:0}
+.bq-n{display:inline-grid;place-items:center;min-width:26px;height:26px;padding:0 6px;border-radius:8px;font-weight:800;font-size:13px;color:#1d4ed8;background:rgba(37,99,235,.12)}
+.br-q,.br-a>div,.br-st>div{line-height:1.65}
+.qr-stim .rt,.qrv-q .rt,.qr-qt .rt{display:block}
+@media(max-width:599px){.bq-gh{padding:10px 12px}.bq-gh b{font-size:14px}}
