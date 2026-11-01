@@ -49,7 +49,7 @@ function side(){let s=$('#mcSide');
   +`</nav><div class="mc-out"><button class="mc-i" type="button" title="Logout" onclick="try{logout()}catch(e){}">${P(IC.out)}<span>Logout</span></button></div>`;
   s.addEventListener('click',e=>{
    const h=e.target.closest('.mc-h');
-   if(h){const id=h.dataset.t;if(!full()){location.hash=id==='acc'?'#/profile':'#/'+id;return}const was=OPENS.has(id);was?OPENS.delete(id):OPENS.add(id);mark();if((id==='hub'||id==='com')&&!was&&hp()[0]!==(id==='com'?'inbox':id))location.hash=id==='com'?'#/inbox':'#/'+id;return}
+   if(h){const id=h.dataset.t;if(!full()){location.hash=id==='acc'?'#/profile':'#/'+id;return}const was=OPENS.has(id);was?OPENS.delete(id):OPENS.add(id);mark();const DR={hub:'#/hub',com:'#/inbox',learn:'#/feat/progress'};if(DR[id]&&!was&&grp()!==id)location.hash=DR[id];return}
    const cm=e.target.closest('a[data-com]');if(cm){e.preventDefault();COM.tab=cm.dataset.com;COM.page=1;COM.q='';if(hp()[0]==='inbox')T(()=>route());else location.hash='#/inbox';setTimeout(mark,30);return}
    const dk=e.target.closest('a[data-dl]');if(dk){e.preventDefault();DL.cat=dk.dataset.dl;DL.page=1;DL.q='';DL.sub='';DL.open=null;if(hp()[0]==='dl')T(()=>route());else location.hash='#/dl';setTimeout(mark,30);return}
    const lb=e.target.closest('a[data-lib]');if(lb){e.preventDefault();LB.tab=lb.dataset.lib;LB.page=1;LB.q='';if(hp()[0]==='lib')T(()=>route());else location.hash='#/lib';setTimeout(mark,30);return}
@@ -453,11 +453,11 @@ addEventListener('hashchange',()=>{OPENS.add(grp());all()});setTimeout(all,1200)
 })();
 
 /* College Updates: category list page na dekhiye shorashori notices page */
-(function(){const go=()=>{if(/^#\/?upd\/?$/.test(location.hash))location.replace('#/notices')};go();addEventListener('hashchange',go)})();
+(function(){const go=()=>{if(/^#\/?upd\/?$/.test(location.hash))location.replace('#/notices');else if(/^#\/?learn\/?$/.test(location.hash))location.replace('#/feat/progress')};go();addEventListener('hashchange',go)})();
 
 /* ---------- collapsible sidebar (desktop): collapsed = logo + icons only ---------- */
 (function(){
- const K='mcn_sbcol',R=document.documentElement,GO={upd:'#/notices',hub:'#/hub',learn:'#/learn',com:'#/inbox',acc:'#/profile'};
+ const K='mcn_sbcol',R=document.documentElement,GO={upd:'#/notices',hub:'#/hub',learn:'#/feat/progress',com:'#/inbox',acc:'#/profile'};
  const set=c=>{R.classList.toggle('mc-col',c);try{localStorage.setItem(K,c?'1':'0')}catch(e){}const b=document.getElementById('mcTog');if(b){b.setAttribute('aria-label',c?'Expand sidebar':'Collapse sidebar');b.setAttribute('aria-expanded',c?'false':'true')}};
  const mk=()=>{if(document.getElementById('mcTog'))return;const b=document.createElement('button');b.id='mcTog';b.type='button';b.setAttribute('aria-label','Collapse sidebar');
   b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>';b.onclick=()=>set(!R.classList.contains('mc-col'));document.body.appendChild(b);set(R.classList.contains('mc-col'))};

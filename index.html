@@ -974,7 +974,7 @@ const EXAMS=["বোর্ড পরীক্ষা","নির্বাচন�
 function bqSk(x){if(x.sk&&BSK[x.sk])return x.sk;const n=bn_(x.sub);if(!n)return"oth";if(BALI[n])return BALI[n];
  const f=HSC_SUBJ.find(s=>bn_(s[1])==n)||(n.length>2&&HSC_SUBJ.find(s=>s[0]!="oth"&&(bn_(s[1]).includes(n)||n.includes(bn_(s[1])))));return f?f[0]:"oth"}
 const bqAll=()=>QB.bq.filter(qLive).map(x=>Object.assign({},x,{_k:bqSk(x),_pt:bqPt(x)})),bqSort=(a,b)=>b.y-a.y||(b.ts||0)-(a.ts||0),
- bqLbl=x=>(x.b=="অন্যান্য"?"অন্যান্য":esc(x.b)+" বোর্ড")+" · "+qn(x.y),bqPp=x=>x.pp==1?"১ম পত্র":x.pp==2?"২য় পত্র":"";
+ bqLbl=x=>(x.b=="অন্যান্য"||x.b=="সকল বোর্ড"?esc(x.b):esc(x.b)+" বোর্ড")+" · "+qn(x.y),bqPp=x=>x.pp==1?"১ম পত্র":x.pp==2?"২য় পত্র":"";
 const bqRd=()=>{try{return JSON.parse(localStorage.getItem("mcn_bread")||"[]")}catch(e){return[]}};
 function bqRead(id){const a=bqRd();if(a.includes(id))return;a.push(id);bqAct();try{localStorage.setItem("mcn_bread",JSON.stringify(a.slice(-600)))}catch(e){}}
 const bqFs=()=>Math.min(24,Math.max(14,+localStorage.getItem("mcn_bfs")||16));
@@ -1023,7 +1023,7 @@ function bqList(key,A){const F=QB.bf,isSv=key=="saved",s=BSK[key],sv=qbSaved(),r
  const base=isSv?A.filter(x=>sv.includes(x.id)):A.filter(x=>x._k==key),two=!isSv&&s[2]==2,
  P=two?base.filter(x=>!F.pp||(x.pp||0)==F.pp):base,T=P.filter(x=>(!F.ty||x.ty==F.ty)&&(!F.pt||x._pt==F.pt)),chs=[...new Set(T.slice().sort((p,q)=>(p.chn||99)-(q.chn||99)).map(x=>x.ch).filter(Boolean))];
  if(F.ch&&!chs.includes(F.ch))F.ch="";QB.chs=chs;
- const L=T.filter(x=>(!F.ch||x.ch==F.ch)&&(!F.b||x.b==F.b)&&(!F.y||x.y==F.y)&&(!F.ex||(x.ex||EXAMS[0])==F.ex)).sort(bqSort);QB.rl=L.map(x=>x.id);QB.rctx=key;
+ const L=T.filter(x=>(!F.ch||x.ch==F.ch)&&(!F.b||x.b==F.b||x.b=="সকল বোর্ড")&&(!F.y||x.y==F.y)&&(!F.ex||(x.ex||EXAMS[0])==F.ex)).sort(bqSort);QB.rl=L.map(x=>x.id);QB.rctx=key;
  const u=f=>[...new Set(T.map(f))].filter(v=>v!==""&&v!=null),
  sel=(k,l,a)=>a.length>1?`<select aria-label="${l}" onchange="QB.bf.${k}=this.value;route()"><option value="">${l}</option>${a.map(v=>`<option value="${esc(v)}" ${F[k]==v?"selected":""}>${esc(v)}</option>`).join("")}</select>`:"",
  tab=(p,l)=>`<button class="qb-ch ${F.pp==p?"on":""}" onclick="QB.bf.pp=${p};QB.bf.pt='';route()">${l} (${qn(p?base.filter(x=>(x.pp||0)==p).length:base.length)})</button>`,
@@ -1034,7 +1034,7 @@ function bqList(key,A){const F=QB.bf,isSv=key=="saved",s=BSK[key],sv=qbSaved(),r
 ${two?`<div class="qb-chs">${tab(0,"সব")}${tab(1,"১ম পত্র")}${tab(2,"২য় পত্র")}</div>`:""}
 ${BPT[key]?bqPtRow(F):""}<div class="qb-chs">${ty("","সব ধরন")}${ty("CQ","সৃজনশীল (CQ)")}${ty("MCQ","বহুনির্বাচনি (MCQ)")}</div>
 ${chs.length?`<div class="qb-chs"><button class="qb-ch ${F.ch?"":"on"}" onclick="QB.bf.ch='';route()">সব অধ্যায়</button>${chs.map((c,i)=>`<button class="qb-ch ${F.ch==c?"on":""}" onclick="QB.bf.ch=QB.chs[${i}];route()">${esc(c)}</button>`).join("")}</div>`:""}
-<div class="qb-f">${sel("ex","পরীক্ষা",u(x=>x.ex||EXAMS[0]))}${sel("b","বোর্ড",u(x=>x.b))}${sel("y","সাল",u(x=>x.y).sort((a,b)=>b-a))}</div>
+<div class="qb-f">${sel("ex","পরীক্ষা",u(x=>x.ex||EXAMS[0]))}${sel("b","বোর্ড",u(x=>x.b).filter(b=>b!="সকল বোর্ড"))}${sel("y","সাল",u(x=>x.y).sort((a,b)=>b-a))}</div>
 <div class="qb-m" style="margin:2px 0 10px">${qn(L.length)}টি প্রশ্ন</div>`+(L.length?L.map(card).join(""):`<div class="qb-em">${SVG("board")}<b>কোনো প্রশ্ন নেই</b><span>${base.length?"অন্য পত্র বা অধ্যায় বাছাই করো।":isSv?"প্রশ্ন পড়ার সময় Save (star) চাপলে এখানে জমা হবে।":"এই বিষয়ের প্রশ্ন শীঘ্রই আসছে।"}</span></div>`)+"</div>"}
 /* --- reader --- */
 function bqBody(x){const rv=QB.rv[x.id]||(QB.rv[x.id]={});
@@ -1395,7 +1395,7 @@ function paintBnav(pg){
  try{paintBell()}catch(e){}}
 function paintMore(){const e=$("#mmc");if(!e)return;const n=nUnread();
  e.innerHTML=`<div class="mm-tg"><button type="button" class="mm-main" onclick="mmList()"><span class="mm-ic">${SVG("bell")}${n?`<em class="mm-bd">${n>9?"9+":n}</em>`:""}</span><span class="mm-tx"><b>Notifications</b><small>${n?n+" new · ":""}${alertSub()}</small></span></button>${swBtn()}</div>
- <div class="mm-g"><button type="button" class="mm-i" onclick="mmTheme()"><span class="mm-ic">${THEME_SVG}</span>Theme</button>${PT.filter(g=>g[0]!="dash").map(g=>`<a class="mm-i" href="${g[0]=="upd"?"#/notices":"#/"+g[0]}"><span class="mm-ic" style="font-size:22px">${g[1]}</span>${esc(g[2])}</a>`).join("")}<a class="mm-i" href="#/quiz"><span class="mm-ic">${SVG("quiz")}</span>Quiz</a><a class="mm-i" href="#/board"><span class="mm-ic">${SVG("board")}</span>Board</a>${U.role?`<a class="mm-i" href="/admin"><span class="mm-ic">${SHIELD_SVG}</span>Admin<small class="mm-role">${ROLE_N[U.role]}</small></a>`:""}
+ <div class="mm-g"><button type="button" class="mm-i" onclick="mmTheme()"><span class="mm-ic">${THEME_SVG}</span>Theme</button>${PT.filter(g=>g[0]!="dash").map(g=>`<a class="mm-i" href="${g[0]=="upd"?"#/notices":g[0]=="learn"?"#/feat/progress":"#/"+g[0]}"><span class="mm-ic" style="font-size:22px">${g[1]}</span>${esc(g[2])}</a>`).join("")}<a class="mm-i" href="#/quiz"><span class="mm-ic">${SVG("quiz")}</span>Quiz</a><a class="mm-i" href="#/board"><span class="mm-ic">${SVG("board")}</span>Board</a>${U.role?`<a class="mm-i" href="/admin"><span class="mm-ic">${SHIELD_SVG}</span>Admin<small class="mm-role">${ROLE_N[U.role]}</small></a>`:""}
  ${typeof DP!="undefined"&&DP?`<button type="button" class="mm-i" onclick="mmInstall()"><span class="mm-ic">${SVG("dl")}</span>Install</button>`:""}</div>`}
 function toggleMore(f){const w=$("#mmore"),b=$("#bmid");if(!w||!b)return;const o=typeof f=="boolean"?f:!MMO;MMO=o;if(o)paintMore();w.classList.toggle("open",o);b.classList.toggle("open",o);b.setAttribute("aria-expanded",o?"true":"false")}
 function mmList(){toggleMore(false);openNotifs()}
