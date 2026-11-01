@@ -104,7 +104,7 @@ function dashHTML(){ensure();
  const exh=nx?`<a class="mcd-ex" href="${nx.u}">${P(IC.cal)}<div><b>${E(nx.t)}</b><span>${new Date(nx.at).toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'numeric',minute:'2-digit'})}</span></div></a>
   <div class="mcd-cd" data-ts="${nx.at}"><div><b>00</b>Days</div><div><b>00</b>Hours</div><div><b>00</b>Minutes</div><div><b>00</b>Seconds</div></div>`:'<p class="mcd-em">No upcoming exams scheduled.</p>';
  const top3=[...subj].sort((a,b)=>b.pc-a.pc).slice(0,3),low=subj.slice(0,3);
- const prog=R.length?`<div class="mcd-pr">${ring(ov)}<ul>${top3.map(s=>`<li>${P(IC.chk)}<span>${E(s.n)}</span><b>${s.pc}%</b></li>`).join('')||`<li><span>${R.length} quiz attempts</span></li>`}</ul></div><div class="mcd-tip">${ov>=70?'Great Progress! Keep it up! 🏆':'Keep practicing, you are getting there! 💪'}</div>`:`<div class="mcd-pr">${ring(0)}<ul><li><span>Take your first quiz to see progress</span></li></ul></div><div class="mcd-tip">Start with a Practice Quiz 🚀</div>`;
+ const prog=R.length?`<div class="mcd-pr">${ring(ov)}<ul>${top3.map(s=>`<li>${P(IC.chk)}<span>${E(s.n)}</span><b>${s.pc}%</b></li>`).join('')||`<li><span>${R.length} quiz attempts</span></li>`}</ul></div><div class="mcd-tip">${ov>=70?'Great Progress! Keep it up!':'Keep practicing, you are getting there!'}</div>`:`<div class="mcd-pr">${ring(0)}<ul><li><span>Take your first quiz to see progress</span></li></ul></div><div class="mcd-tip">Start with a Practice Quiz</div>`;
  const r0=R[0],rec=r0?`<div class="mcd-rq">${P(IC.clip)}<div><div class="mcd-ok">${P(IC.chk)}Quiz Completed Successfully!</div><p><b>${E(r0.t)}</b></p><p>Score: ${r0.c} / ${r0.tot} (${r0.pc}%)</p><p>Date: ${fd(r0.ts)}</p></div></div><a class="mcd-btn" href="#/quiz">Try Another Quiz ${P(IC.arr)}</a>`:`<p class="mcd-em">No quiz attempted yet.</p><a class="mcd-btn" href="#/quiz">Start a Quiz ${P(IC.arr)}</a>`;
  const need=low.length?`<ul class="mcd-lw">${low.map(s=>`<li><span>${E(s.n)}</span><i><u style="width:${s.pc}%"></u></i><b>${s.pc}%</b></li>`).join('')}</ul><a class="mcd-btn" href="#/feat/wrong">Revise Wrong Answers ${P(IC.arr)}</a>`:'<p class="mcd-em">Subject-wise results will appear after your quizzes.</p>';
  const box=(ic,t,l,body,cls)=>`<section class="mcd-box ${cls||''}"><h3><span>${P(ic)}${t}</span>${l?`<a href="${l}">View All ${P(IC.arr)}</a>`:''}</h3>${body}</section>`;
@@ -447,7 +447,10 @@ window.pHome=function(){const h=hp()[0];return h==='notices'?noticesHTML():dashH
 setInterval(()=>{document.querySelectorAll('.mcd-cd[data-ts]').forEach(el=>{let d=Math.max(0,el.dataset.ts-Date.now())/1000;const v=[d/86400,d%86400/3600,d%3600/60,d%60].map(x=>String(Math.floor(x)).padStart(2,'0'));el.querySelectorAll('b').forEach((b,i)=>b.textContent=v[i])})},1000);
 function all(){try{side();top()}catch(e){console.warn('redesign',e)}}
 document.body.classList.add('mc');all();
-try{route()}catch(e){}
+try{route()}catch(e){}document.documentElement.classList.add("rd-ok");
 new MutationObserver(all).observe($('#app'),{childList:true});
 addEventListener('hashchange',()=>{OPENS.add(grp());all()});setTimeout(all,1200);setInterval(mark,15000);
 })();
+
+/* College Updates: category list page na dekhiye shorashori notices page */
+(function(){const go=()=>{if(/^#\/?upd\/?$/.test(location.hash))location.replace('#/notices')};go();addEventListener('hashchange',go)})();

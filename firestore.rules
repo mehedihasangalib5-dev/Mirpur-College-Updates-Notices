@@ -134,6 +134,16 @@ service cloud.firestore {
         && get(/databases/$(db)/documents/quizzes/$(request.resource.data.quizId)).data.get('mode', '') == 'Practice';
       allow update, delete: if false;
     }
+    // users/{uid}/data/sync = cross-device sync (Saved, Read, Board saved, Mistakes, Streak, Recent, Downloads). Shudhu oi student.
+    match /users/{uid}/data/{id} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow create, update: if request.auth != null && request.auth.uid == uid && request.auth.token.email_verified == true
+        && id == 'sync'
+        && request.resource.data.keys().hasOnly(['v','t'])
+        && request.resource.data.v is map && request.resource.data.t is map
+        && request.resource.data.v.size() <= 12 && request.resource.data.t.size() <= 12;
+      allow delete: if false;
+    }
     // ---- Quiz + Board Question (student side) ----
     // quizzes/boardQ doc-e pages = ["HSC 1st Year · Science", ...] thakte hobe (sob page hole 6 ta-i). Student shudhu nijer Page-er doc pore.
     // Notun doc lekha: Owner/Admin (scope-wala Admin shudhu nijer Page). quizAttempts-er sob result shudhu Owner pore.

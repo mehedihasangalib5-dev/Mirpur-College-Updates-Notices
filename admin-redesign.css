@@ -99,3 +99,12 @@ header{background:var(--card);-webkit-backdrop-filter:none;backdrop-filter:none;
  .fabx .fx{background:linear-gradient(135deg,#2563eb,#4f46e5)}
 }
 @media(max-width:560px){.ahero{flex-direction:column;align-items:flex-start}.ah-g_dash .ahs{align-self:flex-start}}
+
+/* footer - same navy design as the public site */
+footer.ft{margin:30px 0 0;padding:0;text-align:left;border:0;color:rgba(255,255,255,.78);background:linear-gradient(135deg,#0b2377,#06195a 70%);font-size:13px}
+@media(min-width:900px){footer.ft{margin-left:var(--sw)}}
+footer.ft .ft-in{max-width:none;padding:20px 28px}
+footer.ft a{color:#fff;font-weight:600;text-decoration:none}
+.ft-bot{display:flex;justify-content:space-between;align-items:center;gap:8px 20px;flex-wrap:wrap}
+footer.ft .ft-dev{display:inline-flex;align-items:center;gap:6px}
+@media(max-width:899px){footer.ft{margin-bottom:0;border-radius:20px 20px 0 0;padding-bottom:96px}.ft-bot{flex-direction:column;align-items:flex-start}}
