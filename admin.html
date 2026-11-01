@@ -1018,7 +1018,7 @@ function view(){const it=NAVK[S.tab]||NAVK.dash;if(S._pk!==S.tab){S._pk=S.tab;if
  return `<section class="ahero ah-${g}"><div class="ahd" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="ahm">${m[1]}${m[2]||""}</div>${side}</section>`+subBar(it)+v.slice(m[0].length)}
 function panelV(){const un=S.msgs.filter(m=>!m.read&&!m.arch).length;
  {const it=NAVK[S.tab]||NAVK.dash;if(!allowed([0,0,0,it.a]))setTab("dash")}
- return `<div class="shell"><nav class="side" aria-label="Admin menu"><a class="sb-brand" href="admin.html"><img src="/logo.png" onerror="this.onerror=null;this.src=LOGO_FB" alt=""><b>MCUN</b><small>Admin Panel</small></a>${navBar(un)}</nav>${morePop()}<section class="mainc">${view()}</section></div>`}
+ return `<div class="shell"><nav class="side" aria-label="Admin menu"><a class="sb-brand" href="admin.html"><img src="/logo.png" onerror="this.onerror=null;this.src=LOGO_FB" alt="Admin Panel" title="Admin Panel"></a>${navBar(un)}</nav>${morePop()}<section class="mainc">${view()}</section></div>`}
 function render(keep){
  if($("#qbf"))qbSnap();if($("#cform"))S.form=snap();
  const em=$("#em")?$("#em").value:null,ae=document.activeElement,fa=ae&&ae.id,cs=ae&&ae.selectionStart;

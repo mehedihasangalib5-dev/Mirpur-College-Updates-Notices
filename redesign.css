@@ -793,3 +793,25 @@ footer.ft .ft-dev{display:inline-flex;align-items:center;gap:6px;color:#fff}
  .ft-bot{flex-direction:column;align-items:flex-start;margin-top:18px}
  footer.ft #ftip{display:block}
 }
+
+
+/* ================= v4: sidebar - logo only (no name) + collapsible ================= */
+#mcSide .mc-brand b,#mcSide .mc-brand small{display:none!important}
+#mcSide .mc-brand{margin-bottom:20px}
+#mcTog{display:none;position:fixed;top:26px;left:calc(var(--sw) - 14px);z-index:30;width:28px;height:28px;padding:0;border-radius:50%;border:1px solid var(--line);background:#fff;color:#1d4ed8;box-shadow:0 6px 14px -6px rgba(15,23,42,.45);cursor:pointer;place-items:center;transition:left .2s,transform .2s}
+#mcTog svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+#mcTog:hover{background:#2563eb;color:#fff;border-color:#2563eb}
+html.gated #mcTog{display:none!important}
+@media(min-width:1100px){
+ #mcTog{display:grid}
+ #mcSide,header,main#app,footer{transition:width .2s ease,margin-left .2s ease,padding .2s ease}
+ html.mc-col{--sw:76px}
+ html.mc-col #mcTog svg{transform:rotate(180deg)}
+ html.mc-col #mcSide{padding:16px 10px;align-items:stretch}
+ html.mc-col #mcSide .mc-brand img{width:46px;height:46px;margin:0 auto}
+ html.mc-col #mcSide .mc-brand{margin-bottom:16px}
+ html.mc-col #mcSide .mc-i span,html.mc-col #mcSide .mc-chev,html.mc-col #mcSide .mc-sub{display:none!important}
+ html.mc-col #mcSide a.mc-i,html.mc-col #mcSide button.mc-i{justify-content:center;padding:12px 0;position:relative}
+ html.mc-col #mcSide .mc-i svg{width:21px;height:21px}
+ html.mc-col #mcSide .mc-bd{position:absolute;top:2px;right:6px}
+}

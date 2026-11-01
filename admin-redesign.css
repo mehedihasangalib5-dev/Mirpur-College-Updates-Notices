@@ -108,3 +108,6 @@ footer.ft a{color:#fff;font-weight:600;text-decoration:none}
 .ft-bot{display:flex;justify-content:space-between;align-items:center;gap:8px 20px;flex-wrap:wrap}
 footer.ft .ft-dev{display:inline-flex;align-items:center;gap:6px}
 @media(max-width:899px){footer.ft{margin-bottom:0;border-radius:20px 20px 0 0;padding-bottom:96px}.ft-bot{flex-direction:column;align-items:flex-start}}
+
+.sb-brand b,.sb-brand small{display:none!important}.sb-brand img{width:72px;height:72px}
+@media(min-width:900px) and (max-width:1199px){.sb-brand img{width:46px;height:46px}}

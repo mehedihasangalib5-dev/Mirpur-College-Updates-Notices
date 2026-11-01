@@ -43,7 +43,7 @@ function sub(g){if(g[0]==='acc')return ACCSUB.map(i=>`<a class="mc-s" href="${i[
  return `<a class="mc-s" href="${E(i[1])}">${P(SI(i[0]))}<span>${E(i[0])}</span></a>`}).join('')}
 function side(){let s=$('#mcSide');
  if(!s){s=document.createElement('aside');s.id='mcSide';document.body.prepend(s);
-  s.innerHTML=`<a class="mc-brand" href="#/"><img src="logo.png" alt="MCUN"><b>MCUN</b><small>Mirpur College<br>Updates &amp; Notices</small></a><nav>`
+  s.innerHTML=`<a class="mc-brand" href="#/" aria-label="MCUN dashboard" title="MCUN"><img src="logo.png" alt="MCUN"></a><nav>`
   +PT.map(g=>PLAIN[g[0]]?`<a class="mc-i" data-g="${g[0]}" title="${E(g[2])}" href="${PLAIN[g[0]]}">${P(IC[SIC[g[0]]||g[0]])}<span>${E(g[2])}</span></a>`
    :`<div class="mc-g" data-g="${g[0]}"><button type="button" class="mc-i mc-h" title="${E(g[2])}" data-t="${g[0]}">${P(IC[SIC[g[0]]||g[0]]||'')}<span>${E(LBL[g[0]]||g[2])}</span><b class="mc-bd" hidden></b>${P(IC.chev,'mc-chev')}</button><div class="mc-sub">${sub(g)}</div></div>`).join('')
   +`</nav><div class="mc-out"><button class="mc-i" type="button" title="Logout" onclick="try{logout()}catch(e){}">${P(IC.out)}<span>Logout</span></button></div>`;
@@ -454,3 +454,14 @@ addEventListener('hashchange',()=>{OPENS.add(grp());all()});setTimeout(all,1200)
 
 /* College Updates: category list page na dekhiye shorashori notices page */
 (function(){const go=()=>{if(/^#\/?upd\/?$/.test(location.hash))location.replace('#/notices')};go();addEventListener('hashchange',go)})();
+
+/* ---------- collapsible sidebar (desktop): collapsed = logo + icons only ---------- */
+(function(){
+ const K='mcn_sbcol',R=document.documentElement,GO={upd:'#/notices',hub:'#/hub',learn:'#/learn',com:'#/inbox',acc:'#/profile'};
+ const set=c=>{R.classList.toggle('mc-col',c);try{localStorage.setItem(K,c?'1':'0')}catch(e){}const b=document.getElementById('mcTog');if(b){b.setAttribute('aria-label',c?'Expand sidebar':'Collapse sidebar');b.setAttribute('aria-expanded',c?'false':'true')}};
+ const mk=()=>{if(document.getElementById('mcTog'))return;const b=document.createElement('button');b.id='mcTog';b.type='button';b.setAttribute('aria-label','Collapse sidebar');
+  b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>';b.onclick=()=>set(!R.classList.contains('mc-col'));document.body.appendChild(b);set(R.classList.contains('mc-col'))};
+ mk();
+ /* collapsed: group icon opens that group's main page (dropdown list is hidden) */
+ document.addEventListener('click',e=>{if(!R.classList.contains('mc-col'))return;const h=e.target.closest&&e.target.closest('#mcSide .mc-h');if(!h)return;const g=GO[h.dataset.t];if(g){e.preventDefault();e.stopImmediatePropagation();location.hash=g}},true);
+})();
