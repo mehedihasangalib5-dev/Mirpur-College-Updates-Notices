@@ -24,6 +24,9 @@ const TZ = "Asia/Dhaka";
 
 const SHEET_NAME = "Students";
 const DASH_NAME = "Dashboard";
+const INFO_NAME = "Student Info";   // profile-e student-er deya details (Roll, Session, Phone, DOB, Gender, Blood, Address)
+const INFO_HEADERS = ["No.", "Updated At", "Name", "Email", "Year", "Department", "Roll", "Session", "Phone", "Date of Birth", "Gender", "Blood Group", "Address", "UID"];
+const INFO_UID = 14;
 const HEADER_ROW = 4, FIRST = 5, MAX_ROWS = 2000;
 const HEADERS = ["No.", "Registered At", "Name", "Email", "Year", "Department", "Sign-in", "Status", "Last Login", "UID"];
 const C = { NO: 1, REG: 2, NAME: 3, EMAIL: 4, YEAR: 5, DEPT: 6, METHOD: 7, STATUS: 8, LAST: 9, UID: 10 };
@@ -180,9 +183,68 @@ function upsert_(list) {
       const f = []; for (let k = firstNew; k < rows.length; k++) f.push(["=ROW()-" + (HEADER_ROW)]);
       sh.getRange(FIRST + firstNew, 1, f.length, 1).setFormulas(f);
     }
+    try { upsertInfo_(list); } catch (err) { console.error("info sheet: " + err); }   // Info tab fail korleo main Students sheet thik thakbe
     return { ok: true, added: added, updated: updated };
   } finally {
     lock.releaseLock();
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  "Student Info" tab: proti student-er profile details (1 row = 1 jon) */
+/* ------------------------------------------------------------------ */
+function infoSheet_() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sh = ss.getSheetByName(INFO_NAME);
+  if (!sh) { sh = ss.insertSheet(INFO_NAME); setupInfo_(sh); }
+  return sh;
+}
+
+function setupInfo_(sh) {
+  sh = sh || infoSheet_();
+  const n = INFO_HEADERS.length;
+  sh.getRange(1, 1, 1, n).setValues([INFO_HEADERS])
+    .setBackground("#0b2377").setFontColor("#ffffff").setFontWeight("bold").setHorizontalAlignment("center").setVerticalAlignment("middle");
+  sh.setRowHeight(1, 36);
+  sh.setFrozenRows(1);
+  sh.setFrozenColumns(3);
+  [7, 8, 9, 10, 11, 12, 13].forEach(function (c) { sh.getRange(2, c, sh.getMaxRows() - 1, 1).setNumberFormat("@"); }); // phone/roll-er leading 0 na harae
+  sh.getRange(2, 2, sh.getMaxRows() - 1, 1).setNumberFormat("dd mmm yyyy, hh:mm AM/PM");
+  [48, 170, 170, 220, 110, 110, 70, 100, 120, 110, 80, 90, 240, 150].forEach(function (w, i) { sh.setColumnWidth(i + 1, w); });
+  sh.getRange(2, 1, sh.getMaxRows() - 1, n).setVerticalAlignment("middle");
+  sh.getRange(2, 14, sh.getMaxRows() - 1, 1).setFontColor("#94a3b8").setFontSize(8);
+  if (!sh.getFilter()) sh.getRange(1, 1, sh.getMaxRows(), n).createFilter();
+}
+
+function upsertInfo_(list) {
+  const sh = infoSheet_();
+  const last = sh.getLastRow();
+  const rows = last > 1 ? sh.getRange(2, 1, last - 1, INFO_HEADERS.length).getValues() : [];
+  const byUid = {};
+  rows.forEach(function (r, i) { if (r[INFO_UID - 1]) byUid[String(r[INFO_UID - 1])] = i; });
+  const touched = {}, firstNew = rows.length;
+  list.forEach(function (u) {
+    let i = byUid[u.uid], r;
+    if (i === undefined) { r = new Array(INFO_HEADERS.length).fill(""); rows.push(r); i = rows.length - 1; byUid[u.uid] = i; }
+    else r = rows[i];
+    r[1] = new Date(u.updated || Date.now());
+    if (u.name)  r[2] = String(u.name).slice(0, 80);
+    if (u.email) r[3] = String(u.email).toLowerCase();
+    if (u.year)  r[4] = u.year;
+    if (u.dept)  r[5] = u.dept;
+    [["roll", 6], ["ses", 7], ["ph", 8], ["dob", 9], ["gen", 10], ["bg", 11], ["addr", 12]].forEach(function (k) {
+      if (u[k[0]] !== undefined) r[k[1]] = u[k[0]];        // student khali kore dile Sheet-eo khali hobe
+    });
+    r[13] = u.uid;
+    touched[i] = true;
+  });
+  if (sh.getMaxRows() < rows.length + 2) sh.insertRowsAfter(sh.getMaxRows(), rows.length + 202 - sh.getMaxRows());
+  const idx = Object.keys(touched).map(Number);
+  if (idx.length > 30) sh.getRange(2, 1, rows.length, INFO_HEADERS.length).setValues(rows);
+  else idx.forEach(function (i) { sh.getRange(2 + i, 1, 1, INFO_HEADERS.length).setValues([rows[i]]); });
+  if (rows.length > firstNew) {
+    const f = []; for (let k = firstNew; k < rows.length; k++) f.push(["=ROW()-1"]);
+    sh.getRange(2 + firstNew, 1, f.length, 1).setFormulas(f);
   }
 }
 
@@ -195,6 +257,13 @@ function remove_(uid) {
   const lock = LockService.getScriptLock();
   lock.waitLock(25000);
   try {
+    try {
+      const ish = infoSheet_(), il = ish.getLastRow();
+      if (il > 1) {
+        const iu = ish.getRange(2, INFO_UID, il - 1, 1).getValues();
+        for (let k = iu.length - 1; k >= 0; k--) if (String(iu[k][0]) === String(uid)) ish.deleteRow(2 + k);
+      }
+    } catch (err) { console.error("info remove: " + err); }
     const sh = studentsSheet_();
     const n = Math.max(sh.getLastRow(), HEADER_ROW) - HEADER_ROW;
     if (n < 1) return { ok: true, removed: 0 };
