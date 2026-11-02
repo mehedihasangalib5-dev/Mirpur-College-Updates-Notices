@@ -1,5 +1,6 @@
 // POST /api/send-push   Header: Authorization: Bearer <Firebase ID token>   (shudhu Owner/Admin)
-//   { action: "count" | "test" | "send" | "history", audience, title, body, urgent, link, postId, url }
+//   { action: "count" | "test" | "send" | "history" | "delete", audience, title, body, urgent, link, postId, url, mt, id }
+//   mt: "announcement" | "notice" | "message" | "query"  (Communication hub-er message type, history-te dekhay)
 //   audience: { type: "all" } | { type: "filter", years:[], depts:[] } | { type: "users", uids:[] } | { type: "me" }
 // Block kora student-ke kokhono pathay na. Invalid device token auto muche dey. Prottek send notifLogs-e jomaye.
 const { init, sameOrigin, body, bearerUser, staffInfo, inScope } = require("./_lib");
@@ -34,10 +35,19 @@ module.exports = async (req, res) => {
     const b = body(req), action = b.action;
 
     if (action === "history") {
-      const s = await db.collection("notifLogs").orderBy("ts", "desc").limit(20).get();
+      const s = await db.collection("notifLogs").orderBy("ts", "desc").limit(150).get();
       // scope-wala Admin shudhu nijer pathano history dekhbe
-      const items = s.docs.map((d) => d.data()).filter((x) => !st.scope.length || x.by === tok.uid);
+      const items = s.docs.map((d) => ({ id: d.id, ...d.data() })).filter((x) => !st.scope.length || x.by === tok.uid);
       return res.status(200).json({ ok: true, items });
+    }
+    if (action === "delete") {                 // shudhu history record muche; student-der inbox/bell-e thakbe
+      const id = String(b.id || "").replace(/[^A-Za-z0-9_-]/g, "").slice(0, 40);
+      if (!id) return res.status(400).json({ ok: false, error: "bad id" });
+      const ref = db.doc("notifLogs/" + id), d = await ref.get();
+      if (!d.exists) return res.status(404).json({ ok: false, error: "nei" });
+      if (st.scope.length && d.data().by !== tok.uid) return res.status(403).json({ ok: false, error: "scope" });
+      await ref.delete();
+      return res.status(200).json({ ok: true });
     }
     if (!["count", "test", "send"].includes(action)) return res.status(400).json({ ok: false, error: "bad request" });
 
@@ -97,6 +107,7 @@ module.exports = async (req, res) => {
     }
 
     const urgent = b.urgent === true;
+    const mt = ["announcement", "notice", "message", "query"].includes(b.mt) ? b.mt : "";
     // ---- site-er bell list-e rakho (phone alert OFF thakleo student dekhte pabe) ----
     if (action === "send") {
       const id = "n" + now.toString(36) + Math.random().toString(36).slice(2, 6);
@@ -130,7 +141,7 @@ module.exports = async (req, res) => {
     await Promise.all(Object.keys(byUid).map((u) => db.doc("pushTokens/" + u).update({ tokens: FV.arrayRemove(...byUid[u]) }).catch(() => {})));
 
     if (action === "send")
-      await db.collection("notifLogs").add({ ts: now, by: tok.uid, email: String(tok.email || "").slice(0, 120), title, body: text, urgent, aud: desc, students: uids.length, sent, failed });
+      await db.collection("notifLogs").add({ ts: now, by: tok.uid, email: String(tok.email || "").slice(0, 120), title, body: text, urgent, mt, aud: desc, students: uids.length, sent, failed });
 
     return res.status(200).json({ ok: true, sent, failed, students: uids.length });
   } catch (e) {
