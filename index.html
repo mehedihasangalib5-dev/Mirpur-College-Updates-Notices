@@ -739,10 +739,10 @@ const cnt=p=>p.nf!=null?p.nf:atts(p).length;
 const byHTML=(p,mini)=>{if(!p||!p.byName)return"";const r=p.byRole&&ROLE_N[p.byRole]?p.byRole:"",nm=String(p.byName);
  return `<div class="pby${mini?" mini":""}"><span class="pby-av">${esc(nm.trim().charAt(0).toUpperCase()||"?")}</span><span class="pby-t">Published by <b>${esc(nm)}</b></span>${r?`<span class="pby-r r-${r}">${ROLE_N[r]}</span>`:""}</div>`};
 function card(p){const n=cnt(p),c=CATS[p.cat]||CATS.notice;
- const cv=p.cover&&ok(p.cover.url)?`<img src="${esc(p.cover.url)}" alt="">`:(!p.cover&&!S.sdk&&p.hc!==false?`<div class="cvr" data-cv="${p.id}" data-cat="${p.cat}" style="--c:${c.c}"></div>`:`<div class="cvr ph" style="--c:${c.c}">${window.mcCover?mcCover(p.cat):SVG(p.cat)}</div>`);
+ const cv="";
  return `<article class="card ${isExp(p)?"expd":""} ${isRd(p.id)?"rd":""}" style="--c:${c.c}" onclick="openPost('${p.id}')">${svBtn(p.id)}${isExp(p)?'<span class="exr">'+SVG("hourglass")+" Expired</span>":""}${cv}<div class="cb"><div class="ctop">${tagsHTML(p)}${dlBadge(p)}</div><h3>${hl(p.title)}</h3><p>${hl(p.body)}</p>${byHTML(p,1)}<div class="meta"><span>${SVG("clock")} ${dDate(p.ts)}</span><span>${n?SVG("clip")+" "+n+" attachment":""}</span></div></div></article>`}
 function fcard(p){const c=CATS[p.cat]||CATS.notice;
- return `<article class="fcard" style="--c:${c.c}" onclick="openPost('${p.id}')"><div class="ft"><span class="fl">${SVG(p.cat)}<b>${c.n}</b>${p.pinned?`<i>·</i>${SVG("pin")}<b>Pinned</b>`:""}</span>${dlBadge(p)}</div><span class="fart" style="--c:#fff" aria-hidden="true">${window.mcCover?mcCover(p.cat):""}</span><h3>${esc(p.title)}</h3><div class="fgo">পড়ুন →</div></article>`}
+ return `<article class="fcard" style="--c:${c.c}" onclick="openPost('${p.id}')"><div class="ft"><span class="fl">${SVG(p.cat)}<b>${c.n}</b>${p.pinned?`<i>·</i>${SVG("pin")}<b>Pinned</b>`:""}</span>${dlBadge(p)}</div><h3>${esc(p.title)}</h3><div class="fgo">পড়ুন →</div></article>`}
 const nz=t=>String(t||"").normalize("NFC").toLowerCase().replace(/[\u200c\u200d]/g,"").replace(/\u09A1\u09BC/g,"\u09DC").replace(/\u09A2\u09BC/g,"\u09DD").replace(/\u09AF\u09BC/g,"\u09DF").replace(/[\u09E6-\u09EF]/g,d=>d.charCodeAt(0)-2406);
 const toks=()=>nz(S.q).split(/\s+/).filter(Boolean);
 const CATBN={notice:"নোটিশ বিজ্ঞপ্তি",syllabus:"সিলেবাস",suggestion:"সাজেশন সাজেস্টশন",routine:"রুটিন",result:"রেজাল্ট ফলাফল",event:"ইভেন্ট অনুষ্ঠান"};
@@ -1018,10 +1018,11 @@ ${bqAction()}${QB.err?`<div class="qb-n">Load সমস্যা (${esc(QB.err)}
 <button class="qb-ch" onclick="QB.all=!QB.all;route()">${QB.all?"অন্য বিষয় লুকাও":"সব বিষয় দেখো ("+qn(rest.length)+")"}</button>
 ${QB.all?["s","a","b","o"].filter(g=>rest.some(s=>s[3]==g)).map(g=>`<h3 class="bs-h">${GT[g]}</h3><div class="bs-g">${rest.filter(s=>s[3]==g).map(tile).join("")}</div>`).join(""):""}</div>`}
 /* --- subject page (paper tabs + chapter chips + filters) --- */
-/* ek board + ek sal-er shob prosno ekta group-er bhitore (year: notun age, board: serial onujayi) */
-function bqGrp(L,card){let h="",k="",i=0;const cnt={},ky=x=>x.y+"|"+x.b+"|"+(x.pp||0);L.forEach(x=>{cnt[ky(x)]=(cnt[ky(x)]||0)+1});
- L.forEach(x=>{const g=ky(x);if(g!=k){if(k)h+="</div></section>";k=g;i=0;h+=`<section class="bq-gr"><div class="bq-gh"><b>${qn(x.y)} · ${x.b=="অন্যান্য"||x.b=="সকল বোর্ড"?esc(x.b):esc(x.b)+" বোর্ড"}${bqPp(x)?" · "+bqPp(x):""}</b><span>${qn(cnt[g])}টি প্রশ্ন</span></div><div class="bq-gb">`}i++;h+=card(x,i)});return h+(k?"</div></section>":"")}
-function bqList(key,A){const F=QB.bf,isSv=key=="saved",s=BSK[key],sv=qbSaved(),rds=bqRd();
+/* board + sal = 1 ta card; click korle oi board-er sob prosno ek page-e */
+function bqGcards(L,key,rds){const m=new Map();L.forEach(x=>{const k=x.y+"~"+x.b+"~"+(x.pp||0);if(!m.has(k))m.set(k,[]);m.get(k).push(x)});
+ return `<div class="bq-gg">`+[...m].map(([k,a])=>{const x=a[0],cq=a.filter(z=>z.ty=="CQ").length,mc=a.length-cq,rd=a.filter(z=>rds.includes(z.id)).length;
+  return `<a class="bq-gc" href="#/board/${key}/${encodeURIComponent(k)}"><div class="bq-gy">${qn(x.y)}</div><div class="bq-gi"><b>${x.b=="অন্যান্য"||x.b=="সকল বোর্ড"?esc(x.b):esc(x.b)+" বোর্ড"}${bqPp(x)?" · "+bqPp(x):""}</b><span>${[cq?"CQ "+qn(cq):"",mc?"MCQ "+qn(mc):""].filter(Boolean).join(" · ")} · ${qn(rd)}/${qn(a.length)} পড়া</span><div class="bq-pg"><i style="width:${Math.round(rd*100/a.length)}%"></i></div></div><span class="bq-go">›</span></a>`}).join("")+`</div>`}
+function bqList(key,A,g){const F=QB.bf,isSv=key=="saved",s=BSK[key],sv=qbSaved(),rds=bqRd();
  if(F.k!=key)Object.assign(F,{k:key,pt:"",pp:0,ty:"",ch:"",b:"",y:"",ex:""});
  const base=isSv?A.filter(x=>sv.includes(x.id)):A.filter(x=>x._k==key),two=!isSv&&s[2]==2,
  P=two?base.filter(x=>!F.pp||(x.pp||0)==F.pp):base,T=P.filter(x=>(!F.ty||x.ty==F.ty)&&(!F.pt||x._pt==F.pt)),chs=[...new Set(T.slice().sort((p,q)=>(p.chn||99)-(q.chn||99)).map(x=>x.ch).filter(Boolean))];
@@ -1033,12 +1034,16 @@ function bqList(key,A){const F=QB.bf,isSv=key=="saved",s=BSK[key],sv=qbSaved(),r
  ty=(v,l)=>`<button class="qb-ch ${F.ty==v?"on":""}" onclick="QB.bf.ty='${v}';route()">${l}</button>`,
  card=(x,n)=>{const rd=rds.includes(x.id),cq=x.ty=="CQ",pv=cq?(x.st||""):"",k=BSK[x._k];
   return `<a class="qb-c bq-c${rd?" rd":""}" href="#/board/q/${x.id}"><div class="qb-r">${n?`<span class="bq-n">${qn(n)}</span>`:""}<span class="tag cat" style="--c:#64748b">${bqLbl(x)}</span><span class="tag cat" style="--c:${cq?"#7c5cff":"#16a34a"}">${cq?"CQ":"MCQ"}</span><span class="sp"></span>${sv.includes(x.id)?'<span class="bq-s">${SVG("star",1)}</span>':""}${rd?`<span class="qb-st ok">${SVG("qck")} পড়া</span>`:""}</div><h3>${esc(x.ch||k[1])}</h3><div class="qb-m">${isSv?esc(k[1])+" · ":""}${bqPp(x)?bqPp(x)+" · ":""}${x._pt?bqPn(x._pt)+" · ":""}${esc(x.ex||EXAMS[0])} · পূর্ণমান ${qn(x.m||"")}${x.s||x.qz?"":" · সমাধান শীঘ্রই"}</div>${pv?`<p class="bq-pv">${esc(rtPlain(pv,110))}</p>`:""}</a>`};
+ if(g&&!isSv){let gv=[];try{gv=decodeURIComponent(g).split("~")}catch(e){}
+  const GL=base.filter(x=>String(x.y)==gv[0]&&x.b==gv[1]&&String(x.pp||0)==gv[2]).sort(bqSort);QB.rl=GL.map(x=>x.id);QB.rctx=key+"/"+g;
+  const x0=GL[0]||{y:gv[0],b:gv[1],pp:+gv[2]||0},tt=(x0.b=="অন্যান্য"||x0.b=="সকল বোর্ড"?esc(x0.b):esc(x0.b)+" বোর্ড")+" · "+qn(x0.y);
+  return `<div class="panel"><a class="lnk" style="text-decoration:none;display:inline-block;margin-bottom:10px" href="#/board/${key}">← সব বোর্ড ও সাল</a><h2 style="margin:0 0 2px">${tt}</h2><p class="qb-m" style="margin:0 0 12px">${esc(s[1])}${bqPp(x0)?" · "+bqPp(x0):""} · ${qn(GL.length)}টি প্রশ্ন</p>${GL.length?GL.map((x,i)=>card(x,i+1)).join(""):`<div class="qb-em">${SVG("board")}<b>কোনো প্রশ্ন নেই</b></div>`}</div>`}
  return `<div class="panel"><a class="lnk" style="text-decoration:none;display:inline-block;margin-bottom:10px" href="#/board">← সব বিষয়</a><h2 style="margin:0 0 2px">${isSv?SVG("star",1)+" Saved প্রশ্ন":esc(s[1])}</h2><p class="qb-m" style="margin:0 0 4px">${isSv?"তোমার save করা প্রশ্ন":s[2]==2?"১ম ও ২য় পত্র আলাদা":"একটি পত্র"}</p>
 ${two?`<div class="qb-chs">${tab(0,"সব")}${tab(1,"১ম পত্র")}${tab(2,"২য় পত্র")}</div>`:""}
 ${BPT[key]?bqPtRow(F):""}<div class="qb-chs">${ty("","সব ধরন")}${ty("CQ","সৃজনশীল (CQ)")}${ty("MCQ","বহুনির্বাচনি (MCQ)")}</div>
 ${chs.length?`<div class="qb-chs"><button class="qb-ch ${F.ch?"":"on"}" onclick="QB.bf.ch='';route()">সব অধ্যায়</button>${chs.map((c,i)=>`<button class="qb-ch ${F.ch==c?"on":""}" onclick="QB.bf.ch=QB.chs[${i}];route()">${esc(c)}</button>`).join("")}</div>`:""}
 <div class="qb-f">${sel("ex","পরীক্ষা",u(x=>x.ex||EXAMS[0]))}${sel("b","বোর্ড",u(x=>x.b).filter(b=>b!="সকল বোর্ড"))}${sel("y","সাল",u(x=>x.y).sort((a,b)=>b-a))}</div>
-<div class="qb-m" style="margin:2px 0 10px">${qn(L.length)}টি প্রশ্ন</div>`+(L.length?bqGrp(L,card):`<div class="qb-em">${SVG("board")}<b>কোনো প্রশ্ন নেই</b><span>${base.length?"অন্য পত্র বা অধ্যায় বাছাই করো।":isSv?"প্রশ্ন পড়ার সময় Save (star) চাপলে এখানে জমা হবে।":"এই বিষয়ের প্রশ্ন শীঘ্রই আসছে।"}</span></div>`)+"</div>"}
+<div class="qb-m" style="margin:2px 0 10px">${qn(L.length)}টি প্রশ্ন</div>`+(L.length?(isSv?L.map(x=>card(x)).join(""):bqGcards(L,key,rds)):`<div class="qb-em">${SVG("board")}<b>কোনো প্রশ্ন নেই</b><span>${base.length?"অন্য পত্র বা অধ্যায় বাছাই করো।":isSv?"প্রশ্ন পড়ার সময় Save (star) চাপলে এখানে জমা হবে।":"এই বিষয়ের প্রশ্ন শীঘ্রই আসছে।"}</span></div>`)+"</div>"}
 /* --- reader --- */
 /* MCQ-r dhoron: sadharon / bohupodi (i,ii,iii) / uddipok-bhittik */
 const qTx=q=>(q.st?`<span class="qr-stim">${rtx(q.st)}</span>`:"")+rtx(q.q)+(q.sm&&q.sm.length?`<span class="qr-sm">${q.sm.map((t,i)=>`<span><b>${["i","ii","iii","iv"][i]}.</b> ${rtx(t)}</span>`).join("")}</span>`:"");
@@ -1069,7 +1074,7 @@ function bqReader(id,A){const x=A.find(z=>z.id==id);
 <div class="qb-r" style="margin:10px 0 6px"><span class="tag cat" style="--c:#64748b">${bqLbl(x)}</span><span class="tag cat" style="--c:${x.ty=="CQ"?"#7c5cff":"#16a34a"}">${x.ty=="CQ"?"সৃজনশীল (CQ)":"বহুনির্বাচনি (MCQ)"}</span><span class="tag cat" style="--c:${GC[s[3]]}">${esc(x.ex||EXAMS[0])}</span></div>
 <h2 class="br-h">${esc(s[1])}${bqPp(x)?" · "+bqPp(x):""}${x._pt?" · "+bqPn(x._pt):""}</h2><div class="qb-m">${esc(x.ch||"")}${x.ch?" · ":""}পূর্ণমান ${qn(x.m||"")}</div><div id="brb">${bqBody(x)}</div><div class="qr-r2 br-nv">${nav(i-1,"← আগের")}${nav(i+1,"পরের →")}</div></div>`}
 function pBoard(a,b){qbLoad("boardQ");qbLoad("quiz");if(QB.bq==null)return '<div class="panel"><h2 style="margin:0 0 12px">Board Question</h2>'+qSk()+'</div>';
- const A=bqAll();if(a=="q")return bqReader(b,A);if(a=="mock")return bqMock(A);if(a=="mistakes")return bqMistakes();if(a=="saved"||BSK[a])return bqList(a,A);return bqHub(A)}
+ const A=bqAll();if(a=="q")return bqReader(b,A);if(a=="mock")return bqMock(A);if(a=="mistakes")return bqMistakes();if(a=="saved"||BSK[a])return bqList(a,A,b);return bqHub(A)}
 function qbProt(pg){const d=$("#qbwm");if(d)d.remove();const on=pg=="board"||(pg=="quiz"&&!!QB.run);  document.body.classList.toggle("prot",on);document.body.classList.toggle("qrun",!!QB.run&&location.hash=="#/quiz/"+QB.run.z.id);if(!(QB.run&&(QB.run.sheet||QB.run.sub)))document.body.style.overflow=""}
 ["copy","cut","contextmenu","dragstart"].forEach(ev=>document.addEventListener(ev,e=>{if(document.body.classList.contains("prot"))e.preventDefault()}));
 addEventListener("keydown",e=>{if(document.body.classList.contains("prot")&&(e.ctrlKey||e.metaKey)&&["p","s","c","a","u"].includes((e.key||"").toLowerCase()))e.preventDefault()});
@@ -1264,9 +1269,9 @@ const gVals=()=>({name:gv("g_name").trim(),year:gv("g_year"),dept:gv("g_dept"),e
 function gErrShow(m){const e=$("#gErr");if(e){e.textContent=m||"";e.style.display=m?"block":"none"}}
 function renderGate(v){v=v||{};if(U.mode=="verify"){renderVerify();return}const m=U.mode,cp=m=="complete",su=m=="signup",re=m=="reset",p=U.prof||{};
  const nm=v.name??p.name??"",yr=v.year??p.year??"",dp=v.dept??p.dept??"",rm=v.rem??REM();
- if(re&&U.sent){$("#gate").innerHTML=`<div class="gbox"><img class="glogo" src="logo.png" alt=""><h1>Email পাঠানো হয়েছে ${SVG("check")}</h1><p class="gs">${esc(U.sent)} ঠিকানায় Password reset link পাঠানো হয়েছে। Inbox দেখুন, না পেলে Spam folder দেখুন। Link-এ click করে নতুন Password দিন।</p><button class="btn" type="button" onclick="gMode('login')" style="width:100%;justify-content:center;margin-top:14px;padding:12px">← Login-এ ফিরে যান</button></div>`;return}
- $("#gate").innerHTML=`<div class="gbox"><img class="glogo" src="logo.png" alt=""><h1>${cp?"Profile সম্পূর্ণ করুন":re?"Password Reset "+SVG("key"):"স্বাগতম "+SVG("hand")}</h1><p class="gs">${cp?(isFreshG(U.user)?"Account চালু করতে আপনার নাম, Year ও Department দিন":"আপনার Year ও Department select করুন"):re?"আপনার Account-এর Email দিন, Password reset করার link পাঠানো হবে":su?"Account খুলে আপনার Year ও Department-এর update দেখুন":"Email ও Password দিয়ে Login করুন"}</p>${cp&&U.user?`<div class="gacc">${isG(U.user)?GSVG:SVG("mail")}<span>${esc(U.user.email||p.email||"")}</span><em>${SVG("check")} Connected</em></div>`:""}${cp||re?"":`<div class="gchips"><span>${SVG("notice")} Notice</span><span>${SVG("routine")} Routine</span><span>${SVG("result")} Result</span></div>`}
- ${cp||re?"":`<div class="gtabs" data-m="${su?"signup":"login"}"><button type="button" class="${su?"":"on"}" onclick="gMode('login')">Login</button><button type="button" class="${su?"on":""}" onclick="gMode('signup')">Sign up</button></div>`}
+ if(re&&U.sent){gPaint(`<div class="gbox"><img class="glogo" src="logo.png" alt=""><h1>Email পাঠানো হয়েছে ${SVG("check")}</h1><p class="gs">${esc(U.sent)} ঠিকানায় Password reset link পাঠানো হয়েছে। Inbox দেখুন, না পেলে Spam folder দেখুন। Link-এ click করে নতুন Password দিন।</p><button class="btn" type="button" onclick="gMode('login')" style="width:100%;justify-content:center;margin-top:14px;padding:12px">← Login-এ ফিরে যান</button></div>`);return}
+ gPaint(`<div class="gbox"><img class="glogo" src="logo.png" alt=""><h1>${cp?"Profile সম্পূর্ণ করুন":re?"Password Reset "+SVG("key"):"স্বাগতম "+SVG("hand")}</h1><p class="gs">${cp?(isFreshG(U.user)?"Account চালু করতে আপনার নাম, Year ও Department দিন":"আপনার Year ও Department select করুন"):re?"আপনার Account-এর Email দিন, Password reset করার link পাঠানো হবে":su?"Account খুলে আপনার Year ও Department-এর update দেখুন":"Email ও Password দিয়ে Login করুন"}</p>${cp&&U.user?`<div class="gacc">${isG(U.user)?GSVG:SVG("mail")}<span>${esc(U.user.email||p.email||"")}</span><em>${SVG("check")} Connected</em></div>`:""}${cp||re?"":`<div class="gchips"><span>${SVG("notice")} Notice</span><span>${SVG("routine")} Routine</span><span>${SVG("result")} Result</span></div>`}
+ ${cp||re?"":`<div class="gtabs" data-m="${su?"signup":"login"}"><button type="button" class="${su?"":"on"}" aria-pressed="${!su}" onclick="gMode('login')">Login</button><button type="button" class="${su?"on":""}" aria-pressed="${su}" onclick="gMode('signup')">Sign up</button></div>`}
  <form id="gForm" onsubmit="gSubmit(event)">
  ${su||cp?`<label>Name${su||cp?" *":""}</label><div class="gi">${SVG("user")}<input id="g_name" maxlength="80" ${su||cp?"required":""} autocomplete="name" placeholder="আপনার নাম" value="${esc(nm)}"></div>
  <div class="two"><div><label>Year *</label><select id="g_year" required><option value="">Select</option>${opts(YEARS,yr)}</select></div><div><label>Department *</label><select id="g_dept" required><option value="">Select</option>${opts(DEPTS,dp)}</select></div></div>`:""}
@@ -1275,9 +1280,33 @@ function renderGate(v){v=v||{};if(U.mode=="verify"){renderVerify();return}const 
  <div class="gerr" id="gErr"></div>
  <button class="btn" id="g_btn">${cp?"Continue →":su?"Account খুলুন →":re?"Reset link পাঠান →":"Login →"}</button></form>
  ${cp||re?"":`<div class="gdiv"><span>অথবা</span></div><button type="button" class="gg" id="g_google" onclick="gGoogle()">${GSVG}<span>Google দিয়ে ${su?"Sign up":"Login"} করুন</span></button>`}
- <div class="gfoot">${cp?(isFreshG(U.user)?'<button type="button" class="lnk" id="g_cancel" onclick="cancelSetup()">বাতিল করুন — Account তৈরি হবে না</button>':'<button type="button" class="lnk" onclick="logout()">Log out</button>'):re?'<button type="button" class="lnk" onclick="gMode(\'login\')">← Login-এ ফিরে যান</button>':""}</div></div>`}
+ <div class="gfoot">${cp?(isFreshG(U.user)?'<button type="button" class="lnk" id="g_cancel" onclick="cancelSetup()">বাতিল করুন — Account তৈরি হবে না</button>':'<button type="button" class="lnk" onclick="logout()">Log out</button>'):re?'<button type="button" class="lnk" onclick="gMode(\'login\')">← Login-এ ফিরে যান</button>':""}</div></div>`)}
 function showGate(mode){U.mode=mode||"login";renderGate();gated(true);paintMe();scrollTo(0,0)}
-function gMode(m){const v=gVals();if(!v.email&&U.sent)v.email=U.sent;U.mode=m;U.sent=null;renderGate(v)}
+/* The auth page shell (brand + card + note) is created once; only the card inside .gform is re-rendered,
+   so mode switches can animate instead of rebuilding the whole page. */
+const GSHELL='<div class="gshell"><div class="gtop"><img src="logo.png" alt=""><div><b>MCUN</b><span>Mirpur College Updates &amp; Notices</span></div></div><div class="gform" id="gform"></div><p class="gnote">নিজের Year ও Department-এর Notice, Routine ও Result এক জায়গায়</p></div>';
+function gPaint(h){const g=$("#gate");let f=g.querySelector(".gform");if(!f){g.innerHTML=GSHELL;f=g.querySelector(".gform")}f.innerHTML=h}
+/* Login <-> Sign up: the pill glides, the new fields slide in from the side of the tab you pressed,
+   and the card eases to its new height. Skipped for reduced-motion users. */
+function gSwap(a,b,h0){
+ const box=$("#gate .gbox");
+ if(!box||a===b||!box.animate||(window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches))return;
+ const tabs=box.querySelector(".gtabs"),sw=x=>x=="login"||x=="signup";
+ if(tabs&&sw(a)&&sw(b)){ // start the pill (and the label colours) on the old tab, then flip to the new one
+  const bt=tabs.querySelectorAll("button");tabs.dataset.m=a;bt[0].classList.toggle("on",a=="login");bt[1].classList.toggle("on",a=="signup");
+  void tabs.offsetWidth;
+  tabs.dataset.m=b;bt[0].classList.toggle("on",b=="login");bt[1].classList.toggle("on",b=="signup");
+ }
+ const dir=b=="login"?-1:1,form=box.querySelector("form"),
+  items=[...box.children].filter(e=>e!==tabs&&e!==form&&e.tagName!="IMG").concat(form?[...form.children]:[]);
+ items.forEach((el,i)=>el.animate([{opacity:0,transform:"translateX("+30*dir+"px)"},{opacity:1,transform:"none"}],{duration:440,delay:Math.min(i,8)*32,easing:"cubic-bezier(.2,.8,.2,1)",fill:"backwards"}));
+ const h1=box.offsetHeight;
+ if(h0&&Math.abs(h1-h0)>2){box.style.overflow="hidden";const an=box.animate([{height:h0+"px"},{height:h1+"px"}],{duration:420,easing:"cubic-bezier(.2,.8,.2,1)"});
+  an.onfinish=an.oncancel=()=>{box.style.overflow=""}}
+}
+function gMode(m){const v=gVals();if(!v.email&&U.sent)v.email=U.sent;
+ const old=$("#gate .gbox"),h0=old?old.offsetHeight:0,from=U.mode;
+ U.mode=m;U.sent=null;renderGate(v);gSwap(from,m,h0)}
 function pwMeter(v){const L=v.length,sc=!L?0:Math.min(4,(L>=6)+(L>=10)+(/[a-z]/i.test(v)&&/\d/.test(v))+(/[A-Z]|[^\w\s]/.test(v))),i=$("#pwi"),h=$("#pwh");if(!i||!h)return;
  const C=["#e5484d","#e5484d","#f59e0b","#84cc16","#16a34a"],T=["Password-এ অক্ষর, সংখ্যা ও চিহ্ন মেশান","দুর্বল","মোটামুটি","ভালো","শক্তিশালী"];
  i.style.width=sc*25+"%";i.style.background=C[sc];h.textContent=T[sc];h.style.color=sc?C[sc]:""}
@@ -1456,13 +1485,13 @@ async function startVerify(user,pend){U.user=user;U.pend=pend||{};if(pend&&(pend
  U.mode="verify";U.sent=null;V.state="idle";V.resendAt=0;V.expAt=0;renderVerify();gated(true);paintMe();scrollTo(0,0);vSend(false)}
 const OTPB=()=>Array.from({length:6},(_,i)=>`<input class="oi" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="${i?"off":"one-time-code"}" aria-label="Digit ${i+1}">`).join("");
 function renderVerify(){const em=(U.user&&U.user.email)||"";
- $("#gate").innerHTML=`<div class="gbox vbox"><img class="glogo" src="logo.png" alt=""><h1>Email যাচাই করুন ${SVG("mail")}</h1>
+ gPaint(`<div class="gbox vbox"><img class="glogo" src="logo.png" alt=""><h1>Email যাচাই করুন ${SVG("mail")}</h1>
  <p class="gs">আমরা <b>${esc(maskEmail(em))}</b> ঠিকানায় ৬ সংখ্যার একটি Verification Code পাঠিয়েছি। Inbox দেখুন, না পেলে Spam folder-ও দেখুন।</p>
  <div class="vstage" id="vStage" data-s="idle"><div class="otp" id="otp">${OTPB()}</div><div class="vres" id="vRes" aria-live="polite"></div></div>
  <div class="gerr" id="vErr"></div><div class="vinfo" id="vInfo"></div><div class="vexp" id="vExp"></div>
  <button class="btn" id="v_btn" type="button" onclick="vSubmit()" disabled>Verify করুন →</button>
  <div class="vrow"><span>Code পাননি?</span><button type="button" class="lnk" id="v_resend" onclick="vResend()" disabled>Resend code <b id="vTimer"></b></button></div>
- <div class="gfoot"><button type="button" class="lnk" onclick="cancelVerify()">← ভুল email? আবার শুরু করুন</button></div></div>`;
+ <div class="gfoot"><button type="button" class="lnk" onclick="cancelVerify()">← ভুল email? আবার শুরু করুন</button></div></div>`);
  wireOtp();vTick();clearInterval(V.iv);V.iv=setInterval(vTick,1000);setTimeout(()=>{const f=$(".oi");f&&f.focus()},80)}
 const otpEls=()=>[...document.querySelectorAll(".oi")];
 const otpCode=()=>otpEls().map(e=>e.value).join("");

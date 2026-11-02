@@ -81,7 +81,7 @@ function ensure(){if(!T(()=>U.prof,null))return;T(()=>{qbLoad('boardQ');qbLoad('
  if((QB.bq==null||QB.qz==null)&&!pl){pl=1;let k=0;const t=setInterval(()=>{if((QB.bq!=null&&QB.qz!=null)||++k>24){clearInterval(t);pl=0;if(['','home','hub','lib'].includes(hp()[0])||(hp()[0]==='profile'&&!PF.ed))T(()=>route())}},500)}}
 const fd=ts=>new Date(ts).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
 /* ---------- hero cards: pure CSS / typography, no images. Each page has its own theme (hx-<name>) ---------- */
-const HX=(k,o)=>`<section class="hx hx-${k}"><div class="hx-deco" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="hx-main">${o.eye?`<span class="hx-eye">${P(o.ic)}${o.eye}</span>`:''}<h1>${o.t}</h1><p>${o.p}</p>${o.cta||''}</div>${o.side?`<div class="hx-side">${o.side}</div>`:''}<div class="hx-art" aria-hidden="true">${T(()=>window.mcArt(k),'')}</div></section>`;
+const HX=(k,o)=>`<section class="hx hx-${k}"><div class="hx-deco" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="hx-main">${o.eye?`<span class="hx-eye">${P(o.ic)}${o.eye}</span>`:''}<h1>${o.t}</h1><p>${o.p}</p>${o.cta||''}</div>${o.side?`<div class="hx-side">${o.side}</div>`:''}</section>`;
 
 const hxDate=(n,nx)=>{const d=new Date();return `<div class="hx-date"><small>${d.toLocaleDateString('en-GB',{weekday:'long'})}</small><b>${d.getDate()}</b><span>${d.toLocaleDateString('en-GB',{month:'long',year:'numeric'})}</span></div><div class="hx-pills"><span>${P(IC.bell)}${n} active notice${n===1?'':'s'}</span>${nx?`<span>${P(IC.cal)}Next: ${E(String(nx.t).slice(0,22))}${String(nx.t).length>22?'&hellip;':''}</span>`:''}</div>`};
 const hxLegend=()=>{const L=T(()=>Object.keys(CATS).map(k=>[CATS[k],S.posts.filter(x=>x.cat===k&&vis(x)&&!isExp(x)).length]),[]);return `<div class="hx-legend">${L.map(c=>`<span style="--c:${c[0].c}"><i></i>${E(c[0].n)}<b>${c[1]}</b></span>`).join('')}</div>`};
@@ -137,7 +137,7 @@ function noticesHTML(){
   .map(t=>`<button type="button" class="mcn-tab${cat===t[0]?' on':''}" onclick="mcCat(${t[0]?`'${t[0]}'`:'null'})">${P(t[2])}${t[1]}</button>`).join('');
  const rows=sl.map(p=>{const c=T(()=>CATS[p.cat],{n:'Notice',c:'#2563eb'}),cv=T(()=>p.cover&&ok(p.cover.url),false),na=T(()=>cnt(p),0),ex=String(p.body||'').replace(/\s+/g,' ').slice(0,150);
   return `<article class="mcn-row" style="--c:${c.c}" onclick="openPost('${E(p.id)}')"><span class="mcn-bar"></span>
-  <div class="mcn-th">${cv?`<img src="${E(p.cover.url)}" alt="" loading="lazy">`:T(()=>window.mcCover(p.cat),P(CI[p.cat]||IC.upd))}</div>
+  <div class="mcn-th">${P(CI[p.cat]||IC.upd)}</div>
   <div class="mcn-b"><div class="mcn-tg"><em>${E(c.n)}</em>${T(()=>dlBadge(p),'')}</div><h3>${HL(p.title)}</h3><p>${HL(ex)}</p>
   <div class="mcn-m"><span>${P(IC.cal)}${p.ts?fd(p.ts):''}</span>${p.views!=null?`<span>${P(IC.eye)}${KF(+p.views||0)} views</span>`:''}${na?`<span>${P(IC.file)}${na} attachment</span>`:''}</div></div>
   <span class="mcn-vd">View Details ${P(IC.arr)}</span></article>`}).join('')||`<p class="mcd-em" style="padding:22px 6px">${exp?'No expired updates.':'No updates found.'}</p>`;

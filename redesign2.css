@@ -1,7 +1,7 @@
 /* MCUN redesign layer v3. Loaded AFTER redesign.css. Four jobs:
    1) every feature page + its side cards stack top-to-bottom in one responsive column
    2) hero banners and post cards carry illustrations (art.js) instead of bare gradients
-   3) new split-screen authentication page
+   3) centred authentication card with an animated Login / Sign up switch
    4) categories live in the sidebar dropdown (drawer on phone/tablet), so pages no longer repeat them */
 
 :root{--col:1040px;--gap:16px}
@@ -96,60 +96,65 @@
 .mcn-row .mcn-th{background:color-mix(in srgb,var(--c) 12%,var(--card))}
 
 /* =====================================================================
-   3) AUTHENTICATION PAGE: split screen
+   3) AUTHENTICATION PAGE: one centred card, no illustration.
+   The shell (brand + card + note) is painted once by gPaint() in index.html; only the
+   card's content is re-rendered, so the Login <-> Sign up switch can animate (gSwap).
    ===================================================================== */
-#gate{display:none;padding:0!important;align-items:stretch;justify-content:stretch;background:var(--bg)}
-html.gated #gate{display:flex}
-#gate::before,#gate::after{display:none!important}
-.gshell{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);width:100%;min-height:100vh;min-height:100dvh}
+#gate{display:none;position:relative;isolation:isolate;overflow:hidden;min-height:100vh;min-height:100dvh;padding:0!important;background:var(--bg)}
+html.gated #gate{display:flex;align-items:center;justify-content:center}
+/* quiet backdrop: a brand wash at the top and a fading dot grid */
+#gate::before{content:"";display:block!important;position:absolute;inset:0;width:auto;height:auto;left:0;top:0;z-index:-1;border-radius:0;filter:none;opacity:1;animation:none;
+  background:radial-gradient(60% 42% at 50% 0%,color-mix(in srgb,var(--pri) 15%,transparent),transparent 72%),
+             radial-gradient(color-mix(in srgb,var(--ink) 13%,transparent) 1px,transparent 1.3px) 0 0/22px 22px;
+  -webkit-mask-image:linear-gradient(#000 35%,transparent 92%);mask-image:linear-gradient(#000 35%,transparent 92%)}
+#gate::after{display:none!important}
 
-/* left: brand panel */
-.gart{position:relative;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;justify-content:space-between;gap:28px;
-  padding:clamp(28px,5vw,60px);color:#fff;background:linear-gradient(150deg,#0a1f6e 0%,#1d3fa8 52%,#2f6df0 100%)}
-.gart::before{content:"";position:absolute;inset:0;z-index:-2;background:var(--hx-img,none) center/cover;opacity:.3;mix-blend-mode:soft-light}
-.gart::after{content:"";position:absolute;z-index:-1;inset:auto -120px -160px auto;width:420px;height:420px;border-radius:50%;border:2px solid rgba(255,255,255,.12);box-shadow:0 0 0 60px rgba(255,255,255,.04),0 0 0 130px rgba(255,255,255,.03)}
-.gbrand{display:flex;align-items:center;gap:14px}
-.gbrand img{width:54px;height:54px;border-radius:50%;background:#fff;object-fit:cover;box-shadow:0 0 0 3px rgba(255,255,255,.25)}
-.gbrand b{display:block;font-size:20px;letter-spacing:.04em;line-height:1.1}
-.gbrand span{display:block;font-size:12.5px;opacity:.8;margin-top:2px}
-.gpitch h2{margin:0 0 10px;font-size:clamp(26px,3.2vw,40px);line-height:1.2;font-weight:800;letter-spacing:-.01em;color:#fff}
-.gpitch p{margin:0;max-width:430px;color:rgba(255,255,255,.88);font-size:15.5px}
-.gfeat{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-direction:column;gap:10px;max-width:440px}
-.gfeat li{display:flex;align-items:center;gap:13px;padding:11px 15px;border-radius:16px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);font-weight:600;font-size:14px;line-height:1.4}
-.gfeat li>i{flex:none;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:#fbbf24;color:#1c1917}
-.gfeat li>i .ico{width:19px;height:19px}
-.gfeat small{display:block;font-weight:500;color:rgba(255,255,255,.82);font-size:12.5px}
-.gart .art-auth{flex:1 1 auto;width:100%;min-height:150px;max-height:330px;height:auto;margin:-6px 0;pointer-events:none}
+.gshell{position:relative;width:100%;max-width:476px;padding:clamp(20px,5vh,52px) 16px;display:flex;flex-direction:column;gap:20px;animation:gin .55s cubic-bezier(.2,.8,.2,1) both}
+.gtop{display:flex;align-items:center;gap:12px;padding:0 4px}
+.gtop img{width:46px;height:46px;border-radius:50%;background:#fff;object-fit:cover;flex:none;box-shadow:0 0 0 3px var(--card),0 10px 22px -10px color-mix(in srgb,var(--pri) 70%,#000)}
+.gtop b{display:block;font-size:19px;line-height:1.1;letter-spacing:.03em;color:var(--ink)}
+.gtop span{display:block;margin-top:2px;font-size:12.5px;color:var(--mute)}
+.gnote{margin:0;padding:0 6px;text-align:center;font-size:12.5px;line-height:1.6;color:var(--mute)}
 
-/* right: form */
-.gform{display:flex;align-items:center;justify-content:center;padding:clamp(22px,4vw,48px);background:var(--bg);min-width:0}
-.gshell .gbox{width:100%;max-width:440px;margin:0;padding:0;background:none;border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:0;text-align:left}
+.gform{width:100%;min-width:0}
+.gshell .gbox{position:relative;width:100%;max-width:none;box-sizing:border-box;margin:0;padding:30px 28px 24px;text-align:left;
+  background:var(--card);border:1px solid var(--line);border-radius:24px;animation:none;
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+  box-shadow:0 30px 60px -36px color-mix(in srgb,var(--pri) 55%,#000),0 2px 6px -2px rgba(15,23,42,.08)}
 .gshell .gbox::before{display:none}
-.gshell .glogo{display:none;margin:0 0 12px;animation:none}
-.gshell .gbox h1{text-align:left;font-size:28px;margin:0 0 6px;letter-spacing:-.02em}
-.gshell .gs{text-align:left;font-size:14.5px;margin:0 0 18px}
+.gshell .glogo{display:none;animation:none}
 .gshell .gchips{display:none}
-.gshell .gtabs{margin-bottom:10px}
+.gshell .gbox h1{text-align:left;font-size:26px;margin:0 0 6px;letter-spacing:-.02em}
+.gshell .gs{text-align:left;font-size:14.5px;line-height:1.6;margin:0 0 20px}
 .gshell .gbox label{font-weight:700;font-size:13px}
-.gshell .gbox input,.gshell .gbox select{background:var(--card)}
+.gshell .gbox input,.gshell .gbox select{background:var(--bg)}
 .gshell .gbox .btn{height:54px;font-size:15.5px}
+.gshell .gbox .btn::after{display:none}   /* no looping shine: motion is kept for the switch */
 .gshell .gfoot{text-align:center}
+
+/* Login / Sign up switch: a solid pill that glides under the active label */
+.gshell .gtabs{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:0;padding:4px;margin:0 0 20px;border-radius:15px;background:var(--bg);border:1px solid var(--line)}
+.gshell .gtabs::before{content:"";position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);border-radius:11px;background:linear-gradient(135deg,var(--pri),var(--pri2));
+  box-shadow:0 10px 18px -10px color-mix(in srgb,var(--pri) 90%,#000);transform:none;transition:transform .46s cubic-bezier(.65,0,.2,1)}
+.gshell .gtabs[data-m="signup"]::before{transform:translateX(100%)}
+.gshell .gtabs button,.gshell .gtabs button.on{position:relative;z-index:1;height:42px;padding:0;border-radius:11px;background:none;box-shadow:none;font-weight:700;font-size:14.5px;color:var(--mute);transition:color .3s .06s}
+.gshell .gtabs button.on{color:#fff}
+.gshell .gtabs button:focus-visible{outline:2px solid var(--pri);outline-offset:2px}
+
+/* verify screen keeps its centred look and logo */
 .gshell .vbox{text-align:center}
 .gshell .vbox h1,.gshell .vbox .gs{text-align:center}
-.gshell .vbox .glogo{display:block;margin-inline:auto}
+.gshell .vbox .glogo{display:block;margin:0 auto 12px}
 
-/* phone + tablet: brand panel becomes a compact header above the form */
-@media(max-width:899px){
-  .gshell{grid-template-columns:1fr;min-height:0}
-  .gart{padding:22px 20px 24px;gap:14px;flex-direction:column}
-  .gpitch h2{font-size:22px;margin-bottom:6px}
-  .gpitch p{font-size:13.5px}
-  .gfeat{display:none}
-  .gart .art-auth{display:none}
-  .gform{padding:24px 18px 36px;align-items:flex-start}
+/* phones: card sits near the top so the keyboard does not hide it */
+@media(max-width:560px){
+  html.gated #gate{align-items:flex-start}
+  .gshell{padding:18px 12px 32px;gap:16px}
+  .gshell .gbox{padding:24px 18px 20px;border-radius:22px}
   .gshell .gbox h1{font-size:24px}
 }
-@media(max-width:380px){.gbrand span{display:none}}
+@media(max-height:760px) and (min-width:561px){html.gated #gate{align-items:flex-start}}
+@media(prefers-reduced-motion:reduce){.gshell{animation:none}.gshell .gtabs::before{transition:none}}
 
 /* =====================================================================
    4) SIDEBAR AS DROPDOWN DRAWER (phones and tablets) + header menu button
@@ -194,3 +199,44 @@ html.gated #gate{display:flex}
 
 /* stacked cards: let wide text breathe */
 .mch-tip{min-height:0}.mch-tip p{max-width:min(100%,560px)}
+
+
+/* =====================================================================
+   v5: hero banners + cards WITHOUT images, compact layout
+   ===================================================================== */
+.hx-art,.fart,.cvart,.cvr,.card>img{display:none!important}
+.hx{flex-direction:row!important;align-items:center!important;justify-content:space-between!important;gap:20px!important;min-height:0!important;padding:22px 28px!important;border-radius:20px!important}
+.hx-main{max-width:min(520px,56%)!important}
+.hx h1{font-size:clamp(22px,2.3vw,29px)!important;margin-bottom:4px!important}
+.hx p{font-size:14px!important;margin-bottom:12px!important;max-width:430px}
+.hx-eye{margin-bottom:10px!important;padding:5px 11px!important;font-size:11px!important}
+.hx .mcd-cta{padding:9px 18px!important;font-size:14px!important}
+.hx-side{flex:none!important;flex-direction:column!important;flex-wrap:nowrap!important;align-items:flex-end!important;gap:10px!important;max-width:44%!important}
+.hx-pills{justify-content:flex-end!important;gap:6px}.hx-pills span{padding:5px 11px;font-size:12px}
+.hx-date{flex-direction:column!important;align-items:center!important;gap:0!important;min-width:112px!important;padding:10px 16px!important;border-radius:18px!important}
+.hx-date small{order:0!important;font-size:11px}.hx-date b{font-size:36px!important;margin:2px 0!important}.hx-date span{font-size:12px}
+.hx-legend{grid-template-columns:repeat(2,minmax(112px,1fr))!important;width:auto!important;gap:6px!important}.hx-legend span{padding:6px 11px;font-size:12px}
+.hx-steps{flex-direction:column!important;flex-wrap:nowrap!important;min-width:200px!important;gap:6px!important}.hx-steps li{padding:6px 14px 6px 6px;font-size:13px}.hx-steps b{width:28px;height:28px;font-size:12px}
+.hx-steps li:nth-child(2){margin-left:14px!important}.hx-steps li:nth-child(3){margin-left:28px!important}
+.hx-unread{width:84px;height:84px}.hx-unread b{font-size:30px}
+.hx-types span{padding:6px 11px;font-size:11.5px}
+.hx-note{padding:10px 16px}.hx-note span{font-size:14px}.hx-note b{font-size:20px}
+.hx-id{min-width:0!important;padding:11px 15px!important}.hx-id i{width:50px;height:50px;font-size:22px}
+@media(max-width:859px){
+ .hx{flex-direction:column!important;align-items:flex-start!important;padding:18px 18px!important;gap:12px!important}
+ .hx-main,.hx-side{max-width:none!important;width:100%}
+ .hx-side{flex-direction:row!important;flex-wrap:wrap!important;align-items:center!important;justify-content:flex-start}
+ .hx-pills{justify-content:flex-start!important}
+ .hx-date{flex-direction:row!important;align-items:baseline!important;gap:8px!important;padding:6px 14px!important;min-width:0!important}.hx-date b{font-size:24px!important;margin:0!important}.hx-date small{order:-1!important}
+ .hx-steps{flex-direction:row!important;flex-wrap:wrap!important;min-width:0!important}.hx-steps li:nth-child(n){margin:0!important}
+ .hx-legend{width:100%!important}
+}
+/* cards: icon tile instead of picture */
+.mcn-row{grid-template-columns:auto 52px 1fr auto!important;gap:14px!important;padding:14px 4px!important}
+.mcn-th{width:52px!important;height:52px!important;border-radius:14px!important}.mcn-th svg{width:25px!important;height:25px!important}
+.card{border-top:3px solid var(--c)}
+.card .cb{padding-top:14px}
+@media(max-width:699px){.mcn-row{grid-template-columns:auto 44px 1fr!important;gap:10px!important}.mcn-th{width:44px!important;height:44px!important;border-radius:12px!important}.mcn-th svg{width:21px!important;height:21px!important}}
+/* a bit smaller everywhere on desktop */
+.mcd-st{padding:12px 16px!important}.mcd-st b{font-size:24px}
+.mcd-box,.mc-box,.mcp-card{padding:16px 18px}

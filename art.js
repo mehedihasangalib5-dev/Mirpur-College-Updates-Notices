@@ -1,4 +1,4 @@
-/* MCUN illustration kit: inline SVG scenes for hero banners, post-card covers and the auth page.
+/* MCUN illustration kit: inline SVG scenes for hero banners, and post-card covers.
    No external images, so it works offline and never breaks. Everything is themed with CSS variables
    (--a = accent, --b = secondary) so each page/category can recolour the same scene.
    Want a real college photo instead? Set  .hx{--hx-img:url(/college.jpg)}  in CSS (see redesign2.css). */
@@ -96,14 +96,4 @@
   window.mcCover = (cat) =>
     `<svg class="cvart" viewBox="0 0 240 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid slice">${bgDots}<circle cx="200" cy="150" r="70" fill="var(--c)" opacity=".1"/><circle cx="26" cy="20" r="46" fill="var(--c)" opacity=".08"/>${COVER[cat] || COVER.notice}</svg>`;
 
-  /* auth page: large campus scene */
-  window.mcAuthArt = () =>
-    S('0 0 520 420', `
-      <circle cx="400" cy="90" r="54" fill="#fbbf24" opacity=".95"/><circle cx="400" cy="90" r="84" fill="none" stroke="#fff" opacity=".16" stroke-width="2"/>
-      <path d="M60 110c20-16 46-16 66 0-10 16-56 16-66 0zM250 60c16-12 36-12 52 0-8 12-44 12-52 0z" fill="#fff" opacity=".2"/>
-      ${building(90, 140, 1.15)}
-      <g transform="translate(40 300)"><path d="M0 60 40 0l40 60z" fill="#16a34a"/><path d="M12 80 40 28l28 52z" fill="#22c55e"/><rect x="36" y="76" width="8" height="26" fill="#78350f"/></g>
-      <g transform="translate(430 312)"><path d="M0 60 36 4l36 56z" fill="#16a34a"/><rect x="32" y="56" width="8" height="26" fill="#78350f"/></g>
-      <path d="M0 378c110-22 220-22 330 0s140 12 190-6V420H0z" fill="rgba(255,255,255,.16)"/>
-      <path d="M0 398c120-16 240-16 340 0s120 8 180 0V420H0z" fill="rgba(255,255,255,.22)"/>`, 'art art-auth');
 })();

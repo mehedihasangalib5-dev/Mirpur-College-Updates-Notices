@@ -95,3 +95,21 @@ footer.ft .ft-dev{display:inline-flex;align-items:center;gap:6px}
 .bd-gh span{font-size:12px;padding:2px 10px;border-radius:99px;background:rgba(255,255,255,.18)}
 .bd-g .qb-row{padding:10px 14px;margin:0;border:0;border-top:1px solid var(--line);border-radius:0}
 .bd-g .qb-row:first-of-type{border-top:0}
+
+/* =====================================================================
+   v5: admin - no hero images, cards stacked one under another, compact
+   ===================================================================== */
+.dx-bb,.cm-hero-art,.dx-bl,.cm-hero-sc,.dx-bq{display:none!important}
+.dx-ban,.cm-hero,.ahero,.ahero.dl-hero{min-height:0!important;padding:18px 26px!important;border-radius:18px!important;gap:16px!important}
+.dx-bt h1,.cm-hero-t h1,.ahero h1.pt{font-size:clamp(22px,2.3vw,29px)!important;margin-bottom:3px!important}
+.dx-bt p,.cm-hero-t p,.ahero p.sub{font-size:14px!important;max-width:520px}
+.cm-hero-ic,.nm-ic{width:54px!important;height:54px!important}
+.ahs{min-width:104px!important;padding:8px 14px!important}.ahs b{font-size:34px!important}
+
+/* every card group: one card per row */
+.dx-stats,.dx-r2,.dx-r3,.dx-tl,.ah-st-g,.ah-cols,.ah-low,.ah-low3,.ah-side,.cm-stats,.cm-grid,.cm-low,.dl-sts,.dl-cols,.dl-side,
+.adm,.two,.g2,.scs,.cgrid,.nm-cg,.cats,.grid{grid-template-columns:minmax(0,1fr)!important}
+.dx-stats,.ah-st-g,.cm-stats,.dl-sts,.scs{gap:10px!important}
+.dx-r2,.dx-r3,.ah-cols,.ah-low,.ah-low3,.cm-grid,.cm-low,.dl-cols,.adm,.cgrid,.g2,.two{gap:16px!important}
+.cm-grid>*,.dl-cols>*,.ah-cols>*,.adm>*,.cgrid>*,.dx-r2>*,.dx-r3>*{position:static!important;top:auto!important}
+.cm-qa{grid-template-columns:repeat(2,minmax(0,1fr))!important}

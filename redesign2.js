@@ -6,7 +6,6 @@
   'use strict';
   const R = document.documentElement;
   const $ = (s) => document.querySelector(s);
-  const ico = (k) => { try { return typeof SVG === 'function' ? SVG(k) : ''; } catch (e) { return ''; } };
 
   /* ---------------- drawer ---------------- */
   function drawer(open) {
@@ -46,42 +45,6 @@
   addEventListener('hashchange', () => drawer(false));
   const mq = matchMedia('(min-width:1024px)');
   (mq.addEventListener ? mq.addEventListener.bind(mq, 'change') : mq.addListener.bind(mq))((e) => { if (e.matches) drawer(false); });
-
-  /* ---------------- auth: split screen ---------------- */
-  const AUTH_ART = () => `
-  <aside class="gart">
-    <div class="gbrand"><img src="logo.png" alt=""><div><b>MCUN</b><span>Mirpur College Updates &amp; Notices</span></div></div>
-    <div class="gpitch">
-      <h2>কলেজের সব আপডেট, এক জায়গায়</h2>
-      <p>নোটিশ, রুটিন, রেজাল্ট আর প্র্যাকটিস কুইজ। Login করে নিজের Year ও Department-এর আপডেট দেখুন।</p>
-      <ul class="gfeat">
-        <li><i>${ico('notice')}</i><div>নতুন নোটিশ সবার আগে<small>Notice, Routine ও Result পাবেন নোটিফিকেশনে</small></div></li>
-        <li><i>${ico('cap')}</i><div>Quiz ও Board Question<small>নিজের গতিতে প্র্যাকটিস করুন</small></div></li>
-        <li><i>${ico('chart')}</i><div>Progress ট্র্যাক করুন<small>প্রতিটি Quiz-এর ফলাফল ও দুর্বল বিষয়</small></div></li>
-      </ul>
-    </div>
-    ${typeof window.mcAuthArt === 'function' ? window.mcAuthArt() : ''}
-  </aside>`;
-
-  function wrapGate() {
-    const g = $('#gate');
-    if (!g) return;
-    const box = g.querySelector(':scope > .gbox');
-    if (!box) return; // already wrapped, or empty
-    const shell = document.createElement('div');
-    shell.className = 'gshell';
-    shell.innerHTML = AUTH_ART();
-    const form = document.createElement('div');
-    form.className = 'gform';
-    form.appendChild(box);
-    shell.appendChild(form);
-    g.appendChild(shell);
-  }
-  const g = $('#gate');
-  if (g) {
-    new MutationObserver(wrapGate).observe(g, { childList: true });
-    wrapGate();
-  }
 
   /* header is rebuilt by redesign.js on route changes: make sure the menu button survives */
   const app = $('#app');

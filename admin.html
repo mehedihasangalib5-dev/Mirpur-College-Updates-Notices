@@ -405,6 +405,17 @@ footer a{color:#ffd9f0}
 @media(max-width:899px){.nv.on{box-shadow:none}}
 @media(min-width:1100px){.side-f .cats::before{color:var(--pri)}}
 /* ===================== /COLORFUL ===================== */
+
+/* ---- admin login: single centred card, no side panel / illustration ---- */
+.auth{grid-template-columns:1fr!important;max-width:460px!important;margin:clamp(18px,6vh,64px) auto 40px;border-radius:24px;overflow:visible;background:var(--card);border:1px solid var(--line);box-shadow:0 30px 60px -36px color-mix(in srgb,var(--pri) 55%,#000),0 2px 6px -2px rgba(15,23,42,.08);animation:authin .5s cubic-bezier(.2,.8,.2,1) both}
+.auth-card{padding:30px 28px 26px}
+.auth-top{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.auth-top img{width:46px;height:46px;border-radius:50%;object-fit:cover;background:#fff;flex:none;box-shadow:0 0 0 3px var(--card),0 10px 22px -10px color-mix(in srgb,var(--pri) 70%,#000)}
+.auth-top b{display:block;font-size:18px;line-height:1.15;letter-spacing:.02em}.auth-top span{display:block;margin-top:2px;font-size:12.5px;color:var(--mute)}
+.auth-h{font-size:26px;margin:0 0 6px;letter-spacing:-.02em}.auth-sub{margin:0 0 20px;color:var(--mute);font-size:14.5px;line-height:1.6}
+@keyframes authin{from{opacity:0;transform:translateY(14px)}}
+@media(max-width:560px){.auth{margin:14px 12px 30px;border-radius:22px}.auth-card{padding:24px 18px 20px}.auth-h{font-size:24px}}
+@media(prefers-reduced-motion:reduce){.auth{animation:none}}
 </style><script src="rich.js"></script><link rel="stylesheet" href="admin-redesign.css"><link rel="stylesheet" href="admin-dash.css"><link rel="stylesheet" href="admin-downloads.css"><link rel="stylesheet" href="admin-comm.css"></head><body>
 <header><div class="wrap nav"><a class="logo" href="admin.html"><img src="/logo.png" onerror="this.onerror=null;this.src=LOGO_FB" alt="Logo">Admin Panel</a>
 <div class="hs"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input id="gs" type="search" placeholder="Search anything…" autocomplete="off" aria-label="Search" oninput="gsIn(this)" onkeydown="gsKey(event)" onblur="setTimeout(function(){var r=document.getElementById('gsr');if(r)r.classList.remove('open')},150)"><div class="gsr" id="gsr"></div></div>
@@ -590,10 +601,8 @@ async function pick(kind,files,input){
 const loadingV=()=>`<div class="panel" style="margin-top:40px;text-align:center"><p>লোড হচ্ছে…</p></div>`;
 function deniedV(){return `<div class="panel" style="margin:40px auto;max-width:560px;text-align:center"><h2>${IC("lock")} Access নেই</h2><p>এই email (<b>${esc(S.email||"")}</b>) এর admin access নেই।<br>Access পেতে Owner-কে বলুন এই email টি Admin Access-এ add করতে।</p><div class="row" style="justify-content:center"><button class="btn sm" onclick="copy('${esc(S.email||"")}')">Copy email</button><button class="btn ghost sm" onclick="logout()">অন্য email দিয়ে Login</button></div></div>`}
 function loginV(){let saved="";try{saved=localStorage.getItem("mcn_admin_email")||""}catch(e){}
- return `<section class="auth"><div class="auth-side"><div class="blob b1"></div><div class="blob b2"></div><div class="auth-brand"><img src="/logo.png" onerror="this.onerror=null;this.src=LOGO_FB" alt="Logo">Mirpur College<br>Updates &amp; Notices</div>
- <h2>Admin Access</h2><p>শুধু অনুমোদিত email দিয়ে ঢোকা যাবে — কোনো password বা sign up লাগে না।</p>
- <ul><li class="ai">${IC("notice")} Notice ও Syllabus post করুন</li><li class="ai">${IC("image")} ছবি ও ${IC("clip")} file link যোগ করুন</li><li class="ai">${IC("history")} Edit history ও restore</li></ul></div>
- <div class="auth-card">${S.sent?`<div class="sentbox"><div class="big-ic">${IC("mail")}</div><h3>Email check করুন</h3><p>Login link পাঠানো হয়েছে:<br><b>${esc(S.sent)}</b></p><small>Inbox না পেলে Spam/Promotions folder দেখুন। Link-এ click করলেই login হবে।</small><div class="row" style="justify-content:center"><button class="btn ghost sm" onclick="S.sent=null;render(false)">← অন্য email</button></div></div>`
+ return `<section class="auth"><div class="auth-card"><div class="auth-top"><img src="/logo.png" onerror="this.onerror=null;this.src=LOGO_FB" alt="Logo"><div><b>MCUN Admin</b><span>Mirpur College Updates &amp; Notices</span></div></div>
+  <h2 class="auth-h">Admin Access</h2><p class="auth-sub">শুধু অনুমোদিত email দিয়ে ঢোকা যাবে — কোনো password বা sign up লাগে না।</p>${S.sent?`<div class="sentbox"><div class="big-ic">${IC("mail")}</div><h3>Email check করুন</h3><p>Login link পাঠানো হয়েছে:<br><b>${esc(S.sent)}</b></p><small>Inbox না পেলে Spam/Promotions folder দেখুন। Link-এ click করলেই login হবে।</small><div class="row" style="justify-content:center"><button class="btn ghost sm" onclick="S.sent=null;render(false)">← অন্য email</button></div></div>`
  :`<button type="button" class="btn ghost wide gbtn" onclick="googleIn()"><svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.5 28.7a14.5 14.5 0 010-9.4l-7.9-6.1a24 24 0 000 21.6l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.9 2.3-8.4 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>Google দিয়ে Continue</button>
  <div class="or"><span>অথবা email link দিয়ে</span></div>
  <form onsubmit="sendLink(event)"><label>আপনার Email</label><div class="fld"><span>${IC("mail")}</span><input id="em" type="email" required autocomplete="email" placeholder="you@example.com" value="${esc(saved)}"></div>
