@@ -670,7 +670,7 @@ html.gated .fbar,body.qrun .fbar{display:none!important}
 .tile i{font-style:normal;margin-left:auto;color:var(--c);font-weight:800;font-size:18px}
 .tile:hover{transform:translateY(-2px);box-shadow:var(--sh);border-color:var(--c)}
 /* ===================== /COLORFUL ===================== */
-</style><link rel="stylesheet" href="redesign.css"><style>html:not(.rd-ok):not(.gated) body>*{visibility:hidden}@keyframes rdfade{from{opacity:0}to{opacity:1}}html.rd-ok main#app,html.rd-ok #mcSide{animation:rdfade .2s ease-out}</style><script>setTimeout(function(){document.documentElement.classList.add("rd-ok")},3000)</script></head><body>
+</style><link rel="stylesheet" href="redesign.css"><link rel="stylesheet" href="redesign2.css"><script src="art.js"></script><style>html:not(.rd-ok):not(.gated) body>*{visibility:hidden}@keyframes rdfade{from{opacity:0}to{opacity:1}}html.rd-ok main#app,html.rd-ok #mcSide{animation:rdfade .2s ease-out}</style><script>setTimeout(function(){document.documentElement.classList.add("rd-ok")},3000)</script></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
 <nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="installBtn" style="display:none"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span class="hd"> Install</span></button><a class="btn ghost sm" id="adminBtn" href="/admin" style="display:none" aria-label="Admin Panel"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.4 8.4-8 9-4.6-.6-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg> Admin</a><button class="btn ghost sm" id="bellBtn" type="button" aria-label="Notification" onclick="bellTap()"></button><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="me" id="meBtn" aria-label="Profile" type="button"></button></div></header><nav class="fbar" id="fbar" aria-label="Features"></nav>
 <div id="gate"></div>
@@ -723,7 +723,7 @@ async function refresh(force){if(!force&&Date.now()-(S.t||0)<30000){S.fresh=true
  catch(e){if(S.posts.length){S.loaded=true;route()}else sdkMode()}}
 const io="IntersectionObserver"in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){io.unobserve(e.target);fillCover(e.target)}}),{rootMargin:"300px"}):null;
 async function fillCover(el){const id=el.dataset.cv;try{const c=await getCover(id);if(c&&ok(c.url)){el.innerHTML=`<img src="${esc(c.url)}" alt="">`;el.classList.add("done")}else noCover(el)}catch(e){noCover(el)}}
-function noCover(el){el.classList.add("ph");el.innerHTML=SVG(el.dataset.cat)}
+function noCover(el){el.classList.add("ph");el.innerHTML=window.mcCover?mcCover(el.dataset.cat):SVG(el.dataset.cat)}
 function observeCovers(){document.querySelectorAll("[data-cv]").forEach(el=>io?io.observe(el):fillCover(el))}
 async function saveMsg(d){
  const fields={name:{stringValue:d.name},email:{stringValue:d.email},phone:{stringValue:d.phone},subject:{stringValue:d.subject},message:{stringValue:d.message},ts:{integerValue:String(d.ts)}};
@@ -739,10 +739,10 @@ const cnt=p=>p.nf!=null?p.nf:atts(p).length;
 const byHTML=(p,mini)=>{if(!p||!p.byName)return"";const r=p.byRole&&ROLE_N[p.byRole]?p.byRole:"",nm=String(p.byName);
  return `<div class="pby${mini?" mini":""}"><span class="pby-av">${esc(nm.trim().charAt(0).toUpperCase()||"?")}</span><span class="pby-t">Published by <b>${esc(nm)}</b></span>${r?`<span class="pby-r r-${r}">${ROLE_N[r]}</span>`:""}</div>`};
 function card(p){const n=cnt(p),c=CATS[p.cat]||CATS.notice;
- const cv=p.cover&&ok(p.cover.url)?`<img src="${esc(p.cover.url)}" alt="">`:(!p.cover&&!S.sdk&&p.hc!==false?`<div class="cvr" data-cv="${p.id}" data-cat="${p.cat}" style="--c:${c.c}"></div>`:`<div class="cvr ph" style="--c:${c.c}">${SVG(p.cat)}</div>`);
+ const cv=p.cover&&ok(p.cover.url)?`<img src="${esc(p.cover.url)}" alt="">`:(!p.cover&&!S.sdk&&p.hc!==false?`<div class="cvr" data-cv="${p.id}" data-cat="${p.cat}" style="--c:${c.c}"></div>`:`<div class="cvr ph" style="--c:${c.c}">${window.mcCover?mcCover(p.cat):SVG(p.cat)}</div>`);
  return `<article class="card ${isExp(p)?"expd":""} ${isRd(p.id)?"rd":""}" style="--c:${c.c}" onclick="openPost('${p.id}')">${svBtn(p.id)}${isExp(p)?'<span class="exr">'+SVG("hourglass")+" Expired</span>":""}${cv}<div class="cb"><div class="ctop">${tagsHTML(p)}${dlBadge(p)}</div><h3>${hl(p.title)}</h3><p>${hl(p.body)}</p>${byHTML(p,1)}<div class="meta"><span>${SVG("clock")} ${dDate(p.ts)}</span><span>${n?SVG("clip")+" "+n+" attachment":""}</span></div></div></article>`}
 function fcard(p){const c=CATS[p.cat]||CATS.notice;
- return `<article class="fcard" style="--c:${c.c}" onclick="openPost('${p.id}')"><div class="ft"><span class="fl">${SVG(p.cat)}<b>${c.n}</b>${p.pinned?`<i>·</i>${SVG("pin")}<b>Pinned</b>`:""}</span>${dlBadge(p)}</div><h3>${esc(p.title)}</h3><div class="fgo">পড়ুন →</div></article>`}
+ return `<article class="fcard" style="--c:${c.c}" onclick="openPost('${p.id}')"><div class="ft"><span class="fl">${SVG(p.cat)}<b>${c.n}</b>${p.pinned?`<i>·</i>${SVG("pin")}<b>Pinned</b>`:""}</span>${dlBadge(p)}</div><span class="fart" style="--c:#fff" aria-hidden="true">${window.mcCover?mcCover(p.cat):""}</span><h3>${esc(p.title)}</h3><div class="fgo">পড়ুন →</div></article>`}
 const nz=t=>String(t||"").normalize("NFC").toLowerCase().replace(/[\u200c\u200d]/g,"").replace(/\u09A1\u09BC/g,"\u09DC").replace(/\u09A2\u09BC/g,"\u09DD").replace(/\u09AF\u09BC/g,"\u09DF").replace(/[\u09E6-\u09EF]/g,d=>d.charCodeAt(0)-2406);
 const toks=()=>nz(S.q).split(/\s+/).filter(Boolean);
 const CATBN={notice:"নোটিশ বিজ্ঞপ্তি",syllabus:"সিলেবাস",suggestion:"সাজেশন সাজেস্টশন",routine:"রুটিন",result:"রেজাল্ট ফলাফল",event:"ইভেন্ট অনুষ্ঠান"};
@@ -1581,5 +1581,5 @@ if("serviceWorker"in navigator){let rl=false;
 </script>
 <script src="rich.js"></script>
 <script src="sync.js" defer></script>
-<script src="redesign.js" defer></script>
+<script src="redesign.js" defer></script><script src="redesign2.js" defer></script>
 </body></html>

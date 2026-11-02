@@ -1,0 +1,196 @@
+/* MCUN redesign layer v3. Loaded AFTER redesign.css. Four jobs:
+   1) every feature page + its side cards stack top-to-bottom in one responsive column
+   2) hero banners and post cards carry illustrations (art.js) instead of bare gradients
+   3) new split-screen authentication page
+   4) categories live in the sidebar dropdown (drawer on phone/tablet), so pages no longer repeat them */
+
+:root{--col:1040px;--gap:16px}
+
+/* =====================================================================
+   1) STACKED RESPONSIVE LAYOUT
+   One centred column. Wide screens get comfortable line length, phones get full width.
+   ===================================================================== */
+.mcd,.mcn,.mcp,.mcs,.mcm{width:100%;max-width:var(--col);margin-inline:auto;display:flex;flex-direction:column;gap:var(--gap)}
+.mcd{padding-top:14px}
+
+/* every two/three-column feature grid becomes a single column */
+.mcd-g,.mcd-g1,.mcd-g2,.mcn-grid,.mch-g,.mch-row,.mch-col2,.mdl-grid,.mcm-grid,.mcm-bot,.mcp-g,.mc-two,.home{
+  display:flex!important;flex-direction:column;gap:var(--gap);grid-template-columns:none!important;align-items:stretch}
+.mcn-grid>*,.mch-g>*,.mdl-grid>*,.mcm-grid>*,.mcp-g>*,.mcd-g>*,.mch-row>*{width:100%;min-width:0}
+
+/* side columns are just more cards, stacked under the main card */
+.mcn-side,.mch-side,.mdl-side,.mcm-side,.mcp-c1,.mcp-c2,.mcp-c3{
+  display:flex!important;flex-direction:column;gap:var(--gap);grid-template-columns:none!important;width:100%;position:static}
+
+/* small stat tiles are not cards: let them wrap by available width */
+.mcd-stats,.mdl-sts,.mc-stats{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr))!important;gap:12px}
+.mcd-qa,.mcl-qa,.mcn-ql,.mcm-qg,.mch-qzs,.mch-rss{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr))!important;gap:10px}
+.mcd-cd{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+/* legacy home (index.html) sidebar filters stack above the feed too */
+.side-f{position:static!important;max-height:none!important;overflow:visible!important}
+.feed .grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+
+/* the category label that replaces the old tab strip */
+.mcn-cur{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:14px;background:var(--card);border:1px solid var(--line);box-shadow:var(--sh);font-size:15px}
+.mcn-cur svg{width:20px;height:20px;fill:none;stroke:var(--pri);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.mcn-cur small{color:var(--mute);font-weight:600;font-size:12.5px}
+.mcn-tabs,.mcl-tabs,.mdl-tabs,.mch-tabs,.mch-acts,.mcp-tabs{display:none!important}
+
+@media(max-width:599px){
+  :root{--gap:12px}
+  .mcn-cur{flex:1;min-width:0}
+  .mcn-cur b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+}
+
+/* =====================================================================
+   2) HERO BANNERS + CARD COVERS WITH ILLUSTRATIONS
+   ===================================================================== */
+.hx{display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:center!important;
+  gap:18px;min-height:230px;padding:34px clamp(22px,4vw,44px);border-radius:26px;--hx-img:none}
+.hx::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--hx-img) center/cover no-repeat;opacity:.38;mix-blend-mode:soft-light;pointer-events:none}
+.hx-main{max-width:min(560px,58%)}
+.hx-side{align-items:flex-start!important;flex-direction:row!important;flex-wrap:wrap;gap:12px!important;max-width:min(600px,54%)!important}
+.hx-pills{justify-content:flex-start}
+.hx-date{flex-direction:row;align-items:baseline;gap:12px;min-width:0;padding:10px 18px;border-radius:18px}
+.hx-date b{font-size:34px;margin:0}.hx-date small{order:-1}
+.hx-legend{grid-template-columns:repeat(auto-fit,minmax(132px,1fr))!important;width:100%}
+.hx-steps{flex-direction:row;flex-wrap:wrap;min-width:0}
+.hx-steps li,.hx-steps li:nth-child(n){margin:0}
+.hx-id{min-width:0}
+
+/* the illustration sits on the right, fading into the gradient */
+.hx-art{position:absolute;right:0;top:0;bottom:0;width:46%;z-index:0;pointer-events:none;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 34%);mask-image:linear-gradient(90deg,transparent 0,#000 34%)}
+.hx-art .art{width:100%;height:100%;display:block;animation:hxfloat 9s ease-in-out infinite alternate}
+.hx-main,.hx-side{position:relative;z-index:1}
+@keyframes hxfloat{from{transform:translateY(0)}to{transform:translateY(-8px)}}
+
+@media(max-width:859px){
+  .hx{min-height:0;padding:26px 20px 24px}
+  .hx-main,.hx-side{max-width:none!important}
+  .hx-art{width:100%;opacity:.28;-webkit-mask-image:linear-gradient(180deg,#000,transparent 90%);mask-image:linear-gradient(180deg,#000,transparent 90%)}
+  .hx-art .art{object-position:right top}
+}
+@media(prefers-reduced-motion:reduce){.hx-art .art{animation:none}}
+
+/* optional real photo: put  --hx-img:url(/college.jpg)  on any .hx (or :root) and it blends into the gradient */
+
+/* ---- post cards ---- */
+.cvr.ph{height:158px;padding:0;display:block;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--c) 22%,var(--card)),color-mix(in srgb,var(--c) 6%,var(--card)))}
+.cvr.ph .cvart{width:100%;height:100%;display:block}
+.cvr.ph .ico{display:none}
+.card:hover .cvart{transform:scale(1.05)}
+.cvart{transition:transform .5s ease}
+@media(max-width:600px){.cvr.ph{height:112px}}
+
+.fcard{min-height:170px}
+.fcard .fart{position:absolute!important;right:-6px;bottom:-6px;width:150px;height:100px;opacity:.28;pointer-events:none}
+.fcard .fart svg{width:100%;height:100%}
+.fcard h3{max-width:78%}
+
+/* notice rows (College Updates) */
+.mcn-th{overflow:hidden;padding:0}
+.mcn-th .cvart{width:100%;height:100%;display:block}
+.mcn-row .mcn-th{background:color-mix(in srgb,var(--c) 12%,var(--card))}
+
+/* =====================================================================
+   3) AUTHENTICATION PAGE: split screen
+   ===================================================================== */
+#gate{display:none;padding:0!important;align-items:stretch;justify-content:stretch;background:var(--bg)}
+html.gated #gate{display:flex}
+#gate::before,#gate::after{display:none!important}
+.gshell{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);width:100%;min-height:100vh;min-height:100dvh}
+
+/* left: brand panel */
+.gart{position:relative;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;justify-content:space-between;gap:28px;
+  padding:clamp(28px,5vw,60px);color:#fff;background:linear-gradient(150deg,#0a1f6e 0%,#1d3fa8 52%,#2f6df0 100%)}
+.gart::before{content:"";position:absolute;inset:0;z-index:-2;background:var(--hx-img,none) center/cover;opacity:.3;mix-blend-mode:soft-light}
+.gart::after{content:"";position:absolute;z-index:-1;inset:auto -120px -160px auto;width:420px;height:420px;border-radius:50%;border:2px solid rgba(255,255,255,.12);box-shadow:0 0 0 60px rgba(255,255,255,.04),0 0 0 130px rgba(255,255,255,.03)}
+.gbrand{display:flex;align-items:center;gap:14px}
+.gbrand img{width:54px;height:54px;border-radius:50%;background:#fff;object-fit:cover;box-shadow:0 0 0 3px rgba(255,255,255,.25)}
+.gbrand b{display:block;font-size:20px;letter-spacing:.04em;line-height:1.1}
+.gbrand span{display:block;font-size:12.5px;opacity:.8;margin-top:2px}
+.gpitch h2{margin:0 0 10px;font-size:clamp(26px,3.2vw,40px);line-height:1.2;font-weight:800;letter-spacing:-.01em;color:#fff}
+.gpitch p{margin:0;max-width:430px;color:rgba(255,255,255,.88);font-size:15.5px}
+.gfeat{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-direction:column;gap:10px;max-width:440px}
+.gfeat li{display:flex;align-items:center;gap:13px;padding:11px 15px;border-radius:16px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);font-weight:600;font-size:14px;line-height:1.4}
+.gfeat li>i{flex:none;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:#fbbf24;color:#1c1917}
+.gfeat li>i .ico{width:19px;height:19px}
+.gfeat small{display:block;font-weight:500;color:rgba(255,255,255,.82);font-size:12.5px}
+.gart .art-auth{flex:1 1 auto;width:100%;min-height:150px;max-height:330px;height:auto;margin:-6px 0;pointer-events:none}
+
+/* right: form */
+.gform{display:flex;align-items:center;justify-content:center;padding:clamp(22px,4vw,48px);background:var(--bg);min-width:0}
+.gshell .gbox{width:100%;max-width:440px;margin:0;padding:0;background:none;border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:0;text-align:left}
+.gshell .gbox::before{display:none}
+.gshell .glogo{display:none;margin:0 0 12px;animation:none}
+.gshell .gbox h1{text-align:left;font-size:28px;margin:0 0 6px;letter-spacing:-.02em}
+.gshell .gs{text-align:left;font-size:14.5px;margin:0 0 18px}
+.gshell .gchips{display:none}
+.gshell .gtabs{margin-bottom:10px}
+.gshell .gbox label{font-weight:700;font-size:13px}
+.gshell .gbox input,.gshell .gbox select{background:var(--card)}
+.gshell .gbox .btn{height:54px;font-size:15.5px}
+.gshell .gfoot{text-align:center}
+.gshell .vbox{text-align:center}
+.gshell .vbox h1,.gshell .vbox .gs{text-align:center}
+.gshell .vbox .glogo{display:block;margin-inline:auto}
+
+/* phone + tablet: brand panel becomes a compact header above the form */
+@media(max-width:899px){
+  .gshell{grid-template-columns:1fr;min-height:0}
+  .gart{padding:22px 20px 24px;gap:14px;flex-direction:column}
+  .gpitch h2{font-size:22px;margin-bottom:6px}
+  .gpitch p{font-size:13.5px}
+  .gfeat{display:none}
+  .gart .art-auth{display:none}
+  .gform{padding:24px 18px 36px;align-items:flex-start}
+  .gshell .gbox h1{font-size:24px}
+}
+@media(max-width:380px){.gbrand span{display:none}}
+
+/* =====================================================================
+   4) SIDEBAR AS DROPDOWN DRAWER (phones and tablets) + header menu button
+   Desktop (1024+) keeps the fixed sidebar with dropdowns.
+   ===================================================================== */
+#mcMenu{display:none}
+@media(max-width:1023px){
+  :root{--sw:0px}
+  header,main#app,footer{margin-left:0!important}
+  #mcSide{display:flex!important;width:min(310px,88vw)!important;padding:22px 14px 16px!important;z-index:60;transform:translateX(-105%);transition:transform .26s cubic-bezier(.3,.8,.3,1);box-shadow:none;align-items:stretch!important}
+  html.mc-drawer #mcSide{transform:none;box-shadow:24px 0 60px -20px rgba(2,6,23,.65)}
+  html.gated #mcSide{display:none!important}
+  /* labels, dropdowns and chevrons are visible again inside the drawer */
+  #mcSide .mc-i span{display:revert!important}
+  #mcSide .mc-sub,#mcSide .mc-chev{display:revert!important}
+  #mcSide .mc-sub{display:none!important}
+  #mcSide .mc-g.open .mc-sub{display:block!important}
+  #mcSide .mc-chev{display:block!important}
+  #mcSide a.mc-i,#mcSide button.mc-i{justify-content:flex-start!important;padding:12px 14px!important}
+  #mcSide .mc-h{justify-content:flex-start!important}
+  #mcSide .mc-brand img{width:64px!important;height:64px!important;margin:0 auto!important}
+  #mcSide .mc-bd{display:inline-grid!important}
+  #mcSide .mc-bd[hidden]{display:none!important}
+
+  #mcScrim{position:fixed;inset:0;z-index:55;background:rgba(2,6,23,.5);opacity:0;pointer-events:none;transition:opacity .2s}
+  html.mc-drawer #mcScrim{opacity:1;pointer-events:auto}
+  html.mc-drawer{overflow:hidden}
+
+  #mcMenu{display:inline-grid;place-items:center;flex:none;width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:0}
+  #mcMenu svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+  html.gated #mcMenu{display:none}
+  #mcTog{display:none!important}
+  header .logo{display:flex!important}
+  header .nav{padding:0 12px}
+}
+@media(min-width:600px) and (max-width:1023px){
+  .bnav,.fab{display:none!important}
+  header .logo{display:flex!important;font-size:0;gap:0;margin-right:4px}
+  header .logo img{width:38px;height:38px}
+}
+@media(prefers-reduced-motion:reduce){#mcSide,#mcScrim{transition:none}}
+
+/* stacked cards: let wide text breathe */
+.mch-tip{min-height:0}.mch-tip p{max-width:min(100%,560px)}

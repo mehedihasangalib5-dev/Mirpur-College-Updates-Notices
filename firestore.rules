@@ -63,10 +63,11 @@ service cloud.firestore {
       allow read, delete: if isAdmin();   // only admins read contact messages
       // Admin panel: Read/Unread, Star, Archive flag
       allow update: if isAdmin()
-        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read','star','arch'])
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read','star','arch','replied'])
         && request.resource.data.get('read', false) is bool
         && request.resource.data.get('star', false) is bool
-        && request.resource.data.get('arch', false) is bool;
+        && request.resource.data.get('arch', false) is bool
+        && request.resource.data.get('replied', false) is bool;
     }
     // logs/{id} = Admin panel Activity Log (append-only; shudhu Admin pore, Admin/Editor likhte pare)
     match /logs/{id} {

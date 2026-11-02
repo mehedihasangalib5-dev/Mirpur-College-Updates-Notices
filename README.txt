@@ -403,3 +403,17 @@ Admin:
  - Notun field: Phone, Date of Birth, Gender, Blood Group, Address, Roll No, Session -> users/{uid}-te (ph, dob, gen, bg, addr, roll, ses).
  - MCUN ID = uid theke auto toiri (MCUN-<bochhor>-XXXX), kothao save hoy na.
  - DEPLOY: (1) firestore.rules Publish (na korle shudhu name/photo/year/dept server-e jabe; baki gulo oi device-e thakbe)  (2) Vercel deploy  (3) sw.js V ekta barao (apnar sw.js ei zip-e khali chhilo).
+
+=== AN) COMMUNICATION HUB (admin.html, admin-comm.css, api/send-push.js, firestore.rules) ===
+ - Admin > Communication > "Communication Hub": banner, 4 stat card, tab (All / Announcements / Direct / Inquiries), table (view / duplicate / delete),
+   New Message composer (type, recipients, link, urgent), Recent Messages, Analytics chart, Quick Actions (templates modal).
+ - Sent messages = notifLogs (type `mt` save hoy). Inquiries = contact form messages. Reply korle "Replied" status.
+ - DEPLOY: (1) firestore.rules Publish (messages-e notun `replied` flag)  (2) Vercel deploy (send-push.js: type, delete, history 150)
+ - Notun file: admin-comm.css. Banner-e college-er chobi dite: .cm-hero-art{--cm-img:url(/college.jpg)} CSS-e din.
+
+=== AO) ADMINISTRATION + SIDEBAR + DOWNLOADS POPUP (admin.html, admin-comm.css, admin-dash.css, admin-downloads.css) ===
+ - Settings theke Owner Users / Admin Users / Roles & Permissions soriye notun sidebar group "Administration" (Team & Roles, Activity Logs). Settings-e Website items + System Settings thake.
+ - Team & Roles page: stat card, role filter + search, member table (Scope / Make Admin-Editor / Remove), Add team member form, "Who can do what" table. Purono link (#people, #ad-adm, #ad-role) ekhon ei page-e jay.
+ - Sidebar: logo-r niche MCUN/college naam ar "MCUN Admin Panel" card soriye logo boro kora hoyeche.
+ - Downloads: Upload New File side panel nei; "Upload File" button popup khole (Esc / X / bairey click = bondho).
+ - Deploy: shudhu Vercel deploy. Firestore rules bodlay ni.
