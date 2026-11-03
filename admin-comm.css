@@ -243,3 +243,61 @@
 .cm-comp .gchk input{width:auto;min-height:0}
 .cm-comp .pgy{margin:8px 0 4px;font-weight:700;font-size:13px;color:var(--mute)}
 @media(max-width:760px){.ad .cm-c-ac .cm-acts{flex-wrap:wrap}.ad .cm-t{min-width:0}.ad .ad-m{min-width:0;display:table}.ad .ad-m thead{display:table-header-group}.ad .ad-m tbody{display:table-row-group}.ad .ad-m tr{display:table-row;border:0;padding:0;margin:0}.ad .ad-m td,.ad .ad-m th{display:table-cell;padding:8px}}
+
+
+/* ===== Sidebar collapse (desktop): icons only ===== */
+.sx-tg{display:none}
+@media(min-width:900px){
+ header,main#app,footer.ft{transition:margin-left .22s ease}
+ .sbx{transition:width .22s ease}
+ .sx-tg{position:absolute;top:28px;right:-14px;z-index:9;display:grid;place-items:center;width:28px;height:28px;padding:0;border-radius:50%;border:1px solid var(--line)!important;background:var(--card)!important;color:var(--pri)!important;box-shadow:0 4px 12px -4px rgba(10,30,100,.45)!important;cursor:pointer}
+ .sx-tg .ico{width:16px;height:16px}
+ html.sx-col{--sw:76px}
+ html.sx-col .sbx{padding:18px 10px 14px}
+ html.sx-col .sx-tg .ico{transform:rotate(180deg)}
+ html.sx-col .sx-brand{margin:0 0 16px}
+ html.sx-col .sx-brand img{width:46px;height:46px;box-shadow:0 0 0 2px rgba(255,255,255,.18)}
+ html.sx-col .sx-nav{align-items:stretch;overflow-x:hidden}
+ html.sx-col .sx-l,html.sx-col .sx-c,html.sx-col .sx-sub{display:none!important}
+ html.sx-col .sx-i,html.sx-col .sx-out{justify-content:center;padding:12px 0;gap:0}
+ html.sx-col .sx-i .ico,html.sx-col .sx-out .ico{width:22px;height:22px}
+ html.sx-col .sx-b{position:absolute;top:3px;right:6px;min-width:16px;height:16px;padding:0 4px;font-size:10px;line-height:16px}
+}
+
+/* ===== Compact All Notices ===== */
+.nmx{gap:12px}
+.nmx .dx-stats{gap:10px}
+.nmx .dx-sc{padding:10px 12px;gap:10px;border-radius:14px}
+.nmx .dx-si{width:34px;height:34px;border-radius:10px}.nmx .dx-si .ico{width:18px;height:18px}
+.nmx .dx-sc small{font-size:12px}.nmx .dx-sv b{font-size:20px}.nmx .dx-sv em{font-size:11px;padding:2px 7px}
+.nmx .dx-card{padding:14px;border-radius:16px}
+.nmx .dx-h{font-size:16px;gap:8px}.nmx .dx-h>.ico{width:20px;height:20px}
+.nmx .nm-add{padding:8px 14px;font-size:14px;border-radius:10px;gap:7px}.nmx .nm-add .ico{width:17px;height:17px}
+.nmx .nm-fl{gap:8px;margin:10px 0 4px}
+.nmx .nm-sb{height:38px;padding:0 12px;border-radius:10px}.nmx .nm-sb input{font-size:13.5px}.nmx .nm-sb .ico{width:17px;height:17px}
+.nmx .nm-sel{min-width:130px}.nmx .nm-sel select{height:38px;font-size:13.5px;border-radius:10px!important;padding:0 32px 0 12px!important}
+.nmx .nm-fb{height:38px;padding:0 16px;font-size:14px;border-radius:10px;gap:7px}.nmx .nm-fb .ico{width:16px;height:16px}
+.nmx .nm-adv{gap:8px;margin:4px 0}
+.nmx .nm-tbl{margin-top:10px}
+.nmx .nm-in{min-width:780px}
+.nmx .nm-row{gap:8px;padding:7px 10px;font-size:13px}
+.nmx .nm-hd{padding-top:9px;padding-bottom:9px;border-radius:10px;font-size:12.5px}
+@media(min-width:900px){.nmx .nm-row{grid-template-columns:52px minmax(160px,2.2fr) 108px 84px 104px 60px 84px 128px}}
+.nmx .nm-cat{padding:3px 9px;font-size:12px;gap:5px}.nmx .nm-cat .ico{width:13px;height:13px}
+.nmx .nm-st{padding:3px 10px;font-size:12px}
+.nmx .nm-new{font-size:9.5px;padding:1px 5px}
+.nmx .c-dt .ico,.nmx .c-v .ico{width:15px;height:15px}.nmx .c-dt,.nmx .c-v{gap:6px}
+.nmx .nm-ab{width:28px;height:28px;border-radius:8px}.nmx .nm-ab .ico{width:16px;height:16px}
+.nmx .nm-ft{margin-top:10px;font-size:13px}
+.nmx .nm-pg{gap:5px}.nmx .nm-pb{min-width:32px;height:32px;font-size:13px;border-radius:8px;padding:0 8px}.nmx .nm-pb .ico{width:14px;height:14px}
+@media(max-width:899px){.nmx .nm-row{padding:9px 4px;row-gap:5px}}
+/* compact notice management: banner + 4-up stat cards (overrides the one-card-per-row rule) */
+.nm-ban{padding:12px 22px!important;border-radius:16px!important}
+.nm-ban h1{font-size:24px!important}.nm-ban p{font-size:13px!important;margin-top:4px!important}
+.nm-ban .nm-ic{width:44px!important;height:44px!important}
+.nmx .dx-stats{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+.nmx .dx-sc{padding:8px 10px;gap:8px}
+.nmx .dx-si{width:30px;height:30px}.nmx .dx-si .ico{width:16px;height:16px}
+.nmx .dx-sv b{font-size:18px}
+@media(max-width:899px){.nmx .dx-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(min-width:900px){html.sx-col .sx-tg{top:76px}}
