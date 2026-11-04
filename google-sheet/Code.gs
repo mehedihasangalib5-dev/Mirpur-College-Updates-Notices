@@ -80,13 +80,13 @@ function sendCode_(d) {
     hi, "",
     "Your verification code is: " + code, "",
     "This code expires in " + ttl + " minutes. Do not share it with anyone.",
-    "If you didn't create an account, you can safely ignore this email.", "",
+    (d.purpose === "login" ? "Someone is signing in to your account. If this wasn't you, ignore this email and change your password." : "If you didn't create an account, you can safely ignore this email."), "",
     "আপনার Verification Code: " + code + " (" + ttl + " মিনিট পর্যন্ত কার্যকর)"
   ].join("\n");
 
   MailApp.sendEmail({
     to: to,
-    subject: code + " is your verification code — " + SITE_NAME,
+    subject: code + (d.purpose === "login" ? " is your login code — " : " is your verification code — ") + SITE_NAME,
     body: text,
     htmlBody: mailHtml_(esc_(name), code, ttl),
     name: SITE_NAME
