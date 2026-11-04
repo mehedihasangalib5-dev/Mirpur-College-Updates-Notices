@@ -1,5 +1,7 @@
 // POST /api/verify-code  { code: "123456" }   Header: Authorization: Bearer <Firebase ID token>
-// Code thik hole Firebase user-er emailVerified = true kore (Firestore rules-o ei flag dekhe).
+// Code thik hole Firebase user-er emailVerified = true kore (Firestore rules-o ei flag dekhe)
+// ar custom claim mfaAt = ekhon (Login OTP: client ei claim-ke login-er authTime-er sathe milay).
+// { code, mode:"login" } hole email age thekei verified thakleo code check kore.
 const { init, sameOrigin, body, bearerUser, hashCode, safeEq } = require("./_lib");
 
 const MAX_TRIES = 5;
@@ -18,7 +20,8 @@ module.exports = async (req, res) => {
 
     const uid = tok.uid;
     const rec = await adm.auth().getUser(uid);
-    if (rec.emailVerified) return res.status(200).json({ ok: true, already: true });
+    const login = body(req).mode === "login";
+    if (rec.emailVerified && !login) return res.status(200).json({ ok: true, already: true });
 
     const db = adm.firestore(), ref = db.doc("emailCodes/" + uid), now = Date.now();
     const r = await db.runTransaction(async (tx) => {
@@ -37,7 +40,8 @@ module.exports = async (req, res) => {
 
     if (r.err) return res.status(r.err === "wrong" ? 400 : r.err === "expired" ? 410 : 429).json({ ok: false, error: r.err, left: r.left });
 
-    await adm.auth().updateUser(uid, { emailVerified: true });
+    if (!rec.emailVerified) await adm.auth().updateUser(uid, { emailVerified: true });
+    await adm.auth().setCustomUserClaims(uid, Object.assign({}, rec.customClaims || {}, { mfaAt: Date.now() }));
     try { await ref.delete(); } catch (e) {}
     return res.status(200).json({ ok: true });
   } catch (e) {

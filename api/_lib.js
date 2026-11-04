@@ -35,8 +35,12 @@ async function bearerUser(adm, req, checkRevoked) {
   try { return await adm.auth().verifyIdToken(m[1], !!checkRevoked); } catch (e) { return null; }
 }
 
+// Staff (Owner/Admin/Editor) hote hole ei login-e OTP dewa thakte hobe (claim mfaAt >= token auth_time). STAFF_MFA=off dile bondho.
+const mfaFresh = (t) => process.env.STAFF_MFA === "off" || ((+t.mfaAt || 0) > 0 && (+t.mfaAt || 0) >= (+t.auth_time || 0) * 1000);
+
 // Owner / Admin (Editor noy) -- config/admins
 async function isAdminUser(adm, user) {
+  if (!mfaFresh(user)) return false;
   const cfg = await adm.firestore().doc("config/admins").get();
   const c = cfg.exists ? cfg.data() : {};
   const ids = c.ids || [];
@@ -109,6 +113,7 @@ const pageKey = (p) => (p && p.year && p.dept ? p.year + " \u00b7 " + p.dept : "
 
 // config/admins theke role + scope (rules-er sathe ek-i logic). scope [] = sob page.
 async function staffInfo(adm, user) {
+  if (!mfaFresh(user)) return { role: "", owner: false, admin: false, editor: false, scope: [] };
   const s = await adm.firestore().doc("config/admins").get();
   const c = s.exists ? s.data() : {};
   const lc = (a) => (a || []).map((x) => String(x).toLowerCase());

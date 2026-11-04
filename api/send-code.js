@@ -1,5 +1,6 @@
 // POST /api/send-code  { resend?: boolean }   Header: Authorization: Bearer <Firebase ID token>
 // Login kora (kintu email verify na hoya) user-er email-e 6 digit code pathay.
+// { mode:"login" } hole email verify thakleo protibar login-e code pathay (Login OTP).
 // - Code shudhu user-er nijer account-email-e jay (client email dite pare na -> email-bombing hobe na)
 // - 60 sec cooldown, ghonta-y max 6 ta, code 10 minute-e expire
 const crypto = require("crypto");
@@ -18,11 +19,12 @@ module.exports = async (req, res) => {
 
     const uid = tok.uid;
     const rec = await adm.auth().getUser(uid);
-    if (rec.emailVerified) return res.status(200).json({ ok: true, verified: true });
+    const login0 = body(req).mode === "login";
+    if (rec.emailVerified && !login0) return res.status(200).json({ ok: true, verified: true });
     if (!rec.email) return res.status(400).json({ ok: false, error: "no email" });
 
     const db = adm.firestore(), ref = db.doc("emailCodes/" + uid);
-    const resend = body(req).resend === true;
+    const resend = body(req).resend === true, login = body(req).mode === "login";
     const now = Date.now();
     const code = String(crypto.randomInt(0, 1000000)).padStart(6, "0");
 
@@ -45,7 +47,7 @@ module.exports = async (req, res) => {
     if (r.reuse) return res.status(200).json({ ok: true, reused: true, wait: r.wait, expires: r.expires });
 
     let m;
-    try { m = await callSheet({ action: "mail", to: rec.email, code, name: rec.displayName || "", ttl: TTL / 60e3 }); }
+    try { m = await callSheet({ action: "mail", to: rec.email, code, name: rec.displayName || "", ttl: TTL / 60e3, purpose: login ? "login" : "verify" }); }
     catch (e) { m = { ok: false, error: String(e && e.message) }; }
     if (!m || !m.ok) {
       console.error("send-code mail failed:", m && m.error);
