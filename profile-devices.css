@@ -1,0 +1,130 @@
+/* MCUN My Profile: separate layouts per device. Loaded after redesign2.css (which stacks everything in one column).
+   Column layout follows the real width of the profile area (container queries), so it is right whether or not the sidebar is open.
+   Phone portrait < 480 | phone landscape / large phone 480-719 | tablet 720-1019 | laptop 1020-1379 | desktop 1380-1799 | TV / 4K 1800+ */
+.mcp{container-type:inline-size;container-name:pf;width:100%;max-width:none!important}
+@media(min-width:1100px){.mcp{max-width:1280px!important}}
+@media(min-width:1500px){.mcp{max-width:1520px!important}}
+@media(min-width:1900px){.mcp{max-width:1840px!important}}
+.mcp .mcp-g{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:16px;align-items:start;max-width:none!important;margin:0!important}
+.mcp .mcp-c1,.mcp .mcp-c2,.mcp .mcp-c3{display:flex!important;flex-direction:column;gap:16px;min-width:0;width:100%}
+.mcp .mcp-info form{display:block}
+
+/* ============ PHONE PORTRAIT (< 480) ============ */
+@container pf (max-width:479px){
+ .mcp{gap:12px}
+ .mcp .mcp-g,.mcp .mcp-c1,.mcp .mcp-c2,.mcp .mcp-c3{gap:12px}
+ .mcp .mcp-card{padding:14px;border-radius:16px}
+ .mcp .mcp-me{display:grid!important;grid-template-columns:78px minmax(0,1fr);column-gap:14px;row-gap:4px;text-align:left;justify-items:start;align-items:center;padding:14px}
+ .mcp .mcp-me .mcp-av{grid-row:1/span 3;width:78px;height:78px}
+ .mcp .mcp-me .mcp-avi{font-size:32px;box-shadow:0 0 0 4px color-mix(in srgb,#2563eb 14%,var(--card))}
+ .mcp .mcp-me .mcp-cam{width:28px;height:28px;right:-4px;bottom:-2px;border-width:2px}.mcp .mcp-me .mcp-cam svg{width:14px;height:14px}
+ .mcp .mcp-me h2{grid-column:2;margin:0;font-size:17px}
+ .mcp .mcp-me .mcp-cls,.mcp .mcp-me .mcp-st,.mcp .mcp-me .mcp-rm{grid-column:2;justify-self:start;margin:0;font-size:12px;padding:3px 11px}
+ .mcp .mcp-me hr{grid-column:1/-1;width:100%;margin:10px 0 4px}
+ .mcp .mcp-me .mcp-id{grid-column:1/-1;width:100%;flex-direction:row;justify-content:space-between;margin:0}
+ .mcp .mcp-me .mcp-id svg{display:none}.mcp .mcp-me .mcp-id span{display:inline;font-size:13px}.mcp .mcp-me .mcp-id b{font-size:14.5px}
+ .mcp .mcp-me .mcp-col{grid-column:1/-1;padding:11px 12px}.mcp .mcp-col svg{width:26px;height:26px}.mcp .mcp-col b{font-size:15px}.mcp .mcp-col small{font-size:12.5px}
+ .mcp .mcp-me .mcp-adm,.mcp .mcp-me .mcp-out{grid-column:1/-1;margin-top:8px}
+ /* info rows: label above value */
+ .mcp .mcp-r{grid-template-columns:22px minmax(0,1fr)!important;grid-template-areas:"ic l" "ic v";column-gap:10px;row-gap:1px;padding:10px 0;font-size:14.5px}
+ .mcp .mcp-r>svg{grid-area:ic;align-self:center}.mcp .mcp-r>span,.mcp .mcp-r>label{grid-area:l;font-size:12px}
+ .mcp .mcp-r>i{display:none}.mcp .mcp-r>b,.mcp .mcp-r>input,.mcp .mcp-r>select{grid-area:v}
+ .mcp .mcp-fe input,.mcp .mcp-fe select{font-size:16px}              /* no iOS zoom on focus */
+ .mcp .mcp-fb{position:sticky;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:3;padding:10px 0 2px;background:linear-gradient(to top,var(--card) 70%,transparent)}
+ .mcp .mcp-fb button{flex:1;justify-content:center}
+ .mcp .mcp-card h3{flex-wrap:wrap}.mcp .mcp-edit{padding:7px 14px;font-size:13px}
+ .mcp .mcp-qs{gap:8px}.mcp .mcp-qs a{padding:12px 2px 10px}.mcp .mcp-qs svg{width:24px;height:24px}.mcp .mcp-qs b{font-size:21px}.mcp .mcp-qs span{font-size:11.5px}
+ .mcp .mcp-help{flex-direction:column;align-items:flex-start;text-align:left;padding:16px;gap:10px}.mcp .mcp-hi{width:48px;height:48px}.mcp .mcp-hi svg{width:46px;height:46px}.mcp .mcp-cs{width:100%;justify-content:center}
+ .mcp .mcp-ac time{display:none}
+}
+
+/* ============ LARGE PHONE / PHONE LANDSCAPE (480 - 719) ============ */
+@container pf (min-width:480px) and (max-width:719px){
+ .mcp .mcp-me{display:grid!important;grid-template-columns:104px minmax(0,1fr);column-gap:18px;row-gap:5px;text-align:left;justify-items:start;align-items:center;padding:18px}
+ .mcp .mcp-me .mcp-av{grid-row:1/span 3;width:104px;height:104px}.mcp .mcp-me .mcp-avi{font-size:42px}
+ .mcp .mcp-me h2{grid-column:2;margin:0;font-size:20px}
+ .mcp .mcp-me .mcp-cls,.mcp .mcp-me .mcp-st,.mcp .mcp-me .mcp-rm{grid-column:2;justify-self:start;margin:0}
+ .mcp .mcp-me hr{grid-column:1/-1;width:100%;margin:12px 0 6px}
+ .mcp .mcp-me .mcp-id{grid-column:1;flex-direction:row;gap:10px;margin:0}.mcp .mcp-me .mcp-id span{display:none}
+ .mcp .mcp-me .mcp-col{grid-column:2;margin:0}.mcp .mcp-me .mcp-adm,.mcp .mcp-me .mcp-out{grid-column:1/-1}
+ .mcp .mcp-info form{display:grid;grid-template-columns:1fr 1fr;column-gap:18px}
+ .mcp .mcp-info form .mcp-fe{grid-template-columns:20px minmax(0,1fr)!important;grid-template-areas:"ic l" "ic v"}
+ .mcp .mcp-info form .mcp-fe>svg{grid-area:ic}.mcp .mcp-info form .mcp-fe>label{grid-area:l}.mcp .mcp-info form .mcp-fe>i{display:none}.mcp .mcp-info form .mcp-fe>input,.mcp .mcp-info form .mcp-fe>select{grid-area:v}
+ .mcp .mcp-info form .mcp-fb{grid-column:1/-1}
+ .mcp .mcp-c3{display:grid!important;grid-template-columns:1fr 1fr}.mcp .mcp-c3 .mcp-help{grid-column:1/-1}
+}
+
+/* tablet and wider: profile card is a vertical, centred card in its own column */
+@container pf (min-width:720px){
+ .mcp .mcp-me{display:flex!important;flex-direction:column;align-items:center;text-align:center;padding:24px 18px}
+ .mcp .mcp-me .mcp-av{grid-row:auto;grid-column:auto}
+ .mcp .mcp-me h2{margin:16px 0 8px;text-align:center}
+ .mcp .mcp-me .mcp-cls,.mcp .mcp-me .mcp-st,.mcp .mcp-me .mcp-rm{margin-top:8px}
+ .mcp .mcp-me hr{width:100%;margin:18px 0 12px}
+ .mcp .mcp-me .mcp-id{flex-direction:column;gap:2px;margin-bottom:12px}.mcp .mcp-me .mcp-id span{display:block}
+ .mcp .mcp-me .mcp-col,.mcp .mcp-me .mcp-adm,.mcp .mcp-me .mcp-out{width:100%}
+}
+
+/* ============ TABLET (720 - 1019): profile card left, forms right, activity underneath ============ */
+@container pf (min-width:720px) and (max-width:1019px){
+ .mcp .mcp-g{grid-template-columns:270px minmax(0,1fr)!important;grid-template-areas:"me main" "side side";gap:18px}
+ .mcp .mcp-c1{grid-area:me;position:sticky;top:84px}.mcp .mcp-c2{grid-area:main}
+ .mcp .mcp-c3{grid-area:side;display:grid!important;grid-template-columns:1fr 1fr;gap:18px}.mcp .mcp-c3 .mcp-help{grid-column:1/-1}
+ .mcp .mcp-me{padding:22px 16px}.mcp .mcp-av{width:150px;height:150px}.mcp .mcp-avi{font-size:60px}
+ .mcp .mcp-me h2{font-size:20px;text-align:center}
+ .mcp .mcp-info form{display:grid;grid-template-columns:1fr 1fr;column-gap:18px}
+ .mcp .mcp-info form .mcp-fe{grid-template-columns:20px minmax(0,1fr)!important;grid-template-areas:"ic l" "ic v"}
+ .mcp .mcp-info form .mcp-fe>svg{grid-area:ic}.mcp .mcp-info form .mcp-fe>label{grid-area:l}.mcp .mcp-info form .mcp-fe>i{display:none}.mcp .mcp-info form .mcp-fe>input,.mcp .mcp-info form .mcp-fe>select{grid-area:v}
+ .mcp .mcp-info form .mcp-fb{grid-column:1/-1}
+}
+
+/* ============ LAPTOP (1020 - 1379): three columns ============ */
+@container pf (min-width:1020px) and (max-width:1379px){
+ .mcp .mcp-g{grid-template-columns:280px minmax(0,1fr) 310px!important;gap:18px}
+ .mcp .mcp-c1{position:sticky;top:84px}
+ .mcp .mcp-me{padding:22px 16px}.mcp .mcp-av{width:156px;height:156px}.mcp .mcp-avi{font-size:62px}
+ .mcp .mcp-r{grid-template-columns:20px 112px 8px minmax(0,1fr)}
+ .mcp .mcp-qs b{font-size:24px}
+}
+
+/* ============ DESKTOP (1380 - 1799): roomy three columns ============ */
+@container pf (min-width:1380px) and (max-width:1799px){
+ .mcp .mcp-g{grid-template-columns:330px minmax(0,1fr) 400px!important;gap:22px}
+ .mcp .mcp-c1{position:sticky;top:84px}
+ .mcp .mcp-c1,.mcp .mcp-c2,.mcp .mcp-c3{gap:22px}
+ .mcp .mcp-card{padding:24px}
+ .mcp .mcp-r{grid-template-columns:22px 140px 10px minmax(0,1fr);font-size:16px}
+ .mcp .mcp-info form{display:grid;grid-template-columns:1fr 1fr;column-gap:26px}.mcp .mcp-info form .mcp-fb{grid-column:1/-1}
+}
+
+/* ============ TV / 4K / ULTRAWIDE (1800+): larger type and touch-free reading distance ============ */
+@container pf (min-width:1800px){
+ .mcp .mcp-g{grid-template-columns:400px minmax(0,1fr) 500px!important;gap:30px}
+ .mcp .mcp-c1{position:sticky;top:96px}
+ .mcp .mcp-c1,.mcp .mcp-c2,.mcp .mcp-c3{gap:30px}
+ .mcp .mcp-card{padding:32px;border-radius:24px}
+ .mcp .mcp-card h3{font-size:24px}
+ .mcp .mcp-av{width:220px;height:220px}.mcp .mcp-avi{font-size:88px}.mcp .mcp-me h2{font-size:30px}
+ .mcp .mcp-cls,.mcp .mcp-st{font-size:17px}
+ .mcp .mcp-r{grid-template-columns:26px 170px 12px minmax(0,1fr);font-size:19px;padding:15px 2px}.mcp .mcp-r>svg{width:24px;height:24px}
+ .mcp .mcp-fe input,.mcp .mcp-fe select{font-size:18px;padding:13px 15px}
+ .mcp .mcp-edit,.mcp .mcp-fb button{font-size:17px;padding:12px 24px}
+ .mcp .mcp-qs b{font-size:34px}.mcp .mcp-qs span{font-size:16px}
+ .mcp .mcp-ac b{font-size:18px}.mcp .mcp-ac small,.mcp .mcp-ac time{font-size:15px}
+ .mcp .mcp-info form{display:grid;grid-template-columns:1fr 1fr;column-gap:34px}.mcp .mcp-info form .mcp-fb{grid-column:1/-1}
+}
+
+/* ============ device-type extras ============ */
+@media(pointer:coarse){.mcp .mcp-edit,.mcp .mcp-fb button,.mcp .mcp-out,.mcp .mcp-adm,.mcp .mcp-cs{min-height:44px}.mcp .mcp-fe input,.mcp .mcp-fe select{min-height:46px}.mcp .mcp-cam{min-width:40px;min-height:40px}}
+@media(hover:none){.mcp .mcp-qs a:hover,.mcp .mcp-tabs a:hover{transform:none}}
+/* phone landscape: short screen -> profile card left, forms right */
+@media(orientation:landscape) and (max-height:520px){
+ .mcp .hx{min-height:0;padding:12px 18px}.mcp .hx-art{display:none}
+ .mcp .mcp-g{grid-template-columns:230px minmax(0,1fr)!important;grid-template-areas:"me main" "side side"!important}
+ .mcp .mcp-c1{grid-area:me;position:static}.mcp .mcp-c2{grid-area:main}.mcp .mcp-c3{grid-area:side;display:grid!important;grid-template-columns:1fr 1fr}.mcp .mcp-c3 .mcp-help{grid-column:1/-1}
+ .mcp .mcp-me{display:flex!important;flex-direction:column;align-items:center;text-align:center;padding:14px}
+ .mcp .mcp-me .mcp-av{width:92px;height:92px}.mcp .mcp-me h2{font-size:17px}
+ .mcp .mcp-fb{position:static;background:none}
+}
+@media print{.mcp .mcp-g{display:block!important}}
+.mcp .mcp-me .mcp-col,.mcp .mcp-me .mcp-adm,.mcp .mcp-me .mcp-out{box-sizing:border-box}

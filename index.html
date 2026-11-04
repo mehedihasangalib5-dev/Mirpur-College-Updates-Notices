@@ -670,7 +670,10 @@ html.gated .fbar,body.qrun .fbar{display:none!important}
 .tile i{font-style:normal;margin-left:auto;color:var(--c);font-weight:800;font-size:18px}
 .tile:hover{transform:translateY(-2px);box-shadow:var(--sh);border-color:var(--c)}
 /* ===================== /COLORFUL ===================== */
-</style><link rel="stylesheet" href="redesign.css"><link rel="stylesheet" href="redesign2.css"><script src="art.js"></script><style>html:not(.rd-ok):not(.gated) body>*{visibility:hidden}@keyframes rdfade{from{opacity:0}to{opacity:1}}html.rd-ok main#app,html.rd-ok #mcSide{animation:rdfade .2s ease-out}</style><script>setTimeout(function(){document.documentElement.classList.add("rd-ok")},3000)</script></head><body>
+</style><link rel="stylesheet" href="redesign.css"><link rel="stylesheet" href="redesign2.css"><link rel="stylesheet" href="profile-devices.css"><link rel="stylesheet" href="nav-site.css"><script src="art.js"></script><style>html:not(.rd-ok):not(.gated) body>*{visibility:hidden}@keyframes rdfade{from{opacity:0}to{opacity:1}}html.rd-ok main#app,html.rd-ok #mcSide{animation:rdfade .2s ease-out}</style><script>setTimeout(function(){document.documentElement.classList.add("rd-ok")},3000)</script><style id="shotcss">body.prot{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}body.prot img{-webkit-user-drag:none;pointer-events:none}
+#shotmask{display:none;position:fixed;inset:0;z-index:2147483000;background:#0f172a;color:#e2e8f0;align-items:center;justify-content:center;text-align:center;padding:24px;font:600 16px/1.6 inherit}
+body.prot.blk #shotmask{display:flex}body.prot.blk{overflow:hidden}
+@media print{body.prot *{display:none!important}body.prot::before{content:"Printing disabled";display:block;padding:40px;font-size:24px}}</style></head><body>
 <header><div class="wrap nav"><a class="logo" href="#/"><img src="logo.png" alt="Logo">Mirpur College Updates &amp; Notices</a>
 <nav class="links" id="links"></nav><div class="sp"></div><button class="btn ghost sm" id="installBtn" style="display:none"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span class="hd"> Install</span></button><a class="btn ghost sm" id="adminBtn" href="/admin" style="display:none" aria-label="Admin Panel"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.4 8.4-8 9-4.6-.6-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg> Admin</a><button class="btn ghost sm" id="bellBtn" type="button" aria-label="Notification" onclick="bellTap()"></button><button class="btn ghost sm" id="theme" aria-label="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg></button><button class="me" id="meBtn" aria-label="Profile" type="button"></button></div></header><nav class="fbar" id="fbar" aria-label="Features"></nav>
 <div id="gate"></div>
@@ -973,7 +976,7 @@ const EXAMS=["বোর্ড পরীক্ষা","নির্বাচন�
 /* purono doc-e sk nei -> sub (text) theke subject khuje ber kora */
 function bqSk(x){if(x.sk&&BSK[x.sk])return x.sk;const n=bn_(x.sub);if(!n)return"oth";if(BALI[n])return BALI[n];
  const f=HSC_SUBJ.find(s=>bn_(s[1])==n)||(n.length>2&&HSC_SUBJ.find(s=>s[0]!="oth"&&(bn_(s[1]).includes(n)||n.includes(bn_(s[1])))));return f?f[0]:"oth"}
-const bqAll=()=>QB.bq.filter(qLive).map(x=>Object.assign({},x,{_k:bqSk(x),_pt:bqPt(x)})),BSER=["ঢাকা","রাজশাহী","কুমিল্লা","যশোর","চট্টগ্রাম","বরিশাল","সিলেট","দিনাজপুর","ময়মনসিংহ","সকল বোর্ড","অন্যান্য"],bso=b=>{const i=BSER.indexOf(b);return i<0?98:i},bqSort=(a,b)=>b.y-a.y||bso(a.b)-bso(b.b)||(a.pp||0)-(b.pp||0)||(a.ts||0)-(b.ts||0),
+const bqAll=()=>QB.bq.filter(qLive).map(x=>Object.assign({},x,{_k:bqSk(x),_pt:bqPt(x),_gp:x.gp||""})),BSER=["ঢাকা","রাজশাহী","কুমিল্লা","যশোর","চট্টগ্রাম","বরিশাল","সিলেট","দিনাজপুর","ময়মনসিংহ","সকল বোর্ড","অন্যান্য"],bso=b=>{const i=BSER.indexOf(b);return i<0?98:i},bqSort=(a,b)=>b.y-a.y||bso(a.b)-bso(b.b)||(a.pp||0)-(b.pp||0)||(a.chn||999)-(b.chn||999)||(a.ts||0)-(b.ts||0)||String(a.id).localeCompare(String(b.id)),
  bqLbl=x=>(x.b=="অন্যান্য"||x.b=="সকল বোর্ড"?esc(x.b):esc(x.b)+" বোর্ড")+" · "+qn(x.y),bqPp=x=>x.pp==1?"১ম পত্র":x.pp==2?"২য় পত্র":"";
 const bqRd=()=>{try{return JSON.parse(localStorage.getItem("mcn_bread")||"[]")}catch(e){return[]}};
 function bqRead(id){const a=bqRd();if(a.includes(id))return;a.push(id);bqAct();try{localStorage.setItem("mcn_bread",JSON.stringify(a.slice(-600)))}catch(e){}}
@@ -982,10 +985,10 @@ function bqFont(d){const v=Math.min(24,Math.max(14,bqFs()+d));try{localStorage.s
 
 /* ===== Bangla অংশ + Chorcha-style: Streak, ভুল রিভিউ, কাস্টম মক টেস্ট ===== */
 const BPT={ban:[["sp","সাহিত্যপাঠ",1],["sh","সহপাঠ",1],["bn","ব্যাকরণ ও নির্মিতি",2]]},
- bqPt=x=>x.pt||(bqSk(x)=="ban"&&x.pp==2?"bn":""),bqPn=i=>(BPT.ban.find(p=>p[0]==i)||[0,""])[1],
+ bqPt=x=>x.pt||(bqSk(x)=="ban"&&x.pp==2?"bn":""),bqPn=i=>(BPT.ban.find(p=>p[0]==i)||[0,""])[1],GPN={g:"গদ্য",p:"পদ্য"},
  bqJ=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}},bqW=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},
  bqDay=t=>{const x=new Date(t);return x.getFullYear()+"-"+x.getMonth()+"-"+x.getDate()},bqMs=()=>bqJ("mcn_bmis",[]);
-const bqPtRow=F=>`<div class="qb-chs"><button class="qb-ch ${F.pt?"":"on"}" onclick="QB.bf.pt='';route()">সব অংশ</button>${BPT.ban.filter(p=>!F.pp||p[2]==F.pp).map(p=>`<button class="qb-ch ${F.pt==p[0]?"on":""}" onclick="QB.bf.pt='${p[0]}';route()">${p[1]}</button>`).join("")}</div>`;
+const bqPtRow=F=>`<div class="qb-chs"><button class="qb-ch ${F.pt?"":"on"}" onclick="QB.bf.pt='';QB.bf.gp='';route()">সব অংশ</button>${BPT.ban.filter(p=>!F.pp||p[2]==F.pp).map(p=>`<button class="qb-ch ${F.pt==p[0]?"on":""}" onclick="QB.bf.pt='${p[0]}';QB.bf.gp='';route()">${p[1]}</button>`).join("")}</div>${F.pt=="sp"?`<div class="qb-chs"><button class="qb-ch ${F.gp?"":"on"}" onclick="QB.bf.gp='';route()">গদ্য + পদ্য</button><button class="qb-ch ${F.gp=="g"?"on":""}" onclick="QB.bf.gp='g';route()">গদ্য</button><button class="qb-ch ${F.gp=="p"?"on":""}" onclick="QB.bf.gp='p';route()">পদ্য</button></div>`:""}`;
 function bqAct(c,w){const s=bqJ("mcn_bst",{d:[],c:0,w:0}),t=bqDay(Date.now());if(!s.d.includes(t))s.d.push(t);s.d=s.d.slice(-60);s.c+=c||0;s.w+=w||0;bqW("mcn_bst",s)}
 function bqStreak(){const d=bqJ("mcn_bst",{d:[]}).d;let n=0,t=Date.now();if(!d.includes(bqDay(t)))t-=864e5;while(d.includes(bqDay(t))){n++;t-=864e5}return n}
 function bqMis(q,ok,m){const a=bqMs(),i=a.findIndex(x=>x.q==q.q);if(ok){if(i>=0)a.splice(i,1)}else if(i<0)a.unshift({q:q.q,o:q.o,a:q.a,e:q.e||"",...(m?{m}:{})});bqW("mcn_bmis",a.slice(0,150))}
@@ -1025,7 +1028,7 @@ function bqGcards(L,key,rds){const m=new Map();L.forEach(x=>{const k=x.y+"~"+x.b
 function bqList(key,A,g){const F=QB.bf,isSv=key=="saved",s=BSK[key],sv=qbSaved(),rds=bqRd();
  if(F.k!=key)Object.assign(F,{k:key,pt:"",pp:0,ty:"",ch:"",b:"",y:"",ex:""});
  const base=isSv?A.filter(x=>sv.includes(x.id)):A.filter(x=>x._k==key),two=!isSv&&s[2]==2,
- P=two?base.filter(x=>!F.pp||(x.pp||0)==F.pp):base,T=P.filter(x=>(!F.ty||x.ty==F.ty)&&(!F.pt||x._pt==F.pt)),chs=[...new Set(T.slice().sort((p,q)=>(p.chn||99)-(q.chn||99)).map(x=>x.ch).filter(Boolean))];
+ P=two?base.filter(x=>!F.pp||(x.pp||0)==F.pp):base,T=P.filter(x=>(!F.ty||x.ty==F.ty)&&(!F.pt||x._pt==F.pt)&&(!F.gp||x._gp==F.gp)),chs=[...new Set(T.slice().sort((p,q)=>(p.chn||99)-(q.chn||99)).map(x=>x.ch).filter(Boolean))];
  if(F.ch&&!chs.includes(F.ch))F.ch="";QB.chs=chs;
  const L=T.filter(x=>(!F.ch||x.ch==F.ch)&&(!F.b||x.b==F.b||x.b=="সকল বোর্ড")&&(!F.y||x.y==F.y)&&(!F.ex||(x.ex||EXAMS[0])==F.ex)).sort(bqSort);QB.rl=L.map(x=>x.id);QB.rctx=key;
  const u=f=>[...new Set(T.map(f))].filter(v=>v!==""&&v!=null),
@@ -1033,7 +1036,7 @@ function bqList(key,A,g){const F=QB.bf,isSv=key=="saved",s=BSK[key],sv=qbSaved()
  tab=(p,l)=>`<button class="qb-ch ${F.pp==p?"on":""}" onclick="QB.bf.pp=${p};QB.bf.pt='';route()">${l} (${qn(p?base.filter(x=>(x.pp||0)==p).length:base.length)})</button>`,
  ty=(v,l)=>`<button class="qb-ch ${F.ty==v?"on":""}" onclick="QB.bf.ty='${v}';route()">${l}</button>`,
  card=(x,n)=>{const rd=rds.includes(x.id),cq=x.ty=="CQ",pv=cq?(x.st||""):"",k=BSK[x._k];
-  return `<a class="qb-c bq-c${rd?" rd":""}" href="#/board/q/${x.id}"><div class="qb-r">${n?`<span class="bq-n">${qn(n)}</span>`:""}<span class="tag cat" style="--c:#64748b">${bqLbl(x)}</span><span class="tag cat" style="--c:${cq?"#7c5cff":"#16a34a"}">${cq?"CQ":"MCQ"}</span><span class="sp"></span>${sv.includes(x.id)?'<span class="bq-s">${SVG("star",1)}</span>':""}${rd?`<span class="qb-st ok">${SVG("qck")} পড়া</span>`:""}</div><h3>${esc(x.ch||k[1])}</h3><div class="qb-m">${isSv?esc(k[1])+" · ":""}${bqPp(x)?bqPp(x)+" · ":""}${x._pt?bqPn(x._pt)+" · ":""}${esc(x.ex||EXAMS[0])} · পূর্ণমান ${qn(x.m||"")}${x.s||x.qz?"":" · সমাধান শীঘ্রই"}</div>${pv?`<p class="bq-pv">${esc(rtPlain(pv,110))}</p>`:""}</a>`};
+  return `<a class="qb-c bq-c${rd?" rd":""}" href="#/board/q/${x.id}"><div class="qb-r">${n?`<span class="bq-n">${qn(n)}</span>`:""}<span class="tag cat" style="--c:#64748b">${bqLbl(x)}</span><span class="tag cat" style="--c:${cq?"#7c5cff":"#16a34a"}">${cq?"CQ":"MCQ"}</span><span class="sp"></span>${sv.includes(x.id)?'<span class="bq-s">${SVG("star",1)}</span>':""}${rd?`<span class="qb-st ok">${SVG("qck")} পড়া</span>`:""}</div><h3>${esc(x.ch||k[1])}</h3><div class="qb-m">${isSv?esc(k[1])+" · ":""}${bqPp(x)?bqPp(x)+" · ":""}${x._pt?bqPn(x._pt)+" · ":""}${x._gp?GPN[x._gp]+" · ":""}${esc(x.ex||EXAMS[0])} · পূর্ণমান ${qn(x.m||"")}${x.s||x.qz?"":" · সমাধান শীঘ্রই"}</div>${pv?`<p class="bq-pv">${esc(rtPlain(pv,110))}</p>`:""}</a>`};
  if(g&&!isSv){let gv=[];try{gv=decodeURIComponent(g).split("~")}catch(e){}
   const GL=base.filter(x=>String(x.y)==gv[0]&&x.b==gv[1]&&String(x.pp||0)==gv[2]).sort(bqSort);QB.rl=GL.map(x=>x.id);QB.rctx=key+"/"+g;
   const x0=GL[0]||{y:gv[0],b:gv[1],pp:+gv[2]||0},tt=(x0.b=="অন্যান্য"||x0.b=="সকল বোর্ড"?esc(x0.b):esc(x0.b)+" বোর্ড")+" · "+qn(x0.y);
@@ -1072,12 +1075,22 @@ function bqReader(id,A){const x=A.find(z=>z.id==id);
  nav=(j,l)=>j<0||j>=rl.length?"<span></span>":`<a class="btn ghost" href="#/board/q/${rl[j]}">${l}</a>`;
  return `<div class="panel br" style="--bfs:${bqFs()}px"><div class="br-top"><a class="qr-ib" href="#/board/${QB.rl&&QB.rl.includes(id)&&QB.rctx?QB.rctx:k}" aria-label="তালিকায় ফিরে যাও">${SVG("qpv")}</a><span class="br-pos">${qn(i+1)} / ${qn(rl.length)}</span><span class="sp"></span><button class="qr-fl" onclick="bqFont(-2)" aria-label="লেখা ছোট করো">A−</button><button class="qr-fl" onclick="bqFont(2)" aria-label="লেখা বড় করো">A+</button><button class="qr-fl ${sv?"on":""}" onclick="qbSave('${id}')">${SVG("star",sv)} ${sv?"Saved":"Save"}</button><button class="qr-fl" onclick="bqRep('${id}')" aria-label="প্রশ্নে সমস্যা জানাও">${SVG("alert")} Report</button></div>
 <div class="qb-r" style="margin:10px 0 6px"><span class="tag cat" style="--c:#64748b">${bqLbl(x)}</span><span class="tag cat" style="--c:${x.ty=="CQ"?"#7c5cff":"#16a34a"}">${x.ty=="CQ"?"সৃজনশীল (CQ)":"বহুনির্বাচনি (MCQ)"}</span><span class="tag cat" style="--c:${GC[s[3]]}">${esc(x.ex||EXAMS[0])}</span></div>
-<h2 class="br-h">${esc(s[1])}${bqPp(x)?" · "+bqPp(x):""}${x._pt?" · "+bqPn(x._pt):""}</h2><div class="qb-m">${esc(x.ch||"")}${x.ch?" · ":""}পূর্ণমান ${qn(x.m||"")}</div><div id="brb">${bqBody(x)}</div><div class="qr-r2 br-nv">${nav(i-1,"← আগের")}${nav(i+1,"পরের →")}</div></div>`}
+<h2 class="br-h">${esc(s[1])}${bqPp(x)?" · "+bqPp(x):""}${x._pt?" · "+bqPn(x._pt):""}${x._gp?" · "+GPN[x._gp]:""}</h2><div class="qb-m">${esc(x.ch||"")}${x.ch?" · ":""}পূর্ণমান ${qn(x.m||"")}</div><div id="brb">${bqBody(x)}</div><div class="qr-r2 br-nv">${nav(i-1,"← আগের")}${nav(i+1,"পরের →")}</div></div>`}
 function pBoard(a,b){qbLoad("boardQ");qbLoad("quiz");if(QB.bq==null)return '<div class="panel"><h2 style="margin:0 0 12px">Board Question</h2>'+qSk()+'</div>';
  const A=bqAll();if(a=="q")return bqReader(b,A);if(a=="mock")return bqMock(A);if(a=="mistakes")return bqMistakes();if(a=="saved"||BSK[a])return bqList(a,A,b);return bqHub(A)}
 function qbProt(pg){const d=$("#qbwm");if(d)d.remove();const on=pg=="board"||(pg=="quiz"&&!!QB.run);  document.body.classList.toggle("prot",on);document.body.classList.toggle("qrun",!!QB.run&&location.hash=="#/quiz/"+QB.run.z.id);if(!(QB.run&&(QB.run.sheet||QB.run.sub)))document.body.style.overflow=""}
 ["copy","cut","contextmenu","dragstart"].forEach(ev=>document.addEventListener(ev,e=>{if(document.body.classList.contains("prot"))e.preventDefault()}));
 addEventListener("keydown",e=>{if(document.body.classList.contains("prot")&&(e.ctrlKey||e.metaKey)&&["p","s","c","a","u"].includes((e.key||"").toLowerCase()))e.preventDefault()});
+/* Screenshot deterrent (Board/Quiz only). Browsers cannot truly block screenshots; this hides the content whenever a capture is likely (PrintScreen, Win+Shift+S, Cmd+Shift+3/4/5, app/tab switch, print). */
+(function(){const m=document.createElement("div");m.id="shotmask";m.innerHTML="<div><b>🔒 Content লুকানো আছে</b><p>এই পাতার প্রশ্ন/সমাধান screenshot বা copy করা নিষেধ।<br>ফিরে আসতে এখানে ট্যাপ/ক্লিক করুন।</p></div>";document.body.appendChild(m);
+let t=0;const on=ms=>{if(!document.body.classList.contains("prot"))return;document.body.classList.add("blk");clearTimeout(t);if(ms)t=setTimeout(off,ms)},off=()=>{if(document.hidden||!document.hasFocus())return;document.body.classList.remove("blk")};
+m.addEventListener("click",()=>{document.body.classList.remove("blk")});
+addEventListener("blur",()=>on());addEventListener("focus",()=>setTimeout(off,250));
+document.addEventListener("visibilitychange",()=>{if(document.hidden)on();else setTimeout(off,250)});
+addEventListener("pagehide",()=>on());
+const hit=e=>{const k=(e.key||"").toLowerCase();return k=="printscreen"||k=="snapshot"||(e.metaKey&&e.shiftKey&&["3","4","5","s"].includes(k))||(e.ctrlKey&&e.shiftKey&&["s","i","j","c"].includes(k))||(e.ctrlKey&&e.altKey&&k=="s")||k=="f12"};
+["keydown","keyup"].forEach(ev=>addEventListener(ev,e=>{if(!document.body.classList.contains("prot"))return;if(hit(e)){e.preventDefault();on(2500);try{navigator.clipboard&&navigator.clipboard.writeText("")}catch(x){}}},true));
+addEventListener("beforeprint",()=>on());})();
 function route(){const lg=location.hash.match(/^#\/?portal(\/.*)?$/);if(lg){location.replace("#"+(lg[1]?"/feat"+lg[1]:"/"));return}const h=location.hash.replace(/^#\/?/,"").split("/"),pg=h[0]||"home";
  $("#links").innerHTML=`<a href="#/" class="${pg=="home"?"on":""}">Home</a><a href="#/saved" class="${pg=="saved"?"on":""}">${SVG("star")} Saved${savedN()?" ("+savedN()+")":""}</a><a href="#/contact" class="${pg=="contact"?"on":""}">Contact</a><a href="#/quiz" class="${pg=="quiz"?"on":""}">Quiz</a><a href="#/board" class="${pg=="board"?"on":""}">Board</a>${siteNav()}`;
  {const fb=$("#fbar");if(fb)fb.innerHTML=fbarHTML(pg)}
@@ -1585,13 +1598,22 @@ let DP=null;addEventListener("beforeinstallprompt",e=>{e.preventDefault();DP=e;$
 $("#installBtn").onclick=async()=>{if(!DP)return;DP.prompt();try{await DP.userChoice}catch(e){}DP=null;$("#installBtn").style.display="none"};
 addEventListener("appinstalled",()=>{$("#installBtn").style.display="none"});
 /* ---- App update notice ---- */
+/* Update banner. Root cause of the endless banner: "Update" posts SKIP_WAITING, but if the new worker never activates (sw.js ignores the message) it stays "waiting" and the banner returns after every reload.
+   Fix: if it is still waiting after the click, (or the banner comes back within 5 min) unregister the old worker + clear caches + reload = clean install of the new version. */
+async function hardUpd(){try{localStorage.setItem("mcn_upd_n","0")}catch(e){}
+ try{const rs=await navigator.serviceWorker.getRegistrations();await Promise.all(rs.map(r=>r.unregister()))}catch(e){}
+ try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
+ location.reload()}
 function showUpd(reg){if($("#updBar"))return;try{if(sessionStorage.getItem("mcn_upd_later"))return}catch(e){}
+ try{const t=+localStorage.getItem("mcn_upd_t")||0,n=+localStorage.getItem("mcn_upd_n")||0;if(t&&Date.now()-t<300000&&n>=1){hardUpd();return}}catch(e){}
  const d=document.createElement("div");d.id="updBar";d.setAttribute("role","alert");
  d.innerHTML=`<div class="ub-i">${SVG("zap")}</div><div class="ub-t"><b>নতুন Update এসেছে!</b><span>নতুন feature ও fix পেতে app update করুন।</span></div><div class="ub-b"><button class="btn sm" id="updGo">Update</button><button class="ub-x" id="updLater" type="button">পরে</button></div>`;
  document.body.appendChild(d);
  $("#updGo").onclick=()=>{const g=$("#updGo");g.disabled=true;g.textContent="হচ্ছে…";window.__upd=true;
-  if(reg&&reg.waiting)reg.waiting.postMessage({type:"SKIP_WAITING"});else location.reload();
-  setTimeout(()=>location.reload(),4000)};
+  try{const t=+localStorage.getItem("mcn_upd_t")||0,n=+localStorage.getItem("mcn_upd_n")||0;localStorage.setItem("mcn_upd_t",String(Date.now()));localStorage.setItem("mcn_upd_n",String(Date.now()-t<300000?n+1:1))}catch(e){}
+  if(reg&&reg.waiting){reg.waiting.postMessage({type:"SKIP_WAITING"});setTimeout(()=>{if(reg.waiting)hardUpd();else location.reload()},1800)}
+  else hardUpd();
+  setTimeout(()=>hardUpd(),6000)};
  $("#updLater").onclick=()=>{try{sessionStorage.setItem("mcn_upd_later","1")}catch(e){}d.remove()}}
 if("serviceWorker"in navigator){let rl=false;
  navigator.serviceWorker.addEventListener("controllerchange",()=>{if(rl||!window.__upd)return;rl=true;location.reload()});
