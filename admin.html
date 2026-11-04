@@ -69,6 +69,7 @@ button.cat{font:inherit;text-align:left;width:100%;cursor:pointer}.cat.on{border
 .auth-side>*{position:relative}.auth-side h2{font-size:30px;margin:26px 0 8px;line-height:1.2}.auth-side p{opacity:.85;margin:0}
 .auth-side ul{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:10px}.auth-side li{background:rgba(255,255,255,.15);padding:10px 14px;border-radius:14px}
 .auth-brand{display:flex;gap:10px;align-items:center;font-weight:800}.auth-brand i{width:34px;height:34px;border-radius:11px;background:rgba(255,255,255,.22);display:grid;place-items:center;font-style:normal}
+.otp-in{width:100%;box-sizing:border-box;text-align:center;font-size:28px;letter-spacing:.5em;padding:12px 8px 12px 20px;border-radius:14px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);margin:8px 0}.otp-in:focus{outline:0;border-color:var(--pri)}
 .auth-card{padding:34px 30px}.tabs{display:flex;background:var(--bg);border-radius:14px;padding:4px;margin-bottom:20px}
 .tabs button{flex:1;padding:9px;border-radius:11px;background:none;color:var(--mute);font-weight:700}.tabs button.on{background:var(--card);color:var(--ink);box-shadow:0 2px 10px rgba(0,0,0,.1)}
 .fld{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:0 12px;transition:.2s}
@@ -416,7 +417,7 @@ footer a{color:#ffd9f0}
 @keyframes authin{from{opacity:0;transform:translateY(14px)}}
 @media(max-width:560px){.auth{margin:14px 12px 30px;border-radius:22px}.auth-card{padding:24px 18px 20px}.auth-h{font-size:24px}}
 @media(prefers-reduced-motion:reduce){.auth{animation:none}}
-</style><script src="rich.js"></script><link rel="stylesheet" href="admin-redesign.css"><link rel="stylesheet" href="admin-dash.css"><link rel="stylesheet" href="admin-downloads.css"><link rel="stylesheet" href="admin-comm.css"><link rel="stylesheet" href="admin-mobile.css"></head><body>
+</style><script src="rich.js?v=4"></script><link rel="stylesheet" href="admin-redesign.css"><link rel="stylesheet" href="admin-dash.css"><link rel="stylesheet" href="admin-downloads.css"><link rel="stylesheet" href="admin-comm.css"><link rel="stylesheet" href="admin-mobile.css?v=4"></head><body>
 <header><div class="wrap nav"><a class="logo" href="admin.html"><img src="/logo.png" onerror="this.onerror=null;this.src=LOGO_FB" alt="Logo">Admin Panel</a>
 <div class="hs"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input id="gs" type="search" placeholder="Search anything…" autocomplete="off" aria-label="Search" oninput="gsIn(this)" onkeydown="gsKey(event)" onblur="setTimeout(function(){var r=document.getElementById('gsr');if(r)r.classList.remove('open')},150)"><div class="gsr" id="gsr"></div></div>
 <div class="sp"></div>
@@ -548,7 +549,7 @@ const GROUPS=[["g_dash","dash","Dashboard",0,"Home"],["g_cont","list","Content",
 const ITEMS=[],NAVK={},I=(g,sg,k,n,a,v,p,o)=>ITEMS.push(Object.assign({k,g,sg,n,a,v,p},o||{})),
  soon=(t,d)=>()=>`<div class="panel"><h3>${t}</h3><p class="qb-mu">${d}</p><span class="st st-mute">এখনো তৈরি হয়নি</span></div>`,
  fc=c=>()=>{S.fc=c},padd=()=>{if(S.keep)S.keep=0;else{S.bd=null;S.qbs={};S.cqx=0}},pnew=()=>{if(S.keep)S.keep=0;else{S.qd=null;S.qbs={}}};
-I("g_dash","","dash","Overview",0,()=>dashV());I("g_dash","","d-rec","Recent Activities",1,()=>logV(30));I("g_dash","","d-quick","Quick Actions",0,()=>quickV());
+I("g_dash","","dash","Overview",0,()=>dashV());I("g_dash","","d-rec","Recent Activities",1,()=>logV(30));I("g_dash","","d-quick","Quick Actions",0,()=>quickV());I("g_dash","","an-vis","Visitor Analytics",1,()=>visV());
 I("g_cont","","posts","All Notices",0,()=>postsV(),()=>{if(S.kf)S.kf=0;else S.fc=""});I("g_cont","","new","Add Notice",0,()=>composeV());
 I("g_cont","","c-dl","Downloads",0,()=>dlV());
 I("g_acad","Dashboard","ac-dash","Academic Dashboard",1,()=>acView());
@@ -600,6 +601,26 @@ async function pick(kind,files,input){
 /* ---- views: auth ---- */
 const loadingV=()=>`<div class="panel" style="margin-top:40px;text-align:center"><p>লোড হচ্ছে…</p></div>`;
 function deniedV(){return `<div class="panel" style="margin:40px auto;max-width:560px;text-align:center"><h2>${IC("lock")} Access নেই</h2><p>এই email (<b>${esc(S.email||"")}</b>) এর admin access নেই।<br>Access পেতে Owner-কে বলুন এই email টি Admin Access-এ add করতে।</p><div class="row" style="justify-content:center"><button class="btn sm" onclick="copy('${esc(S.email||"")}')">Copy email</button><button class="btn ghost sm" onclick="logout()">অন্য email দিয়ে Login</button></div></div>`}
+/* ---- Admin Login OTP: email link / Google-er por email-e 6 digit code (api/send-code + verify-code, mode "login") ---- */
+const ADMIN_OTP=true;
+function otpV(){const em=S.email||"",m=(e=>{const[x,y]=String(e).split("@");return x?x.slice(0,2)+"•••@"+(y||""):""})(em);
+ return `<section class="auth"><div class="auth-card"><div class="auth-top"><img src="/logo.png" onerror="this.onerror=null;this.src=LOGO_FB" alt="Logo"><div><b>MCUN Admin</b><span>Login নিশ্চিত করুন</span></div></div>
+ <h2 class="auth-h">Verification Code</h2><p class="auth-sub"><b>${esc(m)}</b> ঠিকানায় ৬ সংখ্যার code পাঠানো হয়েছে। Inbox / Spam দেখুন।</p>
+ <input id="otpIn" class="otp-in" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="••••••" oninput="this.value=this.value.replace(/\D/g,'').slice(0,6);if(this.value.length==6)otpSubmit()" onkeydown="if(event.key=='Enter')otpSubmit()">
+ <div class="err" id="otpErr"></div><div class="hint" id="otpInfo"></div>
+ <button class="btn wide" id="otpBtn" onclick="otpSubmit()">Verify করুন</button>
+ <div class="row" style="justify-content:space-between;margin-top:10px"><button class="btn ghost sm" id="otpRe" onclick="otpSend(true)">Resend code</button><button class="btn ghost sm" onclick="logout()">← Logout</button></div></div></section>`}
+function otpMsg(e,i){const x=$("#otpErr"),y=$("#otpInfo");if(x)x.textContent=e||"";if(y)y.textContent=i||""}
+async function otpSend(resend){if(S.otpBusy)return;S.otpBusy=1;otpMsg("","Code পাঠানো হচ্ছে…");let r;try{r=await admApi("/api/send-code",{mode:"login",resend:!!resend})}catch(e){r={error:"net"}}S.otpBusy=0;
+ if(r.ok)otpMsg("",resend?"নতুন code পাঠানো হয়েছে":r.reused?"আগের code এখনো কার্যকর — email দেখুন":"Code পাঠানো হয়েছে");
+ else otpMsg(r.error=="wait"||r.error=="limit"?"একটু পরে আবার চেষ্টা করুন ("+(r.wait||60)+"s)":r.error=="quota"?"আজকের email limit শেষ":"Code পাঠানো যায়নি — Resend চাপুন","")}
+async function otpSubmit(){const v=($("#otpIn")||{}).value||"";if(v.length!=6||S.otpBusy)return;S.otpBusy=1;const b=$("#otpBtn");if(b)b.disabled=true;otpMsg("","যাচাই হচ্ছে…");let r;
+ try{r=await admApi("/api/verify-code",{code:v,mode:"login"})}catch(e){r={error:"net"}}S.otpBusy=0;if(b)b.disabled=false;
+ if(r.ok){try{await FB.auth.currentUser.getIdToken(true)}catch(e){}S.otpOk=true;otpAfter();return}
+ otpMsg({wrong:"Code ঠিক নয়"+(r.left>0?" — আর "+r.left+" বার":""),expired:"Code-এর মেয়াদ শেষ — Resend করুন",locked:"অনেকবার ভুল — Resend করে নতুন code নিন",net:"Internet check করুন"}[r.error]||"কিছু সমস্যা হয়েছে","");const i=$("#otpIn");if(i){i.value="";i.focus()}}
+function otpAfter(){const u=FB.auth.currentUser;if(!u)return;if(window.admStart)admStart(u);render(false)}
+async function otpCheck(u){S.otpOk=!ADMIN_OTP;S.otpChk=false;if(!ADMIN_OTP||!u){S.otpChk=true;return}
+ try{const r=await u.getIdTokenResult(),at=Date.parse(r.authTime)||0,m=+r.claims.mfaAt||0;S.otpOk=!!(m&&m>=at)}catch(e){S.otpOk=false}S.otpChk=true;if(!S.otpOk&&!S.otpSent){S.otpSent=1;setTimeout(()=>otpSend(false),400)}render(false);if(S.otpOk&&window.admStart)admStart(u)}
 function loginV(){let saved="";try{saved=localStorage.getItem("mcn_admin_email")||""}catch(e){}
  return `<section class="auth"><div class="auth-card"><div class="auth-top"><img src="/logo.png" onerror="this.onerror=null;this.src=LOGO_FB" alt="Logo"><div><b>MCUN Admin</b><span>Mirpur College Updates &amp; Notices</span></div></div>
   <h2 class="auth-h">Admin Access</h2><p class="auth-sub">শুধু অনুমোদিত email দিয়ে ঢোকা যাবে — কোনো password বা sign up লাগে না।</p>${S.sent?`<div class="sentbox"><div class="big-ic">${IC("mail")}</div><h3>Email check করুন</h3><p>Login link পাঠানো হয়েছে:<br><b>${esc(S.sent)}</b></p><small>Inbox না পেলে Spam/Promotions folder দেখুন। Link-এ click করলেই login হবে।</small><div class="row" style="justify-content:center"><button class="btn ghost sm" onclick="S.sent=null;render(false)">← অন্য email</button></div></div>`
@@ -654,6 +675,27 @@ function dxChart(sa,sb,days){
 function dxDonut(parts,total){const r=64,c=2*Math.PI*r,gap=parts.filter(p=>p.v>0).length>1?3:0;let off=0;
  return `<svg viewBox="0 0 160 160" aria-hidden="true"><circle cx="80" cy="80" r="${r}" fill="none" stroke="var(--line)" stroke-width="22"/>${parts.map(p=>{const len=total?p.v/total*c:0,s=len>0?`<circle cx="80" cy="80" r="${r}" fill="none" stroke="${p.c}" stroke-width="22" stroke-dasharray="${Math.max(0,len-gap).toFixed(2)} ${(c-Math.max(0,len-gap)).toFixed(2)}" stroke-dashoffset="${(-off).toFixed(2)}" transform="rotate(-90 80 80)"/>`:"";off+=len;return s}).join("")}</svg>`}
 function dxRange(v){S.dxr=+v;render(true)}
+/* ---- Visitor Analytics (siteDaily/{YYYY-MM-DD}: u=unique visitors, v=visits, f_*=feature visitors) ---- */
+const VF={home:["Home","#1d5cff"],notice:["Notices","#16a34a"],board:["Board Questions","#7c3aed"],quiz:["Quiz & Exam","#f97316"],learn:["My Learning","#0ea5b7"],dl:["Downloads","#e5384a"],lib:["Saved / Library","#a16207"],inbox:["Inbox","#db2777"],acc:["Profile & Account","#475569"],contact:["Contact / Help","#65a30d"],other:["Others","#94a3b8"]};
+const visDay=t=>{const d=new Date(t);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+function visLoad(){if(!FB)return;S.visL=1;FB.getDocs(FB.collection(FB.db,"siteDaily")).then(sn=>{S.vis={};sn.docs.forEach(d=>S.vis[d.id]=d.data());S.visE="";S.visL=0;S.visT=Date.now();render(true)}).catch(e=>{S.vis=S.vis||{};S.visE=e.code||e.message;S.visL=0;render(true)})}
+function visRange(v){S.visR=+v;render(true)}
+function visV(){if(!S.vis&&!S.visL)setTimeout(visLoad,0);
+ const V=S.vis||{},n=S.visR||14,ids=Array.from({length:n},(_,i)=>visDay(Date.now()-(n-1-i)*DAY)),g=(k,f)=>(V[k]||{})[f]||0,
+  U=ids.map(k=>g(k,"u")),VS=ids.map(k=>g(k,"v")),sum=a=>a.reduce((x,y)=>x+y,0),today=ids[n-1],
+  parts=Object.keys(VF).map(k=>({k,n:VF[k][0],c:VF[k][1],v:sum(ids.map(d=>g(d,"f_"+k)))})).sort((x,y)=>y.v-x.v),tv=sum(parts.map(p=>p.v)),
+  best=U.reduce((b,v,i)=>v>b[0]?[v,i]:b,[0,0]),
+  tile=(t,v,s,c)=>`<div class="dx-card" style="padding:14px 16px;border-left:4px solid ${c}"><small style="opacity:.7;font-weight:700">${t}</small><div style="font-size:26px;font-weight:800;line-height:1.2">${dxN(v)}</div><small style="opacity:.65">${s}</small></div>`;
+ return `<div class="vis">
+ <div class="vis-k">${tile("Today — Visitors",g(today,"u"),"unique device","#1d5cff")}${tile("Today — Visits",g(today,"v"),"sessions","#7c3aed")}${tile("Visitors ("+n+" days)",sum(U),"avg "+Math.round(sum(U)/n)+" / day","#16a34a")}${tile("Best day",best[0],ids[best[1]]?new Date(ids[best[1]]+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short"}):"-","#f97316")}</div>
+ ${S.visE?`<div class="alertb" style="margin-top:12px">${IC("alert")}<div><b>Data load hoyni: ${esc(S.visE)}</b><div class="al-i"><span>firestore.rules deploy korun (siteDaily) ar Admin OTP diye login korun</span></div></div></div>`:""}
+ <section class="dx-card" style="margin-top:14px"><div class="dx-ct"><h3 class="dx-h">${IC("chart")} Daily Website Visitors</h3><select class="dx-sel" aria-label="Range" onchange="visRange(this.value)">${[[7,"Last 7 Days"],[14,"Last 14 Days"],[30,"Last 30 Days"]].map(r=>`<option value="${r[0]}"${r[0]==n?" selected":""}>${r[1]}</option>`).join("")}</select><button class="btn ghost sm" onclick="visLoad()" ${S.visL?"disabled":""}>${S.visL?"Loading…":"Refresh"}</button></div>
+  <div class="dx-lg"><span><i style="background:#1d5cff"></i>Visitors (unique)</span><span><i style="background:#7c3aed"></i>Visits (sessions)</span></div>${dxChart(U,VS,n)}</section>
+ <section class="dx-card" style="margin-top:14px"><h3 class="dx-h">${IC("x_star",1)} Feature-wise Visitors <small style="opacity:.6;font-weight:600">(last ${n} days)</small></h3>
+  <div class="dx-dw"><div class="dx-dn">${dxDonut(parts,tv)}<div class="dx-dc"><b>${dxN(tv)}</b><small>Feature visits</small></div></div>
+  <div class="dx-lk">${parts.map(x=>`<div><i style="background:${x.c}"></i><span>${esc(x.n)}</span><em style="opacity:.7;font-style:normal;margin-right:8px">${dxN(x.v)}</em><b>${tv?Math.round(x.v/tv*100):0}%</b></div>`).join("")}</div></div></section>
+ <p class="qb-mu" style="margin:12px 2px">প্রতিটি device দিনে ১ জন visitor; প্রতিটি browser session ১টি visit; প্রতিটি feature প্রতি device-এ দিনে একবার গোনা হয়। Admin/Staff-এর visit গোনা হয় না।</p></div>`}
+
 const dxBuild='<svg viewBox="0 0 420 180" preserveAspectRatio="xMaxYMax slice" aria-hidden="true"><defs><linearGradient id="dxbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9e3d8"/><stop offset="1" stop-color="#b9b3a8"/></linearGradient></defs><rect x="170" y="38" width="250" height="142" fill="url(#dxbg)"/><rect x="170" y="38" width="250" height="8" fill="#8f897e"/><rect x="238" y="18" width="110" height="22" fill="#cfc9bd"/><g fill="#5f86b8">'+Array.from({length:4},(_,r)=>Array.from({length:10},(_,c)=>`<rect x="${180+c*23}" y="${56+r*29}" width="13" height="17"/>`).join("")).join("")+'</g><g fill="#6a8f4e"><circle cx="150" cy="130" r="38"/><circle cx="118" cy="150" r="30"/><circle cx="196" cy="160" r="26"/></g><rect x="0" y="168" width="420" height="12" fill="#a8d08d" opacity=".7"/></svg>';
 function dashV(){
  if(isAdmin()&&!("qzs" in QSUB))setTimeout(qbSub,0);
@@ -695,7 +737,7 @@ function dashV(){
 
 /* ---- sidebar (desktop) ---- */
 const SXI={new:"x_plus",posts:"list"};const SXL={"qm-all":"All Questions","ac-dash":"Question Bank","bq-all":"Board Questions","bq-mcq":"MCQ Practice","bq-cq":"CQ Practice","bq-board":"Boards","bq-subj":"Subjects","bq-chap":"Chapters"};Object.assign(SXI,{"qm-all":"list","ac-dash":"x_book","bq-all":"list","bq-mcq":"x_quiz","bq-cq":"x_help","bq-board":"x_tag","bq-subj":"x_cap","bq-chap":"list"});
-const SBX=[["dash","x_home","Dashboard",["dash"]],["nt","notice","Notice Management",["new","posts"]],["ah","x_cap","Academic Hub",["ac-dash","bq-all","bq-mcq","bq-cq","bq-board","bq-subj","bq-chap"]],["qm","x_quiz","Quiz Manager",["qz-all","qz-new","qz-bank","qz-cat","qz-sch","qz-act","qz-part","qz-res","qz-set"]],["qn","x_help","Question Manager",["qm-all","bq-add","bq-sets","bq-ans","bq-rev","bq-rep"]],["sm","users","Student Management",["students","st-prof","st-act","st-prog","st-rep"]],["dl","x_dl","Downloads",["c-dl"]],["cm","x_chat","Communication",["cm-hub","notify","msgs","cm-ann"]],["an","chart","Analytics",["d-rec","qbd","bq-an","qz-an"]],["ad","shield","Administration",["ad-hub","ad-log"]],["st","x_gear","Settings",["web-home","web-sec","web-nav","web-cat","web-foot","tools"]]];
+const SBX=[["dash","x_home","Dashboard",["dash"]],["nt","notice","Notice Management",["new","posts"]],["ah","x_cap","Academic Hub",["ac-dash","bq-all","bq-mcq","bq-cq","bq-board","bq-subj","bq-chap"]],["qm","x_quiz","Quiz Manager",["qz-all","qz-new","qz-bank","qz-cat","qz-sch","qz-act","qz-part","qz-res","qz-set"]],["qn","x_help","Question Manager",["qm-all","bq-add","bq-sets","bq-ans","bq-rev","bq-rep"]],["sm","users","Student Management",["students","st-prof","st-act","st-prog","st-rep"]],["dl","x_dl","Downloads",["c-dl"]],["cm","x_chat","Communication",["cm-hub","notify","msgs","cm-ann"]],["an","chart","Analytics",["an-vis","d-rec","qbd","bq-an","qz-an"]],["ad","shield","Administration",["ad-hub","ad-log"]],["st","x_gear","Settings",["web-home","web-sec","web-nav","web-cat","web-foot","tools"]]];
 function sxCol(f){const h=document.documentElement,o=typeof f=="boolean"?f:!h.classList.contains("sx-col");h.classList.toggle("sx-col",o);try{localStorage.setItem("mcn_sx_col",o?"1":"0")}catch(e){}const b=document.querySelector(".sx-tg");if(b){b.setAttribute("aria-expanded",o?"false":"true");b.title=o?"Expand sidebar":"Collapse sidebar"}}
 function sxT(id){S.nvo=S.nvo||{};const el=document.querySelector('.sx-g[data-g="'+id+'"]');if(!el)return;if(document.documentElement.classList.contains("sx-col")){sxCol(false);el.classList.add("open");S.nvo[id]=true;return}const o=!el.classList.contains("open");el.classList.toggle("open",o);S.nvo[id]=o}
 const SXC=["bq-board","bq-subj","bq-chap"];
@@ -1601,7 +1643,7 @@ function render(keep){
  if(keep&&document.activeElement&&document.activeElement.classList&&document.activeElement.closest&&document.activeElement.closest(".rte-ed,.rte-tb,.rte-pop,.mf-s"))return;   /* background refresh editor-er caret na nosto kore */
  if($("#qbf"))qbSnap();if($("#cform"))S.form=snap();
  const sxs=($(".sx-nav")||{}).scrollTop||0,em=$("#em")?$("#em").value:null,ae=document.activeElement,fa=ae&&ae.id,cs=ae&&ae.selectionStart;
- $("#app").innerHTML=!S.ready?loadingV():!S.uid?loginV():!S.cfg?loadingV():!isStaff()?deniedV():panelV();
+ $("#app").innerHTML=!S.ready?loadingV():!S.uid?loginV():!S.otpChk?loadingV():!S.otpOk?otpV():!S.cfg?loadingV():!isStaff()?deniedV():panelV();
  if(window.rtUp)rtUp($("#app"));if($(".sx-nav"))$(".sx-nav").scrollTop=sxs;
  if($("#cform")){if(S.form)restore(S.form);livePrev()}if($("#qbf"))qbRestore();
  if(em!=null&&$("#em"))$("#em").value=em;
@@ -1754,11 +1796,14 @@ function logout(){FB&&FB.signOut(FB.auth);toast("Logged out")}
 
 window.initBackend=f=>{FB=f;let uCfg=null,uMsg=null,uLog=null;
  FB.onSnapshot(FB.collection(FB.db,"posts"),sn=>{S.rawPosts=sn.docs.map(d=>({id:d.id,...d.data()}));applyScope();[...S.sel].forEach(id=>{if(!S.posts.some(p=>p.id==id))S.sel.delete(id)});render(true)},e=>toast("Posts load hoyni: "+e.code));
- FB.onAuthStateChanged(FB.auth,u=>{S.ready=true;S.uid=u?u.uid:null;S.email=u?u.email:null;S.verified=!!(u&&u.emailVerified);if(u){S.sent=null;try{FB.getDoc(FB.doc(FB.db,"users",u.uid)).then(s=>{if(s.exists()&&s.data().name)S.myName=s.data().name}).catch(()=>{})}catch(e){}}
-  uCfg&&uCfg();uMsg&&uMsg();uLog&&uLog();uCfg=uMsg=uLog=null;qbReset();S.emails=[];S.ids=[];S.editors=[];S.scope={};S.msgs=[];S.logs=[];S.users=null;S._ul=0;S.reqs=null;S._rql=0;S.nh=null;S._nhl=0;S.cfg=!u;
-  if(u){uCfg=FB.onSnapshot(FB.doc(FB.db,"config","admins"),d=>{const x=d.exists()?d.data():{};S.emails=(x.emails||[]).map(v=>String(v).toLowerCase());S.editors=(x.editors||[]).map(v=>String(v).toLowerCase());S.ids=x.ids||[];S.scope=(x.scope&&typeof x.scope=="object")?x.scope:{};applyScope();S.cfg=true;qbSub();render(true)},()=>{S.cfg=true;render(true)});
+ window.admStart=u=>{if(!u)return;S.cfg=false;try{FB.getDoc(FB.doc(FB.db,"users",u.uid)).then(s=>{if(s.exists()&&s.data().name)S.myName=s.data().name}).catch(()=>{})}catch(e){}
+  uCfg&&uCfg();uMsg&&uMsg();uLog&&uLog();
+  {uCfg=FB.onSnapshot(FB.doc(FB.db,"config","admins"),d=>{const x=d.exists()?d.data():{};S.emails=(x.emails||[]).map(v=>String(v).toLowerCase());S.editors=(x.editors||[]).map(v=>String(v).toLowerCase());S.ids=x.ids||[];S.scope=(x.scope&&typeof x.scope=="object")?x.scope:{};applyScope();S.cfg=true;qbSub();render(true)},()=>{S.cfg=true;render(true)});
    uMsg=FB.onSnapshot(FB.collection(FB.db,"messages"),sn=>{S.msgs=sn.docs.map(d=>({id:d.id,...d.data()}));render(true)},()=>{});
-   uLog=FB.onSnapshot(FB.query(FB.collection(FB.db,"logs"),FB.orderBy("ts","desc"),FB.limit(100)),sn=>{S.logs=sn.docs.map(d=>({id:d.id,...d.data()}));render(true)},()=>{})}
+   uLog=FB.onSnapshot(FB.query(FB.collection(FB.db,"logs"),FB.orderBy("ts","desc"),FB.limit(100)),sn=>{S.logs=sn.docs.map(d=>({id:d.id,...d.data()}));render(true)},()=>{})}};
+ FB.onAuthStateChanged(FB.auth,u=>{S.ready=true;S.uid=u?u.uid:null;S.email=u?u.email:null;S.verified=!!(u&&u.emailVerified);if(u)S.sent=null;
+  uCfg&&uCfg();uMsg&&uMsg();uLog&&uLog();uCfg=uMsg=uLog=null;qbReset();S.emails=[];S.ids=[];S.editors=[];S.scope={};S.msgs=[];S.logs=[];S.users=null;S._ul=0;S.reqs=null;S._rql=0;S.nh=null;S._nhl=0;S.cfg=!u;S.otpOk=false;S.otpChk=!u;S.otpSent=0;
+  if(u)otpCheck(u);
   render(false)});
  if(FB.isSignInWithEmailLink(FB.auth,location.href)){let em="";try{em=localStorage.getItem("mcn_admin_email")||""}catch(x){}
   if(!em)em=(prompt("Link-e use kora email ta likhun (confirm korar jonno):")||"").trim().toLowerCase();

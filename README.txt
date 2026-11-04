@@ -417,3 +417,24 @@ Admin:
  - Sidebar: logo-r niche MCUN/college naam ar "MCUN Admin Panel" card soriye logo boro kora hoyeche.
  - Downloads: Upload New File side panel nei; "Upload File" button popup khole (Esc / X / bairey click = bondho).
  - Deploy: shudhu Vercel deploy. Firestore rules bodlay ni.
+
+
+=== LOGIN OTP (protibar login-e code) ===
+- Email/Password login-er por email-e 6 digit code jay; code dile tabei app khole. (Google login-e default-e lage na: index.html-e LOGIN_OTP_GOOGLE=true korle lagbe.)
+- Bondho korte: index.html-e  const LOGIN_OTP=true  ->  false.
+- Server: api/send-code.js + api/verify-code.js ({mode:"login"}). Code thik hole Firebase custom claim  mfaAt  set hoy.
+  Client claim.mfaAt >= token authTime hole login "OTP-confirmed" dhora hoy.
+- Prothombar deploy-er por already login thaka sobai ekbar code dite hobe.
+- Mail quota: protibar login-e 1 ta email jay (Apps Script MailApp daily limit dekhen). Optional: google-sheet/Code.gs notun version deploy korle email-e "login code" likha ashbe.
+- Eta client-side gate. Server-side (Firestore rules) enforce korte hole firestore.rules-e email_verified-er sathe  request.auth.token.mfaAt >= request.auth.token.auth_time * 1000  jog korte hobe — tobe admin.html-eo ekii gate lagbe, noile admin atke jabe.
+
+
+=== ADMIN OTP + VISITOR ANALYTICS + MINIMAL HOME (deploy order) ===
+1) Age: site + api/ + admin.html deploy korun (Vercel).
+2) Admin panel-e login korun -> email-e code ashbe -> code dile Admin OTP pass hobe (claim mfaAt set hoy).
+3) Tarpor firestore.rules Firebase Console-e Publish korun (staff-er jonno mfaOk() + siteDaily rules).
+   - Rules age publish korle OTP chhara admin atke jabe. Emergency-te mfaOk()-er vitore  return true;  likhun.
+   - API-te staff OTP bondho korte Vercel env: STAFF_MFA=off
+4) Admin -> Analytics -> "Visitor Analytics": daily visitors graph + feature circle chart.
+   Data: Firestore siteDaily/{YYYY-MM-DD}  (u=unique visitor, v=visit, f_*=feature visitor).
+5) Notun file: home-minimal.css, profile-devices.css, nav-site.css, admin-mobile.css. sw.js-er V barie deploy korun.

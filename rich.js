@@ -27,8 +27,11 @@ function toRGBA(v){
 /* keeps the site's light/dark theme readable: near-black / near-white text and white backgrounds are dropped (they follow the theme) */
 function okColor(v,bg){
  var c=toRGBA(v);if(!c||c[3]<0.05)return null;
- var L=(0.2126*c[0]+0.7152*c[1]+0.0722*c[2])/255;
- if(bg){if(L>0.93||L<0.05)return null}else{if(L<0.05||L>0.93)return null}
+ var L=(0.2126*c[0]+0.7152*c[1]+0.0722*c[2])/255,sat=Math.max(c[0],c[1],c[2])-Math.min(c[0],c[1],c[2]);
+ /* Only real "accent" colours survive (red, blue, green, yellow highlight...). Greys, black/white and dark/light theme colours of the source page are dropped
+    so a pasted dark-theme text never carries its dark background or light text; the site's own theme (light/dark) decides the base colours. */
+ if(sat<(bg?45:55))return null;
+ if(bg){if(L<0.45||L>0.93)return null}else{if(L<0.04||L>0.72)return null}
  return '#'+[c[0],c[1],c[2]].map(function(x){return('0'+Math.round(x).toString(16)).slice(-2)}).join('')}
 function toPx(v){
  var m=String(v).trim().toLowerCase().match(/^(-?[\d.]+)(px|pt|em|rem|cm|mm|in)?$/);if(!m)return null;

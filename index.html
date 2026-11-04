@@ -670,7 +670,7 @@ html.gated .fbar,body.qrun .fbar{display:none!important}
 .tile i{font-style:normal;margin-left:auto;color:var(--c);font-weight:800;font-size:18px}
 .tile:hover{transform:translateY(-2px);box-shadow:var(--sh);border-color:var(--c)}
 /* ===================== /COLORFUL ===================== */
-</style><link rel="stylesheet" href="redesign.css"><link rel="stylesheet" href="redesign2.css"><link rel="stylesheet" href="profile-devices.css"><link rel="stylesheet" href="nav-site.css"><script src="art.js"></script><style>html:not(.rd-ok):not(.gated) body>*{visibility:hidden}@keyframes rdfade{from{opacity:0}to{opacity:1}}html.rd-ok main#app,html.rd-ok #mcSide{animation:rdfade .2s ease-out}</style><script>setTimeout(function(){document.documentElement.classList.add("rd-ok")},3000)</script><style id="shotcss">body.prot{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}body.prot img{-webkit-user-drag:none;pointer-events:none}
+</style><link rel="stylesheet" href="redesign.css"><link rel="stylesheet" href="redesign2.css"><link rel="stylesheet" href="profile-devices.css?v=4"><link rel="stylesheet" href="nav-site.css?v=4"><link rel="stylesheet" href="home-minimal.css?v=4"><script src="art.js"></script><style>html:not(.rd-ok):not(.gated) body>*{visibility:hidden}@keyframes rdfade{from{opacity:0}to{opacity:1}}html.rd-ok main#app,html.rd-ok #mcSide{animation:rdfade .2s ease-out}</style><script>setTimeout(function(){document.documentElement.classList.add("rd-ok")},3000)</script><style id="shotcss">body.prot{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}body.prot img{-webkit-user-drag:none;pointer-events:none}
 #shotmask{display:none;position:fixed;inset:0;z-index:2147483000;background:#0f172a;color:#e2e8f0;align-items:center;justify-content:center;text-align:center;padding:24px;font:600 16px/1.6 inherit}
 body.prot.blk #shotmask{display:flex}body.prot.blk{overflow:hidden}
 @media print{body.prot *{display:none!important}body.prot::before{content:"Printing disabled";display:block;padding:40px;font-size:24px}}</style></head><body>
@@ -1091,7 +1091,25 @@ addEventListener("pagehide",()=>on());
 const hit=e=>{const k=(e.key||"").toLowerCase();return k=="printscreen"||k=="snapshot"||(e.metaKey&&e.shiftKey&&["3","4","5","s"].includes(k))||(e.ctrlKey&&e.shiftKey&&["s","i","j","c"].includes(k))||(e.ctrlKey&&e.altKey&&k=="s")||k=="f12"};
 ["keydown","keyup"].forEach(ev=>addEventListener(ev,e=>{if(!document.body.classList.contains("prot"))return;if(hit(e)){e.preventDefault();on(2500);try{navigator.clipboard&&navigator.clipboard.writeText("")}catch(x){}}},true));
 addEventListener("beforeprint",()=>on());})();
-function route(){const lg=location.hash.match(/^#\/?portal(\/.*)?$/);if(lg){location.replace("#"+(lg[1]?"/feat"+lg[1]:"/"));return}const h=location.hash.replace(/^#\/?/,"").split("/"),pg=h[0]||"home";
+/* ---- Visitor analytics (anonymous): 1 device = 1 visitor/day, 1 browser-session = 1 visit, each feature counted once per device/day ---- */
+const AN={p:{},t:0,s:null};
+const anDay=()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+function anKey(){const h=location.hash.replace(/^#\/?/,"").split("/"),a=h[0]||"home",b=h[1]||"";
+ if(a=="home")return"home";if(a=="board")return"board";if(a=="quiz")return"quiz";
+ if(a=="feat"){if(["progress","analytics","subjprog","chprog","history"].includes(b))return"learn";if(["materials","dlhist","resources"].includes(b))return"dl";if(["settings","password"].includes(b))return"acc";if(["bf","qf","wrong"].includes(b))return"board";if(b=="recent")return"lib";return"other"}
+ if(a=="dl")return"dl";if(a=="saved"||a=="lib")return"lib";if(a=="inbox")return"inbox";if(a=="profile")return"acc";if(a=="contact")return"contact";return"notice"}
+function anHit(k){try{if(U.role||navigator.webdriver)return;const d=anDay();let s=AN.s;if(!s||s.d!==d){try{s=JSON.parse(localStorage.getItem("mcn_an")||"{}")}catch(e){s={}}if(s.d!==d)s={d,f:[],u:0};AN.s=s}
+ const inc={};if(!s.u){s.u=1;inc.u=1}
+ try{if(sessionStorage.getItem("mcn_av")!==d){sessionStorage.setItem("mcn_av",d);inc.v=1}}catch(e){}
+ if(k&&!s.f.includes(k)){s.f.push(k);inc["f_"+k]=1}
+ if(!Object.keys(inc).length)return;
+ try{localStorage.setItem("mcn_an",JSON.stringify(s))}catch(e){}
+ Object.keys(inc).forEach(x=>AN.p[x]=(AN.p[x]||0)+inc[x]);AN.d=d;clearTimeout(AN.t);AN.t=setTimeout(anFlush,2500)}catch(e){}}
+async function anFlush(){const p=AN.p,d=AN.d;if(!d||!Object.keys(p).length)return;AN.p={};
+ try{const{db,f}=await getSDK(),o={};Object.keys(p).forEach(k=>o[k]=f.increment(p[k]));await f.setDoc(f.doc(db,"siteDaily",d),o,{merge:true})}catch(e){}}
+addEventListener("pagehide",anFlush);document.addEventListener("visibilitychange",()=>{if(document.hidden)anFlush()});
+setTimeout(()=>anHit(null),1800);
+function route(){try{if(!root.classList.contains("gated"))anHit(anKey())}catch(e){}const lg=location.hash.match(/^#\/?portal(\/.*)?$/);if(lg){location.replace("#"+(lg[1]?"/feat"+lg[1]:"/"));return}const h=location.hash.replace(/^#\/?/,"").split("/"),pg=h[0]||"home";
  $("#links").innerHTML=`<a href="#/" class="${pg=="home"?"on":""}">Home</a><a href="#/saved" class="${pg=="saved"?"on":""}">${SVG("star")} Saved${savedN()?" ("+savedN()+")":""}</a><a href="#/contact" class="${pg=="contact"?"on":""}">Contact</a><a href="#/quiz" class="${pg=="quiz"?"on":""}">Quiz</a><a href="#/board" class="${pg=="board"?"on":""}">Board</a>${siteNav()}`;
  {const fb=$("#fbar");if(fb)fb.innerHTML=fbarHTML(pg)}
  $("#yr").textContent=new Date().getFullYear();siteApply();paintBnav(pg);{const f=$("#fab"),c=pg=="contact";f.href=c?"#/":"#/contact";f.innerHTML=c?"<span>"+SVG("home")+"</span>Home":"<span>"+SVG("msg")+"</span>Contact";f.setAttribute("aria-label",c?"Home":"Contact")}const k=document.activeElement&&document.activeElement.id;
@@ -1354,6 +1372,7 @@ async function gSubmit(e){e.preventDefault();if(U.busy)return;
     await startVerify(cr.user,{name:v.name,year:v.year,dept:v.dept});U.busy=false;return}
    cr=await A.signInWithEmailAndPassword(auth,v.email,pw);
    if(needsVerify(cr.user)){await startVerify(cr.user,{});U.busy=false;return}
+   if(await needsLoginOtp(cr.user)){await startLoginOtp(cr.user);U.busy=false;return}
    await finishAuth(cr.user,v,false)}}
  catch(x){gErrShow(authErr(x));b.disabled=false;b.textContent=t}
  U.busy=false}
@@ -1362,6 +1381,7 @@ async function gGoogle(){if(U.busy)return;U.busy=true;const b=$("#g_google");if(
   const pr=new A.GoogleAuthProvider();pr.setCustomParameters({prompt:"select_account"});let cr;
   try{cr=await A.signInWithPopup(auth,pr)}
   catch(x){const c=x&&x.code;if(c=="auth/popup-blocked"||c=="auth/operation-not-supported-in-this-environment"){U.busy=false;await A.signInWithRedirect(auth,pr);return}throw x}
+  if(await needsLoginOtp(cr.user)){await startLoginOtp(cr.user);U.busy=false;return}
   await finishAuth(cr.user,{},false)}
  catch(x){const c=(x&&x.code)||"";if(c!="auth/popup-closed-by-user"&&c!="auth/cancelled-popup-request")gErrShow(c=="auth/operation-not-allowed"?"Firebase Console → Authentication → Sign-in method → Google chalu korun":authErr(x));if(b)b.disabled=false}
  U.busy=false}
@@ -1374,7 +1394,7 @@ async function logout(){closeM();if(/^#\/(profile|inbox)/.test(location.hash))lo
 async function authInit(){try{const {auth,A}=await getSDK();
  A.onAuthStateChanged(auth,async u=>{if(U.busy)return;
   if(!u){U.user=null;if(!root.classList.contains("gated")){U.prof=null;writeCache();showGate("login")}return}
-  U.user=u;if(needsVerify(u)){startVerify(u,loadPend(u.uid));return}const c=readCache();let pr=await fetchProfile(u.uid);if(pr&&pr.blocked){await blockedOut();return}if(!pr&&c&&c.uid==u.uid)pr=c;
+  U.user=u;if(needsVerify(u)){startVerify(u,loadPend(u.uid));return}if(await needsLoginOtp(u)){startLoginOtp(u);return}const c=readCache();let pr=await fetchProfile(u.uid);if(pr&&pr.blocked){await blockedOut();return}if(!pr&&c&&c.uid==u.uid)pr=c;
   if(pr&&YEARS.includes(pr.year)&&DEPTS.includes(pr.dept)){U.prof={...pr,uid:u.uid,email:u.email||pr.email||""};writeCache();enter(false)}
   else{U.prof={uid:u.uid,name:u.displayName||(u.email||"").split("@")[0]||"",email:u.email||"",year:"",dept:"",photo:(pr&&pr.photo)||""};showGate("complete")}})}catch(e){}}
 async function blockedOut(){try{const{auth,A}=await getSDK();await A.signOut(auth)}catch(e){}U.user=null;U.prof=null;writeCache();showGate("login");gErrShow("Apnar account block kora hoyeche — college admin-er sathe jogajog korun")}
@@ -1494,17 +1514,22 @@ async function api(path,data){const u=U.user;if(!u)throw new Error("login");cons
  const r=await fetch(path,{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+tk},body:JSON.stringify(data||{})});
  let j={};try{j=await r.json()}catch(e){}return{...j,status:r.status}}
 function sheetSync(){try{if(U.user&&U.user.emailVerified)api("/api/sheet-sync",{}).catch(()=>{})}catch(e){}}
-async function startVerify(user,pend){U.user=user;U.pend=pend||{};if(pend&&(pend.name||pend.year))savePend(user.uid,pend);
+/* ---- Login OTP: every real sign-in must be confirmed with a 6-digit code mailed to the account email ---- */
+const LOGIN_OTP=true,LOGIN_OTP_GOOGLE=false;   /* LOGIN_OTP_GOOGLE=true -> Google login-eo code lagbe */
+async function needsLoginOtp(u){if(!LOGIN_OTP||!u||needsVerify(u))return false;if(isG(u)&&!LOGIN_OTP_GOOGLE)return false;
+ try{const r=await u.getIdTokenResult(),at=Date.parse(r.authTime)||0,m=+r.claims.mfaAt||0;return !(m&&m>=at)}catch(e){return true}}
+async function startLoginOtp(user){U.user=user;U.pend={};U.otpLogin=true;U.mode="verify";U.sent=null;V.state="idle";V.resendAt=0;V.expAt=0;renderVerify();gated(true);paintMe();scrollTo(0,0);vSend(false)}
+async function startVerify(user,pend){U.otpLogin=false;U.user=user;U.pend=pend||{};if(pend&&(pend.name||pend.year))savePend(user.uid,pend);
  U.mode="verify";U.sent=null;V.state="idle";V.resendAt=0;V.expAt=0;renderVerify();gated(true);paintMe();scrollTo(0,0);vSend(false)}
 const OTPB=()=>Array.from({length:6},(_,i)=>`<input class="oi" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="${i?"off":"one-time-code"}" aria-label="Digit ${i+1}">`).join("");
 function renderVerify(){const em=(U.user&&U.user.email)||"";
- gPaint(`<div class="gbox vbox"><img class="glogo" src="logo.png" alt=""><h1>Email যাচাই করুন ${SVG("mail")}</h1>
- <p class="gs">আমরা <b>${esc(maskEmail(em))}</b> ঠিকানায় ৬ সংখ্যার একটি Verification Code পাঠিয়েছি। Inbox দেখুন, না পেলে Spam folder-ও দেখুন।</p>
+ gPaint(`<div class="gbox vbox"><img class="glogo" src="logo.png" alt=""><h1>${U.otpLogin?"Login নিশ্চিত করুন":"Email যাচাই করুন"} ${SVG("mail")}</h1>
+ <p class="gs">আমরা <b>${esc(maskEmail(em))}</b> ঠিকানায় ৬ সংখ্যার একটি ${U.otpLogin?"Login Code":"Verification Code"} পাঠিয়েছি। Inbox দেখুন, না পেলে Spam folder-ও দেখুন।</p>
  <div class="vstage" id="vStage" data-s="idle"><div class="otp" id="otp">${OTPB()}</div><div class="vres" id="vRes" aria-live="polite"></div></div>
  <div class="gerr" id="vErr"></div><div class="vinfo" id="vInfo"></div><div class="vexp" id="vExp"></div>
- <button class="btn" id="v_btn" type="button" onclick="vSubmit()" disabled>Verify করুন →</button>
+ <button class="btn" id="v_btn" type="button" onclick="vSubmit()" disabled>${U.otpLogin?"Login করুন →":"Verify করুন →"}</button>
  <div class="vrow"><span>Code পাননি?</span><button type="button" class="lnk" id="v_resend" onclick="vResend()" disabled>Resend code <b id="vTimer"></b></button></div>
- <div class="gfoot"><button type="button" class="lnk" onclick="cancelVerify()">← ভুল email? আবার শুরু করুন</button></div></div>`);
+ <div class="gfoot"><button type="button" class="lnk" onclick="cancelVerify()">${U.otpLogin?"← অন্য account দিয়ে Login করুন":"← ভুল email? আবার শুরু করুন"}</button></div></div>`);
  wireOtp();vTick();clearInterval(V.iv);V.iv=setInterval(vTick,1000);setTimeout(()=>{const f=$(".oi");f&&f.focus()},80)}
 const otpEls=()=>[...document.querySelectorAll(".oi")];
 const otpCode=()=>otpEls().map(e=>e.value).join("");
@@ -1533,7 +1558,7 @@ function vTick(){const t=$("#vTimer");if(!t){clearInterval(V.iv);return}
  t.textContent=left>0?"("+fmtT(left)+")":"";rb.disabled=left>0||V.sending||V.state!="idle";
  const x=$("#vExp");if(x){const el=Math.ceil((V.expAt-Date.now())/1000);x.classList.toggle("u",V.expAt>0&&el<=60);x.textContent=!V.expAt?"":el>0?"Code-এর মেয়াদ: "+fmtT(el):"Code-এর মেয়াদ শেষ — Resend করুন"}}
 async function vSend(resend){if(V.sending)return;V.sending=true;vErrShow("");vInfo("Code পাঠানো হচ্ছে…");vTick();
- let r;try{r=await api("/api/send-code",{resend:!!resend})}catch(e){r={error:"net"}}
+ let r;try{r=await api("/api/send-code",{resend:!!resend,mode:U.otpLogin?"login":""})}catch(e){r={error:"net"}}
  V.sending=false;if(!$("#vStage"))return;
  if(r.ok&&r.verified){try{await U.user.reload();await U.user.getIdToken(true)}catch(e){}const p=U.pend||{};clearPend();clearInterval(V.iv);await finishAuth(U.user,p,!!p.year);return}
  if(r.ok){V.resendAt=Date.now()+(r.wait||0)*1000;V.expAt=Date.now()+(r.expires||600)*1000;
@@ -1545,7 +1570,7 @@ async function vSend(resend){if(V.sending)return;V.sending=true;vErrShow("");vIn
 function vResend(){if(V.state!="idle"||V.sending)return;otpClear();vSend(true)}
 async function vSubmit(){if(V.state!="idle")return;const code=otpCode();if(code.length<6)return;
  vErrShow("");vState("loading");let r;
- try{[r]=await Promise.all([api("/api/verify-code",{code}),wait(1100)])}catch(e){r={error:"net"}}
+ try{[r]=await Promise.all([api("/api/verify-code",{code,mode:U.otpLogin?"login":""}),wait(1100)])}catch(e){r={error:"net"}}
  if(!$("#vStage"))return;
  if(r.ok){try{await U.user.reload();await U.user.getIdToken(true)}catch(e){}
   vState("ok");await wait(1500);const p=U.pend||{};clearPend();clearInterval(V.iv);U.busy=true;
@@ -1630,7 +1655,7 @@ if("serviceWorker"in navigator){let rl=false;
  if(c&&c.uid&&YEARS.includes(c.year)&&DEPTS.includes(c.dept)){U.prof=c;enter(false)}else showGate("login");
  authInit()})();
 </script>
-<script src="rich.js"></script>
+<script src="rich.js?v=4"></script>
 <script src="sync.js" defer></script>
-<script src="redesign.js" defer></script><script src="redesign2.js" defer></script>
+<script src="redesign.js?v=4" defer></script><script src="redesign2.js?v=4" defer></script>
 </body></html>

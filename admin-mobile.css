@@ -75,3 +75,5 @@ body.mf-lock{overflow:hidden}
  .mf-list{grid-template-columns:1fr 1fr}
 }
 @media(prefers-reduced-motion:reduce){.mfull,html body .side .nv .ico,html body .side .fabx .fx{transition:none!important}}
+
+.vis-k{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}

@@ -89,29 +89,24 @@ const hxUnread=()=>{const n=T(()=>nUnread(),0);return `<div class="hx-unread"><b
 
 function ring(pc){const r=52,c=2*Math.PI*r;return `<svg viewBox="0 0 130 130" class="mcd-ring"><circle cx="65" cy="65" r="${r}" fill="none" stroke="color-mix(in srgb,#16a34a 16%,transparent)" stroke-width="14"/><circle cx="65" cy="65" r="${r}" fill="none" stroke="#16a34a" stroke-width="14" stroke-linecap="round" stroke-dasharray="${(c*pc/100).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 65 65)"/><text x="65" y="74" text-anchor="middle" font-size="28" font-weight="800" fill="currentColor">${pc}%</text></svg>`}
 function dashHTML(){ensure();
+ /* Minimal home: greeting, quick links, next exam (only if any), latest notices + progress. (Old 10-section dashboard replaced.) */
  const p=T(()=>U.prof,{})||{},now=Date.now(),R=T(()=>plData(),[]),posts=T(()=>S.posts.filter(x=>vis(x)&&!isExp(x)),[]);
- const bq=T(()=>bqAll().length,T(()=>QB.bq.length,0)),tc=R.reduce((a,r)=>a+r.c,0),tt=R.reduce((a,r)=>a+r.tot,0),ov=tt?Math.round(tc*100/tt):0,best=R.length?Math.max(...R.map(r=>r.pc)):0;
- const subj=T(()=>plGroup(R.filter(r=>r.sub),'sub'),[]);
- const stats=[[IC.bell,'#2563eb',posts.length,'Total Notices','#/notices'],[IC.hub,'#16a34a',bq,'Board Questions','#/board'],[IC.chk,'#7c3aed',R.length,'Quizzes Completed','#/quiz'],[IC.trophy,'#f59e0b',best+'%','Best Score','#/feat/progress']]
-  .map(x=>`<a class="mcd-st" style="--c:${x[1]}" href="${x[4]}"><i>${P(x[0])}</i><div><b>${x[2]}</b><span>${x[3]}</span></div>${P(IC.chev,'mcd-go')}</a>`).join('');
- const lat=[...posts].sort((a,b)=>(b.ts||0)-(a.ts||0)).slice(0,5).map(x=>{const c=T(()=>CATS[x.cat],{n:'Notice',c:'#2563eb'});
-  return `<a class="mcd-nr" style="--c:${c.c}" onclick="openPost('${E(x.id)}')"><em>${E(c.n)}</em><span>${E(x.title)}</span><small>${x.ts?fd(x.ts):''}</small></a>`}).join('')||'<p class="mcd-em">No notices yet.</p>';
- const qa=[['#/board',IC.hub,'Board Questions','#2563eb'],['#/feat/qf/practice',IC.clip,'Practice Quiz','#16a34a'],['#/board/mock',IC.file,'Model Test','#7c3aed'],['#/feat/progress',IC.chart,'My Progress','#0d9488'],['#/board/saved',IC.mark,'Saved Questions','#f59e0b'],['#/dl',IC.cap,'Study Resources','#2563eb']]
-  .map(x=>`<a href="${x[0]}" style="--c:${x[3]}"><i>${P(x[1])}</i>${x[2]}</a>`).join('');
+ const tc=R.reduce((a,r)=>a+r.c,0),tt=R.reduce((a,r)=>a+r.tot,0),ov=tt?Math.round(tc*100/tt):0,best=R.length?Math.max(...R.map(r=>r.pc)):0;
+ const lat=[...posts].sort((a,b)=>(b.ts||0)-(a.ts||0)).slice(0,6).map(x=>{const c=T(()=>CATS[x.cat],{n:'Notice',c:'#2563eb'});
+  return `<a class="mhm-nr" style="--c:${c.c}" onclick="openPost('${E(x.id)}')"><i></i><span>${E(x.title)}</span><small>${E(c.n)}${x.ts?' &middot; '+fd(x.ts):''}</small></a>`}).join('')||'<p class="mhm-em">No notices yet.</p>';
+ const qa=[['#/board',IC.hub,'Board Questions','#2563eb'],['#/feat/qf/practice',IC.clip,'Practice Quiz','#16a34a'],['#/board/mock',IC.file,'Model Test','#7c3aed'],['#/feat/progress',IC.chart,'My Progress','#0d9488'],['#/board/saved',IC.mark,'Saved','#f59e0b'],['#/dl',IC.cap,'Resources','#e5484d']]
+  .map(x=>`<a href="${x[0]}" style="--c:${x[3]}"><i>${P(x[1])}</i><span>${x[2]}</span></a>`).join('');
  let ex=T(()=>QB.qz.filter(z=>z.at&&z.at>now&&!z.draft).map(z=>({t:z.t||'Exam',at:z.at,u:'#/quiz'})),[]);
  if(!ex.length)ex=posts.filter(x=>x.dl&&x.dl>now).map(x=>({t:x.title,at:x.dl,u:`javascript:openPost('${E(x.id)}')`}));
  ex.sort((a,b)=>a.at-b.at);const nx=ex[0];
- const exh=nx?`<a class="mcd-ex" href="${nx.u}">${P(IC.cal)}<div><b>${E(nx.t)}</b><span>${new Date(nx.at).toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'numeric',minute:'2-digit'})}</span></div></a>
-  <div class="mcd-cd" data-ts="${nx.at}"><div><b>00</b>Days</div><div><b>00</b>Hours</div><div><b>00</b>Minutes</div><div><b>00</b>Seconds</div></div>`:'<p class="mcd-em">No upcoming exams scheduled.</p>';
- const top3=[...subj].sort((a,b)=>b.pc-a.pc).slice(0,3),low=subj.slice(0,3);
- const prog=R.length?`<div class="mcd-pr">${ring(ov)}<ul>${top3.map(s=>`<li>${P(IC.chk)}<span>${E(s.n)}</span><b>${s.pc}%</b></li>`).join('')||`<li><span>${R.length} quiz attempts</span></li>`}</ul></div><div class="mcd-tip">${ov>=70?'Great Progress! Keep it up!':'Keep practicing, you are getting there!'}</div>`:`<div class="mcd-pr">${ring(0)}<ul><li><span>Take your first quiz to see progress</span></li></ul></div><div class="mcd-tip">Start with a Practice Quiz</div>`;
- const r0=R[0],rec=r0?`<div class="mcd-rq">${P(IC.clip)}<div><div class="mcd-ok">${P(IC.chk)}Quiz Completed Successfully!</div><p><b>${E(r0.t)}</b></p><p>Score: ${r0.c} / ${r0.tot} (${r0.pc}%)</p><p>Date: ${fd(r0.ts)}</p></div></div><a class="mcd-btn" href="#/quiz">Try Another Quiz ${P(IC.arr)}</a>`:`<p class="mcd-em">No quiz attempted yet.</p><a class="mcd-btn" href="#/quiz">Start a Quiz ${P(IC.arr)}</a>`;
- const need=low.length?`<ul class="mcd-lw">${low.map(s=>`<li><span>${E(s.n)}</span><i><u style="width:${s.pc}%"></u></i><b>${s.pc}%</b></li>`).join('')}</ul><a class="mcd-btn" href="#/feat/wrong">Revise Wrong Answers ${P(IC.arr)}</a>`:'<p class="mcd-em">Subject-wise results will appear after your quizzes.</p>';
- const box=(ic,t,l,body,cls)=>`<section class="mcd-box ${cls||''}"><h3><span>${P(ic)}${t}</span>${l?`<a href="${l}">View All ${P(IC.arr)}</a>`:''}</h3>${body}</section>`;
- return `<div class="mcd">${HX('dash',{eye:'Dashboard',ic:IC.dash,t:`Welcome Back, <em>${E(p.name||'Student')}!</em>`,p:'Keep learning, keep growing. Your academic journey with MCUN is always here to support you.',cta:`<a class="mcd-cta" href="#/notices">Explore Now ${P(IC.arr)}</a>`,side:hxDate(posts.length,nx)})}
- <div class="mcd-stats">${stats}</div>
- <div class="mcd-g mcd-g1">${box(IC.upd,'Latest Notices','#/notices',lat)}${box(IC.bolt,'Quick Access','',`<div class="mcd-qa">${qa}</div>`)}${box(IC.cal,'Upcoming Exams','#/quiz',exh)}</div>
- <div class="mcd-g mcd-g2">${box(IC.chart,'Your Learning Progress','#/feat/progress',prog)}${box(IC.trophy,'Recent Quiz Result','#/feat/history',rec)}${box(IC.users,'Needs Practice','#/feat/subjprog',need)}</div></div>`}
+ const exh=nx?`<a class="mhm-ex" href="${nx.u}">${P(IC.cal)}<div><small>Next up</small><b>${E(nx.t)}</b></div><div class="mcd-cd" data-ts="${nx.at}"><div><b>00</b>Days</div><div><b>00</b>Hrs</div><div><b>00</b>Min</div><div><b>00</b>Sec</div></div></a>`:'';
+ const d=new Date(),hr=d.getHours(),g=hr<12?'Good morning':hr<17?'Good afternoon':'Good evening',fn=String(p.name||'Student').trim().split(/\s+/)[0];
+ const prog=R.length?`<div class="mhm-pr">${ring(ov)}<ul><li><b>${R.length}</b><span>Quizzes done</span></li><li><b>${best}%</b><span>Best score</span></li><li><b>${ov}%</b><span>Overall</span></li></ul></div><div class="mhm-ln"><a href="#/feat/progress">My progress ${P(IC.arr)}</a><a href="#/feat/wrong">Revise mistakes ${P(IC.arr)}</a></div>`
+  :`<div class="mhm-pr">${ring(0)}<ul><li><span>Take a practice quiz to see your progress here.</span></li></ul></div><div class="mhm-ln"><a href="#/feat/qf/practice">Start a quiz ${P(IC.arr)}</a></div>`;
+ return `<div class="mcd mhm"><div class="mhm-hd"><div><small>${d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'})}</small><h1>${g}, <em>${E(fn)}</em></h1></div><a class="mhm-pill" href="#/notices">${P(IC.bell)}${posts.length} active notice${posts.length===1?'':'s'}</a></div>
+ <nav class="mhm-qa" aria-label="Quick access">${qa}</nav>${exh}
+ <div class="mhm-g"><section class="mhm-box"><h3>Latest notices<a href="#/notices">View all ${P(IC.arr)}</a></h3><div class="mhm-nl">${lat}</div></section>
+ <section class="mhm-box"><h3>Your progress<a href="#/feat/progress">Details ${P(IC.arr)}</a></h3>${prog}</section></div></div>`}
 
 /* ---------- College Updates page ---------- */
 const NS={page:1,sort:'latest'};
